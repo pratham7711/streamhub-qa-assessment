@@ -6,7 +6,7 @@ export type Query = Record<string, string | number | boolean | undefined>;
 
 export class LoanLensApiClient extends BaseApiClient {
   constructor(request: APIRequestContext) {
-    super(request, env.app.apiUrl);
+    super(request, env.api.baseUrl);
   }
 
   health() {

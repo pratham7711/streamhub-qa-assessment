@@ -1,16 +1,16 @@
 # Section A test results
 
-Run 2026-10-07T11:19:38.164Z · `npm run test:section-a` · node v26.7.0 · TEST_ENV=local · heal provider: auto
+Run 2026-10-07T12:26:28.471Z · `npm run test:section-a` · node v26.7.0 · TEST_ENV=local · heal provider: auto
 
 > Some HTML reports below show red scenarios. Those are expected failures: each one is a documented defect in a third-party site, or a locator broken on purpose for the self-healing exercise. The **Failed (unexpected)** column is the verdict.
 
 | Suite | Brief | Scenarios | Passed | Failed (expected) | Failed (unexpected) | Gherkin steps | Wall time | Reports |
 |---|---|---|---|---|---|---|---|---|
-| loanlens-ui | A1/A2 | 56 | 56 | 0 | 0 | 335 | 17 s | [html](loanlens-ui/cucumber-report.html) · [log](loanlens-ui/console.log) |
-| jsonplaceholder | A3 | 36 | 16 | 20 | 0 | 147 | 10 s | [html](jsonplaceholder/cucumber-report.html) · [log](jsonplaceholder/console.log) |
+| loanlens-ui | A1/A2 | 57 | 57 | 0 | 0 | 346 | 15 s | [html](loanlens-ui/cucumber-report.html) · [log](loanlens-ui/console.log) |
+| jsonplaceholder | A3 | 36 | 16 | 20 | 0 | 147 | 11 s | [html](jsonplaceholder/cucumber-report.html) · [log](jsonplaceholder/console.log) |
 | sql | A4/B4 | 6 | 6 | 0 | 0 | 31 | 3 s | [html](sql/cucumber-report.html) · [log](sql/console.log) |
 | self-healing | AI exercise | 5 | 0 | 5 | 0 | 13 | 17 s | [html](self-healing/cucumber-report.html) · [log](self-healing/console.log) |
-| self-healing-healed | AI exercise | 5 | 4 | 1 | 0 | 13 | 41 s | [html](self-healing-healed/cucumber-report.html) · [log](self-healing-healed/console.log) |
+| self-healing-healed | AI exercise | 5 | 4 | 1 | 0 | 13 | 49 s | [html](self-healing-healed/cucumber-report.html) · [log](self-healing-healed/console.log) |
 
 **Unexpected failures: 0.** Expected failures are documented defects of the public JSONPlaceholder API (`@known-defect`, see [jsonplaceholder/FINDINGS.md](../jsonplaceholder/FINDINGS.md)), and the deliberately broken locators run with healing off (`@broken-locator`, see [docs/SELF_HEALING.md](../../docs/SELF_HEALING.md)).
 
@@ -61,20 +61,20 @@ Run 2026-10-07T11:19:38.164Z · `npm run test:section-a` · node v26.7.0 · TEST
 
 ### self-healing
 
-- expected: Renamed test id - the Total loans figure shows the size of the loan book (`self-healing/features/broken-locators.feature:16`)
+- expected: Renamed test id - the Total loans figure shows the size of the loan book (`section-a/self-healing/features/broken-locators.feature:16`)
   - LocatorHealingError: Locator "dashboard.totalLoansValue" failed: page.getByTestId('kpi-total-loans') → No element matched within 5 s.
-- expected: Changed button text - applying a status filter narrows the report (`self-healing/features/broken-locators.feature:20`)
+- expected: Changed button text - applying a status filter narrows the report (`section-a/self-healing/features/broken-locators.feature:20`)
   - LocatorHealingError: Locator "reports.applyFiltersButton" failed: page.getByRole('button', { name: 'Apply filter', exact: true }) → No element matched within 5 s.
-- expected: Ambiguous label - the loan amount slider updates the number box (`self-healing/features/broken-locators.feature:25`)
+- expected: Ambiguous label - the loan amount slider updates the number box (`section-a/self-healing/features/broken-locators.feature:25`)
   - LocatorHealingError: Locator "calculator.loanAmountSlider" failed: page.getByLabel('Loan amount') → 2 elements matched; an action on it would violate strict mode.
-- expected: Positional locator - the recent disbursements table starts with the newest loan (`self-healing/features/broken-locators.feature:30`)
+- expected: Positional locator - the recent disbursements table starts with the newest loan (`section-a/self-healing/features/broken-locators.feature:30`)
   - LocatorHealingError: Locator "dashboard.recentDisbursementsTable" failed: page.locator('table').first() → Resolved, but element does not have role table named Recent disbursements.
-- expected: Removed feature - exporting the report as CSV (`self-healing/features/broken-locators.feature:35`)
+- expected: Removed feature - exporting the report as CSV (`section-a/self-healing/features/broken-locators.feature:35`)
   - LocatorHealingError: Locator "reports.exportCsvButton" failed: page.getByRole('button', { name: 'Export CSV' }) → No element matched within 5 s.
 
 ### self-healing-healed
 
-- expected: Removed feature - exporting the report as CSV (`self-healing/features/broken-locators.feature:35`)
+- expected: Removed feature - exporting the report as CSV (`section-a/self-healing/features/broken-locators.feature:35`)
   - LocatorHealingError: Locator "reports.exportCsvButton" failed: page.getByRole('button', { name: 'Export CSV' }) → No element matched within 5 s.
 
 ## Tagged as expected to fail, but passed

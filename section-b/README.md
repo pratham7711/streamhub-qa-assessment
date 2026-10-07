@@ -1,6 +1,6 @@
 # Section B: API development + API automation
 
-This folder is Section B of the brief (B1–B4), and can be run and graded without Section A. The shared parts it uses, the LoanLens server, the test framework, the SQL and the self-healing exercise, are listed under [What else Section B uses](#what-else-section-b-uses).
+This folder is Section B of the brief (B1–B4), and can be run and graded without Section A. Its API, LoanLens, lives here in [`api/`](api) and returns data from its own mock JSON file; it serves no web pages and nothing in Section A calls it. The shared parts it does use (the test framework, the SQL and the self-healing engine) are listed under [What else Section B uses](#what-else-section-b-uses).
 
 ## Run it
 
@@ -12,23 +12,23 @@ npx playwright install chromium
 npm run test:section-b
 ```
 
-`test:section-b` builds the web app (the self-healing suite drives it), starts the server, runs every Section B suite, and writes [`reports/SUMMARY.md`](reports/SUMMARY.md) with one row per suite. It exits 1 only on an *unexpected* failure. The red rows it expects are explained in [Findings](#findings).
+`test:section-b` starts the API, runs every Section B suite, and writes [`reports/SUMMARY.md`](reports/SUMMARY.md) with one row per suite. It exits 1 only on an *unexpected* failure. The red rows it expects are explained in [Findings](#findings).
 
 | Command | What it runs |
 |---|---|
-| `npm run test:section-b` | B2, B3, B4 and the self-healing exercise; reports in [`section-b/reports/`](reports) |
+| `npm run test:section-b` | B2, B3, B4 and Section B's self-healing exercise; reports in [`section-b/reports/`](reports) |
 | `node scripts/run-all.mjs --section b loanlens-api` | One suite only (`loanlens-api`, `emicalculator`, `sql`, `self-healing`, `self-healing-healed`) |
 | `npm run test:mutation -- --section b` | Plants Section B's 49 hand-written bugs in a copy of the API, one at a time, and checks that the API suite catches each; writes [`reports/mutation/SUMMARY.md`](reports/mutation/SUMMARY.md) |
-| `npm start` | The API itself, on http://localhost:5055/api |
+| `npm run start:api` | The API itself, on http://localhost:5056/api (`npm run dev:api` restarts on edits) |
 
-Try the API by hand once `npm start` is running:
+Try the API by hand once `npm run start:api` is running:
 
 ```bash
-curl 'http://localhost:5055/api/loans?type=home,car&status=active&sort=-amount&pageSize=5'
-curl 'http://localhost:5055/api/loans/LN-1001'
-curl 'http://localhost:5055/api/loans/summary?city=Pune'
-curl 'http://localhost:5055/api/emi?principal=2500000&rate=10&tenure=10'
-curl 'http://localhost:5055/api/loans?pageSize=101'        # 400, with the reason in details[]
+curl 'http://localhost:5056/api/loans?type=home,car&status=active&sort=-amount&pageSize=5'
+curl 'http://localhost:5056/api/loans/LN-1001'
+curl 'http://localhost:5056/api/loans/summary?city=Pune'
+curl 'http://localhost:5056/api/emi?principal=2500000&rate=10&tenure=10'
+curl 'http://localhost:5056/api/loans?pageSize=101'        # 400, with the reason in details[]
 ```
 
 ## Results
@@ -41,7 +41,7 @@ Last run: `npm run test:section-b`, 2026-10-07, macOS, Node 26.7. **0 unexpected
 | emicalculator | B3 | 38 | 23 | 15 | Live site. `@known-defect`: the site silently recalculates with something other than what the box shows (negative signs dropped, letters stripped, `8,5` read as 85%) |
 | sql | B4 | 6 | 6 | 0 | PostgreSQL 18 via PGlite. Each query is checked against a table worked out by hand and an independent TypeScript oracle |
 | self-healing (healing off) | AI exercise | 5 | 0 | 5 | `@broken-locator`, broken on purpose |
-| self-healing-healed (`npm run heal`) | AI exercise | 5 | 4 | 1 | 4 healed by Claude Sonnet via `claude -p` ($0.020 for the run); the removed feature is correctly refused (`@unhealable`) |
+| self-healing-healed (`npm run heal`) | AI exercise | 5 | 4 | 1 | 4 healed by Claude Sonnet via `claude -p` ($0.248 for the run); for the e-mail button the page does not have, it returned no candidate, so the scenario stays red (`@unhealable`) |
 
 Each suite folder under [`reports/`](reports) holds the Cucumber HTML report, JSON, JUnit XML, the console log and screenshots.
 
@@ -49,20 +49,20 @@ Each suite folder under [`reports/`](reports) holds the Cucumber HTML report, JS
 
 | Brief | Implementation | Tests |
 |---|---|---|
-| **B1** Own API with mock JSON, query params and error codes | [`app/server`](../app/server): Express 5 over 120 seeded loans in [`data/loans.json`](../app/server/data/loans.json). Endpoints: `/api/loans` (10 filters, sort, paging), `/api/loans/:id`, `/api/loans/summary`, `/api/emi`, `/api/meta` and `/api/health`. Every parameter is declared once in [`lib/query.ts`](../app/server/lib/query.ts); errors are 400/404/405 with a structured `details[]`. | — |
+| **B1** Own API with mock JSON, query params and error codes | [`api/`](api): Express 5 over 120 seeded loans in [`api/data/loans.json`](api/data/loans.json), with no database. Endpoints: `/api/loans` (10 filters, sort, paging), `/api/loans/:id`, `/api/loans/summary`, `/api/emi`, `/api/meta` and `/api/health`. Every parameter is declared once in [`lib/query.ts`](api/lib/query.ts); errors are 400/404/405 with a structured `details[]`. | — |
 | **B2** API tests: happy paths, invalid params, status and shape | [`loanlens-api/`](loanlens-api): [`features/`](loanlens-api/features), [`steps/`](loanlens-api/steps), [`api/`](loanlens-api/api) (client and JSON Schemas) | 106 scenarios, with JSON Schema checks (ajv) and expectations computed from the request, never from the response: the value on and just past each limit (the amount, rate and date filter edges sit exactly on a seeded loan), hostile numbers (`+100000`, `1e5`, `8,5`, fractions of a paisa), parameter pollution, `__proto__`, a query-parameter cap, the filter vocabulary, security headers, CORS, write methods and malformed URLs, plus 200 random loans checked against my own amortisation (seed pinned; `PBT_SEED=random` varies it). |
 | **B3** emicalculator.net TC1 (pie, scenarios A and B) and TC2 (sliders, calendar, bar count, tooltips) | [`emicalculator/`](emicalculator): [`features/`](emicalculator/features), [`steps/`](emicalculator/steps), [`pages/`](emicalculator/pages) (Page Object and component objects: Slider, PieChart, ColumnChart, MonthPicker) | The 3 brief scenarios, plus 35 on valid formats and boundaries, one row per invalid partition that fails, the EMI-scheme rules and Yr/Mo switching. Results are compared within ₹1 of my own EMI and amortisation. The site's input defects: [`emicalculator/FINDINGS.md`](emicalculator/FINDINGS.md). |
 | **B4** SQL: round-trip transfers, IPL 30+ streaks, schema, output screenshots | [`sql/`](../sql) (see [`sql/README.md`](../sql/README.md)); the same SQL answers A4 | 6 scenarios on PostgreSQL 18 (in-process PGlite): per query, the exact result against a hand-worked table and an independent oracle (with near misses that must exist in the seed and stay out), a deliberately wrong query that must be rejected, and the output screenshot. Screenshots: [`sql/results`](../sql/results). |
 | Framework: feature, step and page files, environment config, resilient locators | [`framework/`](../framework) plus the per-suite folders above | URLs and timeouts come from `config/env/.env.<TEST_ENV>`; see [Configuration](../README.md#configuration). |
-| Self-healing: 3–5 broken locators plus an explanation | [`self-healing/pages/LegacyLocators.ts`](../self-healing/pages/LegacyLocators.ts), [`self-healing/`](../self-healing), [`docs/SELF_HEALING.md`](../docs/SELF_HEALING.md) | 5 locators broken on purpose, a working POC (Claude via `claude -p`, the Messages API, or an offline heuristic), validation gates and reviewable patches. |
+| Self-healing: 3–5 broken locators plus an explanation | [`self-healing/pages/LegacyEmiLocators.ts`](self-healing/pages/LegacyEmiLocators.ts), [`self-healing/features`](self-healing/features), the healer in [`../self-healing/`](../self-healing), [`docs/SELF_HEALING.md`](../docs/SELF_HEALING.md) | 5 locators on emicalculator.net written wrong on purpose (a wrong id, wrong link text, an ambiguous name pattern, a positional locator that finds the comment form's Name box, and a feature the page does not have), a working POC (Claude via `claude -p`, the Messages API, or an offline heuristic), validation gates and reviewable patches. Every value typed through a healed locator is read back through the healthy page object and the EMI is checked against my own amortisation, so a wrong heal still fails. |
 | Claude Code reflection | [Root README](../README.md#claude-code-reflection) | — |
 
 ## What else Section B uses
 
-- **The LoanLens server** ([`app/server`](../app/server)) is B1. The same server also serves a web UI ([`app/web`](../app/web)), which is Section A's app; nothing in Section B's own suites touches it.
-- **The framework** ([`framework/`](../framework)): World, hooks (browser, tracing, app server), configuration, the base API client and the independent oracles. Each Section B suite loads the framework and its own steps only ([`cucumber.js`](../cucumber.js)), so nothing here depends on Section A code.
-- **SQL** ([`sql/`](../sql)) is shared with Section A, and runs under `npm run test:section-b` too.
-- **Self-healing** ([`self-healing/`](../self-healing)) is shared too. Its broken locators sit in a page object for the LoanLens web pages, so this one suite reuses Section A's UI steps; the healer and its validation are not tied to any page. It runs under `npm run test:section-b`, and its results land in this folder's `reports/`.
+- **The framework** ([`framework/`](../framework)): World, hooks (browser, tracing, starting the API), configuration, the base API client and the independent oracles. Each Section B suite loads the framework and its own steps only ([`cucumber.js`](../cucumber.js)), so nothing here depends on Section A code. The loan-book oracle reads this API's own copy of the mock data.
+- **SQL** ([`sql/`](../sql)) is shared with Section A (A4 and B4 are the same two queries), and runs under `npm run test:section-b` too.
+- **The self-healing engine** ([`self-healing/`](../self-healing)): the healer, its providers, validation and patch writer. Section B's exercise (the broken locators, feature and steps) is in [`self-healing/`](self-healing) here, on the B3 page objects; Section A has its own on its web app.
+- **The mock data generator** ([`scripts/generate-loans.ts`](../scripts/generate-loans.ts)) writes this API's [`loans.json`](api/data/loans.json) and Section A's copy from the same seed. Nothing here reads Section A's copy.
 
 ## Findings
 
@@ -115,11 +115,13 @@ Each fix was reverted on purpose to confirm that its new scenarios fail without 
 
 ```
 section-b/
+  api/                  B1: the API. routes/, lib/query.ts (declarative parameter validation), lib/errors.ts,
+                        data/loans.json (the mock data), app.ts, index.ts
   loanlens-api/         B2: features/, steps/, api/ (client + JSON Schemas)
   emicalculator/        B3: features/, steps/, pages/ (Page Object + component objects), FINDINGS.md
+  self-healing/         the AI exercise: features/, steps/, pages/LegacyEmiLocators.ts (5 broken locators)
   reports/              results of the last `npm run test:section-b` and of the Section B mutation check
-app/server/             B1, the API             (shared repo root)
-sql/                    B4 (= A4)               (shared)
-self-healing/           the AI exercise         (shared)
+sql/                    B4 (= A4)               (shared repo root)
+self-healing/           the healer engine       (shared)
 framework/              World, hooks, config, base API client, oracles (shared)
 ```

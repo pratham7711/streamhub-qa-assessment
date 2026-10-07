@@ -1,6 +1,6 @@
 # Section B test results
 
-Run 2026-10-07T11:21:06.439Z · `npm run test:section-b` · node v26.7.0 · TEST_ENV=local · heal provider: auto
+Run 2026-10-07T12:23:57.497Z · `npm run test:section-b` · node v26.7.0 · TEST_ENV=local · heal provider: auto
 
 > Some HTML reports below show red scenarios. Those are expected failures: each one is a documented defect in a third-party site, or a locator broken on purpose for the self-healing exercise. The **Failed (unexpected)** column is the verdict.
 
@@ -9,8 +9,8 @@ Run 2026-10-07T11:21:06.439Z · `npm run test:section-b` · node v26.7.0 · TEST
 | loanlens-api | B1/B2 | 106 | 106 | 0 | 0 | 583 | 3 s | [html](loanlens-api/cucumber-report.html) · [log](loanlens-api/console.log) |
 | emicalculator | B3 | 38 | 23 | 15 | 0 | 239 | 49 s | [html](emicalculator/cucumber-report.html) · [log](emicalculator/console.log) |
 | sql | A4/B4 | 6 | 6 | 0 | 0 | 31 | 3 s | [html](sql/cucumber-report.html) · [log](sql/console.log) |
-| self-healing | AI exercise | 5 | 0 | 5 | 0 | 13 | 17 s | [html](self-healing/cucumber-report.html) · [log](self-healing/console.log) |
-| self-healing-healed | AI exercise | 5 | 4 | 1 | 0 | 13 | 37 s | [html](self-healing-healed/cucumber-report.html) · [log](self-healing-healed/console.log) |
+| self-healing | AI exercise | 5 | 0 | 5 | 0 | 15 | 22 s | [html](self-healing/cucumber-report.html) · [log](self-healing/console.log) |
+| self-healing-healed | AI exercise | 5 | 4 | 1 | 0 | 15 | 49 s | [html](self-healing-healed/cucumber-report.html) · [log](self-healing-healed/console.log) |
 
 **Unexpected failures: 0.** Expected failures are documented defects of emicalculator.net's input handling (`@known-defect`, see [emicalculator/FINDINGS.md](../emicalculator/FINDINGS.md)), and the deliberately broken locators run with healing off (`@broken-locator`, see [docs/SELF_HEALING.md](../../docs/SELF_HEALING.md)).
 
@@ -51,21 +51,21 @@ Run 2026-10-07T11:21:06.439Z · `npm run test:section-b` · node v26.7.0 · TEST
 
 ### self-healing
 
-- expected: Renamed test id - the Total loans figure shows the size of the loan book (`self-healing/features/broken-locators.feature:16`)
-  - LocatorHealingError: Locator "dashboard.totalLoansValue" failed: page.getByTestId('kpi-total-loans') → No element matched within 5 s.
-- expected: Changed button text - applying a status filter narrows the report (`self-healing/features/broken-locators.feature:20`)
-  - LocatorHealingError: Locator "reports.applyFiltersButton" failed: page.getByRole('button', { name: 'Apply filter', exact: true }) → No element matched within 5 s.
-- expected: Ambiguous label - the loan amount slider updates the number box (`self-healing/features/broken-locators.feature:25`)
-  - LocatorHealingError: Locator "calculator.loanAmountSlider" failed: page.getByLabel('Loan amount') → 2 elements matched; an action on it would violate strict mode.
-- expected: Positional locator - the recent disbursements table starts with the newest loan (`self-healing/features/broken-locators.feature:30`)
-  - LocatorHealingError: Locator "dashboard.recentDisbursementsTable" failed: page.locator('table').first() → Resolved, but element does not have role table named Recent disbursements.
-- expected: Removed feature - exporting the report as CSV (`self-healing/features/broken-locators.feature:35`)
-  - LocatorHealingError: Locator "reports.exportCsvButton" failed: page.getByRole('button', { name: 'Export CSV' }) → No element matched within 5 s.
+- expected: Wrong id - the tenure box sets the loan tenure (`section-b/self-healing/features/broken-locators.feature:20`)
+  - LocatorHealingError: Locator "emicalculator.loanTenureBox" failed: page.locator('#loan-term') → No element matched within 5 s.
+- expected: Wrong link text - the Personal Loan tab switches the calculator (`section-b/self-healing/features/broken-locators.feature:24`)
+  - LocatorHealingError: Locator "emicalculator.personalLoanTab" failed: page.getByRole('link', { name: 'Personal Loans', exact: true }) → No element matched within 5 s.
+- expected: Ambiguous name - the amount box sets the principal (`section-b/self-healing/features/broken-locators.feature:28`)
+  - LocatorHealingError: Locator "emicalculator.homeLoanAmountBox" failed: page.getByRole('textbox', { name: /loan/i }) → 2 elements matched; an action on it would violate strict mode.
+- expected: Positional locator - the interest rate box sets the rate (`section-b/self-healing/features/broken-locators.feature:32`)
+  - LocatorHealingError: Locator "emicalculator.interestRateBox" failed: page.locator('input[type="text"]').last() → Resolved, but element does not have role textbox named Interest Rate.
+- expected: Missing feature - e-mailing the repayment schedule (`section-b/self-healing/features/broken-locators.feature:37`)
+  - LocatorHealingError: Locator "emicalculator.emailScheduleButton" failed: page.getByRole('button', { name: 'Email schedule' }) → No element matched within 5 s.
 
 ### self-healing-healed
 
-- expected: Removed feature - exporting the report as CSV (`self-healing/features/broken-locators.feature:35`)
-  - LocatorHealingError: Locator "reports.exportCsvButton" failed: page.getByRole('button', { name: 'Export CSV' }) → No element matched within 5 s.
+- expected: Missing feature - e-mailing the repayment schedule (`section-b/self-healing/features/broken-locators.feature:37`)
+  - LocatorHealingError: Locator "emicalculator.emailScheduleButton" failed: page.getByRole('button', { name: 'Email schedule' }) → No element matched within 5 s.
 
 ## Tagged as expected to fail, but passed
 

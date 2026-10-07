@@ -40,16 +40,23 @@ const trailingSlashless = (url: string) => url.replace(/\/+$/, '');
 export type BrowserName = 'chromium' | 'firefox' | 'webkit';
 export type HealMode = 'off' | 'suggest' | 'heal';
 
-const appPort = int('APP_PORT', 5055);
+const webPort = int('WEB_PORT', 5055);
+const apiPort = int('API_PORT', 5056);
 
 export const env = {
   name: testEnv,
-  app: {
-    port: appPort,
-    baseUrl: trailingSlashless(process.env.APP_BASE_URL || `http://localhost:${appPort}`),
-    apiUrl: trailingSlashless(process.env.APP_API_URL || `http://localhost:${appPort}/api`),
-    autoStart: bool('APP_AUTOSTART', true),
+  /** Section A: the LoanLens web app, which reads its own mock data in the browser. */
+  web: {
+    port: webPort,
+    baseUrl: trailingSlashless(process.env.WEB_BASE_URL || `http://localhost:${webPort}`),
   },
+  /** Section B: the LoanLens API, a separate server with its own mock data. */
+  api: {
+    port: apiPort,
+    baseUrl: trailingSlashless(process.env.API_BASE_URL || `http://localhost:${apiPort}/api`),
+  },
+  /** Start the web app or API for a run when nothing is answering at its URL. */
+  autoStart: bool('APP_AUTOSTART', true),
   jsonPlaceholderUrl: trailingSlashless(required('JSONPLACEHOLDER_URL')),
   emiCalculatorUrl: required('EMI_CALCULATOR_URL'),
   browser: {

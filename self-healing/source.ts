@@ -4,7 +4,7 @@ import { fileURLToPath } from 'node:url';
 import type { SourceRef } from './types.js';
 
 const ROOT = process.cwd();
-const TEST_CODE = ['self-healing/pages/', 'section-a/', 'section-b/', 'framework/'].map((d) => d.split('/').join(path.sep));
+const TEST_CODE = ['section-a/', 'section-b/', 'framework/'].map((d) => d.split('/').join(path.sep));
 
 /**
  * Finds the page-object line that declared a healable locator, from the stack

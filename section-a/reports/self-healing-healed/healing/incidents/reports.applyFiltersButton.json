@@ -12,7 +12,7 @@
   "url": "http://localhost:5055/reports",
   "scenario": "Changed button text - applying a status filter narrows the report",
   "source": {
-    "file": "self-healing/pages/LegacyLocators.ts",
+    "file": "section-a/self-healing/pages/LegacyLocators.ts",
     "line": 62,
     "text": "    this.applyFiltersButton = healable(page, APPLY_FILTERS, (p) => p.getByRole('button', { name: 'Apply filter', exact: true }));",
     "expression": "p.getByRole('button', { name: 'Apply filter', exact: true })",
@@ -2835,5 +2835,5 @@
     }
   ],
   "screenshot": "section-a/reports/self-healing-healed/healing/incidents/reports.applyFiltersButton.png",
-  "at": "2026-10-07T11:20:45.484Z"
+  "at": "2026-10-07T12:27:32.310Z"
 }

@@ -1,8 +1,8 @@
-@app @ui @loanlens-ui
+@web-app @ui @loanlens-ui
 Feature: LoanLens UI - Loan book report
   Filters, sorting and paging live in the URL, so a report can be shared and
   survives a reload. Every list, total and chart is compared with the suite's
-  own filtering, sorting and paging of the loan book (tests/utils/loan-book.ts).
+  own filtering, sorting and paging of the loan book (framework/oracles/loan-book.ts).
 
   Scenario: The unfiltered report shows the first page of the whole book, newest first
     Given I open the LoanLens loan book report

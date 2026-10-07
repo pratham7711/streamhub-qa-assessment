@@ -1,4 +1,4 @@
-@app @api
+@api-app @api
 Feature: LoanLens API - list loans (GET /api/loans)
   Filtering, search, sorting and pagination over the mock loan book. Every
   successful response is checked against an independent oracle that reads the

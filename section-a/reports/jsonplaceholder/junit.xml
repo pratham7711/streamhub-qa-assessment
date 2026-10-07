@@ -1,80 +1,80 @@
 <?xml version="1.0"?>
-<testsuite name="jsonplaceholder" time="9.761" tests="36" skipped="0" failures="20" errors="0" timestamp="2026-10-07T11:19:55.292Z">
-  <testcase classname="JSONPlaceholder POST /posts - no input causes a server-side failure" name="&lt;payload> does not cause a server error - Excessively long strings - #1.1: a 1,000,000-character title does not cause a server error" time="2.509">
+<testsuite name="jsonplaceholder" time="10.821" tests="36" skipped="0" failures="20" errors="0" timestamp="2026-10-07T12:26:44.461Z">
+  <testcase classname="JSONPlaceholder POST /posts - no input causes a server-side failure" name="&lt;payload> does not cause a server error - Excessively long strings - #1.1: a 1,000,000-character title does not cause a server error" time="2.1">
     <system-out><![CDATA[Given the JSONPlaceholder posts endpoint is reachable.......................passed
 When I create "a 1,000,000-character title".................................passed
 Then the API should not fail with a server error............................passed
 And the response should not leak implementation details.....................passed]]></system-out>
   </testcase>
-  <testcase classname="JSONPlaceholder POST /posts - no input causes a server-side failure" name="&lt;payload> does not cause a server error - Unsupported special characters - #2.1: a title with a NUL byte does not cause a server error" time="0.63">
+  <testcase classname="JSONPlaceholder POST /posts - no input causes a server-side failure" name="&lt;payload> does not cause a server error - Unsupported special characters - #2.1: a title with a NUL byte does not cause a server error" time="0.664">
     <system-out><![CDATA[Given the JSONPlaceholder posts endpoint is reachable.......................passed
 When I create "a title with a NUL byte".....................................passed
 Then the API should not fail with a server error............................passed
 And the response should not leak implementation details.....................passed]]></system-out>
   </testcase>
-  <testcase classname="JSONPlaceholder POST /posts - no input causes a server-side failure" name="&lt;payload> does not cause a server error - Unsupported special characters - #2.2: a title with an unpaired surrogate does not cause a server error" time="0.656">
+  <testcase classname="JSONPlaceholder POST /posts - no input causes a server-side failure" name="&lt;payload> does not cause a server error - Unsupported special characters - #2.2: a title with an unpaired surrogate does not cause a server error" time="0.98">
     <system-out><![CDATA[Given the JSONPlaceholder posts endpoint is reachable.......................passed
 When I create "a title with an unpaired surrogate"..........................passed
 Then the API should not fail with a server error............................passed
 And the response should not leak implementation details.....................passed]]></system-out>
   </testcase>
-  <testcase classname="JSONPlaceholder POST /posts - no input causes a server-side failure" name="&lt;payload> does not cause a server error - Unsupported special characters - #2.3: a title with invalid UTF-8 bytes does not cause a server error" time="0.637">
+  <testcase classname="JSONPlaceholder POST /posts - no input causes a server-side failure" name="&lt;payload> does not cause a server error - Unsupported special characters - #2.3: a title with invalid UTF-8 bytes does not cause a server error" time="1.235">
     <system-out><![CDATA[Given the JSONPlaceholder posts endpoint is reachable.......................passed
 When I create "a title with invalid UTF-8 bytes"............................passed
 Then the API should not fail with a server error............................passed
 And the response should not leak implementation details.....................passed]]></system-out>
   </testcase>
-  <testcase classname="JSONPlaceholder POST /posts - no input causes a server-side failure" name="&lt;payload> does not cause a server error - Unsupported special characters - #2.4: a title with SQL meta-characters does not cause a server error" time="0.579">
+  <testcase classname="JSONPlaceholder POST /posts - no input causes a server-side failure" name="&lt;payload> does not cause a server error - Unsupported special characters - #2.4: a title with SQL meta-characters does not cause a server error" time="0.613">
     <system-out><![CDATA[Given the JSONPlaceholder posts endpoint is reachable.......................passed
 When I create "a title with SQL meta-characters"............................passed
 Then the API should not fail with a server error............................passed
 And the response should not leak implementation details.....................passed]]></system-out>
   </testcase>
-  <testcase classname="JSONPlaceholder POST /posts - no input causes a server-side failure" name="&lt;payload> does not cause a server error - Missing required fields - #3.1: a post without userId does not cause a server error" time="1.061">
+  <testcase classname="JSONPlaceholder POST /posts - no input causes a server-side failure" name="&lt;payload> does not cause a server error - Missing required fields - #3.1: a post without userId does not cause a server error" time="0.869">
     <system-out><![CDATA[Given the JSONPlaceholder posts endpoint is reachable.......................passed
 When I create "a post without userId".......................................passed
 Then the API should not fail with a server error............................passed
 And the response should not leak implementation details.....................passed]]></system-out>
   </testcase>
-  <testcase classname="JSONPlaceholder POST /posts - no input causes a server-side failure" name="&lt;payload> does not cause a server error - Missing required fields - #3.2: an empty JSON object does not cause a server error" time="0.624">
+  <testcase classname="JSONPlaceholder POST /posts - no input causes a server-side failure" name="&lt;payload> does not cause a server error - Missing required fields - #3.2: an empty JSON object does not cause a server error" time="1.021">
     <system-out><![CDATA[Given the JSONPlaceholder posts endpoint is reachable.......................passed
 When I create "an empty JSON object"........................................passed
 Then the API should not fail with a server error............................passed
 And the response should not leak implementation details.....................passed]]></system-out>
   </testcase>
-  <testcase classname="JSONPlaceholder POST /posts - no input causes a server-side failure" name="&lt;payload> does not cause a server error - Missing required fields - #3.3: a post with null userId does not cause a server error" time="0.589">
+  <testcase classname="JSONPlaceholder POST /posts - no input causes a server-side failure" name="&lt;payload> does not cause a server error - Missing required fields - #3.3: a post with null userId does not cause a server error" time="0.715">
     <system-out><![CDATA[Given the JSONPlaceholder posts endpoint is reachable.......................passed
 When I create "a post with null userId".....................................passed
 Then the API should not fail with a server error............................passed
 And the response should not leak implementation details.....................passed]]></system-out>
   </testcase>
-  <testcase classname="JSONPlaceholder POST /posts - no input causes a server-side failure" name="&lt;payload> does not cause a server error - Wrong types and malformed requests - #4.1: a post with a text userId does not cause a server error" time="0.741">
+  <testcase classname="JSONPlaceholder POST /posts - no input causes a server-side failure" name="&lt;payload> does not cause a server error - Wrong types and malformed requests - #4.1: a post with a text userId does not cause a server error" time="0.891">
     <system-out><![CDATA[Given the JSONPlaceholder posts endpoint is reachable.......................passed
 When I create "a post with a text userId"...................................passed
 Then the API should not fail with a server error............................passed
 And the response should not leak implementation details.....................passed]]></system-out>
   </testcase>
-  <testcase classname="JSONPlaceholder POST /posts - no input causes a server-side failure" name="&lt;payload> does not cause a server error - Wrong types and malformed requests - #4.2: a post with an object title does not cause a server error" time="0.59">
+  <testcase classname="JSONPlaceholder POST /posts - no input causes a server-side failure" name="&lt;payload> does not cause a server error - Wrong types and malformed requests - #4.2: a post with an object title does not cause a server error" time="1.088">
     <system-out><![CDATA[Given the JSONPlaceholder posts endpoint is reachable.......................passed
 When I create "a post with an object title".................................passed
 Then the API should not fail with a server error............................passed
 And the response should not leak implementation details.....................passed]]></system-out>
   </testcase>
-  <testcase classname="JSONPlaceholder POST /posts - no input causes a server-side failure" name="&lt;payload> does not cause a server error - Wrong types and malformed requests - #4.3: a JSON array instead of an object does not cause a server error" time="0.742">
+  <testcase classname="JSONPlaceholder POST /posts - no input causes a server-side failure" name="&lt;payload> does not cause a server error - Wrong types and malformed requests - #4.3: a JSON array instead of an object does not cause a server error" time="1.056">
     <system-out><![CDATA[Given the JSONPlaceholder posts endpoint is reachable.......................passed
 When I create "a JSON array instead of an object"...........................passed
 Then the API should not fail with a server error............................passed
 And the response should not leak implementation details.....................passed]]></system-out>
   </testcase>
-  <testcase classname="JSONPlaceholder POST /posts - no input causes a server-side failure" name="&lt;payload> does not cause a server error - Wrong types and malformed requests - #4.4: a JSON body sent as text/plain does not cause a server error" time="0.585">
+  <testcase classname="JSONPlaceholder POST /posts - no input causes a server-side failure" name="&lt;payload> does not cause a server error - Wrong types and malformed requests - #4.4: a JSON body sent as text/plain does not cause a server error" time="1.146">
     <system-out><![CDATA[Given the JSONPlaceholder posts endpoint is reachable.......................passed
 When I create "a JSON body sent as text/plain"..............................passed
 Then the API should not fail with a server error............................passed
 And the response should not leak implementation details.....................passed]]></system-out>
   </testcase>
-  <testcase classname="JSONPlaceholder POST /posts - no input causes a server-side failure" name="&lt;payload> does not cause a server error - Known server-side failures (docs/jsonplaceholder-findings.md JP-01, JP-02) - #5.1: a title larger than 10 MiB does not cause a server error" time="4.77">
-    <failure type="ExpectError" message="Expected a non-5xx status, got a server-side failure.&#xA;POST https://jsonplaceholder.typicode.com/posts -> 500 Internal Server Error (4419 ms)&#xA;PayloadTooLargeError: request entity too large&#xA;    at readStream (/app/node_modules/body-parser/node_modules/raw-body/index.js:155:17)&#xA;    at getRawBody (/app/node_modules/body-parser/node_modules/raw-body/index.js:108:12)&#xA;    at read (/app/node_modules/body-parser/lib/read.js:77:3)&#xA;    at jsonParser (/app/node_modules/body-parser/lib/types/json.js:135:5)&#xA;    at Layer.handle [as handle_request] (/app/node_modules/express/lib/router/layer.js:95:5)&#xA;    at trim_prefix (/app/node_modules/express/lib/router/index.js:317:13)&#xA;    at /app/node_modules/express/lib/router/index.js:284:7&#xA;    at router.pr&#xA;&#xA;expect(received).toBeLessThan(expected)&#xA;&#xA;Expected: &lt; 500&#xA;Received:   500"><![CDATA[Error: Expected a non-5xx status, got a server-side failure.
-POST https://jsonplaceholder.typicode.com/posts -> 500 Internal Server Error (4419 ms)
+  <testcase classname="JSONPlaceholder POST /posts - no input causes a server-side failure" name="&lt;payload> does not cause a server error - Known server-side failures (docs/jsonplaceholder-findings.md JP-01, JP-02) - #5.1: a title larger than 10 MiB does not cause a server error" time="4.541">
+    <failure type="ExpectError" message="Expected a non-5xx status, got a server-side failure.&#xA;POST https://jsonplaceholder.typicode.com/posts -> 500 Internal Server Error (4191 ms)&#xA;PayloadTooLargeError: request entity too large&#xA;    at readStream (/app/node_modules/body-parser/node_modules/raw-body/index.js:155:17)&#xA;    at getRawBody (/app/node_modules/body-parser/node_modules/raw-body/index.js:108:12)&#xA;    at read (/app/node_modules/body-parser/lib/read.js:77:3)&#xA;    at jsonParser (/app/node_modules/body-parser/lib/types/json.js:135:5)&#xA;    at Layer.handle [as handle_request] (/app/node_modules/express/lib/router/layer.js:95:5)&#xA;    at trim_prefix (/app/node_modules/express/lib/router/index.js:317:13)&#xA;    at /app/node_modules/express/lib/router/index.js:284:7&#xA;    at router.pr&#xA;&#xA;expect(received).toBeLessThan(expected)&#xA;&#xA;Expected: &lt; 500&#xA;Received:   500"><![CDATA[Error: Expected a non-5xx status, got a server-side failure.
+POST https://jsonplaceholder.typicode.com/posts -> 500 Internal Server Error (4191 ms)
 PayloadTooLargeError: request entity too large
     at readStream (/app/node_modules/body-parser/node_modules/raw-body/index.js:155:17)
     at getRawBody (/app/node_modules/body-parser/node_modules/raw-body/index.js:108:12)
@@ -105,9 +105,9 @@ When I create "a title larger than 10 MiB"..................................pass
 Then the API should not fail with a server error............................failed
 And the response should not leak implementation details.....................skipped]]></system-out>
   </testcase>
-  <testcase classname="JSONPlaceholder POST /posts - no input causes a server-side failure" name="&lt;payload> does not cause a server error - Known server-side failures (docs/jsonplaceholder-findings.md JP-01, JP-02) - #5.2: malformed JSON does not cause a server error" time="0.58">
-    <failure type="ExpectError" message="Expected a non-5xx status, got a server-side failure.&#xA;POST https://jsonplaceholder.typicode.com/posts -> 500 Internal Server Error (332 ms)&#xA;SyntaxError: Unterminated string in JSON at position 23 (line 1 column 24)&#xA;    at JSON.parse (&lt;anonymous>)&#xA;    at parse (/app/node_modules/body-parser/lib/types/json.js:89:19)&#xA;    at /app/node_modules/body-parser/lib/read.js:121:18&#xA;    at invokeCallback (/app/node_modules/body-parser/node_modules/raw-body/index.js:224:16)&#xA;    at done (/app/node_modules/body-parser/node_modules/raw-body/index.js:213:7)&#xA;    at IncomingMessage.onEnd (/app/node_modules/body-parser/node_modules/raw-body/index.js:273:7)&#xA;    at IncomingMessage.emit (node:events:514:28)&#xA;    at endReadableNT (node:internal/streams/read&#xA;&#xA;expect(received).toBeLessThan(expected)&#xA;&#xA;Expected: &lt; 500&#xA;Received:   500"><![CDATA[Error: Expected a non-5xx status, got a server-side failure.
-POST https://jsonplaceholder.typicode.com/posts -> 500 Internal Server Error (332 ms)
+  <testcase classname="JSONPlaceholder POST /posts - no input causes a server-side failure" name="&lt;payload> does not cause a server error - Known server-side failures (docs/jsonplaceholder-findings.md JP-01, JP-02) - #5.2: malformed JSON does not cause a server error" time="1.112">
+    <failure type="ExpectError" message="Expected a non-5xx status, got a server-side failure.&#xA;POST https://jsonplaceholder.typicode.com/posts -> 500 Internal Server Error (524 ms)&#xA;SyntaxError: Unterminated string in JSON at position 23 (line 1 column 24)&#xA;    at JSON.parse (&lt;anonymous>)&#xA;    at parse (/app/node_modules/body-parser/lib/types/json.js:89:19)&#xA;    at /app/node_modules/body-parser/lib/read.js:121:18&#xA;    at invokeCallback (/app/node_modules/body-parser/node_modules/raw-body/index.js:224:16)&#xA;    at done (/app/node_modules/body-parser/node_modules/raw-body/index.js:213:7)&#xA;    at IncomingMessage.onEnd (/app/node_modules/body-parser/node_modules/raw-body/index.js:273:7)&#xA;    at IncomingMessage.emit (node:events:514:28)&#xA;    at endReadableNT (node:internal/streams/read&#xA;&#xA;expect(received).toBeLessThan(expected)&#xA;&#xA;Expected: &lt; 500&#xA;Received:   500"><![CDATA[Error: Expected a non-5xx status, got a server-side failure.
+POST https://jsonplaceholder.typicode.com/posts -> 500 Internal Server Error (524 ms)
 SyntaxError: Unterminated string in JSON at position 23 (line 1 column 24)
     at JSON.parse (<anonymous>)
     at parse (/app/node_modules/body-parser/lib/types/json.js:89:19)
@@ -137,36 +137,36 @@ When I create "malformed JSON"..............................................pass
 Then the API should not fail with a server error............................failed
 And the response should not leak implementation details.....................skipped]]></system-out>
   </testcase>
-  <testcase classname="JSONPlaceholder POST /posts - invalid input is rejected with a 4xx" name="Control - &lt;payload> is accepted and echoed - #1.1: Control - a valid post is accepted and echoed" time="0.703">
+  <testcase classname="JSONPlaceholder POST /posts - invalid input is rejected with a 4xx" name="Control - &lt;payload> is accepted and echoed - #1.1: Control - a valid post is accepted and echoed" time="0.622">
     <system-out><![CDATA[Given the JSONPlaceholder posts endpoint is reachable.......................passed
 When I create "a valid post"................................................passed
 Then the post should be created with id 101.................................passed
 And the created post should echo every submitted field unchanged............passed
 And the response time should be under 10 seconds............................passed]]></system-out>
   </testcase>
-  <testcase classname="JSONPlaceholder POST /posts - invalid input is rejected with a 4xx" name="Control - &lt;payload> is accepted and echoed - #1.2: Control - a 255-character title is accepted and echoed" time="0.722">
+  <testcase classname="JSONPlaceholder POST /posts - invalid input is rejected with a 4xx" name="Control - &lt;payload> is accepted and echoed - #1.2: Control - a 255-character title is accepted and echoed" time="0.61">
     <system-out><![CDATA[Given the JSONPlaceholder posts endpoint is reachable.......................passed
 When I create "a 255-character title".......................................passed
 Then the post should be created with id 101.................................passed
 And the created post should echo every submitted field unchanged............passed
 And the response time should be under 10 seconds............................passed]]></system-out>
   </testcase>
-  <testcase classname="JSONPlaceholder POST /posts - invalid input is rejected with a 4xx" name="Control - &lt;payload> is accepted and echoed - #1.3: Control - a multilingual title is accepted and echoed" time="1.046">
+  <testcase classname="JSONPlaceholder POST /posts - invalid input is rejected with a 4xx" name="Control - &lt;payload> is accepted and echoed - #1.3: Control - a multilingual title is accepted and echoed" time="0.955">
     <system-out><![CDATA[Given the JSONPlaceholder posts endpoint is reachable.......................passed
 When I create "a multilingual title"........................................passed
 Then the post should be created with id 101.................................passed
 And the created post should echo every submitted field unchanged............passed
 And the response time should be under 10 seconds............................passed]]></system-out>
   </testcase>
-  <testcase classname="JSONPlaceholder POST /posts - invalid input is rejected with a 4xx" name="Control - created posts are not persisted (documented fake behaviour)" time="0.678">
+  <testcase classname="JSONPlaceholder POST /posts - invalid input is rejected with a 4xx" name="Control - created posts are not persisted (documented fake behaviour)" time="2.252">
     <system-out><![CDATA[Given the JSONPlaceholder posts endpoint is reachable.......................passed
 When I create "a valid post"................................................passed
 And I fetch the post with id 101............................................passed
 Then the response status should be 404......................................passed]]></system-out>
   </testcase>
-  <testcase classname="JSONPlaceholder POST /posts - invalid input is rejected with a 4xx" name="&lt;payload> is rejected - Excessively long strings - #1.1: a 256-character title is rejected" time="0.879">
-    <failure type="ExpectError" message="Expected a 4xx rejection (400 Bad Request, 413 Payload Too Large, 415 Unsupported Media Type or 422 Unprocessable Entity), but the API answered 201 Created and accepted the invalid payload.&#xA;POST https://jsonplaceholder.typicode.com/posts -> 201 Created (595 ms)&#xA;{&#xA;  &quot;title&quot;: &quot;AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA&quot;,&#xA;  &quot;body&quot;: &quot;Portfolio notes for Q3.&quot;,&#xA;  &quot;userId&quot;: 1,&#xA;  &quot;id&quot;: 101&#xA;}&#xA;&#xA;expect(received).toBe(expected) // Object.is equality&#xA;&#xA;Expected: true&#xA;Received: false"><![CDATA[Error: Expected a 4xx rejection (400 Bad Request, 413 Payload Too Large, 415 Unsupported Media Type or 422 Unprocessable Entity), but the API answered 201 Created and accepted the invalid payload.
-POST https://jsonplaceholder.typicode.com/posts -> 201 Created (595 ms)
+  <testcase classname="JSONPlaceholder POST /posts - invalid input is rejected with a 4xx" name="&lt;payload> is rejected - Excessively long strings - #1.1: a 256-character title is rejected" time="0.862">
+    <failure type="ExpectError" message="Expected a 4xx rejection (400 Bad Request, 413 Payload Too Large, 415 Unsupported Media Type or 422 Unprocessable Entity), but the API answered 201 Created and accepted the invalid payload.&#xA;POST https://jsonplaceholder.typicode.com/posts -> 201 Created (299 ms)&#xA;{&#xA;  &quot;title&quot;: &quot;AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA&quot;,&#xA;  &quot;body&quot;: &quot;Portfolio notes for Q3.&quot;,&#xA;  &quot;userId&quot;: 1,&#xA;  &quot;id&quot;: 101&#xA;}&#xA;&#xA;expect(received).toBe(expected) // Object.is equality&#xA;&#xA;Expected: true&#xA;Received: false"><![CDATA[Error: Expected a 4xx rejection (400 Bad Request, 413 Payload Too Large, 415 Unsupported Media Type or 422 Unprocessable Entity), but the API answered 201 Created and accepted the invalid payload.
+POST https://jsonplaceholder.typicode.com/posts -> 201 Created (299 ms)
 {
   "title": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
   "body": "Portfolio notes for Q3.",
@@ -187,9 +187,9 @@ When I create "a 256-character title".......................................pass
 Then the API should reject the request with a 4xx client error..............failed
 And the response should explain what is wrong...............................skipped]]></system-out>
   </testcase>
-  <testcase classname="JSONPlaceholder POST /posts - invalid input is rejected with a 4xx" name="&lt;payload> is rejected - Excessively long strings - #1.2: a title larger than 10 MiB is rejected" time="4.224">
-    <failure type="ExpectError" message="Expected a 4xx rejection (400 Bad Request, 413 Payload Too Large, 415 Unsupported Media Type or 422 Unprocessable Entity), but the API answered 500 Internal Server Error, a server-side failure.&#xA;POST https://jsonplaceholder.typicode.com/posts -> 500 Internal Server Error (3904 ms)&#xA;PayloadTooLargeError: request entity too large&#xA;    at readStream (/app/node_modules/body-parser/node_modules/raw-body/index.js:155:17)&#xA;    at getRawBody (/app/node_modules/body-parser/node_modules/raw-body/index.js:108:12)&#xA;    at read (/app/node_modules/body-parser/lib/read.js:77:3)&#xA;    at jsonParser (/app/node_modules/body-parser/lib/types/json.js:135:5)&#xA;    at Layer.handle [as handle_request] (/app/node_modules/express/lib/router/layer.js:95:5)&#xA;    at trim_prefix (/app/node_modules/express/lib/router/index.js:317:13)&#xA;    at /app/node_modules/express/lib/router/index.js:284:7&#xA;    at router.pr&#xA;&#xA;expect(received).toBe(expected) // Object.is equality&#xA;&#xA;Expected: true&#xA;Received: false"><![CDATA[Error: Expected a 4xx rejection (400 Bad Request, 413 Payload Too Large, 415 Unsupported Media Type or 422 Unprocessable Entity), but the API answered 500 Internal Server Error, a server-side failure.
-POST https://jsonplaceholder.typicode.com/posts -> 500 Internal Server Error (3904 ms)
+  <testcase classname="JSONPlaceholder POST /posts - invalid input is rejected with a 4xx" name="&lt;payload> is rejected - Excessively long strings - #1.2: a title larger than 10 MiB is rejected" time="3.971">
+    <failure type="ExpectError" message="Expected a 4xx rejection (400 Bad Request, 413 Payload Too Large, 415 Unsupported Media Type or 422 Unprocessable Entity), but the API answered 500 Internal Server Error, a server-side failure.&#xA;POST https://jsonplaceholder.typicode.com/posts -> 500 Internal Server Error (3728 ms)&#xA;PayloadTooLargeError: request entity too large&#xA;    at readStream (/app/node_modules/body-parser/node_modules/raw-body/index.js:155:17)&#xA;    at getRawBody (/app/node_modules/body-parser/node_modules/raw-body/index.js:108:12)&#xA;    at read (/app/node_modules/body-parser/lib/read.js:77:3)&#xA;    at jsonParser (/app/node_modules/body-parser/lib/types/json.js:135:5)&#xA;    at Layer.handle [as handle_request] (/app/node_modules/express/lib/router/layer.js:95:5)&#xA;    at trim_prefix (/app/node_modules/express/lib/router/index.js:317:13)&#xA;    at /app/node_modules/express/lib/router/index.js:284:7&#xA;    at router.pr&#xA;&#xA;expect(received).toBe(expected) // Object.is equality&#xA;&#xA;Expected: true&#xA;Received: false"><![CDATA[Error: Expected a 4xx rejection (400 Bad Request, 413 Payload Too Large, 415 Unsupported Media Type or 422 Unprocessable Entity), but the API answered 500 Internal Server Error, a server-side failure.
+POST https://jsonplaceholder.typicode.com/posts -> 500 Internal Server Error (3728 ms)
 PayloadTooLargeError: request entity too large
     at readStream (/app/node_modules/body-parser/node_modules/raw-body/index.js:155:17)
     at getRawBody (/app/node_modules/body-parser/node_modules/raw-body/index.js:108:12)
@@ -220,9 +220,9 @@ When I create "a title larger than 10 MiB"..................................pass
 Then the API should reject the request with a 4xx client error..............failed
 And the response should explain what is wrong...............................skipped]]></system-out>
   </testcase>
-  <testcase classname="JSONPlaceholder POST /posts - invalid input is rejected with a 4xx" name="&lt;payload> is rejected - Unsupported special characters - #2.1: a title with a NUL byte is rejected" time="0.755">
-    <failure type="ExpectError" message="Expected a 4xx rejection (400 Bad Request, 413 Payload Too Large, 415 Unsupported Media Type or 422 Unprocessable Entity), but the API answered 201 Created and accepted the invalid payload.&#xA;POST https://jsonplaceholder.typicode.com/posts -> 201 Created (374 ms)&#xA;{&#xA;  &quot;title&quot;: &quot;Loan\u0000review&quot;,&#xA;  &quot;body&quot;: &quot;Portfolio notes for Q3.&quot;,&#xA;  &quot;userId&quot;: 1,&#xA;  &quot;id&quot;: 101&#xA;}&#xA;&#xA;expect(received).toBe(expected) // Object.is equality&#xA;&#xA;Expected: true&#xA;Received: false"><![CDATA[Error: Expected a 4xx rejection (400 Bad Request, 413 Payload Too Large, 415 Unsupported Media Type or 422 Unprocessable Entity), but the API answered 201 Created and accepted the invalid payload.
-POST https://jsonplaceholder.typicode.com/posts -> 201 Created (374 ms)
+  <testcase classname="JSONPlaceholder POST /posts - invalid input is rejected with a 4xx" name="&lt;payload> is rejected - Unsupported special characters - #2.1: a title with a NUL byte is rejected" time="1.451">
+    <failure type="ExpectError" message="Expected a 4xx rejection (400 Bad Request, 413 Payload Too Large, 415 Unsupported Media Type or 422 Unprocessable Entity), but the API answered 201 Created and accepted the invalid payload.&#xA;POST https://jsonplaceholder.typicode.com/posts -> 201 Created (816 ms)&#xA;{&#xA;  &quot;title&quot;: &quot;Loan\u0000review&quot;,&#xA;  &quot;body&quot;: &quot;Portfolio notes for Q3.&quot;,&#xA;  &quot;userId&quot;: 1,&#xA;  &quot;id&quot;: 101&#xA;}&#xA;&#xA;expect(received).toBe(expected) // Object.is equality&#xA;&#xA;Expected: true&#xA;Received: false"><![CDATA[Error: Expected a 4xx rejection (400 Bad Request, 413 Payload Too Large, 415 Unsupported Media Type or 422 Unprocessable Entity), but the API answered 201 Created and accepted the invalid payload.
+POST https://jsonplaceholder.typicode.com/posts -> 201 Created (816 ms)
 {
   "title": "Loan\u0000review",
   "body": "Portfolio notes for Q3.",
@@ -243,9 +243,9 @@ When I create "a title with a NUL byte".....................................pass
 Then the API should reject the request with a 4xx client error..............failed
 And the response should explain what is wrong...............................skipped]]></system-out>
   </testcase>
-  <testcase classname="JSONPlaceholder POST /posts - invalid input is rejected with a 4xx" name="&lt;payload> is rejected - Unsupported special characters - #2.2: a title with an unpaired surrogate is rejected" time="0.815">
-    <failure type="ExpectError" message="Expected a 4xx rejection (400 Bad Request, 413 Payload Too Large, 415 Unsupported Media Type or 422 Unprocessable Entity), but the API answered 201 Created and accepted the invalid payload.&#xA;POST https://jsonplaceholder.typicode.com/posts -> 201 Created (480 ms)&#xA;{&#xA;  &quot;title&quot;: &quot;\ud800&quot;,&#xA;  &quot;body&quot;: &quot;b&quot;,&#xA;  &quot;userId&quot;: 1,&#xA;  &quot;id&quot;: 101&#xA;}&#xA;&#xA;expect(received).toBe(expected) // Object.is equality&#xA;&#xA;Expected: true&#xA;Received: false"><![CDATA[Error: Expected a 4xx rejection (400 Bad Request, 413 Payload Too Large, 415 Unsupported Media Type or 422 Unprocessable Entity), but the API answered 201 Created and accepted the invalid payload.
-POST https://jsonplaceholder.typicode.com/posts -> 201 Created (480 ms)
+  <testcase classname="JSONPlaceholder POST /posts - invalid input is rejected with a 4xx" name="&lt;payload> is rejected - Unsupported special characters - #2.2: a title with an unpaired surrogate is rejected" time="1.088">
+    <failure type="ExpectError" message="Expected a 4xx rejection (400 Bad Request, 413 Payload Too Large, 415 Unsupported Media Type or 422 Unprocessable Entity), but the API answered 201 Created and accepted the invalid payload.&#xA;POST https://jsonplaceholder.typicode.com/posts -> 201 Created (508 ms)&#xA;{&#xA;  &quot;title&quot;: &quot;\ud800&quot;,&#xA;  &quot;body&quot;: &quot;b&quot;,&#xA;  &quot;userId&quot;: 1,&#xA;  &quot;id&quot;: 101&#xA;}&#xA;&#xA;expect(received).toBe(expected) // Object.is equality&#xA;&#xA;Expected: true&#xA;Received: false"><![CDATA[Error: Expected a 4xx rejection (400 Bad Request, 413 Payload Too Large, 415 Unsupported Media Type or 422 Unprocessable Entity), but the API answered 201 Created and accepted the invalid payload.
+POST https://jsonplaceholder.typicode.com/posts -> 201 Created (508 ms)
 {
   "title": "\ud800",
   "body": "b",
@@ -266,9 +266,9 @@ When I create "a title with an unpaired surrogate"..........................pass
 Then the API should reject the request with a 4xx client error..............failed
 And the response should explain what is wrong...............................skipped]]></system-out>
   </testcase>
-  <testcase classname="JSONPlaceholder POST /posts - invalid input is rejected with a 4xx" name="&lt;payload> is rejected - Unsupported special characters - #2.3: a title with invalid UTF-8 bytes is rejected" time="1.162">
-    <failure type="ExpectError" message="Expected a 4xx rejection (400 Bad Request, 413 Payload Too Large, 415 Unsupported Media Type or 422 Unprocessable Entity), but the API answered 201 Created and accepted the invalid payload.&#xA;POST https://jsonplaceholder.typicode.com/posts -> 201 Created (335 ms)&#xA;{&#xA;  &quot;title&quot;: &quot;���&quot;,&#xA;  &quot;body&quot;: &quot;b&quot;,&#xA;  &quot;userId&quot;: 1,&#xA;  &quot;id&quot;: 101&#xA;}&#xA;&#xA;expect(received).toBe(expected) // Object.is equality&#xA;&#xA;Expected: true&#xA;Received: false"><![CDATA[Error: Expected a 4xx rejection (400 Bad Request, 413 Payload Too Large, 415 Unsupported Media Type or 422 Unprocessable Entity), but the API answered 201 Created and accepted the invalid payload.
-POST https://jsonplaceholder.typicode.com/posts -> 201 Created (335 ms)
+  <testcase classname="JSONPlaceholder POST /posts - invalid input is rejected with a 4xx" name="&lt;payload> is rejected - Unsupported special characters - #2.3: a title with invalid UTF-8 bytes is rejected" time="0.851">
+    <failure type="ExpectError" message="Expected a 4xx rejection (400 Bad Request, 413 Payload Too Large, 415 Unsupported Media Type or 422 Unprocessable Entity), but the API answered 201 Created and accepted the invalid payload.&#xA;POST https://jsonplaceholder.typicode.com/posts -> 201 Created (345 ms)&#xA;{&#xA;  &quot;title&quot;: &quot;���&quot;,&#xA;  &quot;body&quot;: &quot;b&quot;,&#xA;  &quot;userId&quot;: 1,&#xA;  &quot;id&quot;: 101&#xA;}&#xA;&#xA;expect(received).toBe(expected) // Object.is equality&#xA;&#xA;Expected: true&#xA;Received: false"><![CDATA[Error: Expected a 4xx rejection (400 Bad Request, 413 Payload Too Large, 415 Unsupported Media Type or 422 Unprocessable Entity), but the API answered 201 Created and accepted the invalid payload.
+POST https://jsonplaceholder.typicode.com/posts -> 201 Created (345 ms)
 {
   "title": "���",
   "body": "b",
@@ -289,9 +289,9 @@ When I create "a title with invalid UTF-8 bytes"............................pass
 Then the API should reject the request with a 4xx client error..............failed
 And the response should explain what is wrong...............................skipped]]></system-out>
   </testcase>
-  <testcase classname="JSONPlaceholder POST /posts - invalid input is rejected with a 4xx" name="&lt;payload> is rejected - Unsupported special characters - #2.4: a title with bidirectional overrides is rejected" time="0.844">
-    <failure type="ExpectError" message="Expected a 4xx rejection (400 Bad Request, 413 Payload Too Large, 415 Unsupported Media Type or 422 Unprocessable Entity), but the API answered 201 Created and accepted the invalid payload.&#xA;POST https://jsonplaceholder.typicode.com/posts -> 201 Created (316 ms)&#xA;{&#xA;  &quot;title&quot;: &quot;invoice‮fdp.exe&quot;,&#xA;  &quot;body&quot;: &quot;Portfolio notes for Q3.&quot;,&#xA;  &quot;userId&quot;: 1,&#xA;  &quot;id&quot;: 101&#xA;}&#xA;&#xA;expect(received).toBe(expected) // Object.is equality&#xA;&#xA;Expected: true&#xA;Received: false"><![CDATA[Error: Expected a 4xx rejection (400 Bad Request, 413 Payload Too Large, 415 Unsupported Media Type or 422 Unprocessable Entity), but the API answered 201 Created and accepted the invalid payload.
-POST https://jsonplaceholder.typicode.com/posts -> 201 Created (316 ms)
+  <testcase classname="JSONPlaceholder POST /posts - invalid input is rejected with a 4xx" name="&lt;payload> is rejected - Unsupported special characters - #2.4: a title with bidirectional overrides is rejected" time="0.582">
+    <failure type="ExpectError" message="Expected a 4xx rejection (400 Bad Request, 413 Payload Too Large, 415 Unsupported Media Type or 422 Unprocessable Entity), but the API answered 201 Created and accepted the invalid payload.&#xA;POST https://jsonplaceholder.typicode.com/posts -> 201 Created (321 ms)&#xA;{&#xA;  &quot;title&quot;: &quot;invoice‮fdp.exe&quot;,&#xA;  &quot;body&quot;: &quot;Portfolio notes for Q3.&quot;,&#xA;  &quot;userId&quot;: 1,&#xA;  &quot;id&quot;: 101&#xA;}&#xA;&#xA;expect(received).toBe(expected) // Object.is equality&#xA;&#xA;Expected: true&#xA;Received: false"><![CDATA[Error: Expected a 4xx rejection (400 Bad Request, 413 Payload Too Large, 415 Unsupported Media Type or 422 Unprocessable Entity), but the API answered 201 Created and accepted the invalid payload.
+POST https://jsonplaceholder.typicode.com/posts -> 201 Created (321 ms)
 {
   "title": "invoice‮fdp.exe",
   "body": "Portfolio notes for Q3.",
@@ -312,9 +312,9 @@ When I create "a title with bidirectional overrides"........................pass
 Then the API should reject the request with a 4xx client error..............failed
 And the response should explain what is wrong...............................skipped]]></system-out>
   </testcase>
-  <testcase classname="JSONPlaceholder POST /posts - invalid input is rejected with a 4xx" name="&lt;payload> is rejected - Missing required fields - #3.1: a post without userId is rejected" time="0.717">
-    <failure type="ExpectError" message="Expected a 4xx rejection (400 Bad Request, 413 Payload Too Large, 415 Unsupported Media Type or 422 Unprocessable Entity), but the API answered 201 Created and accepted the invalid payload.&#xA;POST https://jsonplaceholder.typicode.com/posts -> 201 Created (360 ms)&#xA;{&#xA;  &quot;title&quot;: &quot;Quarterly loan book review&quot;,&#xA;  &quot;body&quot;: &quot;Portfolio notes for Q3.&quot;,&#xA;  &quot;id&quot;: 101&#xA;}&#xA;&#xA;expect(received).toBe(expected) // Object.is equality&#xA;&#xA;Expected: true&#xA;Received: false"><![CDATA[Error: Expected a 4xx rejection (400 Bad Request, 413 Payload Too Large, 415 Unsupported Media Type or 422 Unprocessable Entity), but the API answered 201 Created and accepted the invalid payload.
-POST https://jsonplaceholder.typicode.com/posts -> 201 Created (360 ms)
+  <testcase classname="JSONPlaceholder POST /posts - invalid input is rejected with a 4xx" name="&lt;payload> is rejected - Missing required fields - #3.1: a post without userId is rejected" time="0.893">
+    <failure type="ExpectError" message="Expected a 4xx rejection (400 Bad Request, 413 Payload Too Large, 415 Unsupported Media Type or 422 Unprocessable Entity), but the API answered 201 Created and accepted the invalid payload.&#xA;POST https://jsonplaceholder.typicode.com/posts -> 201 Created (309 ms)&#xA;{&#xA;  &quot;title&quot;: &quot;Quarterly loan book review&quot;,&#xA;  &quot;body&quot;: &quot;Portfolio notes for Q3.&quot;,&#xA;  &quot;id&quot;: 101&#xA;}&#xA;&#xA;expect(received).toBe(expected) // Object.is equality&#xA;&#xA;Expected: true&#xA;Received: false"><![CDATA[Error: Expected a 4xx rejection (400 Bad Request, 413 Payload Too Large, 415 Unsupported Media Type or 422 Unprocessable Entity), but the API answered 201 Created and accepted the invalid payload.
+POST https://jsonplaceholder.typicode.com/posts -> 201 Created (309 ms)
 {
   "title": "Quarterly loan book review",
   "body": "Portfolio notes for Q3.",
@@ -334,9 +334,9 @@ When I create "a post without userId".......................................pass
 Then the API should reject the request with a 4xx client error..............failed
 And the response should explain what is wrong...............................skipped]]></system-out>
   </testcase>
-  <testcase classname="JSONPlaceholder POST /posts - invalid input is rejected with a 4xx" name="&lt;payload> is rejected - Missing required fields - #3.2: a post without title is rejected" time="0.727">
-    <failure type="ExpectError" message="Expected a 4xx rejection (400 Bad Request, 413 Payload Too Large, 415 Unsupported Media Type or 422 Unprocessable Entity), but the API answered 201 Created and accepted the invalid payload.&#xA;POST https://jsonplaceholder.typicode.com/posts -> 201 Created (354 ms)&#xA;{&#xA;  &quot;body&quot;: &quot;Portfolio notes for Q3.&quot;,&#xA;  &quot;userId&quot;: 1,&#xA;  &quot;id&quot;: 101&#xA;}&#xA;&#xA;expect(received).toBe(expected) // Object.is equality&#xA;&#xA;Expected: true&#xA;Received: false"><![CDATA[Error: Expected a 4xx rejection (400 Bad Request, 413 Payload Too Large, 415 Unsupported Media Type or 422 Unprocessable Entity), but the API answered 201 Created and accepted the invalid payload.
-POST https://jsonplaceholder.typicode.com/posts -> 201 Created (354 ms)
+  <testcase classname="JSONPlaceholder POST /posts - invalid input is rejected with a 4xx" name="&lt;payload> is rejected - Missing required fields - #3.2: a post without title is rejected" time="0.809">
+    <failure type="ExpectError" message="Expected a 4xx rejection (400 Bad Request, 413 Payload Too Large, 415 Unsupported Media Type or 422 Unprocessable Entity), but the API answered 201 Created and accepted the invalid payload.&#xA;POST https://jsonplaceholder.typicode.com/posts -> 201 Created (331 ms)&#xA;{&#xA;  &quot;body&quot;: &quot;Portfolio notes for Q3.&quot;,&#xA;  &quot;userId&quot;: 1,&#xA;  &quot;id&quot;: 101&#xA;}&#xA;&#xA;expect(received).toBe(expected) // Object.is equality&#xA;&#xA;Expected: true&#xA;Received: false"><![CDATA[Error: Expected a 4xx rejection (400 Bad Request, 413 Payload Too Large, 415 Unsupported Media Type or 422 Unprocessable Entity), but the API answered 201 Created and accepted the invalid payload.
+POST https://jsonplaceholder.typicode.com/posts -> 201 Created (331 ms)
 {
   "body": "Portfolio notes for Q3.",
   "userId": 1,
@@ -356,9 +356,9 @@ When I create "a post without title"........................................pass
 Then the API should reject the request with a 4xx client error..............failed
 And the response should explain what is wrong...............................skipped]]></system-out>
   </testcase>
-  <testcase classname="JSONPlaceholder POST /posts - invalid input is rejected with a 4xx" name="&lt;payload> is rejected - Missing required fields - #3.3: a post without body is rejected" time="0.597">
-    <failure type="ExpectError" message="Expected a 4xx rejection (400 Bad Request, 413 Payload Too Large, 415 Unsupported Media Type or 422 Unprocessable Entity), but the API answered 201 Created and accepted the invalid payload.&#xA;POST https://jsonplaceholder.typicode.com/posts -> 201 Created (333 ms)&#xA;{&#xA;  &quot;title&quot;: &quot;Quarterly loan book review&quot;,&#xA;  &quot;userId&quot;: 1,&#xA;  &quot;id&quot;: 101&#xA;}&#xA;&#xA;expect(received).toBe(expected) // Object.is equality&#xA;&#xA;Expected: true&#xA;Received: false"><![CDATA[Error: Expected a 4xx rejection (400 Bad Request, 413 Payload Too Large, 415 Unsupported Media Type or 422 Unprocessable Entity), but the API answered 201 Created and accepted the invalid payload.
-POST https://jsonplaceholder.typicode.com/posts -> 201 Created (333 ms)
+  <testcase classname="JSONPlaceholder POST /posts - invalid input is rejected with a 4xx" name="&lt;payload> is rejected - Missing required fields - #3.3: a post without body is rejected" time="0.862">
+    <failure type="ExpectError" message="Expected a 4xx rejection (400 Bad Request, 413 Payload Too Large, 415 Unsupported Media Type or 422 Unprocessable Entity), but the API answered 201 Created and accepted the invalid payload.&#xA;POST https://jsonplaceholder.typicode.com/posts -> 201 Created (297 ms)&#xA;{&#xA;  &quot;title&quot;: &quot;Quarterly loan book review&quot;,&#xA;  &quot;userId&quot;: 1,&#xA;  &quot;id&quot;: 101&#xA;}&#xA;&#xA;expect(received).toBe(expected) // Object.is equality&#xA;&#xA;Expected: true&#xA;Received: false"><![CDATA[Error: Expected a 4xx rejection (400 Bad Request, 413 Payload Too Large, 415 Unsupported Media Type or 422 Unprocessable Entity), but the API answered 201 Created and accepted the invalid payload.
+POST https://jsonplaceholder.typicode.com/posts -> 201 Created (297 ms)
 {
   "title": "Quarterly loan book review",
   "userId": 1,
@@ -378,9 +378,9 @@ When I create "a post without body".........................................pass
 Then the API should reject the request with a 4xx client error..............failed
 And the response should explain what is wrong...............................skipped]]></system-out>
   </testcase>
-  <testcase classname="JSONPlaceholder POST /posts - invalid input is rejected with a 4xx" name="&lt;payload> is rejected - Missing required fields - #3.4: a post with null userId is rejected" time="0.593">
-    <failure type="ExpectError" message="Expected a 4xx rejection (400 Bad Request, 413 Payload Too Large, 415 Unsupported Media Type or 422 Unprocessable Entity), but the API answered 201 Created and accepted the invalid payload.&#xA;POST https://jsonplaceholder.typicode.com/posts -> 201 Created (328 ms)&#xA;{&#xA;  &quot;title&quot;: &quot;Quarterly loan book review&quot;,&#xA;  &quot;body&quot;: &quot;Portfolio notes for Q3.&quot;,&#xA;  &quot;userId&quot;: null,&#xA;  &quot;id&quot;: 101&#xA;}&#xA;&#xA;expect(received).toBe(expected) // Object.is equality&#xA;&#xA;Expected: true&#xA;Received: false"><![CDATA[Error: Expected a 4xx rejection (400 Bad Request, 413 Payload Too Large, 415 Unsupported Media Type or 422 Unprocessable Entity), but the API answered 201 Created and accepted the invalid payload.
-POST https://jsonplaceholder.typicode.com/posts -> 201 Created (328 ms)
+  <testcase classname="JSONPlaceholder POST /posts - invalid input is rejected with a 4xx" name="&lt;payload> is rejected - Missing required fields - #3.4: a post with null userId is rejected" time="0.851">
+    <failure type="ExpectError" message="Expected a 4xx rejection (400 Bad Request, 413 Payload Too Large, 415 Unsupported Media Type or 422 Unprocessable Entity), but the API answered 201 Created and accepted the invalid payload.&#xA;POST https://jsonplaceholder.typicode.com/posts -> 201 Created (362 ms)&#xA;{&#xA;  &quot;title&quot;: &quot;Quarterly loan book review&quot;,&#xA;  &quot;body&quot;: &quot;Portfolio notes for Q3.&quot;,&#xA;  &quot;userId&quot;: null,&#xA;  &quot;id&quot;: 101&#xA;}&#xA;&#xA;expect(received).toBe(expected) // Object.is equality&#xA;&#xA;Expected: true&#xA;Received: false"><![CDATA[Error: Expected a 4xx rejection (400 Bad Request, 413 Payload Too Large, 415 Unsupported Media Type or 422 Unprocessable Entity), but the API answered 201 Created and accepted the invalid payload.
+POST https://jsonplaceholder.typicode.com/posts -> 201 Created (362 ms)
 {
   "title": "Quarterly loan book review",
   "body": "Portfolio notes for Q3.",
@@ -401,9 +401,9 @@ When I create "a post with null userId".....................................pass
 Then the API should reject the request with a 4xx client error..............failed
 And the response should explain what is wrong...............................skipped]]></system-out>
   </testcase>
-  <testcase classname="JSONPlaceholder POST /posts - invalid input is rejected with a 4xx" name="&lt;payload> is rejected - Missing required fields - #3.5: a post with an empty title is rejected" time="1.051">
-    <failure type="ExpectError" message="Expected a 4xx rejection (400 Bad Request, 413 Payload Too Large, 415 Unsupported Media Type or 422 Unprocessable Entity), but the API answered 201 Created and accepted the invalid payload.&#xA;POST https://jsonplaceholder.typicode.com/posts -> 201 Created (796 ms)&#xA;{&#xA;  &quot;title&quot;: &quot;&quot;,&#xA;  &quot;body&quot;: &quot;Portfolio notes for Q3.&quot;,&#xA;  &quot;userId&quot;: 1,&#xA;  &quot;id&quot;: 101&#xA;}&#xA;&#xA;expect(received).toBe(expected) // Object.is equality&#xA;&#xA;Expected: true&#xA;Received: false"><![CDATA[Error: Expected a 4xx rejection (400 Bad Request, 413 Payload Too Large, 415 Unsupported Media Type or 422 Unprocessable Entity), but the API answered 201 Created and accepted the invalid payload.
-POST https://jsonplaceholder.typicode.com/posts -> 201 Created (796 ms)
+  <testcase classname="JSONPlaceholder POST /posts - invalid input is rejected with a 4xx" name="&lt;payload> is rejected - Missing required fields - #3.5: a post with an empty title is rejected" time="0.588">
+    <failure type="ExpectError" message="Expected a 4xx rejection (400 Bad Request, 413 Payload Too Large, 415 Unsupported Media Type or 422 Unprocessable Entity), but the API answered 201 Created and accepted the invalid payload.&#xA;POST https://jsonplaceholder.typicode.com/posts -> 201 Created (330 ms)&#xA;{&#xA;  &quot;title&quot;: &quot;&quot;,&#xA;  &quot;body&quot;: &quot;Portfolio notes for Q3.&quot;,&#xA;  &quot;userId&quot;: 1,&#xA;  &quot;id&quot;: 101&#xA;}&#xA;&#xA;expect(received).toBe(expected) // Object.is equality&#xA;&#xA;Expected: true&#xA;Received: false"><![CDATA[Error: Expected a 4xx rejection (400 Bad Request, 413 Payload Too Large, 415 Unsupported Media Type or 422 Unprocessable Entity), but the API answered 201 Created and accepted the invalid payload.
+POST https://jsonplaceholder.typicode.com/posts -> 201 Created (330 ms)
 {
   "title": "",
   "body": "Portfolio notes for Q3.",
@@ -424,9 +424,9 @@ When I create "a post with an empty title"..................................pass
 Then the API should reject the request with a 4xx client error..............failed
 And the response should explain what is wrong...............................skipped]]></system-out>
   </testcase>
-  <testcase classname="JSONPlaceholder POST /posts - invalid input is rejected with a 4xx" name="&lt;payload> is rejected - Wrong types, impossible values and malformed requests - #4.1: a post with a text userId is rejected" time="0.57">
-    <failure type="ExpectError" message="Expected a 4xx rejection (400 Bad Request, 413 Payload Too Large, 415 Unsupported Media Type or 422 Unprocessable Entity), but the API answered 201 Created and accepted the invalid payload.&#xA;POST https://jsonplaceholder.typicode.com/posts -> 201 Created (324 ms)&#xA;{&#xA;  &quot;title&quot;: &quot;Quarterly loan book review&quot;,&#xA;  &quot;body&quot;: &quot;Portfolio notes for Q3.&quot;,&#xA;  &quot;userId&quot;: &quot;abc&quot;,&#xA;  &quot;id&quot;: 101&#xA;}&#xA;&#xA;expect(received).toBe(expected) // Object.is equality&#xA;&#xA;Expected: true&#xA;Received: false"><![CDATA[Error: Expected a 4xx rejection (400 Bad Request, 413 Payload Too Large, 415 Unsupported Media Type or 422 Unprocessable Entity), but the API answered 201 Created and accepted the invalid payload.
-POST https://jsonplaceholder.typicode.com/posts -> 201 Created (324 ms)
+  <testcase classname="JSONPlaceholder POST /posts - invalid input is rejected with a 4xx" name="&lt;payload> is rejected - Wrong types, impossible values and malformed requests - #4.1: a post with a text userId is rejected" time="0.606">
+    <failure type="ExpectError" message="Expected a 4xx rejection (400 Bad Request, 413 Payload Too Large, 415 Unsupported Media Type or 422 Unprocessable Entity), but the API answered 201 Created and accepted the invalid payload.&#xA;POST https://jsonplaceholder.typicode.com/posts -> 201 Created (326 ms)&#xA;{&#xA;  &quot;title&quot;: &quot;Quarterly loan book review&quot;,&#xA;  &quot;body&quot;: &quot;Portfolio notes for Q3.&quot;,&#xA;  &quot;userId&quot;: &quot;abc&quot;,&#xA;  &quot;id&quot;: 101&#xA;}&#xA;&#xA;expect(received).toBe(expected) // Object.is equality&#xA;&#xA;Expected: true&#xA;Received: false"><![CDATA[Error: Expected a 4xx rejection (400 Bad Request, 413 Payload Too Large, 415 Unsupported Media Type or 422 Unprocessable Entity), but the API answered 201 Created and accepted the invalid payload.
+POST https://jsonplaceholder.typicode.com/posts -> 201 Created (326 ms)
 {
   "title": "Quarterly loan book review",
   "body": "Portfolio notes for Q3.",
@@ -447,9 +447,9 @@ When I create "a post with a text userId"...................................pass
 Then the API should reject the request with a 4xx client error..............failed
 And the response should explain what is wrong...............................skipped]]></system-out>
   </testcase>
-  <testcase classname="JSONPlaceholder POST /posts - invalid input is rejected with a 4xx" name="&lt;payload> is rejected - Wrong types, impossible values and malformed requests - #4.2: a post with a negative userId is rejected" time="1.032">
-    <failure type="ExpectError" message="Expected a 4xx rejection (400 Bad Request, 413 Payload Too Large, 415 Unsupported Media Type or 422 Unprocessable Entity), but the API answered 201 Created and accepted the invalid payload.&#xA;POST https://jsonplaceholder.typicode.com/posts -> 201 Created (776 ms)&#xA;{&#xA;  &quot;title&quot;: &quot;Quarterly loan book review&quot;,&#xA;  &quot;body&quot;: &quot;Portfolio notes for Q3.&quot;,&#xA;  &quot;userId&quot;: -1,&#xA;  &quot;id&quot;: 101&#xA;}&#xA;&#xA;expect(received).toBe(expected) // Object.is equality&#xA;&#xA;Expected: true&#xA;Received: false"><![CDATA[Error: Expected a 4xx rejection (400 Bad Request, 413 Payload Too Large, 415 Unsupported Media Type or 422 Unprocessable Entity), but the API answered 201 Created and accepted the invalid payload.
-POST https://jsonplaceholder.typicode.com/posts -> 201 Created (776 ms)
+  <testcase classname="JSONPlaceholder POST /posts - invalid input is rejected with a 4xx" name="&lt;payload> is rejected - Wrong types, impossible values and malformed requests - #4.2: a post with a negative userId is rejected" time="0.591">
+    <failure type="ExpectError" message="Expected a 4xx rejection (400 Bad Request, 413 Payload Too Large, 415 Unsupported Media Type or 422 Unprocessable Entity), but the API answered 201 Created and accepted the invalid payload.&#xA;POST https://jsonplaceholder.typicode.com/posts -> 201 Created (335 ms)&#xA;{&#xA;  &quot;title&quot;: &quot;Quarterly loan book review&quot;,&#xA;  &quot;body&quot;: &quot;Portfolio notes for Q3.&quot;,&#xA;  &quot;userId&quot;: -1,&#xA;  &quot;id&quot;: 101&#xA;}&#xA;&#xA;expect(received).toBe(expected) // Object.is equality&#xA;&#xA;Expected: true&#xA;Received: false"><![CDATA[Error: Expected a 4xx rejection (400 Bad Request, 413 Payload Too Large, 415 Unsupported Media Type or 422 Unprocessable Entity), but the API answered 201 Created and accepted the invalid payload.
+POST https://jsonplaceholder.typicode.com/posts -> 201 Created (335 ms)
 {
   "title": "Quarterly loan book review",
   "body": "Portfolio notes for Q3.",
@@ -470,9 +470,9 @@ When I create "a post with a negative userId"...............................pass
 Then the API should reject the request with a 4xx client error..............failed
 And the response should explain what is wrong...............................skipped]]></system-out>
   </testcase>
-  <testcase classname="JSONPlaceholder POST /posts - invalid input is rejected with a 4xx" name="&lt;payload> is rejected - Wrong types, impossible values and malformed requests - #4.3: a post with an unknown userId is rejected" time="0.579">
-    <failure type="ExpectError" message="Expected a 4xx rejection (400 Bad Request, 413 Payload Too Large, 415 Unsupported Media Type or 422 Unprocessable Entity), but the API answered 201 Created and accepted the invalid payload.&#xA;POST https://jsonplaceholder.typicode.com/posts -> 201 Created (332 ms)&#xA;{&#xA;  &quot;title&quot;: &quot;Quarterly loan book review&quot;,&#xA;  &quot;body&quot;: &quot;Portfolio notes for Q3.&quot;,&#xA;  &quot;userId&quot;: 999999,&#xA;  &quot;id&quot;: 101&#xA;}&#xA;&#xA;expect(received).toBe(expected) // Object.is equality&#xA;&#xA;Expected: true&#xA;Received: false"><![CDATA[Error: Expected a 4xx rejection (400 Bad Request, 413 Payload Too Large, 415 Unsupported Media Type or 422 Unprocessable Entity), but the API answered 201 Created and accepted the invalid payload.
-POST https://jsonplaceholder.typicode.com/posts -> 201 Created (332 ms)
+  <testcase classname="JSONPlaceholder POST /posts - invalid input is rejected with a 4xx" name="&lt;payload> is rejected - Wrong types, impossible values and malformed requests - #4.3: a post with an unknown userId is rejected" time="0.593">
+    <failure type="ExpectError" message="Expected a 4xx rejection (400 Bad Request, 413 Payload Too Large, 415 Unsupported Media Type or 422 Unprocessable Entity), but the API answered 201 Created and accepted the invalid payload.&#xA;POST https://jsonplaceholder.typicode.com/posts -> 201 Created (331 ms)&#xA;{&#xA;  &quot;title&quot;: &quot;Quarterly loan book review&quot;,&#xA;  &quot;body&quot;: &quot;Portfolio notes for Q3.&quot;,&#xA;  &quot;userId&quot;: 999999,&#xA;  &quot;id&quot;: 101&#xA;}&#xA;&#xA;expect(received).toBe(expected) // Object.is equality&#xA;&#xA;Expected: true&#xA;Received: false"><![CDATA[Error: Expected a 4xx rejection (400 Bad Request, 413 Payload Too Large, 415 Unsupported Media Type or 422 Unprocessable Entity), but the API answered 201 Created and accepted the invalid payload.
+POST https://jsonplaceholder.typicode.com/posts -> 201 Created (331 ms)
 {
   "title": "Quarterly loan book review",
   "body": "Portfolio notes for Q3.",
@@ -493,9 +493,9 @@ When I create "a post with an unknown userId"...............................pass
 Then the API should reject the request with a 4xx client error..............failed
 And the response should explain what is wrong...............................skipped]]></system-out>
   </testcase>
-  <testcase classname="JSONPlaceholder POST /posts - invalid input is rejected with a 4xx" name="&lt;payload> is rejected - Wrong types, impossible values and malformed requests - #4.4: a post with a numeric title is rejected" time="0.586">
-    <failure type="ExpectError" message="Expected a 4xx rejection (400 Bad Request, 413 Payload Too Large, 415 Unsupported Media Type or 422 Unprocessable Entity), but the API answered 201 Created and accepted the invalid payload.&#xA;POST https://jsonplaceholder.typicode.com/posts -> 201 Created (336 ms)&#xA;{&#xA;  &quot;title&quot;: 12345,&#xA;  &quot;body&quot;: &quot;Portfolio notes for Q3.&quot;,&#xA;  &quot;userId&quot;: 1,&#xA;  &quot;id&quot;: 101&#xA;}&#xA;&#xA;expect(received).toBe(expected) // Object.is equality&#xA;&#xA;Expected: true&#xA;Received: false"><![CDATA[Error: Expected a 4xx rejection (400 Bad Request, 413 Payload Too Large, 415 Unsupported Media Type or 422 Unprocessable Entity), but the API answered 201 Created and accepted the invalid payload.
-POST https://jsonplaceholder.typicode.com/posts -> 201 Created (336 ms)
+  <testcase classname="JSONPlaceholder POST /posts - invalid input is rejected with a 4xx" name="&lt;payload> is rejected - Wrong types, impossible values and malformed requests - #4.4: a post with a numeric title is rejected" time="1.071">
+    <failure type="ExpectError" message="Expected a 4xx rejection (400 Bad Request, 413 Payload Too Large, 415 Unsupported Media Type or 422 Unprocessable Entity), but the API answered 201 Created and accepted the invalid payload.&#xA;POST https://jsonplaceholder.typicode.com/posts -> 201 Created (811 ms)&#xA;{&#xA;  &quot;title&quot;: 12345,&#xA;  &quot;body&quot;: &quot;Portfolio notes for Q3.&quot;,&#xA;  &quot;userId&quot;: 1,&#xA;  &quot;id&quot;: 101&#xA;}&#xA;&#xA;expect(received).toBe(expected) // Object.is equality&#xA;&#xA;Expected: true&#xA;Received: false"><![CDATA[Error: Expected a 4xx rejection (400 Bad Request, 413 Payload Too Large, 415 Unsupported Media Type or 422 Unprocessable Entity), but the API answered 201 Created and accepted the invalid payload.
+POST https://jsonplaceholder.typicode.com/posts -> 201 Created (811 ms)
 {
   "title": 12345,
   "body": "Portfolio notes for Q3.",
@@ -516,9 +516,9 @@ When I create "a post with a numeric title".................................pass
 Then the API should reject the request with a 4xx client error..............failed
 And the response should explain what is wrong...............................skipped]]></system-out>
   </testcase>
-  <testcase classname="JSONPlaceholder POST /posts - invalid input is rejected with a 4xx" name="&lt;payload> is rejected - Wrong types, impossible values and malformed requests - #4.5: malformed JSON is rejected" time="1.168">
-    <failure type="ExpectError" message="Expected a 4xx rejection (400 Bad Request, 413 Payload Too Large, 415 Unsupported Media Type or 422 Unprocessable Entity), but the API answered 500 Internal Server Error, a server-side failure.&#xA;POST https://jsonplaceholder.typicode.com/posts -> 500 Internal Server Error (818 ms)&#xA;SyntaxError: Unterminated string in JSON at position 23 (line 1 column 24)&#xA;    at JSON.parse (&lt;anonymous>)&#xA;    at parse (/app/node_modules/body-parser/lib/types/json.js:89:19)&#xA;    at /app/node_modules/body-parser/lib/read.js:121:18&#xA;    at invokeCallback (/app/node_modules/body-parser/node_modules/raw-body/index.js:224:16)&#xA;    at done (/app/node_modules/body-parser/node_modules/raw-body/index.js:213:7)&#xA;    at IncomingMessage.onEnd (/app/node_modules/body-parser/node_modules/raw-body/index.js:273:7)&#xA;    at IncomingMessage.emit (node:events:514:28)&#xA;    at endReadableNT (node:internal/streams/read&#xA;&#xA;expect(received).toBe(expected) // Object.is equality&#xA;&#xA;Expected: true&#xA;Received: false"><![CDATA[Error: Expected a 4xx rejection (400 Bad Request, 413 Payload Too Large, 415 Unsupported Media Type or 422 Unprocessable Entity), but the API answered 500 Internal Server Error, a server-side failure.
-POST https://jsonplaceholder.typicode.com/posts -> 500 Internal Server Error (818 ms)
+  <testcase classname="JSONPlaceholder POST /posts - invalid input is rejected with a 4xx" name="&lt;payload> is rejected - Wrong types, impossible values and malformed requests - #4.5: malformed JSON is rejected" time="1.053">
+    <failure type="ExpectError" message="Expected a 4xx rejection (400 Bad Request, 413 Payload Too Large, 415 Unsupported Media Type or 422 Unprocessable Entity), but the API answered 500 Internal Server Error, a server-side failure.&#xA;POST https://jsonplaceholder.typicode.com/posts -> 500 Internal Server Error (794 ms)&#xA;SyntaxError: Unterminated string in JSON at position 23 (line 1 column 24)&#xA;    at JSON.parse (&lt;anonymous>)&#xA;    at parse (/app/node_modules/body-parser/lib/types/json.js:89:19)&#xA;    at /app/node_modules/body-parser/lib/read.js:121:18&#xA;    at invokeCallback (/app/node_modules/body-parser/node_modules/raw-body/index.js:224:16)&#xA;    at done (/app/node_modules/body-parser/node_modules/raw-body/index.js:213:7)&#xA;    at IncomingMessage.onEnd (/app/node_modules/body-parser/node_modules/raw-body/index.js:273:7)&#xA;    at IncomingMessage.emit (node:events:514:28)&#xA;    at endReadableNT (node:internal/streams/read&#xA;&#xA;expect(received).toBe(expected) // Object.is equality&#xA;&#xA;Expected: true&#xA;Received: false"><![CDATA[Error: Expected a 4xx rejection (400 Bad Request, 413 Payload Too Large, 415 Unsupported Media Type or 422 Unprocessable Entity), but the API answered 500 Internal Server Error, a server-side failure.
+POST https://jsonplaceholder.typicode.com/posts -> 500 Internal Server Error (794 ms)
 SyntaxError: Unterminated string in JSON at position 23 (line 1 column 24)
     at JSON.parse (<anonymous>)
     at parse (/app/node_modules/body-parser/lib/types/json.js:89:19)
@@ -548,9 +548,9 @@ When I create "malformed JSON"..............................................pass
 Then the API should reject the request with a 4xx client error..............failed
 And the response should explain what is wrong...............................skipped]]></system-out>
   </testcase>
-  <testcase classname="JSONPlaceholder POST /posts - invalid input is rejected with a 4xx" name="&lt;payload> is rejected - Wrong types, impossible values and malformed requests - #4.6: a JSON array instead of an object is rejected" time="0.585">
-    <failure type="ExpectError" message="Expected a 4xx rejection (400 Bad Request, 413 Payload Too Large, 415 Unsupported Media Type or 422 Unprocessable Entity), but the API answered 201 Created and accepted the invalid payload.&#xA;POST https://jsonplaceholder.typicode.com/posts -> 201 Created (327 ms)&#xA;{&#xA;  &quot;0&quot;: {&#xA;    &quot;title&quot;: &quot;t&quot;,&#xA;    &quot;body&quot;: &quot;b&quot;,&#xA;    &quot;userId&quot;: 1&#xA;  },&#xA;  &quot;id&quot;: 101&#xA;}&#xA;&#xA;expect(received).toBe(expected) // Object.is equality&#xA;&#xA;Expected: true&#xA;Received: false"><![CDATA[Error: Expected a 4xx rejection (400 Bad Request, 413 Payload Too Large, 415 Unsupported Media Type or 422 Unprocessable Entity), but the API answered 201 Created and accepted the invalid payload.
-POST https://jsonplaceholder.typicode.com/posts -> 201 Created (327 ms)
+  <testcase classname="JSONPlaceholder POST /posts - invalid input is rejected with a 4xx" name="&lt;payload> is rejected - Wrong types, impossible values and malformed requests - #4.6: a JSON array instead of an object is rejected" time="0.576">
+    <failure type="ExpectError" message="Expected a 4xx rejection (400 Bad Request, 413 Payload Too Large, 415 Unsupported Media Type or 422 Unprocessable Entity), but the API answered 201 Created and accepted the invalid payload.&#xA;POST https://jsonplaceholder.typicode.com/posts -> 201 Created (323 ms)&#xA;{&#xA;  &quot;0&quot;: {&#xA;    &quot;title&quot;: &quot;t&quot;,&#xA;    &quot;body&quot;: &quot;b&quot;,&#xA;    &quot;userId&quot;: 1&#xA;  },&#xA;  &quot;id&quot;: 101&#xA;}&#xA;&#xA;expect(received).toBe(expected) // Object.is equality&#xA;&#xA;Expected: true&#xA;Received: false"><![CDATA[Error: Expected a 4xx rejection (400 Bad Request, 413 Payload Too Large, 415 Unsupported Media Type or 422 Unprocessable Entity), but the API answered 201 Created and accepted the invalid payload.
+POST https://jsonplaceholder.typicode.com/posts -> 201 Created (323 ms)
 {
   "0": {
     "title": "t",
@@ -573,9 +573,9 @@ When I create "a JSON array instead of an object"...........................pass
 Then the API should reject the request with a 4xx client error..............failed
 And the response should explain what is wrong...............................skipped]]></system-out>
   </testcase>
-  <testcase classname="JSONPlaceholder POST /posts - invalid input is rejected with a 4xx" name="&lt;payload> is rejected - Wrong types, impossible values and malformed requests - #4.7: a JSON body sent as text/plain is rejected" time="0.595">
-    <failure type="ExpectError" message="Expected a 4xx rejection (400 Bad Request, 413 Payload Too Large, 415 Unsupported Media Type or 422 Unprocessable Entity), but the API answered 201 Created and accepted the invalid payload.&#xA;POST https://jsonplaceholder.typicode.com/posts -> 201 Created (335 ms)&#xA;{&#xA;  &quot;id&quot;: 101&#xA;}&#xA;&#xA;expect(received).toBe(expected) // Object.is equality&#xA;&#xA;Expected: true&#xA;Received: false"><![CDATA[Error: Expected a 4xx rejection (400 Bad Request, 413 Payload Too Large, 415 Unsupported Media Type or 422 Unprocessable Entity), but the API answered 201 Created and accepted the invalid payload.
-POST https://jsonplaceholder.typicode.com/posts -> 201 Created (335 ms)
+  <testcase classname="JSONPlaceholder POST /posts - invalid input is rejected with a 4xx" name="&lt;payload> is rejected - Wrong types, impossible values and malformed requests - #4.7: a JSON body sent as text/plain is rejected" time="0.592">
+    <failure type="ExpectError" message="Expected a 4xx rejection (400 Bad Request, 413 Payload Too Large, 415 Unsupported Media Type or 422 Unprocessable Entity), but the API answered 201 Created and accepted the invalid payload.&#xA;POST https://jsonplaceholder.typicode.com/posts -> 201 Created (331 ms)&#xA;{&#xA;  &quot;id&quot;: 101&#xA;}&#xA;&#xA;expect(received).toBe(expected) // Object.is equality&#xA;&#xA;Expected: true&#xA;Received: false"><![CDATA[Error: Expected a 4xx rejection (400 Bad Request, 413 Payload Too Large, 415 Unsupported Media Type or 422 Unprocessable Entity), but the API answered 201 Created and accepted the invalid payload.
+POST https://jsonplaceholder.typicode.com/posts -> 201 Created (331 ms)
 {
   "id": 101
 }

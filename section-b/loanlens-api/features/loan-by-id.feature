@@ -1,4 +1,4 @@
-@app @api
+@api-app @api
 Feature: LoanLens API - single loan (GET /api/loans/{id})
 
   Background:

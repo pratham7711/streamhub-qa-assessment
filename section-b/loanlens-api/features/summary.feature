@@ -1,4 +1,4 @@
-@app @api
+@api-app @api
 Feature: LoanLens API - portfolio summary (GET /api/loans/summary)
   The dashboard figures. Totals, the weighted average rate and the monthly EMI
   inflow are recomputed independently from the loan book.

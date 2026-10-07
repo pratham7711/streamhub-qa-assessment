@@ -1,8 +1,8 @@
-@app @ui @loanlens-ui
+@web-app @ui @loanlens-ui
 Feature: LoanLens UI - Portfolio dashboard
   The dashboard summarises the whole loan book. Every figure and chart value
   is compared with the suite's own reading of the loan book
-  (tests/utils/loan-book.ts), never with another API response.
+  (framework/oracles/loan-book.ts), never with another figure from the app.
 
   Background:
     Given I open the LoanLens dashboard

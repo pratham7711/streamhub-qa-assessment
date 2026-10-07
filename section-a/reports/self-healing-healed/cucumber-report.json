@@ -1,6 +1,6 @@
 [
   {
-    "description": "  These scenarios drive LoanLens through tests/pages/self-healing/LegacyLocators.ts,\n  whose locators were broken deliberately and left broken. Each fails in a\n  different way: a renamed test id, changed button text, a label that became\n  ambiguous, a positional locator that now finds the wrong element, and a\n  removed feature.\n\n  npm run test:self-healing   healing off: every scenario fails with a diagnosis\n  npm run heal                healing on: validated fixes are used for this run only,\n                              and a patch for each is written for review\n\n  The test assertions are the same either way and come from the loan-book\n  oracle, so a \"healed\" locator that finds the wrong element still fails.",
+    "description": "  These scenarios drive the LoanLens web app through section-a/self-healing/pages/LegacyLocators.ts,\n  whose locators were broken deliberately and left broken. Each fails in a\n  different way: a renamed test id, changed button text, a label that became\n  ambiguous, a positional locator that now finds the wrong element, and a\n  removed feature.\n\n  npm run test:self-healing -- --section a   healing off: every scenario fails with a diagnosis\n  npm run heal -- --section a                healing on: validated fixes are used for this run only,\n                                             and a patch for each is written for review\n\n  The test assertions are the same either way and come from the loan-book\n  oracle, so a \"healed\" locator that finds the wrong element still fails.",
     "elements": [
       {
         "description": "",
@@ -12,7 +12,7 @@
           {
             "result": {
               "status": "passed",
-              "duration": 47291
+              "duration": 45458
             },
             "keyword": "Before",
             "hidden": true
@@ -20,7 +20,7 @@
           {
             "result": {
               "status": "passed",
-              "duration": 10105999
+              "duration": 10587083
             },
             "keyword": "Before",
             "hidden": true
@@ -28,7 +28,7 @@
           {
             "result": {
               "status": "passed",
-              "duration": 31874
+              "duration": 87704041
             },
             "keyword": "Before",
             "hidden": true
@@ -36,7 +36,7 @@
           {
             "result": {
               "status": "passed",
-              "duration": 81707000
+              "duration": 30583
             },
             "keyword": "Before",
             "hidden": true
@@ -44,15 +44,7 @@
           {
             "result": {
               "status": "passed",
-              "duration": 32042
-            },
-            "keyword": "Before",
-            "hidden": true
-          },
-          {
-            "result": {
-              "status": "passed",
-              "duration": 64591708
+              "duration": 63765499
             },
             "arguments": [],
             "keyword": "Given ",
@@ -65,14 +57,14 @@
           {
             "result": {
               "status": "passed",
-              "duration": 13832311292
+              "duration": 10543371874
             },
             "arguments": [],
             "keyword": "Then ",
             "line": 18,
             "name": "the legacy Total loans figure should equal the number of loans in the loan book",
             "match": {
-              "location": "self-healing/steps/self-healing.steps.ts:12"
+              "location": "section-a/self-healing/steps/self-healing.steps.ts:12"
             },
             "embeddings": [
               {
@@ -80,7 +72,7 @@
                 "mime_type": "text/plain"
               },
               {
-                "data": "SGVhbGVyIChjbGF1ZGUtY2xpIChzb25uZXQpKSBwcm9wb3NlcyBwYWdlLmdldEJ5Um9sZSgnZ3JvdXAnLCB7IG5hbWU6ICdUb3RhbCBsb2FucycgfSkuZ2V0QnlUZXN0SWQoJ2twaS12YWx1ZScpCiAg4pyUIHZvY2FidWxhcnk6IHRlc3RpZCBzdHJhdGVneSwgbm8gQ1NTL1hQYXRoL3Bvc2l0aW9uCiAg4pyUIGRpZmZlcnMgZnJvbSBmYWlsZWQgbG9jYXRvcjogbmV3IGxvY2F0b3IKICDinJQgdW5pcXVlIG1hdGNoOiAxIGVsZW1lbnQocykgbWF0Y2hlZAogIOKclCB2aXNpYmxlOiB2aXNpYmxlCiAg4pyUIGZpbmdlcnByaW50OiBjb250YWluZXI6IGluc2lkZSBncm91cCAiVG90YWwgbG9hbnMiCiAg4pyUIGZpbmdlcnByaW50OiB0ZXh0OiB0ZXh0ICIxMjAiIHZzIC9eXGRbXGQsXSokLwpSYXRpb25hbGU6IFRoZSBrcGktdmFsdWUgdGVzdCBpZCBpcyB0aGUgb25seSB2YWx1ZSBlbGVtZW50IGluc2lkZSB0aGUgIlRvdGFsIGxvYW5zIiBncm91cCwgc28gc2NvcGluZyByZXNvbHZlcyB0aGUgZm91ci13YXkgZHVwbGljYXRlLg==",
+                "data": "SGVhbGVyIChjbGF1ZGUtY2xpIChzb25uZXQpKSBwcm9wb3NlcyBwYWdlLmdldEJ5Um9sZSgnZ3JvdXAnLCB7IG5hbWU6ICdUb3RhbCBsb2FucycgfSkuZ2V0QnlUZXN0SWQoJ2twaS12YWx1ZScpCiAg4pyUIHZvY2FidWxhcnk6IHRlc3RpZCBzdHJhdGVneSwgbm8gQ1NTL1hQYXRoL3Bvc2l0aW9uCiAg4pyUIGRpZmZlcnMgZnJvbSBmYWlsZWQgbG9jYXRvcjogbmV3IGxvY2F0b3IKICDinJQgdW5pcXVlIG1hdGNoOiAxIGVsZW1lbnQocykgbWF0Y2hlZAogIOKclCB2aXNpYmxlOiB2aXNpYmxlCiAg4pyUIGZpbmdlcnByaW50OiBjb250YWluZXI6IGluc2lkZSBncm91cCAiVG90YWwgbG9hbnMiCiAg4pyUIGZpbmdlcnByaW50OiB0ZXh0OiB0ZXh0ICIxMjAiIHZzIC9eXGRbXGQsXSokLwpSYXRpb25hbGU6IFRoZSBrcGktdmFsdWUgdGVzdCBpZCBpcyB0aGUgb25seSB2YWx1ZSBlbGVtZW50IGluc2lkZSB0aGUgIlRvdGFsIGxvYW5zIiBncm91cCwgYW5kIGl0IHNob3dzIDEyMCwgd2hpY2ggZml0cyB0aGUgbnVtZXJpYyBmaW5nZXJwcmludC4=",
                 "mime_type": "text/plain"
               },
               {
@@ -92,7 +84,7 @@
           {
             "result": {
               "status": "passed",
-              "duration": 702666
+              "duration": 672125
             },
             "keyword": "After",
             "hidden": true
@@ -100,7 +92,7 @@
           {
             "result": {
               "status": "passed",
-              "duration": 4305249
+              "duration": 4680000
             },
             "keyword": "After",
             "hidden": true
@@ -108,7 +100,7 @@
           {
             "result": {
               "status": "passed",
-              "duration": 31500
+              "duration": 33249
             },
             "keyword": "After",
             "hidden": true
@@ -116,7 +108,7 @@
         ],
         "tags": [
           {
-            "name": "@app",
+            "name": "@web-app",
             "line": 1
           },
           {
@@ -140,7 +132,7 @@
           {
             "result": {
               "status": "passed",
-              "duration": 13750
+              "duration": 14166
             },
             "keyword": "Before",
             "hidden": true
@@ -148,7 +140,7 @@
           {
             "result": {
               "status": "passed",
-              "duration": 24875
+              "duration": 42417
             },
             "keyword": "Before",
             "hidden": true
@@ -156,7 +148,7 @@
           {
             "result": {
               "status": "passed",
-              "duration": 22000
+              "duration": 30293582
             },
             "keyword": "Before",
             "hidden": true
@@ -164,7 +156,7 @@
           {
             "result": {
               "status": "passed",
-              "duration": 29924875
+              "duration": 17334
             },
             "keyword": "Before",
             "hidden": true
@@ -172,15 +164,7 @@
           {
             "result": {
               "status": "passed",
-              "duration": 14666
-            },
-            "keyword": "Before",
-            "hidden": true
-          },
-          {
-            "result": {
-              "status": "passed",
-              "duration": 62126541
+              "duration": 62289500
             },
             "arguments": [],
             "keyword": "Given ",
@@ -193,14 +177,14 @@
           {
             "result": {
               "status": "passed",
-              "duration": 9166609582
+              "duration": 11671005875
             },
             "arguments": [],
             "keyword": "When ",
             "line": 22,
             "name": "I filter the report to \"Overdue\" loans with the legacy Apply button",
             "match": {
-              "location": "self-healing/steps/self-healing.steps.ts:17"
+              "location": "section-a/self-healing/steps/self-healing.steps.ts:17"
             },
             "embeddings": [
               {
@@ -208,7 +192,7 @@
                 "mime_type": "text/plain"
               },
               {
-                "data": "SGVhbGVyIChjbGF1ZGUtY2xpIChzb25uZXQpKSBwcm9wb3NlcyBwYWdlLmdldEJ5Um9sZSgnYnV0dG9uJywgeyBuYW1lOiAnQXBwbHkgZmlsdGVycycsIGV4YWN0OiB0cnVlIH0pCiAg4pyUIHZvY2FidWxhcnk6IHJvbGUgc3RyYXRlZ3ksIG5vIENTUy9YUGF0aC9wb3NpdGlvbgogIOKclCBkaWZmZXJzIGZyb20gZmFpbGVkIGxvY2F0b3I6IG5ldyBsb2NhdG9yCiAg4pyUIHVuaXF1ZSBtYXRjaDogMSBlbGVtZW50KHMpIG1hdGNoZWQKICDinJQgdmlzaWJsZTogdmlzaWJsZQogIOKclCBmaW5nZXJwcmludDogcm9sZSBhbmQgbmFtZTogZWxlbWVudCBoYXMgcm9sZSBidXR0b24gbmFtZWQgL15hcHBseS9pClJhdGlvbmFsZTogVGhlIG9ubHkgYnV0dG9uIG5hbWVkICdBcHBseSBmaWx0ZXJzJyBpbiB0aGUgcGFnZTsgaXQgc3VibWl0cyB0aGUgUmVwb3J0IGZpbHRlcnMgZm9ybSBhbmQgbWF0Y2hlcyAvXmFwcGx5L2ku",
+                "data": "SGVhbGVyIChjbGF1ZGUtY2xpIChzb25uZXQpKSBwcm9wb3NlcyBwYWdlLmdldEJ5Um9sZSgnYnV0dG9uJywgeyBuYW1lOiAnQXBwbHkgZmlsdGVycycsIGV4YWN0OiB0cnVlIH0pCiAg4pyUIHZvY2FidWxhcnk6IHJvbGUgc3RyYXRlZ3ksIG5vIENTUy9YUGF0aC9wb3NpdGlvbgogIOKclCBkaWZmZXJzIGZyb20gZmFpbGVkIGxvY2F0b3I6IG5ldyBsb2NhdG9yCiAg4pyUIHVuaXF1ZSBtYXRjaDogMSBlbGVtZW50KHMpIG1hdGNoZWQKICDinJQgdmlzaWJsZTogdmlzaWJsZQogIOKclCBmaW5nZXJwcmludDogcm9sZSBhbmQgbmFtZTogZWxlbWVudCBoYXMgcm9sZSBidXR0b24gbmFtZWQgL15hcHBseS9pClJhdGlvbmFsZTogVGhlIGZvcm0gY29udGFpbnMgYSBzaW5nbGUgYnV0dG9uIG5hbWVkIGV4YWN0bHkgJ0FwcGx5IGZpbHRlcnMnLCB3aGljaCBtYXRjaGVzIHRoZSAvXmFwcGx5L2kgZmluZ2VycHJpbnQgYW5kIHN1Ym1pdHMgdGhlIHJlcG9ydCBmaWx0ZXJzLg==",
                 "mime_type": "text/plain"
               },
               {
@@ -220,14 +204,14 @@
           {
             "result": {
               "status": "passed",
-              "duration": 30507458
+              "duration": 27280582
             },
             "arguments": [],
             "keyword": "Then ",
             "line": 23,
             "name": "the report should list exactly the loans the loan book has for the current query",
             "match": {
-              "location": "section-a/loanlens-ui/steps/loanlens-ui.steps.ts:509"
+              "location": "section-a/loanlens-ui/steps/loanlens-ui.steps.ts:517"
             },
             "embeddings": [
               {
@@ -239,7 +223,7 @@
           {
             "result": {
               "status": "passed",
-              "duration": 719584
+              "duration": 682416
             },
             "keyword": "After",
             "hidden": true
@@ -247,7 +231,7 @@
           {
             "result": {
               "status": "passed",
-              "duration": 2828790
+              "duration": 2546291
             },
             "keyword": "After",
             "hidden": true
@@ -255,7 +239,7 @@
           {
             "result": {
               "status": "passed",
-              "duration": 6541
+              "duration": 7333
             },
             "keyword": "After",
             "hidden": true
@@ -263,7 +247,7 @@
         ],
         "tags": [
           {
-            "name": "@app",
+            "name": "@web-app",
             "line": 1
           },
           {
@@ -287,7 +271,7 @@
           {
             "result": {
               "status": "passed",
-              "duration": 3832
+              "duration": 7499
             },
             "keyword": "Before",
             "hidden": true
@@ -295,7 +279,7 @@
           {
             "result": {
               "status": "passed",
-              "duration": 11833
+              "duration": 25584
             },
             "keyword": "Before",
             "hidden": true
@@ -303,7 +287,7 @@
           {
             "result": {
               "status": "passed",
-              "duration": 11542
+              "duration": 27198790
             },
             "keyword": "Before",
             "hidden": true
@@ -311,7 +295,7 @@
           {
             "result": {
               "status": "passed",
-              "duration": 26375166
+              "duration": 11374
             },
             "keyword": "Before",
             "hidden": true
@@ -319,15 +303,7 @@
           {
             "result": {
               "status": "passed",
-              "duration": 10791
-            },
-            "keyword": "Before",
-            "hidden": true
-          },
-          {
-            "result": {
-              "status": "passed",
-              "duration": 63677500
+              "duration": 64132874
             },
             "arguments": [],
             "keyword": "Given ",
@@ -340,14 +316,14 @@
           {
             "result": {
               "status": "passed",
-              "duration": 3930225083
+              "duration": 4120700625
             },
             "arguments": [],
             "keyword": "When ",
             "line": 27,
             "name": "I set the loan amount to 5000000 with the legacy slider",
             "match": {
-              "location": "self-healing/steps/self-healing.steps.ts:24"
+              "location": "section-a/self-healing/steps/self-healing.steps.ts:24"
             },
             "embeddings": [
               {
@@ -355,7 +331,7 @@
                 "mime_type": "text/plain"
               },
               {
-                "data": "SGVhbGVyIChjbGF1ZGUtY2xpIChzb25uZXQpKSBwcm9wb3NlcyBwYWdlLmdldEJ5Um9sZSgnc2xpZGVyJywgeyBuYW1lOiAnTG9hbiBhbW91bnQnIH0pCiAg4pyUIHZvY2FidWxhcnk6IHJvbGUgc3RyYXRlZ3ksIG5vIENTUy9YUGF0aC9wb3NpdGlvbgogIOKclCBkaWZmZXJzIGZyb20gZmFpbGVkIGxvY2F0b3I6IG5ldyBsb2NhdG9yCiAg4pyUIHVuaXF1ZSBtYXRjaDogMSBlbGVtZW50KHMpIG1hdGNoZWQKICDinJQgdmlzaWJsZTogdmlzaWJsZQogIOKclCBmaW5nZXJwcmludDogcm9sZSBhbmQgbmFtZTogZWxlbWVudCBoYXMgcm9sZSBzbGlkZXIgbmFtZWQgTG9hbiBhbW91bnQKUmF0aW9uYWxlOiBUaGUgc2xpZGVyIHJvbGUgd2l0aCB0aGUgZXhhY3QgbmFtZSAnTG9hbiBhbW91bnQnIG1hdGNoZXMgb25seSB0aGUgcmFuZ2UgaW5wdXQsIHNpbmNlIHRoZSBvdGhlciBlbGVtZW50IHdpdGggdGhhdCBuYW1lIGlzIGEgc3BpbmJ1dHRvbi4=",
+                "data": "SGVhbGVyIChjbGF1ZGUtY2xpIChzb25uZXQpKSBwcm9wb3NlcyBwYWdlLmdldEJ5Um9sZSgnc2xpZGVyJywgeyBuYW1lOiAnTG9hbiBhbW91bnQnIH0pCiAg4pyUIHZvY2FidWxhcnk6IHJvbGUgc3RyYXRlZ3ksIG5vIENTUy9YUGF0aC9wb3NpdGlvbgogIOKclCBkaWZmZXJzIGZyb20gZmFpbGVkIGxvY2F0b3I6IG5ldyBsb2NhdG9yCiAg4pyUIHVuaXF1ZSBtYXRjaDogMSBlbGVtZW50KHMpIG1hdGNoZWQKICDinJQgdmlzaWJsZTogdmlzaWJsZQogIOKclCBmaW5nZXJwcmludDogcm9sZSBhbmQgbmFtZTogZWxlbWVudCBoYXMgcm9sZSBzbGlkZXIgbmFtZWQgTG9hbiBhbW91bnQKUmF0aW9uYWxlOiBSb2xlIHNsaWRlciB3aXRoIGV4YWN0IG5hbWUgJ0xvYW4gYW1vdW50JyBpcyB1bmlxdWUsIHNpbmNlIHRoZSBvdGhlciBzYW1lLW5hbWVkIGVsZW1lbnQgaXMgYSBzcGluYnV0dG9uLg==",
                 "mime_type": "text/plain"
               },
               {
@@ -367,7 +343,7 @@
           {
             "result": {
               "status": "passed",
-              "duration": 8359042
+              "duration": 8439082
             },
             "arguments": [],
             "keyword": "Then ",
@@ -380,7 +356,7 @@
           {
             "result": {
               "status": "passed",
-              "duration": 939707
+              "duration": 724165
             },
             "keyword": "After",
             "hidden": true
@@ -388,7 +364,7 @@
           {
             "result": {
               "status": "passed",
-              "duration": 2697625
+              "duration": 2866167
             },
             "keyword": "After",
             "hidden": true
@@ -396,7 +372,7 @@
           {
             "result": {
               "status": "passed",
-              "duration": 7374
+              "duration": 7292
             },
             "keyword": "After",
             "hidden": true
@@ -404,7 +380,7 @@
         ],
         "tags": [
           {
-            "name": "@app",
+            "name": "@web-app",
             "line": 1
           },
           {
@@ -428,7 +404,7 @@
           {
             "result": {
               "status": "passed",
-              "duration": 5500
+              "duration": 4458
             },
             "keyword": "Before",
             "hidden": true
@@ -436,7 +412,7 @@
           {
             "result": {
               "status": "passed",
-              "duration": 13625
+              "duration": 26541
             },
             "keyword": "Before",
             "hidden": true
@@ -444,7 +420,7 @@
           {
             "result": {
               "status": "passed",
-              "duration": 14082
+              "duration": 30492541
             },
             "keyword": "Before",
             "hidden": true
@@ -452,7 +428,7 @@
           {
             "result": {
               "status": "passed",
-              "duration": 28904792
+              "duration": 14917
             },
             "keyword": "Before",
             "hidden": true
@@ -460,15 +436,7 @@
           {
             "result": {
               "status": "passed",
-              "duration": 12458
-            },
-            "keyword": "Before",
-            "hidden": true
-          },
-          {
-            "result": {
-              "status": "passed",
-              "duration": 58096792
+              "duration": 63761500
             },
             "arguments": [],
             "keyword": "Given ",
@@ -481,14 +449,14 @@
           {
             "result": {
               "status": "passed",
-              "duration": 3952906999
+              "duration": 4178198791
             },
             "arguments": [],
             "keyword": "Then ",
             "line": 32,
             "name": "the legacy recent disbursements table should start with the most recently disbursed loan",
             "match": {
-              "location": "self-healing/steps/self-healing.steps.ts:29"
+              "location": "section-a/self-healing/steps/self-healing.steps.ts:29"
             },
             "embeddings": [
               {
@@ -496,7 +464,7 @@
                 "mime_type": "text/plain"
               },
               {
-                "data": "SGVhbGVyIChjbGF1ZGUtY2xpIChzb25uZXQpKSBwcm9wb3NlcyBwYWdlLmdldEJ5Um9sZSgndGFibGUnLCB7IG5hbWU6ICdSZWNlbnQgZGlzYnVyc2VtZW50cycsIGV4YWN0OiB0cnVlIH0pCiAg4pyUIHZvY2FidWxhcnk6IHJvbGUgc3RyYXRlZ3ksIG5vIENTUy9YUGF0aC9wb3NpdGlvbgogIOKclCBkaWZmZXJzIGZyb20gZmFpbGVkIGxvY2F0b3I6IG5ldyBsb2NhdG9yCiAg4pyUIHVuaXF1ZSBtYXRjaDogMSBlbGVtZW50KHMpIG1hdGNoZWQKICDinJQgdmlzaWJsZTogdmlzaWJsZQogIOKclCBmaW5nZXJwcmludDogcm9sZSBhbmQgbmFtZTogZWxlbWVudCBoYXMgcm9sZSB0YWJsZSBuYW1lZCBSZWNlbnQgZGlzYnVyc2VtZW50cwpSYXRpb25hbGU6IFRoZSBzbmFwc2hvdCBzaG93cyBhIHNpbmdsZSB0YWJsZSB3aXRoIHRoZSBhY2Nlc3NpYmxlIG5hbWUgJ1JlY2VudCBkaXNidXJzZW1lbnRzJywgd2hpY2ggbWF0Y2hlcyB0aGUgaW50ZW50IGFuZCBmaW5nZXJwcmludC4=",
+                "data": "SGVhbGVyIChjbGF1ZGUtY2xpIChzb25uZXQpKSBwcm9wb3NlcyBwYWdlLmdldEJ5Um9sZSgndGFibGUnLCB7IG5hbWU6ICdSZWNlbnQgZGlzYnVyc2VtZW50cycsIGV4YWN0OiB0cnVlIH0pCiAg4pyUIHZvY2FidWxhcnk6IHJvbGUgc3RyYXRlZ3ksIG5vIENTUy9YUGF0aC9wb3NpdGlvbgogIOKclCBkaWZmZXJzIGZyb20gZmFpbGVkIGxvY2F0b3I6IG5ldyBsb2NhdG9yCiAg4pyUIHVuaXF1ZSBtYXRjaDogMSBlbGVtZW50KHMpIG1hdGNoZWQKICDinJQgdmlzaWJsZTogdmlzaWJsZQogIOKclCBmaW5nZXJwcmludDogcm9sZSBhbmQgbmFtZTogZWxlbWVudCBoYXMgcm9sZSB0YWJsZSBuYW1lZCBSZWNlbnQgZGlzYnVyc2VtZW50cwpSYXRpb25hbGU6IFRoZSB0YWJsZSB3aXRoIHJvbGUgdGFibGUgYW5kIGV4YWN0IGFjY2Vzc2libGUgbmFtZSAnUmVjZW50IGRpc2J1cnNlbWVudHMnIGlzIHRoZSBzaW5nbGUgbWF0Y2ggZm9yIHRoZSBmaW5nZXJwcmludC4=",
                 "mime_type": "text/plain"
               },
               {
@@ -508,7 +476,7 @@
           {
             "result": {
               "status": "passed",
-              "duration": 1288208
+              "duration": 1286374
             },
             "keyword": "After",
             "hidden": true
@@ -516,7 +484,7 @@
           {
             "result": {
               "status": "passed",
-              "duration": 4035500
+              "duration": 4111291
             },
             "keyword": "After",
             "hidden": true
@@ -524,7 +492,7 @@
           {
             "result": {
               "status": "passed",
-              "duration": 10333
+              "duration": 11624
             },
             "keyword": "After",
             "hidden": true
@@ -532,7 +500,7 @@
         ],
         "tags": [
           {
-            "name": "@app",
+            "name": "@web-app",
             "line": 1
           },
           {
@@ -556,7 +524,7 @@
           {
             "result": {
               "status": "passed",
-              "duration": 5625
+              "duration": 6832
             },
             "keyword": "Before",
             "hidden": true
@@ -564,7 +532,7 @@
           {
             "result": {
               "status": "passed",
-              "duration": 16292
+              "duration": 39542
             },
             "keyword": "Before",
             "hidden": true
@@ -572,7 +540,7 @@
           {
             "result": {
               "status": "passed",
-              "duration": 21625
+              "duration": 33346750
             },
             "keyword": "Before",
             "hidden": true
@@ -580,7 +548,7 @@
           {
             "result": {
               "status": "passed",
-              "duration": 32235165
+              "duration": 13292
             },
             "keyword": "Before",
             "hidden": true
@@ -588,15 +556,7 @@
           {
             "result": {
               "status": "passed",
-              "duration": 13708
-            },
-            "keyword": "Before",
-            "hidden": true
-          },
-          {
-            "result": {
-              "status": "passed",
-              "duration": 59328499
+              "duration": 62738334
             },
             "arguments": [],
             "keyword": "Given ",
@@ -609,15 +569,15 @@
           {
             "result": {
               "status": "failed",
-              "duration": 8570174334,
-              "error_message": "LocatorHealingError: Locator \"reports.exportCsvButton\" failed: page.getByRole('button', { name: 'Export CSV' }) → No element matched within 5 s.\nHealer (claude-cli (sonnet)) found no candidate that passed validation (0 failed, 0 malformed).\n    at HealableLocator.heal (./self-healing/runtime.ts:127:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)\n    at async CustomWorld.<anonymous> (./self-healing/steps/self-healing.steps.ts:36:18)"
+              "duration": 16805542915,
+              "error_message": "LocatorHealingError: Locator \"reports.exportCsvButton\" failed: page.getByRole('button', { name: 'Export CSV' }) → No element matched within 5 s.\nHealer (claude-cli (sonnet)) found no candidate that passed validation (0 failed, 0 malformed).\n    at HealableLocator.heal (./self-healing/runtime.ts:127:11)\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)\n    at async CustomWorld.<anonymous> (./section-a/self-healing/steps/self-healing.steps.ts:36:18)"
             },
             "arguments": [],
             "keyword": "When ",
             "line": 37,
             "name": "I press the legacy Export CSV button",
             "match": {
-              "location": "self-healing/steps/self-healing.steps.ts:35"
+              "location": "section-a/self-healing/steps/self-healing.steps.ts:35"
             },
             "embeddings": [
               {
@@ -640,13 +600,13 @@
             "line": 38,
             "name": "a CSV file of the loans should be downloaded",
             "match": {
-              "location": "self-healing/steps/self-healing.steps.ts:41"
+              "location": "section-a/self-healing/steps/self-healing.steps.ts:41"
             }
           },
           {
             "result": {
               "status": "passed",
-              "duration": 934540
+              "duration": 1370459
             },
             "keyword": "After",
             "hidden": true
@@ -654,7 +614,7 @@
           {
             "result": {
               "status": "passed",
-              "duration": 65792166
+              "duration": 59758083
             },
             "keyword": "After",
             "hidden": true,
@@ -676,7 +636,7 @@
           {
             "result": {
               "status": "passed",
-              "duration": 9541
+              "duration": 7167
             },
             "keyword": "After",
             "hidden": true
@@ -684,7 +644,7 @@
         ],
         "tags": [
           {
-            "name": "@app",
+            "name": "@web-app",
             "line": 1
           },
           {
@@ -709,7 +669,7 @@
     "name": "Self-healing exercise - five locators broken on purpose",
     "tags": [
       {
-        "name": "@app",
+        "name": "@web-app",
         "line": 1
       },
       {
@@ -721,6 +681,6 @@
         "line": 1
       }
     ],
-    "uri": "self-healing/features/broken-locators.feature"
+    "uri": "section-a/self-healing/features/broken-locators.feature"
   }
 ]

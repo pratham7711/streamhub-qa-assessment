@@ -12,5 +12,6 @@
     "lib": ["ES2023", "DOM", "DOM.Iterable"],
     "types": ["node"]
   },
-  "include": ["app/server/**/*.ts", "framework/**/*.ts", "section-a/**/*.ts", "section-b/**/*.ts", "self-healing/**/*.ts", "sql/**/*.ts"]
+  "include": ["framework/**/*.ts", "section-a/**/*.ts", "section-b/**/*.ts", "self-healing/**/*.ts", "sql/**/*.ts", "scripts/**/*.ts"],
+  "exclude": ["section-a/app/src", "section-a/app/vite.config.ts", "section-a/app/dist"]
 }

@@ -2,17 +2,25 @@
 
 The brief asks for 3–5 incorrect or brittle locators, left broken, and an explanation of how an AI could detect, fix and validate them. The locators are broken. There is also a working proof of concept: it detects each failure, asks Claude (or an offline heuristic) for a fix, validates the answer, and writes a patch for a person to review. It never edits the source.
 
+The healer engine ([`self-healing/`](../self-healing)) is shared. Each section has its own exercise, so either can be assessed alone: Section A's five broken locators are on its LoanLens web app, Section B's five on emicalculator.net (the B3 target).
+
 ```bash
-npm run test:self-healing             # healing off: the 5 scenarios fail with a diagnosis (expected)
-npm run heal                          # healing on, provider "auto": validated fixes used for this run only
-npm run heal -- --provider heuristic  # offline, no model
-npm run heal -- --mode suggest        # propose and validate, but keep the tests red
-npm run heal:eval                     # score the healers over repeated trials (section 5)
+npm run test:self-healing -- --section a    # healing off: the 5 scenarios fail with a diagnosis (expected)
+npm run heal -- --section a                 # healing on, provider "auto": validated fixes used for this run only
+npm run heal -- --section a --provider heuristic   # offline, no model
+npm run heal -- --section a --mode suggest  # propose and validate, but keep the tests red
+npm run heal:eval                           # score the healers over repeated trials (section 5; Section A's exercise)
 ```
 
-## The five broken locators
+`--section b` runs Section B's exercise the same way. Without `--section`, `a` is used.
 
-They live in [`self-healing/pages/LegacyLocators.ts`](../self-healing/pages/LegacyLocators.ts) and are used only by [`broken-locators.feature`](../self-healing/features/broken-locators.feature) (`@broken-locator`, excluded from the regular suites). Each reproduces a different way locators rot:
+## The broken locators
+
+Each exercise is a "legacy" page object used only by its own `broken-locators.feature` (`@broken-locator`, excluded from the regular suites). Each locator reproduces a different way locators rot.
+
+### Section A: the LoanLens web app
+
+[`section-a/self-healing/pages/LegacyLocators.ts`](../section-a/self-healing/pages/LegacyLocators.ts), used by [`section-a/self-healing/features/broken-locators.feature`](../section-a/self-healing/features/broken-locators.feature).
 
 | # | Locator | What changed in the app | Failure class |
 |---|---|---|---|
@@ -23,6 +31,20 @@ They live in [`self-healing/pages/LegacyLocators.ts`](../self-healing/pages/Lega
 | 5 | `getByRole('button', { name: 'Export CSV' })` | The feature was removed | no match, and there is nothing to heal |
 
 Case 4 is the dangerous one. A plain Playwright test would act on the donut's table without complaint and fail later with a confusing assertion, or pass on the wrong data. Case 5 is a trap: a healer that "finds" some other button makes a test pass on a product that lost a feature.
+
+### Section B: emicalculator.net
+
+[`section-b/self-healing/pages/LegacyEmiLocators.ts`](../section-b/self-healing/pages/LegacyEmiLocators.ts), used by [`section-b/self-healing/features/broken-locators.feature`](../section-b/self-healing/features/broken-locators.feature). A third-party page cannot be changed to break a locator, so these are written wrong against the live page instead.
+
+| # | Locator | What is on the page | Failure class |
+|---|---|---|---|
+| 1 | `locator('#loan-term')` | The tenure box's id is `#loanterm` | no match |
+| 2 | `getByRole('link', { name: 'Personal Loans', exact: true })` | The tab reads "Personal Loan" | no match |
+| 3 | `getByRole('textbox', { name: /loan/i })` | "Home Loan Amount" and "Loan Tenure" both match | ambiguous (2 matches) |
+| 4 | `locator('input[type="text"]').last()` | The last text box is the comment form's "Name *", not the interest rate | **wrong element**: it still resolves |
+| 5 | `getByRole('button', { name: 'Email schedule' })` | There is no e-mail button: only Download PDF, Download Excel Spreadsheet and Share | no match, and there is nothing to heal |
+
+Every value typed through one of these locators is read back through the healthy B3 page object, and the EMI shown is checked against my own amortisation, so a heal that types into the wrong box still fails.
 
 ## 1. Detection
 
@@ -86,7 +108,7 @@ Every candidate from every provider passes through the same deterministic gates 
 3. **Unique.** Exactly one match.
 4. **Visible.**
 5. **Fingerprint.** The element has the declared role and name, checked by `locator.and(page.getByRole(role, { name }))` through Playwright's own accessibility engine. It matches the declared text pattern, and it sits inside the declared container (`within`), when one is given.
-6. **Replay.** In `heal` mode the scenario continues on the healed locator, and its own assertions decide. Those assertions come from the independent loan-book oracle, so a heal that finds the wrong element still fails. The outcome is recorded as `replay: passed|failed`.
+6. **Replay.** In `heal` mode the scenario continues on the healed locator, and its own assertions decide. Those assertions come from the independent oracles (the loan book in Section A, my own EMI amortisation in Section B), so a heal that finds the wrong element still fails. The outcome is recorded as `replay: passed|failed`.
 7. **Human review.** A patch is written to `healing/patches/<key>.patch`: a unified diff of the declaring line, applyable with `git apply` (each patch in the committed report passes `git apply --check`). A reviewer-facing `SUGGESTIONS.md` lists the accepted fix, its checks and rationale, every other candidate with its gate results, and cost and latency.
 
 **The tool never edits the source.** In CI the right flow is suggest mode: the build stays red and the patch is attached to it. A person applies the patch in a pull request, and the normal suite proves it. Auto-applying is how a removed feature (case 5) or a real regression gets silently "healed".
@@ -97,7 +119,11 @@ Every candidate from every provider passes through the same deterministic gates 
 | `suggest` | Also ask the healer, validate, write the patch; still fail. |
 | `heal` | Also continue *this run* on the validated locator, so the replay result is known. |
 
-## 4. Results of the committed heal runs (one per section, 2026-10-07)
+## 4. Results of the committed heal runs (2026-10-07)
+
+Each section's `npm run test:section-<a|b>` ends with a heal run on its own exercise, using Claude Sonnet through `claude -p`. The offline heuristic was run separately on the same locators for comparison.
+
+### Section A: the LoanLens web app
 
 | # | Failure | Offline heuristic | Claude Sonnet via `claude -p` | Replay |
 |---|---|---|---|---|
@@ -107,16 +133,26 @@ Every candidate from every provider passes through the same deterministic gates 
 | 4 | wrong-element | `getByRole('table', { name: 'Recent disbursements', exact: true })` | same | passed (both) |
 | 5 | no-match | none passed validation | **returned no candidates** | not run (stays red, as it should) |
 
-- **Claude.** Both committed runs gave the answers above, as earlier runs did. Section A's run took 3.5–8.7 s and $0.034–$0.050 per incident ($0.215 for all five); Section B's, a few minutes later, 3.1–4.9 s and $0.0030–$0.0052 ($0.020). The tenfold drop is presumably prompt caching (not verified). For case 3 its rationale in Section B's run reads: *"The slider role with exact name 'Loan amount' is unique, since the other same-named element is a spinbutton."* The locator it returned has no `exact: true`, so the rationale describes a stricter locator than the one it wrote. The locator is still unique, and validation checks the locator, not the rationale.
-- **Heuristic.** Under 0.1 s per incident. Its full report is saved in [`docs/self-healing-runs/heuristic/SUGGESTIONS.md`](self-healing-runs/heuristic/SUGGESTIONS.md).
-- **What the validation stopped.** For case 5 the heuristic proposed the table's **"Disbursed"** sort button: unique, visible and the right role, but the wrong element. Gate 5 rejected it (`element does not have role button named /export|csv|download/i`). Without the fingerprint, a naive healer would have clicked a sort header and the test would have failed later for a misleading reason. Or, given a looser assertion, it would have passed on a product that lost its export.
-- **Where the result lives.** Each section's run heals the same five locators, so there are two reports: [`section-a/reports/self-healing-healed/healing/SUGGESTIONS.md`](../section-a/reports/self-healing-healed/healing/SUGGESTIONS.md) and [`section-b/reports/self-healing-healed/healing/SUGGESTIONS.md`](../section-b/reports/self-healing-healed/healing/SUGGESTIONS.md). One run shows what a heal looks like; section 5 measures how often it is right.
+### Section B: emicalculator.net
+
+| # | Failure | Offline heuristic | Claude Sonnet via `claude -p` | Replay |
+|---|---|---|---|---|
+| 1 | no-match | `getByRole('textbox', { name: 'Loan Tenure', exact: true })` | same | passed (both) |
+| 2 | no-match | `getByRole('link', { name: 'Personal Loan', exact: true })` | same | passed (both) |
+| 3 | ambiguous | `getByRole('textbox', { name: 'Home Loan Amount', exact: true })` | same | passed (both) |
+| 4 | wrong-element | `getByRole('textbox', { name: 'Interest Rate', exact: true })` | same | passed (both) |
+| 5 | no-match | offered no candidate | **returned no candidates** | not run (stays red, as it should) |
+
+- **Claude.** Section A's run took 4.0–11.7 s and $0.034–$0.050 per incident ($0.211 for all five). Section B's took 4.3–5.5 s and $0.047–$0.054 per incident ($0.248). All 8 locators it had accepted replayed green. For Section A's case 3 its rationale reads: *"Role slider with exact name 'Loan amount' is unique, since the other same-named element is a spinbutton."* The locator it returned has no `exact: true`, so the rationale describes a stricter locator than the one it wrote. The locator is still unique, and validation checks the locator, not the rationale.
+- **Heuristic.** Under 0.1 s per incident. Its reports are saved in [`docs/self-healing-runs/heuristic/section-a/SUGGESTIONS.md`](self-healing-runs/heuristic/section-a/SUGGESTIONS.md) and [`section-b/SUGGESTIONS.md`](self-healing-runs/heuristic/section-b/SUGGESTIONS.md).
+- **What the validation stopped.** For Section A's case 5 the heuristic proposed the table's **"Disbursed"** sort button: unique, visible and the right role, but the wrong element. Gate 5 rejected it (`element does not have role button named /export|csv|download/i`). Without the fingerprint, a naive healer would have clicked a sort header and the test would have failed later for a misleading reason. Or, given a looser assertion, it would have passed on a product that lost its export.
+- **Where the result lives.** [`section-a/reports/self-healing-healed/healing/SUGGESTIONS.md`](../section-a/reports/self-healing-healed/healing/SUGGESTIONS.md) and [`section-b/reports/self-healing-healed/healing/SUGGESTIONS.md`](../section-b/reports/self-healing-healed/healing/SUGGESTIONS.md), each with 4 patches that pass `git apply --check`. One run shows what a heal looks like; section 5 measures how often it is right.
 
 ## 5. Evaluation: how good is the healer?
 
 A demo shows that a heal can work. `npm run heal:eval` ([`self-healing/eval.ts`](../self-healing/eval.ts)) measures how often it does, and how it fails. Latest report: [`self-healing/eval-results/EVAL.md`](../self-healing/eval-results/EVAL.md).
 
-- **Ground truth comes from outside the healer.** A heal is *correct* only if the accepted locator resolves to the very DOM element that the healthy page objects in `section-a/loanlens-ui/pages` resolve to. Those page objects run the 56 UI scenarios. For the removed Export CSV feature there is no ground truth; the only correct answer is a refusal.
+- **Ground truth comes from outside the healer.** A heal is *correct* only if the accepted locator resolves to the very DOM element that the healthy page objects in `section-a/loanlens-ui/pages` resolve to. Those page objects run the 57 UI scenarios. The evaluation covers Section A's exercise, where the app is mine and the page is the same in every trial; Section B's runs against a live third-party page. For the removed Export CSV feature there is no ground truth; the only correct answer is a refusal.
 - **Outcomes.** *Correct*, *missed* (nothing accepted: the test stays red, which is safe), *refused* (correct for the removed feature), and **false heal**: an accepted locator that finds any other element. The script exits 1 on any false heal, because that is the failure that turns a test green for the wrong reason.
 - **Two conditions.** *open*: the healer sees the fingerprint, as at runtime. *blind*: the fingerprint is withheld from the healer and used only by the validator. A fingerprint names the role and accessible name, so the open condition partly hands the answer over; blind shows whether the healer can find the element from the intent and the page alone.
 - **Separate scores for the model and the guard.** "Top-1 right" scores the provider's first choice before validation. "Wrong candidates rejected" and "right candidates rejected" score the validator as a classifier.

@@ -1,5 +1,5 @@
---- a/self-healing/pages/LegacyLocators.ts
-+++ b/self-healing/pages/LegacyLocators.ts
+--- a/section-a/self-healing/pages/LegacyLocators.ts
++++ b/section-a/self-healing/pages/LegacyLocators.ts
 @@ -60,7 +60,7 @@
    constructor(private readonly page: Page) {
      this.totalLoansValue = healable(page, TOTAL_LOANS, (p) => p.getByTestId('kpi-total-loans'));

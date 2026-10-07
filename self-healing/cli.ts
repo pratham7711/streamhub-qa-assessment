@@ -1,7 +1,8 @@
 /**
- * npm run heal [-- --provider auto|claude-cli|anthropic|heuristic] [--mode heal|suggest]
+ * npm run heal [-- --section a|b] [--provider auto|claude-cli|anthropic|heuristic] [--mode heal|suggest]
  *
- * Runs the @broken-locator scenarios with self-healing switched on, then prints
+ * Runs a section's @broken-locator scenarios (Section A's on the LoanLens web app, Section B's
+ * on emicalculator.net; default a, or $SECTION) with self-healing switched on, then prints
  * the validated suggestions. Reports go to <REPORTS_DIR>/self-healing-healed/ (REPORTS_DIR
  * defaults to reports/), the reviewer-facing summary to its healing/SUGGESTIONS.md.
  * The page objects are never modified; applying a patch is a human decision.
@@ -17,17 +18,18 @@ const option = (name: string, fallback: string) => {
 };
 const mode = option('mode', 'heal');
 const provider = option('provider', process.env.HEAL_PROVIDER ?? 'auto');
-if (!['heal', 'suggest'].includes(mode)) {
-  console.error('--mode must be "heal" or "suggest"');
+const section = option('section', process.env.SECTION ?? 'a');
+if (!['heal', 'suggest'].includes(mode) || !['a', 'b'].includes(section)) {
+  console.error('--mode must be "heal" or "suggest", and --section "a" or "b"');
   process.exit(2);
 }
 
 const suite = 'self-healing-healed';
 const dir = `${process.env.REPORTS_DIR ?? 'reports'}/${suite}`;
-console.log(`Self-healing run: mode=${mode}, provider=${provider}\n`);
+console.log(`Self-healing run: section=${section}, mode=${mode}, provider=${provider}\n`);
 const child = spawn(process.execPath, ['scripts/run-suite.mjs', suite], {
   stdio: 'inherit',
-  env: { ...process.env, SELF_HEAL: mode, HEAL_PROVIDER: provider },
+  env: { ...process.env, SELF_HEAL: mode, HEAL_PROVIDER: provider, SECTION: section },
 });
 child.on('exit', (code) => {
   const file = `${dir}/healing/suggestions.json`;

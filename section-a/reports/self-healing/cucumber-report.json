@@ -1,6 +1,6 @@
 [
   {
-    "description": "  These scenarios drive LoanLens through tests/pages/self-healing/LegacyLocators.ts,\n  whose locators were broken deliberately and left broken. Each fails in a\n  different way: a renamed test id, changed button text, a label that became\n  ambiguous, a positional locator that now finds the wrong element, and a\n  removed feature.\n\n  npm run test:self-healing   healing off: every scenario fails with a diagnosis\n  npm run heal                healing on: validated fixes are used for this run only,\n                              and a patch for each is written for review\n\n  The test assertions are the same either way and come from the loan-book\n  oracle, so a \"healed\" locator that finds the wrong element still fails.",
+    "description": "  These scenarios drive the LoanLens web app through section-a/self-healing/pages/LegacyLocators.ts,\n  whose locators were broken deliberately and left broken. Each fails in a\n  different way: a renamed test id, changed button text, a label that became\n  ambiguous, a positional locator that now finds the wrong element, and a\n  removed feature.\n\n  npm run test:self-healing -- --section a   healing off: every scenario fails with a diagnosis\n  npm run heal -- --section a                healing on: validated fixes are used for this run only,\n                                             and a patch for each is written for review\n\n  The test assertions are the same either way and come from the loan-book\n  oracle, so a \"healed\" locator that finds the wrong element still fails.",
     "elements": [
       {
         "description": "",
@@ -12,7 +12,7 @@
           {
             "result": {
               "status": "passed",
-              "duration": 45124
+              "duration": 43332
             },
             "keyword": "Before",
             "hidden": true
@@ -20,7 +20,7 @@
           {
             "result": {
               "status": "passed",
-              "duration": 10059332
+              "duration": 10473832
             },
             "keyword": "Before",
             "hidden": true
@@ -28,7 +28,7 @@
           {
             "result": {
               "status": "passed",
-              "duration": 27040
+              "duration": 85454708
             },
             "keyword": "Before",
             "hidden": true
@@ -36,7 +36,7 @@
           {
             "result": {
               "status": "passed",
-              "duration": 83559624
+              "duration": 33999
             },
             "keyword": "Before",
             "hidden": true
@@ -44,15 +44,7 @@
           {
             "result": {
               "status": "passed",
-              "duration": 35624
-            },
-            "keyword": "Before",
-            "hidden": true
-          },
-          {
-            "result": {
-              "status": "passed",
-              "duration": 89972708
+              "duration": 72906707
             },
             "arguments": [],
             "keyword": "Given ",
@@ -65,15 +57,15 @@
           {
             "result": {
               "status": "failed",
-              "duration": 5126410332,
-              "error_message": "LocatorHealingError: Locator \"dashboard.totalLoansValue\" failed: page.getByTestId('kpi-total-loans') → No element matched within 5 s.\nSelf-healing is off. Run \"npm run heal\" for a validated suggestion. Incident: ./section-a/reports/self-healing/healing/incidents/dashboard.totalLoansValue.json\n    at HealableLocator.heal (./self-healing/runtime.ts:90:13)\n    at async CustomWorld.<anonymous> (./self-healing/steps/self-healing.steps.ts:13:17)"
+              "duration": 5108228291,
+              "error_message": "LocatorHealingError: Locator \"dashboard.totalLoansValue\" failed: page.getByTestId('kpi-total-loans') → No element matched within 5 s.\nSelf-healing is off. Run \"npm run heal\" for a validated suggestion. Incident: ./section-a/reports/self-healing/healing/incidents/dashboard.totalLoansValue.json\n    at HealableLocator.heal (./self-healing/runtime.ts:90:13)\n    at async CustomWorld.<anonymous> (./section-a/self-healing/steps/self-healing.steps.ts:13:17)"
             },
             "arguments": [],
             "keyword": "Then ",
             "line": 18,
             "name": "the legacy Total loans figure should equal the number of loans in the loan book",
             "match": {
-              "location": "self-healing/steps/self-healing.steps.ts:12"
+              "location": "section-a/self-healing/steps/self-healing.steps.ts:12"
             },
             "embeddings": [
               {
@@ -85,7 +77,7 @@
           {
             "result": {
               "status": "passed",
-              "duration": 37250
+              "duration": 35832
             },
             "keyword": "After",
             "hidden": true
@@ -93,7 +85,7 @@
           {
             "result": {
               "status": "passed",
-              "duration": 44882875
+              "duration": 41545125
             },
             "keyword": "After",
             "hidden": true,
@@ -115,7 +107,7 @@
           {
             "result": {
               "status": "passed",
-              "duration": 27916
+              "duration": 28874
             },
             "keyword": "After",
             "hidden": true
@@ -123,7 +115,7 @@
         ],
         "tags": [
           {
-            "name": "@app",
+            "name": "@web-app",
             "line": 1
           },
           {
@@ -147,7 +139,7 @@
           {
             "result": {
               "status": "passed",
-              "duration": 9500
+              "duration": 11875
             },
             "keyword": "Before",
             "hidden": true
@@ -155,7 +147,7 @@
           {
             "result": {
               "status": "passed",
-              "duration": 20417
+              "duration": 40165
             },
             "keyword": "Before",
             "hidden": true
@@ -163,7 +155,7 @@
           {
             "result": {
               "status": "passed",
-              "duration": 19583
+              "duration": 26251041
             },
             "keyword": "Before",
             "hidden": true
@@ -171,7 +163,7 @@
           {
             "result": {
               "status": "passed",
-              "duration": 25611874
+              "duration": 18209
             },
             "keyword": "Before",
             "hidden": true
@@ -179,15 +171,7 @@
           {
             "result": {
               "status": "passed",
-              "duration": 13041
-            },
-            "keyword": "Before",
-            "hidden": true
-          },
-          {
-            "result": {
-              "status": "passed",
-              "duration": 64579249
+              "duration": 62523790
             },
             "arguments": [],
             "keyword": "Given ",
@@ -200,15 +184,15 @@
           {
             "result": {
               "status": "failed",
-              "duration": 5121942541,
-              "error_message": "LocatorHealingError: Locator \"reports.applyFiltersButton\" failed: page.getByRole('button', { name: 'Apply filter', exact: true }) → No element matched within 5 s.\nSelf-healing is off. Run \"npm run heal\" for a validated suggestion. Incident: ./section-a/reports/self-healing/healing/incidents/reports.applyFiltersButton.json\n    at HealableLocator.heal (./self-healing/runtime.ts:90:13)\n    at async CustomWorld.<anonymous> (./self-healing/steps/self-healing.steps.ts:20:10)"
+              "duration": 5145109416,
+              "error_message": "LocatorHealingError: Locator \"reports.applyFiltersButton\" failed: page.getByRole('button', { name: 'Apply filter', exact: true }) → No element matched within 5 s.\nSelf-healing is off. Run \"npm run heal\" for a validated suggestion. Incident: ./section-a/reports/self-healing/healing/incidents/reports.applyFiltersButton.json\n    at HealableLocator.heal (./self-healing/runtime.ts:90:13)\n    at async CustomWorld.<anonymous> (./section-a/self-healing/steps/self-healing.steps.ts:20:10)"
             },
             "arguments": [],
             "keyword": "When ",
             "line": 22,
             "name": "I filter the report to \"Overdue\" loans with the legacy Apply button",
             "match": {
-              "location": "self-healing/steps/self-healing.steps.ts:17"
+              "location": "section-a/self-healing/steps/self-healing.steps.ts:17"
             },
             "embeddings": [
               {
@@ -227,13 +211,13 @@
             "line": 23,
             "name": "the report should list exactly the loans the loan book has for the current query",
             "match": {
-              "location": "section-a/loanlens-ui/steps/loanlens-ui.steps.ts:509"
+              "location": "section-a/loanlens-ui/steps/loanlens-ui.steps.ts:517"
             }
           },
           {
             "result": {
               "status": "passed",
-              "duration": 9500
+              "duration": 18416
             },
             "keyword": "After",
             "hidden": true
@@ -241,7 +225,7 @@
           {
             "result": {
               "status": "passed",
-              "duration": 47790584
+              "duration": 43348583
             },
             "keyword": "After",
             "hidden": true,
@@ -263,7 +247,7 @@
           {
             "result": {
               "status": "passed",
-              "duration": 8166
+              "duration": 8749
             },
             "keyword": "After",
             "hidden": true
@@ -271,7 +255,7 @@
         ],
         "tags": [
           {
-            "name": "@app",
+            "name": "@web-app",
             "line": 1
           },
           {
@@ -295,7 +279,7 @@
           {
             "result": {
               "status": "passed",
-              "duration": 4124
+              "duration": 5042
             },
             "keyword": "Before",
             "hidden": true
@@ -303,7 +287,7 @@
           {
             "result": {
               "status": "passed",
-              "duration": 12625
+              "duration": 24916
             },
             "keyword": "Before",
             "hidden": true
@@ -311,7 +295,7 @@
           {
             "result": {
               "status": "passed",
-              "duration": 12416
+              "duration": 26594124
             },
             "keyword": "Before",
             "hidden": true
@@ -319,7 +303,7 @@
           {
             "result": {
               "status": "passed",
-              "duration": 25810416
+              "duration": 11624
             },
             "keyword": "Before",
             "hidden": true
@@ -327,15 +311,7 @@
           {
             "result": {
               "status": "passed",
-              "duration": 12082
-            },
-            "keyword": "Before",
-            "hidden": true
-          },
-          {
-            "result": {
-              "status": "passed",
-              "duration": 69492582
+              "duration": 65780125
             },
             "arguments": [],
             "keyword": "Given ",
@@ -348,15 +324,15 @@
           {
             "result": {
               "status": "failed",
-              "duration": 98904957,
-              "error_message": "LocatorHealingError: Locator \"calculator.loanAmountSlider\" failed: page.getByLabel('Loan amount') → 2 elements matched; an action on it would violate strict mode.\nSelf-healing is off. Run \"npm run heal\" for a validated suggestion. Incident: ./section-a/reports/self-healing/healing/incidents/calculator.loanAmountSlider.json\n    at HealableLocator.heal (./self-healing/runtime.ts:90:13)\n    at async CustomWorld.<anonymous> (./self-healing/steps/self-healing.steps.ts:25:18)"
+              "duration": 98214624,
+              "error_message": "LocatorHealingError: Locator \"calculator.loanAmountSlider\" failed: page.getByLabel('Loan amount') → 2 elements matched; an action on it would violate strict mode.\nSelf-healing is off. Run \"npm run heal\" for a validated suggestion. Incident: ./section-a/reports/self-healing/healing/incidents/calculator.loanAmountSlider.json\n    at HealableLocator.heal (./self-healing/runtime.ts:90:13)\n    at async CustomWorld.<anonymous> (./section-a/self-healing/steps/self-healing.steps.ts:25:18)"
             },
             "arguments": [],
             "keyword": "When ",
             "line": 27,
             "name": "I set the loan amount to 5000000 with the legacy slider",
             "match": {
-              "location": "self-healing/steps/self-healing.steps.ts:24"
+              "location": "section-a/self-healing/steps/self-healing.steps.ts:24"
             },
             "embeddings": [
               {
@@ -381,7 +357,7 @@
           {
             "result": {
               "status": "passed",
-              "duration": 8792
+              "duration": 9207
             },
             "keyword": "After",
             "hidden": true
@@ -389,7 +365,7 @@
           {
             "result": {
               "status": "passed",
-              "duration": 46304667
+              "duration": 34376249
             },
             "keyword": "After",
             "hidden": true,
@@ -411,7 +387,7 @@
           {
             "result": {
               "status": "passed",
-              "duration": 9208
+              "duration": 7666
             },
             "keyword": "After",
             "hidden": true
@@ -419,7 +395,7 @@
         ],
         "tags": [
           {
-            "name": "@app",
+            "name": "@web-app",
             "line": 1
           },
           {
@@ -443,7 +419,7 @@
           {
             "result": {
               "status": "passed",
-              "duration": 4082
+              "duration": 4084
             },
             "keyword": "Before",
             "hidden": true
@@ -451,7 +427,7 @@
           {
             "result": {
               "status": "passed",
-              "duration": 12542
+              "duration": 23542
             },
             "keyword": "Before",
             "hidden": true
@@ -459,7 +435,7 @@
           {
             "result": {
               "status": "passed",
-              "duration": 11458
+              "duration": 26277874
             },
             "keyword": "Before",
             "hidden": true
@@ -467,7 +443,7 @@
           {
             "result": {
               "status": "passed",
-              "duration": 26050250
+              "duration": 11500
             },
             "keyword": "Before",
             "hidden": true
@@ -475,15 +451,7 @@
           {
             "result": {
               "status": "passed",
-              "duration": 12416
-            },
-            "keyword": "Before",
-            "hidden": true
-          },
-          {
-            "result": {
-              "status": "passed",
-              "duration": 58157500
+              "duration": 59060833
             },
             "arguments": [],
             "keyword": "Given ",
@@ -496,15 +464,15 @@
           {
             "result": {
               "status": "failed",
-              "duration": 70037542,
-              "error_message": "LocatorHealingError: Locator \"dashboard.recentDisbursementsTable\" failed: page.locator('table').first() → Resolved, but element does not have role table named Recent disbursements.\nSelf-healing is off. Run \"npm run heal\" for a validated suggestion. Incident: ./section-a/reports/self-healing/healing/incidents/dashboard.recentDisbursementsTable.json\n    at HealableLocator.heal (./self-healing/runtime.ts:90:13)\n    at async CustomWorld.<anonymous> (./self-healing/steps/self-healing.steps.ts:30:17)"
+              "duration": 68846666,
+              "error_message": "LocatorHealingError: Locator \"dashboard.recentDisbursementsTable\" failed: page.locator('table').first() → Resolved, but element does not have role table named Recent disbursements.\nSelf-healing is off. Run \"npm run heal\" for a validated suggestion. Incident: ./section-a/reports/self-healing/healing/incidents/dashboard.recentDisbursementsTable.json\n    at HealableLocator.heal (./self-healing/runtime.ts:90:13)\n    at async CustomWorld.<anonymous> (./section-a/self-healing/steps/self-healing.steps.ts:30:17)"
             },
             "arguments": [],
             "keyword": "Then ",
             "line": 32,
             "name": "the legacy recent disbursements table should start with the most recently disbursed loan",
             "match": {
-              "location": "self-healing/steps/self-healing.steps.ts:29"
+              "location": "section-a/self-healing/steps/self-healing.steps.ts:29"
             },
             "embeddings": [
               {
@@ -516,7 +484,7 @@
           {
             "result": {
               "status": "passed",
-              "duration": 8291
+              "duration": 10334
             },
             "keyword": "After",
             "hidden": true
@@ -524,7 +492,7 @@
           {
             "result": {
               "status": "passed",
-              "duration": 52063792
+              "duration": 34647624
             },
             "keyword": "After",
             "hidden": true,
@@ -546,7 +514,7 @@
           {
             "result": {
               "status": "passed",
-              "duration": 7666
+              "duration": 8041
             },
             "keyword": "After",
             "hidden": true
@@ -554,7 +522,7 @@
         ],
         "tags": [
           {
-            "name": "@app",
+            "name": "@web-app",
             "line": 1
           },
           {
@@ -578,7 +546,7 @@
           {
             "result": {
               "status": "passed",
-              "duration": 3416
+              "duration": 3624
             },
             "keyword": "Before",
             "hidden": true
@@ -586,7 +554,7 @@
           {
             "result": {
               "status": "passed",
-              "duration": 10625
+              "duration": 24292
             },
             "keyword": "Before",
             "hidden": true
@@ -594,7 +562,7 @@
           {
             "result": {
               "status": "passed",
-              "duration": 13082
+              "duration": 26639415
             },
             "keyword": "Before",
             "hidden": true
@@ -602,7 +570,7 @@
           {
             "result": {
               "status": "passed",
-              "duration": 25901417
+              "duration": 13708
             },
             "keyword": "Before",
             "hidden": true
@@ -610,15 +578,7 @@
           {
             "result": {
               "status": "passed",
-              "duration": 11084
-            },
-            "keyword": "Before",
-            "hidden": true
-          },
-          {
-            "result": {
-              "status": "passed",
-              "duration": 59023666
+              "duration": 60806291
             },
             "arguments": [],
             "keyword": "Given ",
@@ -631,15 +591,15 @@
           {
             "result": {
               "status": "failed",
-              "duration": 5107750332,
-              "error_message": "LocatorHealingError: Locator \"reports.exportCsvButton\" failed: page.getByRole('button', { name: 'Export CSV' }) → No element matched within 5 s.\nSelf-healing is off. Run \"npm run heal\" for a validated suggestion. Incident: ./section-a/reports/self-healing/healing/incidents/reports.exportCsvButton.json\n    at HealableLocator.heal (./self-healing/runtime.ts:90:13)\n    at async CustomWorld.<anonymous> (./self-healing/steps/self-healing.steps.ts:36:18)"
+              "duration": 5125819708,
+              "error_message": "LocatorHealingError: Locator \"reports.exportCsvButton\" failed: page.getByRole('button', { name: 'Export CSV' }) → No element matched within 5 s.\nSelf-healing is off. Run \"npm run heal\" for a validated suggestion. Incident: ./section-a/reports/self-healing/healing/incidents/reports.exportCsvButton.json\n    at HealableLocator.heal (./self-healing/runtime.ts:90:13)\n    at async CustomWorld.<anonymous> (./section-a/self-healing/steps/self-healing.steps.ts:36:18)"
             },
             "arguments": [],
             "keyword": "When ",
             "line": 37,
             "name": "I press the legacy Export CSV button",
             "match": {
-              "location": "self-healing/steps/self-healing.steps.ts:35"
+              "location": "section-a/self-healing/steps/self-healing.steps.ts:35"
             },
             "embeddings": [
               {
@@ -658,13 +618,13 @@
             "line": 38,
             "name": "a CSV file of the loans should be downloaded",
             "match": {
-              "location": "self-healing/steps/self-healing.steps.ts:41"
+              "location": "section-a/self-healing/steps/self-healing.steps.ts:41"
             }
           },
           {
             "result": {
               "status": "passed",
-              "duration": 8249
+              "duration": 8290
             },
             "keyword": "After",
             "hidden": true
@@ -672,7 +632,7 @@
           {
             "result": {
               "status": "passed",
-              "duration": 50391916
+              "duration": 49409207
             },
             "keyword": "After",
             "hidden": true,
@@ -694,7 +654,7 @@
           {
             "result": {
               "status": "passed",
-              "duration": 7874
+              "duration": 14209
             },
             "keyword": "After",
             "hidden": true
@@ -702,7 +662,7 @@
         ],
         "tags": [
           {
-            "name": "@app",
+            "name": "@web-app",
             "line": 1
           },
           {
@@ -727,7 +687,7 @@
     "name": "Self-healing exercise - five locators broken on purpose",
     "tags": [
       {
-        "name": "@app",
+        "name": "@web-app",
         "line": 1
       },
       {
@@ -739,6 +699,6 @@
         "line": 1
       }
     ],
-    "uri": "self-healing/features/broken-locators.feature"
+    "uri": "section-a/self-healing/features/broken-locators.feature"
   }
 ]

@@ -1,4 +1,4 @@
-# sql — 2026-10-07T11:20:05.129Z — TEST_ENV=local — node v26.7.0
+# sql — 2026-10-07T12:26:55.366Z — TEST_ENV=local — node v26.7.0
 
 
 Feature: SQL scenario 2 - IPL 2024 players with 30+ runs in 3+ consecutive matches
@@ -100,7 +100,7 @@ Feature: SQL scenario 2 - IPL 2024 players with 30+ runs in 3+ consecutive match
     ✔ Given the "IPL 2024" SQL scenario is loaded                                     # sql/steps/sql.steps.ts:63
     ✔ When I render the query output screenshot                                       # sql/steps/sql.steps.ts:157
 
-          Embedding scenario2.png [image/png 577506 bytes]
+          Embedding scenario2.png [image/png 578511 bytes]
 
 
           Evidence written to sql/results/scenario2.png, sql/results/scenario2.html, sql/results/scenario2.txt
@@ -237,7 +237,7 @@ Feature: SQL scenario 1 - round-trip transfers (possible reversals)
     ✔ Given the "round-trip transfers" SQL scenario is loaded                         # sql/steps/sql.steps.ts:63
     ✔ When I render the query output screenshot                                       # sql/steps/sql.steps.ts:157
 
-          Embedding scenario1.png [image/png 576684 bytes]
+          Embedding scenario1.png [image/png 577116 bytes]
 
 
           Evidence written to sql/results/scenario1.png, sql/results/scenario1.html, sql/results/scenario1.txt
@@ -247,4 +247,4 @@ Feature: SQL scenario 1 - round-trip transfers (possible reversals)
 3 hooks (3 passed)
 6 scenarios (6 passed)
 55 steps (55 passed)
-0m 2.387s (0m 2.375s executing your code)
+0m 2.236s (0m 2.223s executing your code)

@@ -1,0 +1,11 @@
+--- a/section-b/self-healing/pages/LegacyEmiLocators.ts
++++ b/section-b/self-healing/pages/LegacyEmiLocators.ts
+@@ -60,7 +60,7 @@
+ 
+   constructor(page: Page) {
+     this.loanTenureBox = healable(page, TENURE_BOX, (p) => p.locator('#loan-term'));
+-    this.personalLoanTab = healable(page, PERSONAL_LOAN_TAB, (p) => p.getByRole('link', { name: 'Personal Loans', exact: true }));
++    this.personalLoanTab = healable(page, PERSONAL_LOAN_TAB, (p) => p.getByRole('link', { name: 'Personal Loan', exact: true }));
+     this.homeLoanAmountBox = healable(page, AMOUNT_BOX, (p) => p.getByRole('textbox', { name: /loan/i }));
+     this.interestRateBox = healable(page, RATE_BOX, (p) => p.locator('input[type="text"]').last());
+     this.emailScheduleButton = healable(page, EMAIL_SCHEDULE, (p) => p.getByRole('button', { name: 'Email schedule' }));

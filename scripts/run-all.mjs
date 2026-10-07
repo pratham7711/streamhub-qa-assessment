@@ -71,7 +71,7 @@ function runSection(section) {
     const run = { suite, ...RUN[suite] };
     console.log(`\n${'═'.repeat(72)}\n▶ Section ${section.toUpperCase()} · ${suite}\n${'═'.repeat(72)}`);
     const t0 = Date.now();
-    const res = spawnSync(process.execPath, run.cmd, { stdio: 'inherit', env: { ...process.env, ...run.env, REPORTS_DIR: reportsDir } });
+    const res = spawnSync(process.execPath, run.cmd, { stdio: 'inherit', env: { ...process.env, ...run.env, REPORTS_DIR: reportsDir, SECTION: section } });
     rows.push({ ...run, exitCode: res.status, wallMs: Date.now() - t0, ...summarise(reportsDir, run) });
   }
 

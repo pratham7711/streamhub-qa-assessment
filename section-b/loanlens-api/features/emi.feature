@@ -1,4 +1,4 @@
-@app @api
+@api-app @api
 Feature: LoanLens API - EMI calculator (GET /api/emi)
   Required parameters: principal, rate and tenure. Optional: tenureUnit
   (years|months, default years) and startMonth (YYYY-MM). Expected EMIs and

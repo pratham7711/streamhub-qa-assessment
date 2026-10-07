@@ -12,7 +12,7 @@
   "url": "http://localhost:5055/calculator",
   "scenario": "Ambiguous label - the loan amount slider updates the number box",
   "source": {
-    "file": "self-healing/pages/LegacyLocators.ts",
+    "file": "section-a/self-healing/pages/LegacyLocators.ts",
     "line": 63,
     "text": "    this.loanAmountSlider = healable(page, AMOUNT_SLIDER, (p) => p.getByLabel('Loan amount'));",
     "expression": "p.getByLabel('Loan amount')",
@@ -2591,5 +2591,5 @@
     }
   ],
   "screenshot": "section-a/reports/self-healing/healing/incidents/calculator.loanAmountSlider.png",
-  "at": "2026-10-07T11:20:19.706Z"
+  "at": "2026-10-07T12:27:09.810Z"
 }

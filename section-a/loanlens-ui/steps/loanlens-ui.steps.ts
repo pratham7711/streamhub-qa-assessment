@@ -23,10 +23,10 @@ const capitalise = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
 
 /**
  * Screens show whole rupees, so a figure may sit up to ₹0.50 from the exact value,
- * plus ₹0.01 because the API rounds to the paisa first. The float drift the API suite
- * allows for at its ₹10 crore / 50% / 480-month corner stays below a paisa for every
- * loan these screens show (measured: the whole suite passes at this tolerance), and
- * anything looser would accept a figure truncated instead of rounded.
+ * plus ₹0.01 because the app rounds to the paisa first. Float drift in the amortisation
+ * reaches a rupee only at the ₹10 crore / 50% / 480-month corner; it stays below a paisa
+ * for every loan these screens show (measured: the whole suite passes at this tolerance),
+ * and anything looser would accept a figure truncated instead of rounded.
  */
 const SCREEN_TOLERANCE = 0.51;
 
@@ -460,11 +460,19 @@ Then('the yearly chart and amortisation table should be hidden', async function 
   await expect(calc.schedule).toHaveCount(0);
 });
 
-When('the EMI service starts answering slowly', async function (this: CustomWorld) {
-  await this.page.route(/\/api\/emi\?/, async (route) => {
-    await new Promise((resolve) => setTimeout(resolve, 1500));
-    await route.continue();
-  });
+// The calculator works in the browser and waits 250 ms for typing to settle before it
+// recalculates. A fake clock holds it in that window for as long as the scenario needs.
+Given("the browser's clock is under the test's control", async function (this: CustomWorld) {
+  await this.page.clock.install();
+  await this.page.reload();
+});
+
+When("the browser's clock stops", async function (this: CustomWorld) {
+  await this.page.clock.pauseAt(new Date(Date.now() + 1_000));
+});
+
+When("the browser's clock runs again", async function (this: CustomWorld) {
+  await this.page.clock.resume();
 });
 
 Then('the repayment summary should be marked as busy', async function (this: CustomWorld) {
@@ -680,12 +688,14 @@ Then('the loan detail page should describe loan {string} exactly as the loan boo
   expectRupees(await detail.keyFigures.number('Monthly EMI'), emiOf(loan), 'Monthly EMI');
 });
 
-Given('the API answers loan {string} with a tenure of {int} months', async function (this: CustomWorld, id: string, months: number) {
-  await this.page.route(`**/api/loans/${id}`, async (route) => {
+Given('the mock data gives loan {string} a tenure of {int} months', async function (this: CustomWorld, id: string, months: number) {
+  await this.page.route('**/data/loans.json', async (route) => {
     const response = await route.fetch();
-    const body = (await response.json()) as { data: { tenureMonths: number } };
-    body.data.tenureMonths = months;
-    await route.fulfill({ response, json: body });
+    const loans = (await response.json()) as { id: string; tenureMonths: number }[];
+    const loan = loans.find((l) => l.id === id);
+    if (!loan) throw new Error(`${id} is not in the mock data`);
+    loan.tenureMonths = months;
+    await route.fulfill({ response, json: loans });
   });
 });
 
@@ -765,7 +775,7 @@ Then('no browser dialog should have opened', function (this: CustomWorld) {
 });
 
 Given('I open the LoanLens address {string}', async function (this: CustomWorld, address: string) {
-  await this.page.goto(`${env.app.baseUrl}${address}`);
+  await this.page.goto(`${env.web.baseUrl}${address}`);
   await expect(this.page.getByRole('heading', { level: 1 })).toBeVisible();
 });
 
@@ -807,7 +817,7 @@ function cspDirectives(policy: string): Record<string, string> {
 }
 
 Then('the LoanLens page {string} should be served with these headers:', async function (this: CustomWorld, address: string, table: DataTable) {
-  const res = await this.page.request.get(`${env.app.baseUrl}${address}`);
+  const res = await this.page.request.get(`${env.web.baseUrl}${address}`);
   const headers = res.headers();
   this.attach(`GET ${address} -> ${res.status()}\n${Object.entries(headers).map(([k, v]) => `${k}: ${v}`).join('\n')}`, 'text/plain');
   for (const { header, directive, value } of table.hashes()) {
@@ -818,7 +828,7 @@ Then('the LoanLens page {string} should be served with these headers:', async fu
 });
 
 When('I send a {word} request to the LoanLens page {string}', async function (this: CustomWorld, method: string, address: string) {
-  const res = await this.page.request.fetch(`${env.app.baseUrl}${address}`, { method, maxRedirects: 0 });
+  const res = await this.page.request.fetch(`${env.web.baseUrl}${address}`, { method, maxRedirects: 0 });
   const body = await res.text();
   this.scenario.pageResponse = { status: res.status(), headers: res.headers(), body };
   this.attach(`${method} ${address} -> ${res.status()}\n${body.slice(0, 400)}`, 'text/plain');

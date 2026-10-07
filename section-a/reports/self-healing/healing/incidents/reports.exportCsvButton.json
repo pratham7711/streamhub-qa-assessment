@@ -12,7 +12,7 @@
   "url": "http://localhost:5055/reports",
   "scenario": "Removed feature - exporting the report as CSV",
   "source": {
-    "file": "self-healing/pages/LegacyLocators.ts",
+    "file": "section-a/self-healing/pages/LegacyLocators.ts",
     "line": 65,
     "text": "    this.exportCsvButton = healable(page, EXPORT_CSV, (p) => p.getByRole('button', { name: 'Export CSV' }));",
     "expression": "p.getByRole('button', { name: 'Export CSV' })",
@@ -2835,5 +2835,5 @@
     }
   ],
   "screenshot": "section-a/reports/self-healing/healing/incidents/reports.exportCsvButton.png",
-  "at": "2026-10-07T11:20:25.153Z"
+  "at": "2026-10-07T12:27:15.248Z"
 }

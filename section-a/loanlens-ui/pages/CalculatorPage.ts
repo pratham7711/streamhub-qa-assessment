@@ -63,7 +63,7 @@ export class CalculatorPage extends LoanLensPage {
     return this.form.getByText(message, { exact: true });
   }
 
-  /** Waits for the debounce and the /api/emi round trip to finish. */
+  /** Waits for the debounce and the recalculation to finish. */
   async waitForResults(): Promise<void> {
     await expect(this.summary, 'the repayment summary should finish recalculating').toHaveAttribute('aria-busy', 'false');
     await expect(this.result('Monthly EMI')).toBeVisible();

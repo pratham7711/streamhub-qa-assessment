@@ -12,7 +12,7 @@
   "url": "http://localhost:5055/",
   "scenario": "Renamed test id - the Total loans figure shows the size of the loan book",
   "source": {
-    "file": "self-healing/pages/LegacyLocators.ts",
+    "file": "section-a/self-healing/pages/LegacyLocators.ts",
     "line": 61,
     "text": "    this.totalLoansValue = healable(page, TOTAL_LOANS, (p) => p.getByTestId('kpi-total-loans'));",
     "expression": "p.getByTestId('kpi-total-loans')",
@@ -1840,5 +1840,5 @@
     }
   ],
   "screenshot": "section-a/reports/self-healing/healing/incidents/dashboard.totalLoansValue.png",
-  "at": "2026-10-07T11:20:14.205Z"
+  "at": "2026-10-07T12:27:04.298Z"
 }

@@ -1,6 +1,6 @@
 /**
  * The test suite's own EMI oracle. It is written independently of the
- * application code (app/server/lib/emi.ts) on purpose: expected values in every
+ * application code (section-a/app/src/data/emi.ts, section-b/api/lib/emi.ts) on purpose: expected values in every
  * EMI assertion come from here, so a bug in the app cannot agree with itself.
  *
  *   EMI = P × r × (1 + r)^n / ((1 + r)^n − 1)

@@ -11,9 +11,13 @@ import { createWriteStream, mkdirSync, readdirSync, readFileSync, realpathSync, 
 import path from 'node:path';
 
 const SUITES = ['loanlens-ui', 'loanlens-api', 'jsonplaceholder', 'emicalculator', 'sql', 'self-healing', 'self-healing-healed'];
-const [suite, ...extra] = process.argv.slice(2);
-if (!SUITES.includes(suite)) {
-  console.error(`Usage: node scripts/run-suite.mjs <${SUITES.join('|')}> [cucumber args]`);
+const [suite, ...rest] = process.argv.slice(2);
+// --section a|b picks a section's self-healing exercise; the other suites belong to one section already.
+const sectionAt = rest.indexOf('--section');
+if (sectionAt >= 0) process.env.SECTION = rest[sectionAt + 1];
+const extra = sectionAt >= 0 ? rest.filter((_, i) => i !== sectionAt && i !== sectionAt + 1) : rest;
+if (!SUITES.includes(suite) || (process.env.SECTION && !['a', 'b'].includes(process.env.SECTION))) {
+  console.error(`Usage: node scripts/run-suite.mjs <${SUITES.join('|')}> [--section a|b] [cucumber args]`);
   process.exit(2);
 }
 
@@ -23,12 +27,15 @@ rmSync(dir, { recursive: true, force: true });
 mkdirSync(dir, { recursive: true });
 
 const log = createWriteStream(path.join(dir, 'console.log'));
-const APP_SUITES = ['loanlens-ui', 'loanlens-api', 'self-healing', 'self-healing-healed'];
+// Section A's suites drive the web app; Section B's API suite calls the API. They are separate servers.
+const APP_OF_SUITE = { 'loanlens-ui': 'web', 'loanlens-api': 'api' };
+// Section A's self-healing exercise drives the web app; Section B's drives emicalculator.net.
+if ((process.env.SECTION ?? 'a') === 'a') Object.assign(APP_OF_SUITE, { 'self-healing': 'web', 'self-healing-healed': 'web' });
 const stripAnsi = (s) => s.replace(/\u001b\[[0-9;]*m/g, '');
 log.write(`# ${suite} — ${new Date().toISOString()} — TEST_ENV=${process.env.TEST_ENV ?? 'local'} — node ${process.version}\n\n`);
 
 // Parallel Cucumber workers would each try to start the app; start it once here.
-const server = APP_SUITES.includes(suite) ? await startApp() : undefined;
+const server = APP_OF_SUITE[suite] ? await startApp(APP_OF_SUITE[suite]) : undefined;
 
 const child = spawn(
   process.execPath,
@@ -63,18 +70,23 @@ function relativisePaths(root) {
   }
 }
 
-async function startApp() {
-  const port = process.env.APP_PORT ?? '5055';
-  const health = `${process.env.APP_API_URL ?? `http://localhost:${port}/api`}/health`;
-  const healthy = () => fetch(health, { signal: AbortSignal.timeout(1000) }).then((r) => r.ok, () => false);
+async function startApp(name) {
+  const web = name === 'web';
+  const portVar = web ? 'WEB_PORT' : 'API_PORT';
+  const port = process.env[portVar] ?? (web ? '5055' : '5056');
+  const probe = web
+    ? `${process.env.WEB_BASE_URL ?? `http://localhost:${port}`}/data/loans.json`
+    : `${process.env.API_BASE_URL ?? `http://localhost:${port}/api`}/health`;
+  const healthy = () => fetch(probe, { signal: AbortSignal.timeout(1000) }).then((r) => r.ok, () => false);
   if (await healthy()) return undefined;
   if (/^(0|false|no|off)$/i.test(process.env.APP_AUTOSTART ?? '')) return undefined;
-  const app = spawn(process.execPath, ['--import', 'tsx', 'app/server/index.ts'], { env: { ...process.env, APP_PORT: port }, stdio: 'ignore' });
+  const entry = web ? 'section-a/app/server.ts' : 'section-b/api/index.ts';
+  const app = spawn(process.execPath, ['--import', 'tsx', entry], { env: { ...process.env, [portVar]: port }, stdio: 'ignore' });
   for (let i = 0; i < 80 && app.exitCode === null; i += 1) {
     if (await healthy()) return app;
     await new Promise((r) => setTimeout(r, 250));
   }
-  console.error(`LoanLens did not start (exit code ${app.exitCode}); the @app hooks will report the cause.`);
+  console.error(`${entry} did not start (exit code ${app.exitCode}); the @${name}-app hooks will report the cause.`);
   app.kill('SIGTERM');
   return undefined;
 }

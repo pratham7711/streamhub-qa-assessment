@@ -1,20 +1,20 @@
-# self-healing — 2026-10-07T11:20:08.107Z — TEST_ENV=local — node v26.7.0
+# self-healing — 2026-10-07T12:26:58.207Z — TEST_ENV=local — node v26.7.0
 
 
 Feature: Self-healing exercise - five locators broken on purpose
 
-  @app @ui @broken-locator
-  Scenario: Renamed test id - the Total loans figure shows the size of the loan book       # self-healing/features/broken-locators.feature:16
+  @web-app @ui @broken-locator
+  Scenario: Renamed test id - the Total loans figure shows the size of the loan book       # section-a/self-healing/features/broken-locators.feature:16
     ✔ Given I open the LoanLens dashboard                                                  # section-a/loanlens-ui/steps/loanlens-ui.steps.ts:98
 
           Locator "dashboard.totalLoansValue" failed: page.getByTestId('kpi-total-loans') → No element matched within 5 s.
           Incident: section-a/reports/self-healing/healing/incidents/dashboard.totalLoansValue.json
 
-    ✘ Then the legacy Total loans figure should equal the number of loans in the loan book # self-healing/steps/self-healing.steps.ts:12
+    ✘ Then the legacy Total loans figure should equal the number of loans in the loan book # section-a/self-healing/steps/self-healing.steps.ts:12
           LocatorHealingError: Locator "dashboard.totalLoansValue" failed: page.getByTestId('kpi-total-loans') → No element matched within 5 s.
           Self-healing is off. Run "npm run heal" for a validated suggestion. Incident: ./section-a/reports/self-healing/healing/incidents/dashboard.totalLoansValue.json
               at HealableLocator.heal (./self-healing/runtime.ts:90:13)
-              at async CustomWorld.<anonymous> (./self-healing/steps/self-healing.steps.ts:13:17)
+              at async CustomWorld.<anonymous> (./section-a/self-healing/steps/self-healing.steps.ts:13:17)
 
           Embedding renamed-test-id-the-total-loans-figure-shows-the-size-of-the-loan-book--01-failure.png [image/png 126057 bytes]
 
@@ -25,19 +25,19 @@ Feature: Self-healing exercise - five locators broken on purpose
           Playwright trace: section-a/reports/self-healing/traces/renamed-test-id-the-total-loans-figure-shows-the-size-of-the-loan-book.zip (open with: npx playwright show-trace <file>)
 
 
-  @app @ui @broken-locator
-  Scenario: Changed button text - applying a status filter narrows the report               # self-healing/features/broken-locators.feature:20
+  @web-app @ui @broken-locator
+  Scenario: Changed button text - applying a status filter narrows the report               # section-a/self-healing/features/broken-locators.feature:20
     ✔ Given I open the LoanLens loan book report                                            # section-a/loanlens-ui/steps/loanlens-ui.steps.ts:106
 
           Locator "reports.applyFiltersButton" failed: page.getByRole('button', { name: 'Apply filter', exact: true }) → No element matched within 5 s.
           Incident: section-a/reports/self-healing/healing/incidents/reports.applyFiltersButton.json
 
-    ✘ When I filter the report to "Overdue" loans with the legacy Apply button              # self-healing/steps/self-healing.steps.ts:17
+    ✘ When I filter the report to "Overdue" loans with the legacy Apply button              # section-a/self-healing/steps/self-healing.steps.ts:17
           LocatorHealingError: Locator "reports.applyFiltersButton" failed: page.getByRole('button', { name: 'Apply filter', exact: true }) → No element matched within 5 s.
           Self-healing is off. Run "npm run heal" for a validated suggestion. Incident: ./section-a/reports/self-healing/healing/incidents/reports.applyFiltersButton.json
               at HealableLocator.heal (./self-healing/runtime.ts:90:13)
-              at async CustomWorld.<anonymous> (./self-healing/steps/self-healing.steps.ts:20:10)
-    ↷ Then the report should list exactly the loans the loan book has for the current query # section-a/loanlens-ui/steps/loanlens-ui.steps.ts:509
+              at async CustomWorld.<anonymous> (./section-a/self-healing/steps/self-healing.steps.ts:20:10)
+    ↷ Then the report should list exactly the loans the loan book has for the current query # section-a/loanlens-ui/steps/loanlens-ui.steps.ts:517
 
           Embedding changed-button-text-applying-a-status-filter-narrows-the-report--01-failure.png [image/png 138315 bytes]
 
@@ -48,18 +48,18 @@ Feature: Self-healing exercise - five locators broken on purpose
           Playwright trace: section-a/reports/self-healing/traces/changed-button-text-applying-a-status-filter-narrows-the-report.zip (open with: npx playwright show-trace <file>)
 
 
-  @app @ui @broken-locator
-  Scenario: Ambiguous label - the loan amount slider updates the number box # self-healing/features/broken-locators.feature:25
+  @web-app @ui @broken-locator
+  Scenario: Ambiguous label - the loan amount slider updates the number box # section-a/self-healing/features/broken-locators.feature:25
     ✔ Given I open the LoanLens EMI calculator                              # section-a/loanlens-ui/steps/loanlens-ui.steps.ts:102
 
           Locator "calculator.loanAmountSlider" failed: page.getByLabel('Loan amount') → 2 elements matched; an action on it would violate strict mode.
           Incident: section-a/reports/self-healing/healing/incidents/calculator.loanAmountSlider.json
 
-    ✘ When I set the loan amount to 5000000 with the legacy slider          # self-healing/steps/self-healing.steps.ts:24
+    ✘ When I set the loan amount to 5000000 with the legacy slider          # section-a/self-healing/steps/self-healing.steps.ts:24
           LocatorHealingError: Locator "calculator.loanAmountSlider" failed: page.getByLabel('Loan amount') → 2 elements matched; an action on it would violate strict mode.
           Self-healing is off. Run "npm run heal" for a validated suggestion. Incident: ./section-a/reports/self-healing/healing/incidents/calculator.loanAmountSlider.json
               at HealableLocator.heal (./self-healing/runtime.ts:90:13)
-              at async CustomWorld.<anonymous> (./self-healing/steps/self-healing.steps.ts:25:18)
+              at async CustomWorld.<anonymous> (./section-a/self-healing/steps/self-healing.steps.ts:25:18)
     ↷ Then the number boxes should show 5000000, 10 and 10                  # section-a/loanlens-ui/steps/loanlens-ui.steps.ts:299
 
           Embedding ambiguous-label-the-loan-amount-slider-updates-the-number-box--01-failure.png [image/png 111378 bytes]
@@ -71,18 +71,18 @@ Feature: Self-healing exercise - five locators broken on purpose
           Playwright trace: section-a/reports/self-healing/traces/ambiguous-label-the-loan-amount-slider-updates-the-number-box.zip (open with: npx playwright show-trace <file>)
 
 
-  @app @ui @broken-locator
-  Scenario: Positional locator - the recent disbursements table starts with the newest loan         # self-healing/features/broken-locators.feature:30
+  @web-app @ui @broken-locator
+  Scenario: Positional locator - the recent disbursements table starts with the newest loan         # section-a/self-healing/features/broken-locators.feature:30
     ✔ Given I open the LoanLens dashboard                                                           # section-a/loanlens-ui/steps/loanlens-ui.steps.ts:98
 
           Locator "dashboard.recentDisbursementsTable" failed: page.locator('table').first() → Resolved, but element does not have role table named Recent disbursements.
           Incident: section-a/reports/self-healing/healing/incidents/dashboard.recentDisbursementsTable.json
 
-    ✘ Then the legacy recent disbursements table should start with the most recently disbursed loan # self-healing/steps/self-healing.steps.ts:29
+    ✘ Then the legacy recent disbursements table should start with the most recently disbursed loan # section-a/self-healing/steps/self-healing.steps.ts:29
           LocatorHealingError: Locator "dashboard.recentDisbursementsTable" failed: page.locator('table').first() → Resolved, but element does not have role table named Recent disbursements.
           Self-healing is off. Run "npm run heal" for a validated suggestion. Incident: ./section-a/reports/self-healing/healing/incidents/dashboard.recentDisbursementsTable.json
               at HealableLocator.heal (./self-healing/runtime.ts:90:13)
-              at async CustomWorld.<anonymous> (./self-healing/steps/self-healing.steps.ts:30:17)
+              at async CustomWorld.<anonymous> (./section-a/self-healing/steps/self-healing.steps.ts:30:17)
 
           Embedding positional-locator-the-recent-disbursements-table-starts-with-the-newest-loan--01-failure.png [image/png 126057 bytes]
 
@@ -93,19 +93,19 @@ Feature: Self-healing exercise - five locators broken on purpose
           Playwright trace: section-a/reports/self-healing/traces/positional-locator-the-recent-disbursements-table-starts-with-the-newest-loan.zip (open with: npx playwright show-trace <file>)
 
 
-  @app @ui @broken-locator @unhealable
-  Scenario: Removed feature - exporting the report as CSV # self-healing/features/broken-locators.feature:35
+  @web-app @ui @broken-locator @unhealable
+  Scenario: Removed feature - exporting the report as CSV # section-a/self-healing/features/broken-locators.feature:35
     ✔ Given I open the LoanLens loan book report          # section-a/loanlens-ui/steps/loanlens-ui.steps.ts:106
 
           Locator "reports.exportCsvButton" failed: page.getByRole('button', { name: 'Export CSV' }) → No element matched within 5 s.
           Incident: section-a/reports/self-healing/healing/incidents/reports.exportCsvButton.json
 
-    ✘ When I press the legacy Export CSV button           # self-healing/steps/self-healing.steps.ts:35
+    ✘ When I press the legacy Export CSV button           # section-a/self-healing/steps/self-healing.steps.ts:35
           LocatorHealingError: Locator "reports.exportCsvButton" failed: page.getByRole('button', { name: 'Export CSV' }) → No element matched within 5 s.
           Self-healing is off. Run "npm run heal" for a validated suggestion. Incident: ./section-a/reports/self-healing/healing/incidents/reports.exportCsvButton.json
               at HealableLocator.heal (./self-healing/runtime.ts:90:13)
-              at async CustomWorld.<anonymous> (./self-healing/steps/self-healing.steps.ts:36:18)
-    ↷ Then a CSV file of the loans should be downloaded   # self-healing/steps/self-healing.steps.ts:41
+              at async CustomWorld.<anonymous> (./section-a/self-healing/steps/self-healing.steps.ts:36:18)
+    ↷ Then a CSV file of the loans should be downloaded   # section-a/self-healing/steps/self-healing.steps.ts:41
 
           Embedding removed-feature-exporting-the-report-as-csv--01-failure.png [image/png 138375 bytes]
 
@@ -117,53 +117,53 @@ Feature: Self-healing exercise - five locators broken on purpose
 
 
 Failed scenarios:
-  1) Renamed test id - the Total loans figure shows the size of the loan book # self-healing/features/broken-locators.feature:16
-       Then the legacy Total loans figure should equal the number of loans in the loan book # self-healing/steps/self-healing.steps.ts:12
+  1) Renamed test id - the Total loans figure shows the size of the loan book # section-a/self-healing/features/broken-locators.feature:16
+       Then the legacy Total loans figure should equal the number of loans in the loan book # section-a/self-healing/steps/self-healing.steps.ts:12
            LocatorHealingError: Locator "dashboard.totalLoansValue" failed: page.getByTestId('kpi-total-loans') → No element matched within 5 s.
            Self-healing is off. Run "npm run heal" for a validated suggestion. Incident: ./section-a/reports/self-healing/healing/incidents/dashboard.totalLoansValue.json
                at HealableLocator.heal (./self-healing/runtime.ts:90:13)
-               at async CustomWorld.<anonymous> (./self-healing/steps/self-healing.steps.ts:13:17)
+               at async CustomWorld.<anonymous> (./section-a/self-healing/steps/self-healing.steps.ts:13:17)
 
            Locator "dashboard.totalLoansValue" failed: page.getByTestId('kpi-total-loans') → No element matched within 5 s.
            Incident: section-a/reports/self-healing/healing/incidents/dashboard.totalLoansValue.json
-  2) Changed button text - applying a status filter narrows the report # self-healing/features/broken-locators.feature:20
-       When I filter the report to "Overdue" loans with the legacy Apply button # self-healing/steps/self-healing.steps.ts:17
+  2) Changed button text - applying a status filter narrows the report # section-a/self-healing/features/broken-locators.feature:20
+       When I filter the report to "Overdue" loans with the legacy Apply button # section-a/self-healing/steps/self-healing.steps.ts:17
            LocatorHealingError: Locator "reports.applyFiltersButton" failed: page.getByRole('button', { name: 'Apply filter', exact: true }) → No element matched within 5 s.
            Self-healing is off. Run "npm run heal" for a validated suggestion. Incident: ./section-a/reports/self-healing/healing/incidents/reports.applyFiltersButton.json
                at HealableLocator.heal (./self-healing/runtime.ts:90:13)
-               at async CustomWorld.<anonymous> (./self-healing/steps/self-healing.steps.ts:20:10)
+               at async CustomWorld.<anonymous> (./section-a/self-healing/steps/self-healing.steps.ts:20:10)
 
            Locator "reports.applyFiltersButton" failed: page.getByRole('button', { name: 'Apply filter', exact: true }) → No element matched within 5 s.
            Incident: section-a/reports/self-healing/healing/incidents/reports.applyFiltersButton.json
-  3) Ambiguous label - the loan amount slider updates the number box # self-healing/features/broken-locators.feature:25
-       When I set the loan amount to 5000000 with the legacy slider # self-healing/steps/self-healing.steps.ts:24
+  3) Ambiguous label - the loan amount slider updates the number box # section-a/self-healing/features/broken-locators.feature:25
+       When I set the loan amount to 5000000 with the legacy slider # section-a/self-healing/steps/self-healing.steps.ts:24
            LocatorHealingError: Locator "calculator.loanAmountSlider" failed: page.getByLabel('Loan amount') → 2 elements matched; an action on it would violate strict mode.
            Self-healing is off. Run "npm run heal" for a validated suggestion. Incident: ./section-a/reports/self-healing/healing/incidents/calculator.loanAmountSlider.json
                at HealableLocator.heal (./self-healing/runtime.ts:90:13)
-               at async CustomWorld.<anonymous> (./self-healing/steps/self-healing.steps.ts:25:18)
+               at async CustomWorld.<anonymous> (./section-a/self-healing/steps/self-healing.steps.ts:25:18)
 
            Locator "calculator.loanAmountSlider" failed: page.getByLabel('Loan amount') → 2 elements matched; an action on it would violate strict mode.
            Incident: section-a/reports/self-healing/healing/incidents/calculator.loanAmountSlider.json
-  4) Positional locator - the recent disbursements table starts with the newest loan # self-healing/features/broken-locators.feature:30
-       Then the legacy recent disbursements table should start with the most recently disbursed loan # self-healing/steps/self-healing.steps.ts:29
+  4) Positional locator - the recent disbursements table starts with the newest loan # section-a/self-healing/features/broken-locators.feature:30
+       Then the legacy recent disbursements table should start with the most recently disbursed loan # section-a/self-healing/steps/self-healing.steps.ts:29
            LocatorHealingError: Locator "dashboard.recentDisbursementsTable" failed: page.locator('table').first() → Resolved, but element does not have role table named Recent disbursements.
            Self-healing is off. Run "npm run heal" for a validated suggestion. Incident: ./section-a/reports/self-healing/healing/incidents/dashboard.recentDisbursementsTable.json
                at HealableLocator.heal (./self-healing/runtime.ts:90:13)
-               at async CustomWorld.<anonymous> (./self-healing/steps/self-healing.steps.ts:30:17)
+               at async CustomWorld.<anonymous> (./section-a/self-healing/steps/self-healing.steps.ts:30:17)
 
            Locator "dashboard.recentDisbursementsTable" failed: page.locator('table').first() → Resolved, but element does not have role table named Recent disbursements.
            Incident: section-a/reports/self-healing/healing/incidents/dashboard.recentDisbursementsTable.json
-  5) Removed feature - exporting the report as CSV # self-healing/features/broken-locators.feature:35
-       When I press the legacy Export CSV button # self-healing/steps/self-healing.steps.ts:35
+  5) Removed feature - exporting the report as CSV # section-a/self-healing/features/broken-locators.feature:35
+       When I press the legacy Export CSV button # section-a/self-healing/steps/self-healing.steps.ts:35
            LocatorHealingError: Locator "reports.exportCsvButton" failed: page.getByRole('button', { name: 'Export CSV' }) → No element matched within 5 s.
            Self-healing is off. Run "npm run heal" for a validated suggestion. Incident: ./section-a/reports/self-healing/healing/incidents/reports.exportCsvButton.json
                at HealableLocator.heal (./self-healing/runtime.ts:90:13)
-               at async CustomWorld.<anonymous> (./self-healing/steps/self-healing.steps.ts:36:18)
+               at async CustomWorld.<anonymous> (./section-a/self-healing/steps/self-healing.steps.ts:36:18)
 
            Locator "reports.exportCsvButton" failed: page.getByRole('button', { name: 'Export CSV' }) → No element matched within 5 s.
            Incident: section-a/reports/self-healing/healing/incidents/reports.exportCsvButton.json
 
 2 hooks (2 passed)
 5 scenarios (5 failed)
-53 steps (45 passed, 3 skipped, 5 failed)
-0m 16.334s (0m 16.319s executing your code)
+48 steps (40 passed, 3 skipped, 5 failed)
+0m 16.302s (0m 16.287s executing your code)

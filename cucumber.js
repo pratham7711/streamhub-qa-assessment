@@ -23,7 +23,7 @@ const suite = (name, dirs, extra = {}) => ({
   ...extra,
 });
 
-const ALL = ['section-a/loanlens-ui', 'section-a/jsonplaceholder', 'section-b/loanlens-api', 'section-b/emicalculator', 'sql', 'self-healing'];
+const ALL = ['section-a/loanlens-ui', 'section-a/jsonplaceholder', 'section-a/self-healing', 'section-b/loanlens-api', 'section-b/emicalculator', 'section-b/self-healing', 'sql'];
 export default {
   ...suite('adhoc', ALL),
   paths: ALL.map((d) => `${d}/features/**/*.feature`),
@@ -40,7 +40,11 @@ export const emicalculator = suite('emicalculator', ['section-b/emicalculator'],
   retry: 1,
   retryTagFilter: 'not @known-defect',
 });
-// Both sections: A4 and B4 are the same SQL, and the self-healing exercise drives the LoanLens UI.
+// Both sections: A4 and B4 are the same SQL.
 export const sql = suite('sql', ['sql']);
-export const selfHealing = suite('self-healing', ['self-healing', 'section-a/loanlens-ui']);
-export const selfHealingHealed = suite('self-healing-healed', ['self-healing', 'section-a/loanlens-ui']);
+// Each section has its own self-healing exercise on its own UI pages, run by the shared healer
+// (self-healing/). SECTION picks which one; scripts/run-all.mjs and `--section` set it.
+const healing = { a: ['section-a/self-healing', 'section-a/loanlens-ui'], b: ['section-b/self-healing', 'section-b/emicalculator'] }[process.env.SECTION ?? 'a'];
+if (!healing) throw new Error(`SECTION must be "a" or "b" (got "${process.env.SECTION}")`);
+export const selfHealing = suite('self-healing', healing);
+export const selfHealingHealed = suite('self-healing-healed', healing);

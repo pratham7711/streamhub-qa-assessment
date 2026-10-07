@@ -1,31 +1,33 @@
 <?xml version="1.0"?>
-<testsuite name="self-healing-healed" time="36.362" tests="5" skipped="0" failures="1" errors="0" timestamp="2026-10-07T11:22:19.127Z">
-  <testcase classname="Self-healing exercise - five locators broken on purpose" name="Renamed test id - the Total loans figure shows the size of the loan book" time="10.199">
-    <system-out><![CDATA[Given I open the LoanLens dashboard.........................................passed
-Then the legacy Total loans figure should equal the number of loans in the loan book..passed]]></system-out>
+<testsuite name="self-healing-healed" time="48.793" tests="5" skipped="0" failures="1" errors="0" timestamp="2026-10-07T12:25:15.586Z">
+  <testcase classname="Self-healing exercise - five locators on emicalculator.net broken on purpose" name="Wrong id - the tenure box sets the loan tenure" time="11.647">
+    <system-out><![CDATA[Given I launch the EMI calculator application...............................passed
+When I type a tenure of 15 years into the legacy tenure box.................passed
+Then the EMI shown should match my own calculation..........................passed]]></system-out>
   </testcase>
-  <testcase classname="Self-healing exercise - five locators broken on purpose" name="Changed button text - applying a status filter narrows the report" time="9.573">
-    <system-out><![CDATA[Given I open the LoanLens loan book report..................................passed
-When I filter the report to "Overdue" loans with the legacy Apply button....passed
-Then the report should list exactly the loans the loan book has for the current query..passed]]></system-out>
+  <testcase classname="Self-healing exercise - five locators on emicalculator.net broken on purpose" name="Wrong link text - the Personal Loan tab switches the calculator" time="11.572">
+    <system-out><![CDATA[Given I launch the EMI calculator application...............................passed
+When I open the Personal Loan tab with the legacy tab link..................passed
+Then the amount box should be labelled "Personal Loan Amount"...............passed]]></system-out>
   </testcase>
-  <testcase classname="Self-healing exercise - five locators broken on purpose" name="Ambiguous label - the loan amount slider updates the number box" time="4.063">
-    <system-out><![CDATA[Given I open the LoanLens EMI calculator....................................passed
-When I set the loan amount to 5000000 with the legacy slider................passed
-Then the number boxes should show 5000000, 10 and 10........................passed]]></system-out>
+  <testcase classname="Self-healing exercise - five locators on emicalculator.net broken on purpose" name="Ambiguous name - the amount box sets the principal" time="7.048">
+    <system-out><![CDATA[Given I launch the EMI calculator application...............................passed
+When I type a loan amount of 2500000 into the legacy amount box.............passed
+Then the EMI shown should match my own calculation..........................passed]]></system-out>
   </testcase>
-  <testcase classname="Self-healing exercise - five locators broken on purpose" name="Positional locator - the recent disbursements table starts with the newest loan" time="4.093">
-    <system-out><![CDATA[Given I open the LoanLens dashboard.........................................passed
-Then the legacy recent disbursements table should start with the most recently disbursed loan..passed]]></system-out>
+  <testcase classname="Self-healing exercise - five locators on emicalculator.net broken on purpose" name="Positional locator - the interest rate box sets the rate" time="6.664">
+    <system-out><![CDATA[Given I launch the EMI calculator application...............................passed
+When I type an interest rate of 10.5 into the legacy rate box...............passed
+Then the EMI shown should match my own calculation..........................passed]]></system-out>
   </testcase>
-  <testcase classname="Self-healing exercise - five locators broken on purpose" name="Removed feature - exporting the report as CSV" time="8.411">
-    <failure type="LocatorHealingError" message="Locator &quot;reports.exportCsvButton&quot; failed: page.getByRole('button', { name: 'Export CSV' }) → No element matched within 5 s.&#xA;Healer (claude-cli (sonnet)) found no candidate that passed validation (0 failed, 0 malformed)."><![CDATA[LocatorHealingError: Locator "reports.exportCsvButton" failed: page.getByRole('button', { name: 'Export CSV' }) → No element matched within 5 s.
+  <testcase classname="Self-healing exercise - five locators on emicalculator.net broken on purpose" name="Missing feature - e-mailing the repayment schedule" time="11.823">
+    <failure type="LocatorHealingError" message="Locator &quot;emicalculator.emailScheduleButton&quot; failed: page.getByRole('button', { name: 'Email schedule' }) → No element matched within 5 s.&#xA;Healer (claude-cli (sonnet)) found no candidate that passed validation (0 failed, 0 malformed)."><![CDATA[LocatorHealingError: Locator "emicalculator.emailScheduleButton" failed: page.getByRole('button', { name: 'Email schedule' }) → No element matched within 5 s.
 Healer (claude-cli (sonnet)) found no candidate that passed validation (0 failed, 0 malformed).
     at HealableLocator.heal (./self-healing/runtime.ts:127:11)
     at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
-    at async CustomWorld.<anonymous> (./self-healing/steps/self-healing.steps.ts:36:18)]]></failure>
-    <system-out><![CDATA[Given I open the LoanLens loan book report..................................passed
-When I press the legacy Export CSV button...................................failed
-Then a CSV file of the loans should be downloaded...........................skipped]]></system-out>
+    at async CustomWorld.<anonymous> (./section-b/self-healing/steps/self-healing.steps.ts:54:10)]]></failure>
+    <system-out><![CDATA[Given I launch the EMI calculator application...............................passed
+When I press the legacy Email schedule button...............................failed
+Then a form to e-mail the schedule should open..............................skipped]]></system-out>
   </testcase>
 </testsuite>

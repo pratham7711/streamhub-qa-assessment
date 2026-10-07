@@ -1,5 +1,5 @@
 /**
- * Test oracle for LoanLens data. Reads the mock database file directly and
+ * Test oracle for LoanLens data. Reads the mock data file directly and
  * re-implements the documented query semantics (filter, search, sort, page,
  * summarise) without importing any application code, so API and UI results can
  * be compared with an independently computed expectation.
@@ -20,10 +20,22 @@ export interface BookLoan {
   city: string;
 }
 
+let file: string | undefined;
 let cache: BookLoan[] | undefined;
 
+/**
+ * Each app reads its own copy of the mock data, so the oracle is pointed at the copy the app
+ * under test reads (framework/support/hooks.ts does it per scenario, from the @web-app or
+ * @api-app tag): section-a/app/public/data/loans.json or section-b/api/data/loans.json.
+ */
+export function setLoanBookFile(dataFile: string): void {
+  if (file !== dataFile) cache = undefined;
+  file = dataFile;
+}
+
 export function loanBook(): BookLoan[] {
-  cache ??= JSON.parse(readFileSync(path.resolve('app/server/data/loans.json'), 'utf8')) as BookLoan[];
+  if (!file) throw new Error('No loan book chosen: tag the scenario @web-app or @api-app, or call setLoanBookFile()');
+  cache ??= JSON.parse(readFileSync(path.resolve(file), 'utf8')) as BookLoan[];
   return cache;
 }
 

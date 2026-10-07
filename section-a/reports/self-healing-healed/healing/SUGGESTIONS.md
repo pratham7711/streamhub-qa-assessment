@@ -1,6 +1,6 @@
 # Self-healing suggestions
 
-Generated 2026-10-07T11:21:06.325Z. 4 of 5 broken locators have a validated suggestion; 4 replayed green.
+Generated 2026-10-07T12:28:04.277Z. 4 of 5 broken locators have a validated suggestion; 4 replayed green.
 Nothing here has been applied to the source. Each patch is for a person to review and `git apply`.
 
 | Locator | Failure | Failed locator | Suggested | Replay |
@@ -14,21 +14,21 @@ Nothing here has been applied to the source. Each patch is for a person to revie
 ### `dashboard.totalLoansValue`
 
 - **Scenario:** Renamed test id - the Total loans figure shows the size of the loan book
-- **Declared at:** `self-healing/pages/LegacyLocators.ts:61`
+- **Declared at:** `section-a/self-healing/pages/LegacyLocators.ts:61`
 - **Failure:** no-match. No element matched within 5 s.
 - **Failed locator:** `page.getByTestId('kpi-total-loans')`
-- **Provider:** claude-cli (sonnet) (8.7 s, $0.0420)
+- **Provider:** claude-cli (sonnet) (5.4 s, $0.0367)
 - **Incident:** `section-a/reports/self-healing-healed/healing/incidents/dashboard.totalLoansValue.json`
 
-**Accepted:** `page.getByRole('group', { name: 'Total loans' }).getByTestId('kpi-value')` (confidence 0.88)
+**Accepted:** `page.getByRole('group', { name: 'Total loans' }).getByTestId('kpi-value')` (confidence 0.92)
 
-The kpi-value test id is the only value element inside the "Total loans" group, so scoping resolves the four-way duplicate.
+The kpi-value test id is the only value element inside the "Total loans" group, and it shows 120, which fits the numeric fingerprint.
 
 Validation: ✔ vocabulary · ✔ differs from failed locator · ✔ unique match · ✔ visible · ✔ fingerprint: container · ✔ fingerprint: text. Replay of the scenario on the healed locator: **passed**.
 
 ```diff
---- a/self-healing/pages/LegacyLocators.ts
-+++ b/self-healing/pages/LegacyLocators.ts
+--- a/section-a/self-healing/pages/LegacyLocators.ts
++++ b/section-a/self-healing/pages/LegacyLocators.ts
 @@ -58,7 +58,7 @@
    readonly exportCsvButton;
  
@@ -41,28 +41,28 @@ Validation: ✔ vocabulary · ✔ differs from failed locator · ✔ unique matc
 ```
 
 **Other candidates:**
-- `page.getByRole('group', { name: 'Total loans' }).getByText('120', { exact: true })`: passed validation, ranked below the accepted one (confidence 0.5)
+- `page.getByRole('group', { name: 'Total loans' }).getByText('120', { exact: true })`: passed validation, ranked below the accepted one (confidence 0.6)
 
 ---
 
 ### `reports.applyFiltersButton`
 
 - **Scenario:** Changed button text - applying a status filter narrows the report
-- **Declared at:** `self-healing/pages/LegacyLocators.ts:62`
+- **Declared at:** `section-a/self-healing/pages/LegacyLocators.ts:62`
 - **Failure:** no-match. No element matched within 5 s.
 - **Failed locator:** `page.getByRole('button', { name: 'Apply filter', exact: true })`
-- **Provider:** claude-cli (sonnet) (4.0 s, $0.0456)
+- **Provider:** claude-cli (sonnet) (6.5 s, $0.0457)
 - **Incident:** `section-a/reports/self-healing-healed/healing/incidents/reports.applyFiltersButton.json`
 
 **Accepted:** `page.getByRole('button', { name: 'Apply filters', exact: true })` (confidence 0.97)
 
-The only button named 'Apply filters' in the page; it submits the Report filters form and matches /^apply/i.
+The form contains a single button named exactly 'Apply filters', which matches the /^apply/i fingerprint and submits the report filters.
 
 Validation: ✔ vocabulary · ✔ differs from failed locator · ✔ unique match · ✔ visible · ✔ fingerprint: role and name. Replay of the scenario on the healed locator: **passed**.
 
 ```diff
---- a/self-healing/pages/LegacyLocators.ts
-+++ b/self-healing/pages/LegacyLocators.ts
+--- a/section-a/self-healing/pages/LegacyLocators.ts
++++ b/section-a/self-healing/pages/LegacyLocators.ts
 @@ -59,7 +59,7 @@
  
    constructor(private readonly page: Page) {
@@ -82,21 +82,21 @@ Validation: ✔ vocabulary · ✔ differs from failed locator · ✔ unique matc
 ### `calculator.loanAmountSlider`
 
 - **Scenario:** Ambiguous label - the loan amount slider updates the number box
-- **Declared at:** `self-healing/pages/LegacyLocators.ts:63`
+- **Declared at:** `section-a/self-healing/pages/LegacyLocators.ts:63`
 - **Failure:** ambiguous. 2 elements matched; an action on it would violate strict mode.
 - **Failed locator:** `page.getByLabel('Loan amount')`
-- **Provider:** claude-cli (sonnet) (3.8 s, $0.0495)
+- **Provider:** claude-cli (sonnet) (4.0 s, $0.0495)
 - **Incident:** `section-a/reports/self-healing-healed/healing/incidents/calculator.loanAmountSlider.json`
 
 **Accepted:** `page.getByRole('slider', { name: 'Loan amount' })` (confidence 0.97)
 
-The slider role with the exact name 'Loan amount' matches only the range input, since the other element with that name is a spinbutton.
+Role slider with exact name 'Loan amount' is unique, since the other same-named element is a spinbutton.
 
 Validation: ✔ vocabulary · ✔ differs from failed locator · ✔ unique match · ✔ visible · ✔ fingerprint: role and name. Replay of the scenario on the healed locator: **passed**.
 
 ```diff
---- a/self-healing/pages/LegacyLocators.ts
-+++ b/self-healing/pages/LegacyLocators.ts
+--- a/section-a/self-healing/pages/LegacyLocators.ts
++++ b/section-a/self-healing/pages/LegacyLocators.ts
 @@ -60,7 +60,7 @@
    constructor(private readonly page: Page) {
      this.totalLoansValue = healable(page, TOTAL_LOANS, (p) => p.getByTestId('kpi-total-loans'));
@@ -116,21 +116,21 @@ Validation: ✔ vocabulary · ✔ differs from failed locator · ✔ unique matc
 ### `dashboard.recentDisbursementsTable`
 
 - **Scenario:** Positional locator - the recent disbursements table starts with the newest loan
-- **Declared at:** `self-healing/pages/LegacyLocators.ts:64`
+- **Declared at:** `section-a/self-healing/pages/LegacyLocators.ts:64`
 - **Failure:** wrong-element. Resolved, but element does not have role table named Recent disbursements.
 - **Failed locator:** `page.locator('table').first()`
-- **Provider:** claude-cli (sonnet) (3.9 s, $0.0343)
+- **Provider:** claude-cli (sonnet) (4.1 s, $0.0342)
 - **Incident:** `section-a/reports/self-healing-healed/healing/incidents/dashboard.recentDisbursementsTable.json`
 
 **Accepted:** `page.getByRole('table', { name: 'Recent disbursements', exact: true })` (confidence 0.97)
 
-The snapshot shows a single table with the accessible name 'Recent disbursements', which matches the intent and fingerprint.
+The table with role table and exact accessible name 'Recent disbursements' is the single match for the fingerprint.
 
 Validation: ✔ vocabulary · ✔ differs from failed locator · ✔ unique match · ✔ visible · ✔ fingerprint: role and name. Replay of the scenario on the healed locator: **passed**.
 
 ```diff
---- a/self-healing/pages/LegacyLocators.ts
-+++ b/self-healing/pages/LegacyLocators.ts
+--- a/section-a/self-healing/pages/LegacyLocators.ts
++++ b/section-a/self-healing/pages/LegacyLocators.ts
 @@ -61,7 +61,7 @@
      this.totalLoansValue = healable(page, TOTAL_LOANS, (p) => p.getByTestId('kpi-total-loans'));
      this.applyFiltersButton = healable(page, APPLY_FILTERS, (p) => p.getByRole('button', { name: 'Apply filter', exact: true }));
@@ -150,10 +150,10 @@ Validation: ✔ vocabulary · ✔ differs from failed locator · ✔ unique matc
 ### `reports.exportCsvButton`
 
 - **Scenario:** Removed feature - exporting the report as CSV
-- **Declared at:** `self-healing/pages/LegacyLocators.ts:65`
+- **Declared at:** `section-a/self-healing/pages/LegacyLocators.ts:65`
 - **Failure:** no-match. No element matched within 5 s.
 - **Failed locator:** `page.getByRole('button', { name: 'Export CSV' })`
-- **Provider:** claude-cli (sonnet) (3.5 s, $0.0439)
+- **Provider:** claude-cli (sonnet) (11.7 s, $0.0451)
 - **Incident:** `section-a/reports/self-healing-healed/healing/incidents/reports.exportCsvButton.json`
 
 **No suggestion passed validation.** The test stays red; a person has to look at it.

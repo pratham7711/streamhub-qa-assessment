@@ -1,8 +1,8 @@
-@app @ui @loanlens-ui
+@web-app @ui @loanlens-ui
 Feature: LoanLens UI - EMI calculator
-  The calculator sends the form to /api/emi and draws the answer. Expected
+  The calculator works out the repayment plan in the browser and draws it. Expected
   EMIs, totals and calendar-year schedules come from the suite's own
-  amortisation (tests/utils/emi.ts), so the UI cannot agree with itself.
+  amortisation (framework/oracles/emi.ts), so the UI cannot agree with itself.
 
   Background:
     Given I open the LoanLens EMI calculator
@@ -70,21 +70,25 @@ Feature: LoanLens UI - EMI calculator
     When I type "<fixed>" into the "<field>" box
     Then the monthly EMI, total interest and total payment should match my own calculation
 
-    # The range rules, negatives included, live in the API and are tested there one by one.
-    # The UI's job is to put the API's refusal on the right field in the field's own words,
+    # The range rules, negatives included, live in the app's data layer (src/data/query.ts).
+    # The UI's job is to put each refusal on the right field in the field's own words,
     # which is worded differently for each field, so there is one row per field.
-    Examples: Out-of-range values, refused by the API and shown on the field
+    Examples: Out-of-range values, refused and shown on the field
       | field         | case              | value    | message                                                                          | fixed   |
       | Loan amount   | negative          | -2383434 | Loan amount must be between ₹1,000 and ₹10,00,00,000.                            | 2000000 |
       | Interest rate | negative          | -8.5     | Interest rate must be between 0% and 50%.                                        | 9       |
       | Loan tenure   | over 40 years     | 50       | Loan tenure must be a whole number of months between 1 and 480 (got 600 months). | 20      |
 
-    Examples: A required value left empty, caught before any request
+    Examples: More precision than money has, refused and shown on the field
+      | field         | case                      | value      | message                                          | fixed   |
+      | Loan amount   | in fractions of a paisa   | 100000.555 | Loan amount must have at most 2 decimal places. | 2000000 |
+
+    Examples: A required value left empty, caught by the form before any calculation
       | field         | case              | value | message                                                                          | fixed   |
       | Loan amount   | left empty        |       | Enter a loan amount in rupees.                                                   | 3000000 |
 
 
-    Examples: A notation a number box allows but money does not, caught before any request
+    Examples: A notation a number box allows but money does not, caught by the form before any calculation
       | field         | case                      | value       | message                                                            | fixed   |
       | Loan amount   | in exponent notation      | 1e6         | Loan amount must be written in plain digits, for example 2500000. | 2000000 |
 
@@ -106,9 +110,11 @@ Feature: LoanLens UI - EMI calculator
     And the monthly EMI, total interest and total payment should match my own calculation
 
   Scenario: The summary shows a busy state while a new plan is calculated
+    Given the browser's clock is under the test's control
     When I enter a loan of "25L" at 10% for 10 years with the first EMI in "2026-10"
-    And the EMI service starts answering slowly
+    And the browser's clock stops
     And I type "3000000" into the "Loan amount" box
     Then the repayment summary should be marked as busy
     And I capture evidence "recalculating"
-    And the monthly EMI, total interest and total payment should match my own calculation
+    When the browser's clock runs again
+    Then the monthly EMI, total interest and total payment should match my own calculation

@@ -20,11 +20,12 @@ env:
   HEAL_PROVIDER: heuristic
 
 # Each section is graded on its own, so each has its own jobs and its own report artifact.
-# The suites against public sites (A3 JSONPlaceholder, B3 emicalculator.net) run in separate
-# jobs that may fail without blocking the rest: an outage or a bot wall there is not ours.
+# The suites against public sites (A3 JSONPlaceholder; B3 emicalculator.net and Section B's
+# self-healing exercise, which runs on it) run in separate jobs that may fail without blocking
+# the rest: an outage or a bot wall there is not ours.
 jobs:
   section:
-    name: Section ${{ matrix.section }} (LoanLens, SQL, self-healing)
+    name: Section ${{ matrix.section }} (${{ matrix.label }})
     runs-on: ubuntu-latest
     timeout-minutes: 20
     strategy:
@@ -33,10 +34,12 @@ jobs:
         include:
           - section: A
             id: a
+            label: LoanLens web app, SQL, self-healing
             suites: loanlens-ui sql self-healing self-healing-healed
           - section: B
             id: b
-            suites: loanlens-api sql self-healing self-healing-healed
+            label: LoanLens API, SQL
+            suites: loanlens-api sql
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -47,7 +50,7 @@ jobs:
       - run: npx playwright install --with-deps chromium
       - run: npm run typecheck
       # Exits 1 on any unexpected failure, a missing report, or a suite that ran no scenarios.
-      # The self-healing suite's broken locators are expected to fail with healing off.
+      # Section A's self-healing suite's broken locators are expected to fail with healing off.
       - run: node scripts/run-all.mjs --section ${{ matrix.id }} ${{ matrix.suites }}
       - uses: actions/upload-artifact@v4
         if: always()
@@ -56,7 +59,7 @@ jobs:
           path: section-${{ matrix.id }}/reports/
 
   public-sites:
-    name: Section ${{ matrix.section }} public site (${{ matrix.suite }})
+    name: Section ${{ matrix.section }} public site (${{ matrix.suites }})
     runs-on: ubuntu-latest
     timeout-minutes: 20
     continue-on-error: true
@@ -66,10 +69,10 @@ jobs:
         include:
           - section: A
             id: a
-            suite: jsonplaceholder
+            suites: jsonplaceholder
           - section: B
             id: b
-            suite: emicalculator
+            suites: emicalculator self-healing self-healing-healed
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -78,11 +81,11 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npx playwright install --with-deps chromium
-      - run: node scripts/run-all.mjs --section ${{ matrix.id }} ${{ matrix.suite }}
+      - run: node scripts/run-all.mjs --section ${{ matrix.id }} ${{ matrix.suites }}
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: section-${{ matrix.id }}-${{ matrix.suite }}-reports
+          name: section-${{ matrix.id }}-public-site-reports
           path: section-${{ matrix.id }}/reports/
 
   mutation:

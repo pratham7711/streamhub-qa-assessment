@@ -1,160 +1,160 @@
 # Self-healing suggestions
 
-Generated 2026-10-07T11:22:55.415Z. 4 of 5 broken locators have a validated suggestion; 4 replayed green.
+Generated 2026-10-07T12:26:04.186Z. 4 of 5 broken locators have a validated suggestion; 4 replayed green.
 Nothing here has been applied to the source. Each patch is for a person to review and `git apply`.
 
 | Locator | Failure | Failed locator | Suggested | Replay |
 |---|---|---|---|---|
-| `dashboard.totalLoansValue` | no-match | `page.getByTestId('kpi-total-loans')` | `page.getByRole('group', { name: 'Total loans' }).getByTestId('kpi-value')` | passed |
-| `reports.applyFiltersButton` | no-match | `page.getByRole('button', { name: 'Apply filter', exact: true })` | `page.getByRole('button', { name: 'Apply filters', exact: true })` | passed |
-| `calculator.loanAmountSlider` | ambiguous | `page.getByLabel('Loan amount')` | `page.getByRole('slider', { name: 'Loan amount' })` | passed |
-| `dashboard.recentDisbursementsTable` | wrong-element | `page.locator('table').first()` | `page.getByRole('table', { name: 'Recent disbursements', exact: true })` | passed |
-| `reports.exportCsvButton` | no-match | `page.getByRole('button', { name: 'Export CSV' })` | **none passed validation** | not-run |
+| `emicalculator.loanTenureBox` | no-match | `page.locator('#loan-term')` | `page.getByRole('textbox', { name: 'Loan Tenure', exact: true })` | passed |
+| `emicalculator.personalLoanTab` | no-match | `page.getByRole('link', { name: 'Personal Loans', exact: true })` | `page.getByRole('link', { name: 'Personal Loan', exact: true })` | passed |
+| `emicalculator.homeLoanAmountBox` | ambiguous | `page.getByRole('textbox', { name: /loan/i })` | `page.getByRole('textbox', { name: 'Home Loan Amount', exact: true })` | passed |
+| `emicalculator.interestRateBox` | wrong-element | `page.locator('input[type="text"]').last()` | `page.getByRole('textbox', { name: 'Interest Rate', exact: true })` | passed |
+| `emicalculator.emailScheduleButton` | no-match | `page.getByRole('button', { name: 'Email schedule' })` | **none passed validation** | not-run |
 
-### `dashboard.totalLoansValue`
+### `emicalculator.loanTenureBox`
 
-- **Scenario:** Renamed test id - the Total loans figure shows the size of the loan book
-- **Declared at:** `self-healing/pages/LegacyLocators.ts:61`
+- **Scenario:** Wrong id - the tenure box sets the loan tenure
+- **Declared at:** `section-b/self-healing/pages/LegacyEmiLocators.ts:62`
 - **Failure:** no-match. No element matched within 5 s.
-- **Failed locator:** `page.getByTestId('kpi-total-loans')`
-- **Provider:** claude-cli (sonnet) (4.9 s, $0.0052)
-- **Incident:** `section-b/reports/self-healing-healed/healing/incidents/dashboard.totalLoansValue.json`
+- **Failed locator:** `page.locator('#loan-term')`
+- **Provider:** claude-cli (sonnet) (4.3 s, $0.0543)
+- **Incident:** `section-b/reports/self-healing-healed/healing/incidents/emicalculator.loanTenureBox.json`
 
-**Accepted:** `page.getByRole('group', { name: 'Total loans' }).getByTestId('kpi-value')` (confidence 0.93)
+**Accepted:** `page.getByRole('textbox', { name: 'Loan Tenure', exact: true })` (confidence 0.95)
 
-The inventory shows a single dd with test id kpi-value inside group "Total loans", and it holds the number 120, which matches the fingerprint.
-
-Validation: ✔ vocabulary · ✔ differs from failed locator · ✔ unique match · ✔ visible · ✔ fingerprint: container · ✔ fingerprint: text. Replay of the scenario on the healed locator: **passed**.
-
-```diff
---- a/self-healing/pages/LegacyLocators.ts
-+++ b/self-healing/pages/LegacyLocators.ts
-@@ -58,7 +58,7 @@
-   readonly exportCsvButton;
- 
-   constructor(private readonly page: Page) {
--    this.totalLoansValue = healable(page, TOTAL_LOANS, (p) => p.getByTestId('kpi-total-loans'));
-+    this.totalLoansValue = healable(page, TOTAL_LOANS, (p) => p.getByRole('group', { name: 'Total loans' }).getByTestId('kpi-value'));
-     this.applyFiltersButton = healable(page, APPLY_FILTERS, (p) => p.getByRole('button', { name: 'Apply filter', exact: true }));
-     this.loanAmountSlider = healable(page, AMOUNT_SLIDER, (p) => p.getByLabel('Loan amount'));
-     this.recentDisbursementsTable = healable(page, RECENT_TABLE, (p) => p.locator('table').first());
-```
-
-**Other candidates:**
-- none
-
----
-
-### `reports.applyFiltersButton`
-
-- **Scenario:** Changed button text - applying a status filter narrows the report
-- **Declared at:** `self-healing/pages/LegacyLocators.ts:62`
-- **Failure:** no-match. No element matched within 5 s.
-- **Failed locator:** `page.getByRole('button', { name: 'Apply filter', exact: true })`
-- **Provider:** claude-cli (sonnet) (4.2 s, $0.0048)
-- **Incident:** `section-b/reports/self-healing-healed/healing/incidents/reports.applyFiltersButton.json`
-
-**Accepted:** `page.getByRole('button', { name: 'Apply filters', exact: true })` (confidence 0.97)
-
-The form contains a single button named 'Apply filters', which matches the /^apply/i fingerprint and submits the report filters.
+The snapshot and inventory show a single textbox with the exact accessible name 'Loan Tenure', placed next to the Yr/Mo radios.
 
 Validation: ✔ vocabulary · ✔ differs from failed locator · ✔ unique match · ✔ visible · ✔ fingerprint: role and name. Replay of the scenario on the healed locator: **passed**.
 
 ```diff
---- a/self-healing/pages/LegacyLocators.ts
-+++ b/self-healing/pages/LegacyLocators.ts
+--- a/section-b/self-healing/pages/LegacyEmiLocators.ts
++++ b/section-b/self-healing/pages/LegacyEmiLocators.ts
 @@ -59,7 +59,7 @@
+   readonly emailScheduleButton;
  
-   constructor(private readonly page: Page) {
-     this.totalLoansValue = healable(page, TOTAL_LOANS, (p) => p.getByTestId('kpi-total-loans'));
--    this.applyFiltersButton = healable(page, APPLY_FILTERS, (p) => p.getByRole('button', { name: 'Apply filter', exact: true }));
-+    this.applyFiltersButton = healable(page, APPLY_FILTERS, (p) => p.getByRole('button', { name: 'Apply filters', exact: true }));
-     this.loanAmountSlider = healable(page, AMOUNT_SLIDER, (p) => p.getByLabel('Loan amount'));
-     this.recentDisbursementsTable = healable(page, RECENT_TABLE, (p) => p.locator('table').first());
-     this.exportCsvButton = healable(page, EXPORT_CSV, (p) => p.getByRole('button', { name: 'Export CSV' }));
+   constructor(page: Page) {
+-    this.loanTenureBox = healable(page, TENURE_BOX, (p) => p.locator('#loan-term'));
++    this.loanTenureBox = healable(page, TENURE_BOX, (p) => p.getByRole('textbox', { name: 'Loan Tenure', exact: true }));
+     this.personalLoanTab = healable(page, PERSONAL_LOAN_TAB, (p) => p.getByRole('link', { name: 'Personal Loans', exact: true }));
+     this.homeLoanAmountBox = healable(page, AMOUNT_BOX, (p) => p.getByRole('textbox', { name: /loan/i }));
+     this.interestRateBox = healable(page, RATE_BOX, (p) => p.locator('input[type="text"]').last());
 ```
 
 **Other candidates:**
-- `page.getByRole('form', { name: 'Report filters' }).getByRole('button', { name: 'Apply filters', exact: true })`: passed validation, ranked below the accepted one (confidence 0.9)
+- `page.getByLabel('Loan Tenure', { exact: true })`: passed validation, ranked below the accepted one (confidence 0.88)
 
 ---
 
-### `calculator.loanAmountSlider`
+### `emicalculator.personalLoanTab`
 
-- **Scenario:** Ambiguous label - the loan amount slider updates the number box
-- **Declared at:** `self-healing/pages/LegacyLocators.ts:63`
-- **Failure:** ambiguous. 2 elements matched; an action on it would violate strict mode.
-- **Failed locator:** `page.getByLabel('Loan amount')`
-- **Provider:** claude-cli (sonnet) (3.8 s, $0.0040)
-- **Incident:** `section-b/reports/self-healing-healed/healing/incidents/calculator.loanAmountSlider.json`
-
-**Accepted:** `page.getByRole('slider', { name: 'Loan amount' })` (confidence 0.96)
-
-The slider role with exact name 'Loan amount' is unique, since the other same-named element is a spinbutton.
-
-Validation: ✔ vocabulary · ✔ differs from failed locator · ✔ unique match · ✔ visible · ✔ fingerprint: role and name. Replay of the scenario on the healed locator: **passed**.
-
-```diff
---- a/self-healing/pages/LegacyLocators.ts
-+++ b/self-healing/pages/LegacyLocators.ts
-@@ -60,7 +60,7 @@
-   constructor(private readonly page: Page) {
-     this.totalLoansValue = healable(page, TOTAL_LOANS, (p) => p.getByTestId('kpi-total-loans'));
-     this.applyFiltersButton = healable(page, APPLY_FILTERS, (p) => p.getByRole('button', { name: 'Apply filter', exact: true }));
--    this.loanAmountSlider = healable(page, AMOUNT_SLIDER, (p) => p.getByLabel('Loan amount'));
-+    this.loanAmountSlider = healable(page, AMOUNT_SLIDER, (p) => p.getByRole('slider', { name: 'Loan amount' }));
-     this.recentDisbursementsTable = healable(page, RECENT_TABLE, (p) => p.locator('table').first());
-     this.exportCsvButton = healable(page, EXPORT_CSV, (p) => p.getByRole('button', { name: 'Export CSV' }));
-   }
-```
-
-**Other candidates:**
-- none
-
----
-
-### `dashboard.recentDisbursementsTable`
-
-- **Scenario:** Positional locator - the recent disbursements table starts with the newest loan
-- **Declared at:** `self-healing/pages/LegacyLocators.ts:64`
-- **Failure:** wrong-element. Resolved, but element does not have role table named Recent disbursements.
-- **Failed locator:** `page.locator('table').first()`
-- **Provider:** claude-cli (sonnet) (3.9 s, $0.0033)
-- **Incident:** `section-b/reports/self-healing-healed/healing/incidents/dashboard.recentDisbursementsTable.json`
-
-**Accepted:** `page.getByRole('table', { name: 'Recent disbursements', exact: true })` (confidence 0.97)
-
-The table with role table and accessible name 'Recent disbursements' is the only match and fits the fingerprint exactly.
-
-Validation: ✔ vocabulary · ✔ differs from failed locator · ✔ unique match · ✔ visible · ✔ fingerprint: role and name. Replay of the scenario on the healed locator: **passed**.
-
-```diff
---- a/self-healing/pages/LegacyLocators.ts
-+++ b/self-healing/pages/LegacyLocators.ts
-@@ -61,7 +61,7 @@
-     this.totalLoansValue = healable(page, TOTAL_LOANS, (p) => p.getByTestId('kpi-total-loans'));
-     this.applyFiltersButton = healable(page, APPLY_FILTERS, (p) => p.getByRole('button', { name: 'Apply filter', exact: true }));
-     this.loanAmountSlider = healable(page, AMOUNT_SLIDER, (p) => p.getByLabel('Loan amount'));
--    this.recentDisbursementsTable = healable(page, RECENT_TABLE, (p) => p.locator('table').first());
-+    this.recentDisbursementsTable = healable(page, RECENT_TABLE, (p) => p.getByRole('table', { name: 'Recent disbursements', exact: true }));
-     this.exportCsvButton = healable(page, EXPORT_CSV, (p) => p.getByRole('button', { name: 'Export CSV' }));
-   }
- 
-```
-
-**Other candidates:**
-- none
-
----
-
-### `reports.exportCsvButton`
-
-- **Scenario:** Removed feature - exporting the report as CSV
-- **Declared at:** `self-healing/pages/LegacyLocators.ts:65`
+- **Scenario:** Wrong link text - the Personal Loan tab switches the calculator
+- **Declared at:** `section-b/self-healing/pages/LegacyEmiLocators.ts:63`
 - **Failure:** no-match. No element matched within 5 s.
-- **Failed locator:** `page.getByRole('button', { name: 'Export CSV' })`
-- **Provider:** claude-cli (sonnet) (3.1 s, $0.0030)
-- **Incident:** `section-b/reports/self-healing-healed/healing/incidents/reports.exportCsvButton.json`
+- **Failed locator:** `page.getByRole('link', { name: 'Personal Loans', exact: true })`
+- **Provider:** claude-cli (sonnet) (5.2 s, $0.0484)
+- **Incident:** `section-b/reports/self-healing-healed/healing/incidents/emicalculator.personalLoanTab.json`
+
+**Accepted:** `page.getByRole('link', { name: 'Personal Loan', exact: true })` (confidence 0.95)
+
+The snapshot shows exactly one link named 'Personal Loan' in the calculator tab list; the old locator just had a plural 'Loans'.
+
+Validation: ✔ vocabulary · ✔ differs from failed locator · ✔ unique match · ✔ visible · ✔ fingerprint: role and name. Replay of the scenario on the healed locator: **passed**.
+
+```diff
+--- a/section-b/self-healing/pages/LegacyEmiLocators.ts
++++ b/section-b/self-healing/pages/LegacyEmiLocators.ts
+@@ -60,7 +60,7 @@
+ 
+   constructor(page: Page) {
+     this.loanTenureBox = healable(page, TENURE_BOX, (p) => p.locator('#loan-term'));
+-    this.personalLoanTab = healable(page, PERSONAL_LOAN_TAB, (p) => p.getByRole('link', { name: 'Personal Loans', exact: true }));
++    this.personalLoanTab = healable(page, PERSONAL_LOAN_TAB, (p) => p.getByRole('link', { name: 'Personal Loan', exact: true }));
+     this.homeLoanAmountBox = healable(page, AMOUNT_BOX, (p) => p.getByRole('textbox', { name: /loan/i }));
+     this.interestRateBox = healable(page, RATE_BOX, (p) => p.locator('input[type="text"]').last());
+     this.emailScheduleButton = healable(page, EMAIL_SCHEDULE, (p) => p.getByRole('button', { name: 'Email schedule' }));
+```
+
+**Other candidates:**
+- none
+
+---
+
+### `emicalculator.homeLoanAmountBox`
+
+- **Scenario:** Ambiguous name - the amount box sets the principal
+- **Declared at:** `section-b/self-healing/pages/LegacyEmiLocators.ts:64`
+- **Failure:** ambiguous. 2 elements matched; an action on it would violate strict mode.
+- **Failed locator:** `page.getByRole('textbox', { name: /loan/i })`
+- **Provider:** claude-cli (sonnet) (4.8 s, $0.0488)
+- **Incident:** `section-b/reports/self-healing-healed/healing/incidents/emicalculator.homeLoanAmountBox.json`
+
+**Accepted:** `page.getByRole('textbox', { name: 'Home Loan Amount', exact: true })` (confidence 0.97)
+
+The textbox with the exact accessible name 'Home Loan Amount' is the only match and is the loan amount input.
+
+Validation: ✔ vocabulary · ✔ differs from failed locator · ✔ unique match · ✔ visible · ✔ fingerprint: role and name. Replay of the scenario on the healed locator: **passed**.
+
+```diff
+--- a/section-b/self-healing/pages/LegacyEmiLocators.ts
++++ b/section-b/self-healing/pages/LegacyEmiLocators.ts
+@@ -61,7 +61,7 @@
+   constructor(page: Page) {
+     this.loanTenureBox = healable(page, TENURE_BOX, (p) => p.locator('#loan-term'));
+     this.personalLoanTab = healable(page, PERSONAL_LOAN_TAB, (p) => p.getByRole('link', { name: 'Personal Loans', exact: true }));
+-    this.homeLoanAmountBox = healable(page, AMOUNT_BOX, (p) => p.getByRole('textbox', { name: /loan/i }));
++    this.homeLoanAmountBox = healable(page, AMOUNT_BOX, (p) => p.getByRole('textbox', { name: 'Home Loan Amount', exact: true }));
+     this.interestRateBox = healable(page, RATE_BOX, (p) => p.locator('input[type="text"]').last());
+     this.emailScheduleButton = healable(page, EMAIL_SCHEDULE, (p) => p.getByRole('button', { name: 'Email schedule' }));
+   }
+```
+
+**Other candidates:**
+- `page.getByLabel('Home Loan Amount', { exact: true })`: passed validation, ranked below the accepted one (confidence 0.9)
+
+---
+
+### `emicalculator.interestRateBox`
+
+- **Scenario:** Positional locator - the interest rate box sets the rate
+- **Declared at:** `section-b/self-healing/pages/LegacyEmiLocators.ts:65`
+- **Failure:** wrong-element. Resolved, but element does not have role textbox named Interest Rate.
+- **Failed locator:** `page.locator('input[type="text"]').last()`
+- **Provider:** claude-cli (sonnet) (4.3 s, $0.0486)
+- **Incident:** `section-b/reports/self-healing-healed/healing/incidents/emicalculator.interestRateBox.json`
+
+**Accepted:** `page.getByRole('textbox', { name: 'Interest Rate', exact: true })` (confidence 0.97)
+
+The snapshot and inventory list exactly one textbox with the accessible name 'Interest Rate'.
+
+Validation: ✔ vocabulary · ✔ differs from failed locator · ✔ unique match · ✔ visible · ✔ fingerprint: role and name. Replay of the scenario on the healed locator: **passed**.
+
+```diff
+--- a/section-b/self-healing/pages/LegacyEmiLocators.ts
++++ b/section-b/self-healing/pages/LegacyEmiLocators.ts
+@@ -62,7 +62,7 @@
+     this.loanTenureBox = healable(page, TENURE_BOX, (p) => p.locator('#loan-term'));
+     this.personalLoanTab = healable(page, PERSONAL_LOAN_TAB, (p) => p.getByRole('link', { name: 'Personal Loans', exact: true }));
+     this.homeLoanAmountBox = healable(page, AMOUNT_BOX, (p) => p.getByRole('textbox', { name: /loan/i }));
+-    this.interestRateBox = healable(page, RATE_BOX, (p) => p.locator('input[type="text"]').last());
++    this.interestRateBox = healable(page, RATE_BOX, (p) => p.getByRole('textbox', { name: 'Interest Rate', exact: true }));
+     this.emailScheduleButton = healable(page, EMAIL_SCHEDULE, (p) => p.getByRole('button', { name: 'Email schedule' }));
+   }
+ }
+```
+
+**Other candidates:**
+- `page.getByLabel('Interest Rate', { exact: true })`: passed validation, ranked below the accepted one (confidence 0.9)
+
+---
+
+### `emicalculator.emailScheduleButton`
+
+- **Scenario:** Missing feature - e-mailing the repayment schedule
+- **Declared at:** `section-b/self-healing/pages/LegacyEmiLocators.ts:66`
+- **Failure:** no-match. No element matched within 5 s.
+- **Failed locator:** `page.getByRole('button', { name: 'Email schedule' })`
+- **Provider:** claude-cli (sonnet) (5.5 s, $0.0474)
+- **Incident:** `section-b/reports/self-healing-healed/healing/incidents/emicalculator.emailScheduleButton.json`
 
 **No suggestion passed validation.** The test stays red; a person has to look at it.
 

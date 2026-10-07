@@ -1,4 +1,4 @@
-@app @ui @loanlens-ui
+@web-app @ui @loanlens-ui
 Feature: LoanLens UI - Loan detail
   A loan's page restates its record from the loan book and draws its
   repayment by calendar year from the disbursement month. Unknown and
@@ -17,9 +17,9 @@ Feature: LoanLens UI - Loan detail
     And I capture evidence "loan LN-1001"
 
   # Every seeded loan runs whole years, so the "7 yr 6 mo" form is reachable only by changing
-  # one field of the API's answer. This is the suite's one stubbed response.
+  # one field of the mock data as the browser loads it. This is the suite's one stubbed response.
   Scenario: A tenure that is not a whole number of years shows the remaining months
-    Given the API answers loan "LN-1001" with a tenure of 90 months
+    Given the mock data gives loan "LN-1001" a tenure of 90 months
     When I open the LoanLens loan detail page for "LN-1001"
     Then the tenure should read back as 90 monthly payments
 

@@ -21,7 +21,7 @@ export abstract class LoanLensPage {
   abstract waitUntilLoaded(): Promise<void>;
 
   async open(query = ''): Promise<void> {
-    await this.page.goto(`${env.app.baseUrl}${this.path}${query}`);
+    await this.page.goto(`${env.web.baseUrl}${this.path}${query}`);
     await this.waitUntilLoaded();
   }
 

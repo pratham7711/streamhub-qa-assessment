@@ -7,8 +7,8 @@
     "detail": "No element matched within 5 s.",
     "mode": "heal",
     "provider": "claude-cli (sonnet)",
-    "durationMs": 8687,
-    "costUsd": 0.042012,
+    "durationMs": 5410,
+    "costUsd": 0.036709000000000006,
     "accepted": {
       "candidate": {
         "spec": {
@@ -20,8 +20,8 @@
             "name": "Total loans"
           }
         },
-        "rationale": "The kpi-value test id is the only value element inside the \"Total loans\" group, so scoping resolves the four-way duplicate.",
-        "confidence": 0.88,
+        "rationale": "The kpi-value test id is the only value element inside the \"Total loans\" group, and it shows 120, which fits the numeric fingerprint.",
+        "confidence": 0.92,
         "provider": "claude-cli (sonnet)"
       },
       "code": "page.getByRole('group', { name: 'Total loans' }).getByTestId('kpi-value')",
@@ -72,8 +72,8 @@
               "name": "Total loans"
             }
           },
-          "rationale": "The exact text 120 inside the \"Total loans\" group is the key figure, though it breaks if the count changes.",
-          "confidence": 0.5,
+          "rationale": "Exact text match on the figure inside the \"Total loans\" group, which excludes the \"74 active\" sibling.",
+          "confidence": 0.6,
           "provider": "claude-cli (sonnet)"
         },
         "code": "page.getByRole('group', { name: 'Total loans' }).getByText('120', { exact: true })",
@@ -114,13 +114,13 @@
     ],
     "malformed": [],
     "source": {
-      "file": "self-healing/pages/LegacyLocators.ts",
+      "file": "section-a/self-healing/pages/LegacyLocators.ts",
       "line": 61,
       "text": "    this.totalLoansValue = healable(page, TOTAL_LOANS, (p) => p.getByTestId('kpi-total-loans'));",
       "expression": "p.getByTestId('kpi-total-loans')",
       "param": "p"
     },
-    "patch": "--- a/self-healing/pages/LegacyLocators.ts\n+++ b/self-healing/pages/LegacyLocators.ts\n@@ -58,7 +58,7 @@\n   readonly exportCsvButton;\n \n   constructor(private readonly page: Page) {\n-    this.totalLoansValue = healable(page, TOTAL_LOANS, (p) => p.getByTestId('kpi-total-loans'));\n+    this.totalLoansValue = healable(page, TOTAL_LOANS, (p) => p.getByRole('group', { name: 'Total loans' }).getByTestId('kpi-value'));\n     this.applyFiltersButton = healable(page, APPLY_FILTERS, (p) => p.getByRole('button', { name: 'Apply filter', exact: true }));\n     this.loanAmountSlider = healable(page, AMOUNT_SLIDER, (p) => p.getByLabel('Loan amount'));\n     this.recentDisbursementsTable = healable(page, RECENT_TABLE, (p) => p.locator('table').first());\n",
+    "patch": "--- a/section-a/self-healing/pages/LegacyLocators.ts\n+++ b/section-a/self-healing/pages/LegacyLocators.ts\n@@ -58,7 +58,7 @@\n   readonly exportCsvButton;\n \n   constructor(private readonly page: Page) {\n-    this.totalLoansValue = healable(page, TOTAL_LOANS, (p) => p.getByTestId('kpi-total-loans'));\n+    this.totalLoansValue = healable(page, TOTAL_LOANS, (p) => p.getByRole('group', { name: 'Total loans' }).getByTestId('kpi-value'));\n     this.applyFiltersButton = healable(page, APPLY_FILTERS, (p) => p.getByRole('button', { name: 'Apply filter', exact: true }));\n     this.loanAmountSlider = healable(page, AMOUNT_SLIDER, (p) => p.getByLabel('Loan amount'));\n     this.recentDisbursementsTable = healable(page, RECENT_TABLE, (p) => p.locator('table').first());\n",
     "incidentFile": "section-a/reports/self-healing-healed/healing/incidents/dashboard.totalLoansValue.json",
     "replay": "passed"
   },
@@ -132,8 +132,8 @@
     "detail": "No element matched within 5 s.",
     "mode": "heal",
     "provider": "claude-cli (sonnet)",
-    "durationMs": 3996,
-    "costUsd": 0.045581,
+    "durationMs": 6474,
+    "costUsd": 0.045701000000000006,
     "accepted": {
       "candidate": {
         "spec": {
@@ -142,7 +142,7 @@
           "name": "Apply filters",
           "exact": true
         },
-        "rationale": "The only button named 'Apply filters' in the page; it submits the Report filters form and matches /^apply/i.",
+        "rationale": "The form contains a single button named exactly 'Apply filters', which matches the /^apply/i fingerprint and submits the report filters.",
         "confidence": 0.97,
         "provider": "claude-cli (sonnet)"
       },
@@ -190,7 +190,7 @@
               "name": "Report filters"
             }
           },
-          "rationale": "Same button scoped to the Report filters form for extra specificity.",
+          "rationale": "Same button scoped to the 'Report filters' form for extra disambiguation.",
           "confidence": 0.9,
           "provider": "claude-cli (sonnet)"
         },
@@ -227,13 +227,13 @@
     ],
     "malformed": [],
     "source": {
-      "file": "self-healing/pages/LegacyLocators.ts",
+      "file": "section-a/self-healing/pages/LegacyLocators.ts",
       "line": 62,
       "text": "    this.applyFiltersButton = healable(page, APPLY_FILTERS, (p) => p.getByRole('button', { name: 'Apply filter', exact: true }));",
       "expression": "p.getByRole('button', { name: 'Apply filter', exact: true })",
       "param": "p"
     },
-    "patch": "--- a/self-healing/pages/LegacyLocators.ts\n+++ b/self-healing/pages/LegacyLocators.ts\n@@ -59,7 +59,7 @@\n \n   constructor(private readonly page: Page) {\n     this.totalLoansValue = healable(page, TOTAL_LOANS, (p) => p.getByTestId('kpi-total-loans'));\n-    this.applyFiltersButton = healable(page, APPLY_FILTERS, (p) => p.getByRole('button', { name: 'Apply filter', exact: true }));\n+    this.applyFiltersButton = healable(page, APPLY_FILTERS, (p) => p.getByRole('button', { name: 'Apply filters', exact: true }));\n     this.loanAmountSlider = healable(page, AMOUNT_SLIDER, (p) => p.getByLabel('Loan amount'));\n     this.recentDisbursementsTable = healable(page, RECENT_TABLE, (p) => p.locator('table').first());\n     this.exportCsvButton = healable(page, EXPORT_CSV, (p) => p.getByRole('button', { name: 'Export CSV' }));\n",
+    "patch": "--- a/section-a/self-healing/pages/LegacyLocators.ts\n+++ b/section-a/self-healing/pages/LegacyLocators.ts\n@@ -59,7 +59,7 @@\n \n   constructor(private readonly page: Page) {\n     this.totalLoansValue = healable(page, TOTAL_LOANS, (p) => p.getByTestId('kpi-total-loans'));\n-    this.applyFiltersButton = healable(page, APPLY_FILTERS, (p) => p.getByRole('button', { name: 'Apply filter', exact: true }));\n+    this.applyFiltersButton = healable(page, APPLY_FILTERS, (p) => p.getByRole('button', { name: 'Apply filters', exact: true }));\n     this.loanAmountSlider = healable(page, AMOUNT_SLIDER, (p) => p.getByLabel('Loan amount'));\n     this.recentDisbursementsTable = healable(page, RECENT_TABLE, (p) => p.locator('table').first());\n     this.exportCsvButton = healable(page, EXPORT_CSV, (p) => p.getByRole('button', { name: 'Export CSV' }));\n",
     "incidentFile": "section-a/reports/self-healing-healed/healing/incidents/reports.applyFiltersButton.json",
     "replay": "passed"
   },
@@ -245,8 +245,8 @@
     "detail": "2 elements matched; an action on it would violate strict mode.",
     "mode": "heal",
     "provider": "claude-cli (sonnet)",
-    "durationMs": 3813,
-    "costUsd": 0.049520999999999996,
+    "durationMs": 4007,
+    "costUsd": 0.049481,
     "accepted": {
       "candidate": {
         "spec": {
@@ -254,7 +254,7 @@
           "role": "slider",
           "name": "Loan amount"
         },
-        "rationale": "The slider role with the exact name 'Loan amount' matches only the range input, since the other element with that name is a spinbutton.",
+        "rationale": "Role slider with exact name 'Loan amount' is unique, since the other same-named element is a spinbutton.",
         "confidence": 0.97,
         "provider": "claude-cli (sonnet)"
       },
@@ -291,13 +291,13 @@
     "alternatives": [],
     "malformed": [],
     "source": {
-      "file": "self-healing/pages/LegacyLocators.ts",
+      "file": "section-a/self-healing/pages/LegacyLocators.ts",
       "line": 63,
       "text": "    this.loanAmountSlider = healable(page, AMOUNT_SLIDER, (p) => p.getByLabel('Loan amount'));",
       "expression": "p.getByLabel('Loan amount')",
       "param": "p"
     },
-    "patch": "--- a/self-healing/pages/LegacyLocators.ts\n+++ b/self-healing/pages/LegacyLocators.ts\n@@ -60,7 +60,7 @@\n   constructor(private readonly page: Page) {\n     this.totalLoansValue = healable(page, TOTAL_LOANS, (p) => p.getByTestId('kpi-total-loans'));\n     this.applyFiltersButton = healable(page, APPLY_FILTERS, (p) => p.getByRole('button', { name: 'Apply filter', exact: true }));\n-    this.loanAmountSlider = healable(page, AMOUNT_SLIDER, (p) => p.getByLabel('Loan amount'));\n+    this.loanAmountSlider = healable(page, AMOUNT_SLIDER, (p) => p.getByRole('slider', { name: 'Loan amount' }));\n     this.recentDisbursementsTable = healable(page, RECENT_TABLE, (p) => p.locator('table').first());\n     this.exportCsvButton = healable(page, EXPORT_CSV, (p) => p.getByRole('button', { name: 'Export CSV' }));\n   }\n",
+    "patch": "--- a/section-a/self-healing/pages/LegacyLocators.ts\n+++ b/section-a/self-healing/pages/LegacyLocators.ts\n@@ -60,7 +60,7 @@\n   constructor(private readonly page: Page) {\n     this.totalLoansValue = healable(page, TOTAL_LOANS, (p) => p.getByTestId('kpi-total-loans'));\n     this.applyFiltersButton = healable(page, APPLY_FILTERS, (p) => p.getByRole('button', { name: 'Apply filter', exact: true }));\n-    this.loanAmountSlider = healable(page, AMOUNT_SLIDER, (p) => p.getByLabel('Loan amount'));\n+    this.loanAmountSlider = healable(page, AMOUNT_SLIDER, (p) => p.getByRole('slider', { name: 'Loan amount' }));\n     this.recentDisbursementsTable = healable(page, RECENT_TABLE, (p) => p.locator('table').first());\n     this.exportCsvButton = healable(page, EXPORT_CSV, (p) => p.getByRole('button', { name: 'Export CSV' }));\n   }\n",
     "incidentFile": "section-a/reports/self-healing-healed/healing/incidents/calculator.loanAmountSlider.json",
     "replay": "passed"
   },
@@ -309,8 +309,8 @@
     "detail": "Resolved, but element does not have role table named Recent disbursements.",
     "mode": "heal",
     "provider": "claude-cli (sonnet)",
-    "durationMs": 3858,
-    "costUsd": 0.034287,
+    "durationMs": 4085,
+    "costUsd": 0.034237000000000004,
     "accepted": {
       "candidate": {
         "spec": {
@@ -319,7 +319,7 @@
           "name": "Recent disbursements",
           "exact": true
         },
-        "rationale": "The snapshot shows a single table with the accessible name 'Recent disbursements', which matches the intent and fingerprint.",
+        "rationale": "The table with role table and exact accessible name 'Recent disbursements' is the single match for the fingerprint.",
         "confidence": 0.97,
         "provider": "claude-cli (sonnet)"
       },
@@ -356,13 +356,13 @@
     "alternatives": [],
     "malformed": [],
     "source": {
-      "file": "self-healing/pages/LegacyLocators.ts",
+      "file": "section-a/self-healing/pages/LegacyLocators.ts",
       "line": 64,
       "text": "    this.recentDisbursementsTable = healable(page, RECENT_TABLE, (p) => p.locator('table').first());",
       "expression": "p.locator('table').first()",
       "param": "p"
     },
-    "patch": "--- a/self-healing/pages/LegacyLocators.ts\n+++ b/self-healing/pages/LegacyLocators.ts\n@@ -61,7 +61,7 @@\n     this.totalLoansValue = healable(page, TOTAL_LOANS, (p) => p.getByTestId('kpi-total-loans'));\n     this.applyFiltersButton = healable(page, APPLY_FILTERS, (p) => p.getByRole('button', { name: 'Apply filter', exact: true }));\n     this.loanAmountSlider = healable(page, AMOUNT_SLIDER, (p) => p.getByLabel('Loan amount'));\n-    this.recentDisbursementsTable = healable(page, RECENT_TABLE, (p) => p.locator('table').first());\n+    this.recentDisbursementsTable = healable(page, RECENT_TABLE, (p) => p.getByRole('table', { name: 'Recent disbursements', exact: true }));\n     this.exportCsvButton = healable(page, EXPORT_CSV, (p) => p.getByRole('button', { name: 'Export CSV' }));\n   }\n \n",
+    "patch": "--- a/section-a/self-healing/pages/LegacyLocators.ts\n+++ b/section-a/self-healing/pages/LegacyLocators.ts\n@@ -61,7 +61,7 @@\n     this.totalLoansValue = healable(page, TOTAL_LOANS, (p) => p.getByTestId('kpi-total-loans'));\n     this.applyFiltersButton = healable(page, APPLY_FILTERS, (p) => p.getByRole('button', { name: 'Apply filter', exact: true }));\n     this.loanAmountSlider = healable(page, AMOUNT_SLIDER, (p) => p.getByLabel('Loan amount'));\n-    this.recentDisbursementsTable = healable(page, RECENT_TABLE, (p) => p.locator('table').first());\n+    this.recentDisbursementsTable = healable(page, RECENT_TABLE, (p) => p.getByRole('table', { name: 'Recent disbursements', exact: true }));\n     this.exportCsvButton = healable(page, EXPORT_CSV, (p) => p.getByRole('button', { name: 'Export CSV' }));\n   }\n \n",
     "incidentFile": "section-a/reports/self-healing-healed/healing/incidents/dashboard.recentDisbursementsTable.json",
     "replay": "passed"
   },
@@ -374,13 +374,13 @@
     "detail": "No element matched within 5 s.",
     "mode": "heal",
     "provider": "claude-cli (sonnet)",
-    "durationMs": 3453,
-    "costUsd": 0.043861000000000004,
+    "durationMs": 11690,
+    "costUsd": 0.045091,
     "accepted": null,
     "alternatives": [],
     "malformed": [],
     "source": {
-      "file": "self-healing/pages/LegacyLocators.ts",
+      "file": "section-a/self-healing/pages/LegacyLocators.ts",
       "line": 65,
       "text": "    this.exportCsvButton = healable(page, EXPORT_CSV, (p) => p.getByRole('button', { name: 'Export CSV' }));",
       "expression": "p.getByRole('button', { name: 'Export CSV' })",

@@ -1,13 +1,13 @@
 # Mutation check, Section B
 
-Run 2026-10-07T11:31:42.188Z · node v26.7.0 · `npm run test:mutation -- --section b`
+Run 2026-10-07T12:23:42.868Z · node v26.7.0 · `npm run test:mutation -- --section b`
 
-Each mutant is a small, realistic bug, written by hand and planted in a temporary copy of LoanLens. The suite that owns that code (loanlens-api, B2) is run against the copy. A mutant counts as killed only if the run completed with the baseline's scenario count and at least one step or After-hook assertion failed. **49 of 49 killed**, 0 equivalent, **0 survived**, 0 did not run cleanly.
+Each mutant is a small, realistic bug, written by hand and planted in a temporary copy of the LoanLens API. The suite that owns that code (loanlens-api, B2) is run against the copy. A mutant counts as killed only if the run completed with the baseline's scenario count and at least one step or After-hook assertion failed. **49 of 49 killed**, 0 equivalent, **0 survived**, 0 did not run cleanly.
 
 | Mutant | Planted bug | Suite | Result | Scenarios that caught it |
 |---|---|---|---|---|
 | Q01 | Numbers parsed with Number() instead of a strict pattern | loanlens-api | killed | 4: Invalid EMI input - principal with a plus sign; Invalid EMI input - principal in exponent form; Invalid parameter - page is a decimal; … |
-| Q02 | Numbers parsed with parseFloat() | loanlens-api | killed | 5: Invalid EMI input - principal in exponent form; Invalid EMI input - principal with a plus sign; Invalid EMI input - rate with a decimal comma; … |
+| Q02 | Numbers parsed with parseFloat() | loanlens-api | killed | 5: Invalid EMI input - principal with a plus sign; Invalid EMI input - principal in exponent form; Invalid EMI input - rate with a decimal comma; … |
 | Q03 | Number pattern not anchored at the end | loanlens-api | killed | 2: Invalid EMI input - principal in exponent form; Invalid EMI input - rate with a decimal comma |
 | Q04 | A leading plus sign accepted | loanlens-api | killed | 1: Invalid EMI input - principal with a plus sign |
 | Q05 | The sign dropped with Math.abs (emicalculator.net defect EC-01) | loanlens-api | killed | 4: Invalid EMI input - negative rate; Invalid EMI input - negative principal; Invalid EMI input - negative tenure in years; … |

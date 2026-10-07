@@ -1,4 +1,4 @@
-# jsonplaceholder — 2026-10-07T11:19:54.806Z — TEST_ENV=local — node v26.7.0
+# jsonplaceholder — 2026-10-07T12:26:43.957Z — TEST_ENV=local — node v26.7.0
 
 
 Feature: JSONPlaceholder POST /posts - no input causes a server-side failure
@@ -14,13 +14,13 @@ Feature: JSONPlaceholder POST /posts - no input causes a server-side failure
 
   @api @external @jsonplaceholder
   Scenario Outline: a title with invalid UTF-8 bytes does not cause a server error # section-a/jsonplaceholder/features/create-post-robustness.feature:27
-    ✔ Given the JSONPlaceholder posts endpoint is reachable                   # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:17
     ✔ Given the JSONPlaceholder posts endpoint is reachable               # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:17
-
-          Payload "a 1,000,000-character title": 1 MB title
-
+    ✔ Given the JSONPlaceholder posts endpoint is reachable                   # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:17
 
           Payload "a title with a NUL byte": U+0000 truncates C strings and breaks many databases
+
+
+          Payload "a 1,000,000-character title": 1 MB title
 
     ✔ Given the JSONPlaceholder posts endpoint is reachable                        # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:17
 
@@ -28,11 +28,8 @@ Feature: JSONPlaceholder POST /posts - no input causes a server-side failure
 
     ✔ Given the JSONPlaceholder posts endpoint is reachable                          # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:17
 
-          Payload "a title with an unpaired surrogate": lone UTF-16 surrogate: not representable in UTF-8
-
-
           POST https://jsonplaceholder.typicode.com/posts
-          → 201 Created in 318 ms
+          → 201 Created in 333 ms
           {
             "title": "Loan\u0000review",
             "body": "Portfolio notes for Q3.",
@@ -42,29 +39,20 @@ Feature: JSONPlaceholder POST /posts - no input causes a server-side failure
 
     ✔ When I create "a title with a NUL byte"                             # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:22
     ✔ Then the API should not fail with a server error                    # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:36
+
+          Payload "a title with an unpaired surrogate": lone UTF-16 surrogate: not representable in UTF-8
+
     ✔ And the response should not leak implementation details             # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:41
 
   @api @external @jsonplaceholder
   Scenario Outline: a title with SQL meta-characters does not cause a server error # section-a/jsonplaceholder/features/create-post-robustness.feature:28
+    ✔ Given the JSONPlaceholder posts endpoint is reachable                        # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:17
+
+          Payload "a title with SQL meta-characters": SQL injection probe
+
 
           POST https://jsonplaceholder.typicode.com/posts
-          → 201 Created in 320 ms
-          {
-            "title": "���",
-            "body": "b",
-            "userId": 1,
-            "id": 101
-          }
-
-    ✔ When I create "a title with invalid UTF-8 bytes"                             # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:22
-    ✔ Then the API should not fail with a server error                             # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:36
-    ✔ And the response should not leak implementation details                      # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:41
-
-  @api @external @jsonplaceholder
-  Scenario Outline: a post without userId does not cause a server error # section-a/jsonplaceholder/features/create-post-robustness.feature:32
-
-          POST https://jsonplaceholder.typicode.com/posts
-          → 201 Created in 330 ms
+          → 201 Created in 308 ms
           {
             "title": "\ud800",
             "body": "b",
@@ -77,22 +65,26 @@ Feature: JSONPlaceholder POST /posts - no input causes a server-side failure
     ✔ And the response should not leak implementation details                        # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:41
 
   @api @external @jsonplaceholder
-  Scenario Outline: an empty JSON object does not cause a server error # section-a/jsonplaceholder/features/create-post-robustness.feature:33
-    ✔ Given the JSONPlaceholder posts endpoint is reachable                        # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:17
-
-          Payload "a title with SQL meta-characters": SQL injection probe
-
-    ✔ Given the JSONPlaceholder posts endpoint is reachable             # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:17
-
-          Payload "a post without userId": userId omitted
-
-    ✔ Given the JSONPlaceholder posts endpoint is reachable            # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:17
-
-          Payload "an empty JSON object": no fields at all
-
+  Scenario Outline: a post without userId does not cause a server error # section-a/jsonplaceholder/features/create-post-robustness.feature:32
 
           POST https://jsonplaceholder.typicode.com/posts
-          → 201 Created in 329 ms
+          → 201 Created in 683 ms
+          {
+            "title": "���",
+            "body": "b",
+            "userId": 1,
+            "id": 101
+          }
+
+    ✔ When I create "a title with invalid UTF-8 bytes"                             # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:22
+    ✔ Then the API should not fail with a server error                             # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:36
+    ✔ And the response should not leak implementation details                      # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:41
+
+  @api @external @jsonplaceholder
+  Scenario Outline: an empty JSON object does not cause a server error # section-a/jsonplaceholder/features/create-post-robustness.feature:33
+
+          POST https://jsonplaceholder.typicode.com/posts
+          → 201 Created in 328 ms
           {
             "title": "'; DROP TABLE posts; --",
             "body": "Portfolio notes for Q3.",
@@ -106,30 +98,21 @@ Feature: JSONPlaceholder POST /posts - no input causes a server-side failure
 
   @api @external @jsonplaceholder
   Scenario Outline: a post with null userId does not cause a server error # section-a/jsonplaceholder/features/create-post-robustness.feature:34
+    ✔ Given the JSONPlaceholder posts endpoint is reachable            # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:17
 
-          POST https://jsonplaceholder.typicode.com/posts
-          → 201 Created in 326 ms
-          {
-            "id": 101
-          }
+          Payload "an empty JSON object": no fields at all
 
-    ✔ When I create "an empty JSON object"                             # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:22
-    ✔ Then the API should not fail with a server error                 # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:36
-    ✔ And the response should not leak implementation details          # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:41
-
-  @api @external @jsonplaceholder
-  Scenario Outline: a post with a text userId does not cause a server error # section-a/jsonplaceholder/features/create-post-robustness.feature:38
     ✔ Given the JSONPlaceholder posts endpoint is reachable               # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:17
 
           Payload "a post with null userId": userId explicitly null
 
-    ✔ Given the JSONPlaceholder posts endpoint is reachable                 # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:17
+    ✔ Given the JSONPlaceholder posts endpoint is reachable             # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:17
 
-          Payload "a post with a text userId": userId must be an integer
+          Payload "a post without userId": userId omitted
 
 
           POST https://jsonplaceholder.typicode.com/posts
-          → 201 Created in 794 ms
+          → 201 Created in 303 ms
           {
             "title": "Quarterly loan book review",
             "body": "Portfolio notes for Q3.",
@@ -141,10 +124,10 @@ Feature: JSONPlaceholder POST /posts - no input causes a server-side failure
     ✔ And the response should not leak implementation details           # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:41
 
   @api @external @jsonplaceholder
-  Scenario Outline: a post with an object title does not cause a server error # section-a/jsonplaceholder/features/create-post-robustness.feature:39
+  Scenario Outline: a post with a text userId does not cause a server error # section-a/jsonplaceholder/features/create-post-robustness.feature:38
 
           POST https://jsonplaceholder.typicode.com/posts
-          → 201 Created in 331 ms
+          → 201 Created in 458 ms
           {
             "title": "Quarterly loan book review",
             "body": "Portfolio notes for Q3.",
@@ -157,14 +140,51 @@ Feature: JSONPlaceholder POST /posts - no input causes a server-side failure
     ✔ And the response should not leak implementation details             # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:41
 
   @api @external @jsonplaceholder
+  Scenario Outline: a post with an object title does not cause a server error # section-a/jsonplaceholder/features/create-post-robustness.feature:39
+
+          POST https://jsonplaceholder.typicode.com/posts
+          → 201 Created in 1758 ms
+          {
+            "title": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA… (10,00,082 characters)
+
+    ✔ When I create "a 1,000,000-character title"                             # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:22
+    ✔ Then the API should not fail with a server error                        # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:36
+    ✔ And the response should not leak implementation details                 # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:41
+
+  @api @external @jsonplaceholder
   Scenario Outline: a JSON array instead of an object does not cause a server error # section-a/jsonplaceholder/features/create-post-robustness.feature:40
+
+          POST https://jsonplaceholder.typicode.com/posts
+          → 201 Created in 768 ms
+          {
+            "id": 101
+          }
+
+    ✔ When I create "an empty JSON object"                             # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:22
+    ✔ Then the API should not fail with a server error                 # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:36
+    ✔ And the response should not leak implementation details          # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:41
+
+  @api @external @jsonplaceholder
+  Scenario Outline: a JSON body sent as text/plain does not cause a server error # section-a/jsonplaceholder/features/create-post-robustness.feature:41
+    ✔ Given the JSONPlaceholder posts endpoint is reachable                         # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:17
+
+          Payload "a JSON array instead of an object": top-level array
+
+    ✔ Given the JSONPlaceholder posts endpoint is reachable                 # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:17
+
+          Payload "a post with a text userId": userId must be an integer
+
     ✔ Given the JSONPlaceholder posts endpoint is reachable                   # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:17
 
           Payload "a post with an object title": title must be a string
 
+    ✔ Given the JSONPlaceholder posts endpoint is reachable                      # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:17
+
+          Payload "a JSON body sent as text/plain": valid JSON, wrong Content-Type
+
 
           POST https://jsonplaceholder.typicode.com/posts
-          → 201 Created in 366 ms
+          → 201 Created in 300 ms
           {
             "title": "Quarterly loan book review",
             "body": "Portfolio notes for Q3.",
@@ -176,19 +196,11 @@ Feature: JSONPlaceholder POST /posts - no input causes a server-side failure
     ✔ Then the API should not fail with a server error                      # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:36
     ✔ And the response should not leak implementation details               # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:41
 
-  @api @external @jsonplaceholder
-  Scenario Outline: a JSON body sent as text/plain does not cause a server error # section-a/jsonplaceholder/features/create-post-robustness.feature:41
-    ✔ Given the JSONPlaceholder posts endpoint is reachable                         # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:17
-
-          Payload "a JSON array instead of an object": top-level array
-
-    ✔ Given the JSONPlaceholder posts endpoint is reachable                      # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:17
-
-          Payload "a JSON body sent as text/plain": valid JSON, wrong Content-Type
-
+  @api @external @jsonplaceholder @known-defect
+  Scenario Outline: a title larger than 10 MiB does not cause a server error # section-a/jsonplaceholder/features/create-post-robustness.feature:46
 
           POST https://jsonplaceholder.typicode.com/posts
-          → 201 Created in 333 ms
+          → 201 Created in 509 ms
           {
             "title": {
               "nested": true
@@ -203,22 +215,14 @@ Feature: JSONPlaceholder POST /posts - no input causes a server-side failure
     ✔ And the response should not leak implementation details                 # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:41
 
   @api @external @jsonplaceholder @known-defect
-  Scenario Outline: a title larger than 10 MiB does not cause a server error # section-a/jsonplaceholder/features/create-post-robustness.feature:46
-
-          POST https://jsonplaceholder.typicode.com/posts
-          → 201 Created in 2192 ms
-          {
-            "title": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA… (10,00,082 characters)
-
-    ✔ When I create "a 1,000,000-character title"                             # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:22
-    ✔ Then the API should not fail with a server error                        # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:36
-    ✔ And the response should not leak implementation details                 # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:41
-
-  @api @external @jsonplaceholder @known-defect
   Scenario Outline: malformed JSON does not cause a server error # section-a/jsonplaceholder/features/create-post-robustness.feature:47
+    ✔ Given the JSONPlaceholder posts endpoint is reachable                  # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:17
+
+          Payload "a title larger than 10 MiB": body exceeds the server's 10 MiB JSON limit
+
 
           POST https://jsonplaceholder.typicode.com/posts
-          → 201 Created in 362 ms
+          → 201 Created in 803 ms
           {
             "0": {
               "title": "t",
@@ -238,7 +242,7 @@ Feature: JSONPlaceholder POST /posts - invalid input is rejected with a 4xx
   Scenario Outline: Control - a valid post is accepted and echoed      # section-a/jsonplaceholder/features/create-post-validation.feature:23
 
           POST https://jsonplaceholder.typicode.com/posts
-          → 201 Created in 329 ms
+          → 201 Created in 666 ms
           {
             "id": 101
           }
@@ -249,14 +253,6 @@ Feature: JSONPlaceholder POST /posts - invalid input is rejected with a 4xx
 
   @api @external @jsonplaceholder @control
   Scenario Outline: Control - a 255-character title is accepted and echoed # section-a/jsonplaceholder/features/create-post-validation.feature:24
-    ✔ Given the JSONPlaceholder posts endpoint is reachable                  # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:17
-
-          Payload "a title larger than 10 MiB": body exceeds the server's 10 MiB JSON limit
-
-    ✔ Given the JSONPlaceholder posts endpoint is reachable      # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:17
-
-          Payload "malformed JSON": truncated JSON document
-
     ✔ Given the JSONPlaceholder posts endpoint is reachable            # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:17
 
           Payload "a valid post": title, body and userId all present and well-formed
@@ -265,9 +261,51 @@ Feature: JSONPlaceholder POST /posts - invalid input is rejected with a 4xx
 
           Payload "a 255-character title": common VARCHAR(255) upper bound; should be accepted
 
+    ✔ Given the JSONPlaceholder posts endpoint is reachable      # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:17
+
+          Payload "malformed JSON": truncated JSON document
+
 
           POST https://jsonplaceholder.typicode.com/posts
-          → 500 Internal Server Error in 332 ms
+          → 201 Created in 329 ms
+          {
+            "title": "Quarterly loan book review",
+            "body": "Portfolio notes for Q3.",
+            "userId": 1,
+            "id": 101
+          }
+
+    ✔ When I create "a valid post"                                     # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:22
+    ✔ Then the post should be created with id 101                      # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:62
+    ✔ And the created post should echo every submitted field unchanged # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:68
+    ✔ And the response time should be under 10 seconds                 # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:75
+
+  @api @external @jsonplaceholder @control
+  Scenario Outline: Control - a multilingual title is accepted and echoed # section-a/jsonplaceholder/features/create-post-validation.feature:25
+
+          POST https://jsonplaceholder.typicode.com/posts
+          → 201 Created in 348 ms
+          {
+            "title": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+            "body": "Portfolio notes for Q3.",
+            "userId": 1,
+            "id": 101
+          }
+
+    ✔ When I create "a 255-character title"                                # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:22
+    ✔ Then the post should be created with id 101                          # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:62
+    ✔ And the created post should echo every submitted field unchanged     # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:68
+    ✔ And the response time should be under 10 seconds                     # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:75
+
+  @api @external @jsonplaceholder @control
+  Scenario: Control - created posts are not persisted (documented fake behaviour) # section-a/jsonplaceholder/features/create-post-validation.feature:28
+    ✔ Given the JSONPlaceholder posts endpoint is reachable               # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:17
+
+          Payload "a multilingual title": legitimate Unicode (Devanagari, accents, CJK, emoji) must round-trip unchanged
+
+
+          POST https://jsonplaceholder.typicode.com/posts
+          → 500 Internal Server Error in 524 ms
           SyntaxError: Unterminated string in JSON at position 23 (line 1 column 24)
               at JSON.parse (<anonymous>)
               at parse (/app/node_modules/body-parser/lib/types/json.js:89:19)
@@ -278,7 +316,7 @@ Feature: JSONPlaceholder POST /posts - invalid input is rejected with a 4xx
     ✔ When I create "malformed JSON"                             # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:22
     ✘ Then the API should not fail with a server error           # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:36
           Error: Expected a non-5xx status, got a server-side failure.
-          POST https://jsonplaceholder.typicode.com/posts -> 500 Internal Server Error (332 ms)
+          POST https://jsonplaceholder.typicode.com/posts -> 500 Internal Server Error (524 ms)
           SyntaxError: Unterminated string in JSON at position 23 (line 1 column 24)
               at JSON.parse (<anonymous>)
               at parse (/app/node_modules/body-parser/lib/types/json.js:89:19)
@@ -305,78 +343,11 @@ Feature: JSONPlaceholder POST /posts - invalid input is rejected with a 4xx
               at CustomWorld.<anonymous> (./section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:38:97)
     ↷ And the response should not leak implementation details    # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:41
 
-  @api @external @jsonplaceholder @control
-  Scenario Outline: Control - a multilingual title is accepted and echoed # section-a/jsonplaceholder/features/create-post-validation.feature:25
-
-          POST https://jsonplaceholder.typicode.com/posts
-          → 201 Created in 352 ms
-          {
-            "title": "Quarterly loan book review",
-            "body": "Portfolio notes for Q3.",
-            "userId": 1,
-            "id": 101
-          }
-
-    ✔ When I create "a valid post"                                     # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:22
-    ✔ Then the post should be created with id 101                      # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:62
-    ✔ And the created post should echo every submitted field unchanged # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:68
-    ✔ And the response time should be under 10 seconds                 # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:75
-
-  @api @external @jsonplaceholder @control
-  Scenario: Control - created posts are not persisted (documented fake behaviour) # section-a/jsonplaceholder/features/create-post-validation.feature:28
-
-          POST https://jsonplaceholder.typicode.com/posts
-          → 201 Created in 363 ms
-          {
-            "title": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-            "body": "Portfolio notes for Q3.",
-            "userId": 1,
-            "id": 101
-          }
-
-    ✔ When I create "a 255-character title"                                # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:22
-    ✔ Then the post should be created with id 101                          # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:62
-    ✔ And the created post should echo every submitted field unchanged     # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:68
-    ✔ And the response time should be under 10 seconds                     # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:75
-
   @api @external @jsonplaceholder @known-defect
   Scenario Outline: a 256-character title is rejected                # section-a/jsonplaceholder/features/create-post-validation.feature:41
-    ✔ Given the JSONPlaceholder posts endpoint is reachable               # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:17
-
-          Payload "a multilingual title": legitimate Unicode (Devanagari, accents, CJK, emoji) must round-trip unchanged
-
-    ✔ Given the JSONPlaceholder posts endpoint is reachable                       # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:17
-
-          Payload "a valid post": title, body and userId all present and well-formed
-
-    ✔ Given the JSONPlaceholder posts endpoint is reachable          # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:17
-
-          Payload "a 256-character title": first length past the assumed 255-character limit
-
 
           POST https://jsonplaceholder.typicode.com/posts
-          → 201 Created in 329 ms
-          {
-            "title": "Quarterly loan book review",
-            "body": "Portfolio notes for Q3.",
-            "userId": 1,
-            "id": 101
-          }
-
-    ✔ When I create "a valid post"                                                # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:22
-
-          GET https://jsonplaceholder.typicode.com/posts/101
-          → 404 Not Found in 94 ms
-          {}
-
-    ✔ And I fetch the post with id 101                                            # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:31
-    ✔ Then the response status should be 404                                      # framework/steps/common-api.steps.ts:24
-
-  @api @external @jsonplaceholder @known-defect
-  Scenario Outline: a title larger than 10 MiB is rejected           # section-a/jsonplaceholder/features/create-post-validation.feature:42
-
-          POST https://jsonplaceholder.typicode.com/posts
-          → 201 Created in 787 ms
+          → 201 Created in 622 ms
           {
             "title": "ऋण समीक्षा — Café Ünïcödé 日本語 ✓ 😀",
             "body": "Portfolio notes for Q3.",
@@ -390,10 +361,18 @@ Feature: JSONPlaceholder POST /posts - invalid input is rejected with a 4xx
     ✔ And the response time should be under 10 seconds                    # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:75
 
   @api @external @jsonplaceholder @known-defect
-  Scenario Outline: a title with a NUL byte is rejected              # section-a/jsonplaceholder/features/create-post-validation.feature:46
+  Scenario Outline: a title larger than 10 MiB is rejected           # section-a/jsonplaceholder/features/create-post-validation.feature:42
+    ✔ Given the JSONPlaceholder posts endpoint is reachable          # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:17
+
+          Payload "a 256-character title": first length past the assumed 255-character limit
+
+    ✔ Given the JSONPlaceholder posts endpoint is reachable          # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:17
+
+          Payload "a title larger than 10 MiB": body exceeds the server's 10 MiB JSON limit
+
 
           POST https://jsonplaceholder.typicode.com/posts
-          → 201 Created in 595 ms
+          → 201 Created in 299 ms
           {
             "title": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "body": "Portfolio notes for Q3.",
@@ -404,7 +383,7 @@ Feature: JSONPlaceholder POST /posts - invalid input is rejected with a 4xx
     ✔ When I create "a 256-character title"                          # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:22
     ✘ Then the API should reject the request with a 4xx client error # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:47
           Error: Expected a 4xx rejection (400 Bad Request, 413 Payload Too Large, 415 Unsupported Media Type or 422 Unprocessable Entity), but the API answered 201 Created and accepted the invalid payload.
-          POST https://jsonplaceholder.typicode.com/posts -> 201 Created (595 ms)
+          POST https://jsonplaceholder.typicode.com/posts -> 201 Created (299 ms)
           {
             "title": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
             "body": "Portfolio notes for Q3.",
@@ -423,22 +402,39 @@ Feature: JSONPlaceholder POST /posts - invalid input is rejected with a 4xx
     ↷ And the response should explain what is wrong                  # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:55
 
   @api @external @jsonplaceholder @known-defect
-  Scenario Outline: a title with an unpaired surrogate is rejected   # section-a/jsonplaceholder/features/create-post-validation.feature:47
-    ✔ Given the JSONPlaceholder posts endpoint is reachable          # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:17
+  Scenario Outline: a title with a NUL byte is rejected              # section-a/jsonplaceholder/features/create-post-validation.feature:46
+    ✔ Given the JSONPlaceholder posts endpoint is reachable                       # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:17
 
-          Payload "a title larger than 10 MiB": body exceeds the server's 10 MiB JSON limit
+          Payload "a valid post": title, body and userId all present and well-formed
 
     ✔ Given the JSONPlaceholder posts endpoint is reachable          # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:17
 
           Payload "a title with a NUL byte": U+0000 truncates C strings and breaks many databases
 
-    ✔ Given the JSONPlaceholder posts endpoint is reachable          # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:17
-
-          Payload "a title with an unpaired surrogate": lone UTF-16 surrogate: not representable in UTF-8
-
 
           POST https://jsonplaceholder.typicode.com/posts
-          → 201 Created in 374 ms
+          → 201 Created in 484 ms
+          {
+            "title": "Quarterly loan book review",
+            "body": "Portfolio notes for Q3.",
+            "userId": 1,
+            "id": 101
+          }
+
+    ✔ When I create "a valid post"                                                # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:22
+
+          GET https://jsonplaceholder.typicode.com/posts/101
+          → 404 Not Found in 204 ms
+          {}
+
+    ✔ And I fetch the post with id 101                                            # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:31
+    ✔ Then the response status should be 404                                      # framework/steps/common-api.steps.ts:24
+
+  @api @external @jsonplaceholder @known-defect
+  Scenario Outline: a title with an unpaired surrogate is rejected   # section-a/jsonplaceholder/features/create-post-validation.feature:47
+
+          POST https://jsonplaceholder.typicode.com/posts
+          → 201 Created in 816 ms
           {
             "title": "Loan\u0000review",
             "body": "Portfolio notes for Q3.",
@@ -449,7 +445,7 @@ Feature: JSONPlaceholder POST /posts - invalid input is rejected with a 4xx
     ✔ When I create "a title with a NUL byte"                        # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:22
     ✘ Then the API should reject the request with a 4xx client error # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:47
           Error: Expected a 4xx rejection (400 Bad Request, 413 Payload Too Large, 415 Unsupported Media Type or 422 Unprocessable Entity), but the API answered 201 Created and accepted the invalid payload.
-          POST https://jsonplaceholder.typicode.com/posts -> 201 Created (374 ms)
+          POST https://jsonplaceholder.typicode.com/posts -> 201 Created (816 ms)
           {
             "title": "Loan\u0000review",
             "body": "Portfolio notes for Q3.",
@@ -469,42 +465,9 @@ Feature: JSONPlaceholder POST /posts - invalid input is rejected with a 4xx
 
   @api @external @jsonplaceholder @known-defect
   Scenario Outline: a title with invalid UTF-8 bytes is rejected     # section-a/jsonplaceholder/features/create-post-validation.feature:48
-
-          POST https://jsonplaceholder.typicode.com/posts
-          → 201 Created in 480 ms
-          {
-            "title": "\ud800",
-            "body": "b",
-            "userId": 1,
-            "id": 101
-          }
-
-    ✔ When I create "a title with an unpaired surrogate"             # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:22
-    ✘ Then the API should reject the request with a 4xx client error # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:47
-          Error: Expected a 4xx rejection (400 Bad Request, 413 Payload Too Large, 415 Unsupported Media Type or 422 Unprocessable Entity), but the API answered 201 Created and accepted the invalid payload.
-          POST https://jsonplaceholder.typicode.com/posts -> 201 Created (480 ms)
-          {
-            "title": "\ud800",
-            "body": "b",
-            "userId": 1,
-            "id": 101
-          }
-          
-          expect(received).toBe(expected) // Object.is equality
-          
-          Expected: true
-          Received: false
-              at captureRawStack (./node_modules/playwright-core/lib/coreBundle.js:8588:17)
-              at callMatcherAsStep (./node_modules/playwright/lib/matchers/expect.js:13310:57)
-              at Object.toBe (./node_modules/playwright/lib/matchers/expect.js:13302:23)
-              at CustomWorld.<anonymous> (./section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:52:5)
-    ↷ And the response should explain what is wrong                  # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:55
-
-  @api @external @jsonplaceholder @known-defect
-  Scenario Outline: a title with bidirectional overrides is rejected # section-a/jsonplaceholder/features/create-post-validation.feature:49
     ✔ Given the JSONPlaceholder posts endpoint is reachable          # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:17
 
-          Payload "a title with bidirectional overrides": U+202E right-to-left override (filename spoofing)
+          Payload "a title with an unpaired surrogate": lone UTF-16 surrogate: not representable in UTF-8
 
     ✔ Given the JSONPlaceholder posts endpoint is reachable          # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:17
 
@@ -512,151 +475,7 @@ Feature: JSONPlaceholder POST /posts - invalid input is rejected with a 4xx
 
 
           POST https://jsonplaceholder.typicode.com/posts
-          → 201 Created in 316 ms
-          {
-            "title": "invoice‮fdp.exe",
-            "body": "Portfolio notes for Q3.",
-            "userId": 1,
-            "id": 101
-          }
-
-    ✔ When I create "a title with bidirectional overrides"           # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:22
-    ✘ Then the API should reject the request with a 4xx client error # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:47
-          Error: Expected a 4xx rejection (400 Bad Request, 413 Payload Too Large, 415 Unsupported Media Type or 422 Unprocessable Entity), but the API answered 201 Created and accepted the invalid payload.
-          POST https://jsonplaceholder.typicode.com/posts -> 201 Created (316 ms)
-          {
-            "title": "invoice‮fdp.exe",
-            "body": "Portfolio notes for Q3.",
-            "userId": 1,
-            "id": 101
-          }
-          
-          expect(received).toBe(expected) // Object.is equality
-          
-          Expected: true
-          Received: false
-              at captureRawStack (./node_modules/playwright-core/lib/coreBundle.js:8588:17)
-              at callMatcherAsStep (./node_modules/playwright/lib/matchers/expect.js:13310:57)
-              at Object.toBe (./node_modules/playwright/lib/matchers/expect.js:13302:23)
-              at CustomWorld.<anonymous> (./section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:52:5)
-    ↷ And the response should explain what is wrong                  # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:55
-
-  @api @external @jsonplaceholder @known-defect
-  Scenario Outline: a post without userId is rejected                # section-a/jsonplaceholder/features/create-post-validation.feature:53
-
-          POST https://jsonplaceholder.typicode.com/posts
-          → 201 Created in 335 ms
-          {
-            "title": "���",
-            "body": "b",
-            "userId": 1,
-            "id": 101
-          }
-
-    ✔ When I create "a title with invalid UTF-8 bytes"               # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:22
-    ✘ Then the API should reject the request with a 4xx client error # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:47
-          Error: Expected a 4xx rejection (400 Bad Request, 413 Payload Too Large, 415 Unsupported Media Type or 422 Unprocessable Entity), but the API answered 201 Created and accepted the invalid payload.
-          POST https://jsonplaceholder.typicode.com/posts -> 201 Created (335 ms)
-          {
-            "title": "���",
-            "body": "b",
-            "userId": 1,
-            "id": 101
-          }
-          
-          expect(received).toBe(expected) // Object.is equality
-          
-          Expected: true
-          Received: false
-              at captureRawStack (./node_modules/playwright-core/lib/coreBundle.js:8588:17)
-              at callMatcherAsStep (./node_modules/playwright/lib/matchers/expect.js:13310:57)
-              at Object.toBe (./node_modules/playwright/lib/matchers/expect.js:13302:23)
-              at CustomWorld.<anonymous> (./section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:52:5)
-    ↷ And the response should explain what is wrong                  # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:55
-
-  @api @external @jsonplaceholder @known-defect
-  Scenario Outline: a post without title is rejected                 # section-a/jsonplaceholder/features/create-post-validation.feature:54
-    ✔ Given the JSONPlaceholder posts endpoint is reachable          # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:17
-
-          Payload "a post without userId": userId omitted
-
-    ✔ Given the JSONPlaceholder posts endpoint is reachable          # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:17
-
-          Payload "a post without title": title omitted
-
-
-          POST https://jsonplaceholder.typicode.com/posts
-          → 201 Created in 360 ms
-          {
-            "title": "Quarterly loan book review",
-            "body": "Portfolio notes for Q3.",
-            "id": 101
-          }
-
-    ✔ When I create "a post without userId"                          # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:22
-    ✘ Then the API should reject the request with a 4xx client error # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:47
-          Error: Expected a 4xx rejection (400 Bad Request, 413 Payload Too Large, 415 Unsupported Media Type or 422 Unprocessable Entity), but the API answered 201 Created and accepted the invalid payload.
-          POST https://jsonplaceholder.typicode.com/posts -> 201 Created (360 ms)
-          {
-            "title": "Quarterly loan book review",
-            "body": "Portfolio notes for Q3.",
-            "id": 101
-          }
-          
-          expect(received).toBe(expected) // Object.is equality
-          
-          Expected: true
-          Received: false
-              at captureRawStack (./node_modules/playwright-core/lib/coreBundle.js:8588:17)
-              at callMatcherAsStep (./node_modules/playwright/lib/matchers/expect.js:13310:57)
-              at Object.toBe (./node_modules/playwright/lib/matchers/expect.js:13302:23)
-              at CustomWorld.<anonymous> (./section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:52:5)
-    ↷ And the response should explain what is wrong                  # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:55
-
-  @api @external @jsonplaceholder @known-defect
-  Scenario Outline: a post without body is rejected                  # section-a/jsonplaceholder/features/create-post-validation.feature:55
-
-          POST https://jsonplaceholder.typicode.com/posts
-          → 201 Created in 354 ms
-          {
-            "body": "Portfolio notes for Q3.",
-            "userId": 1,
-            "id": 101
-          }
-
-    ✔ When I create "a post without title"                           # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:22
-    ✘ Then the API should reject the request with a 4xx client error # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:47
-          Error: Expected a 4xx rejection (400 Bad Request, 413 Payload Too Large, 415 Unsupported Media Type or 422 Unprocessable Entity), but the API answered 201 Created and accepted the invalid payload.
-          POST https://jsonplaceholder.typicode.com/posts -> 201 Created (354 ms)
-          {
-            "body": "Portfolio notes for Q3.",
-            "userId": 1,
-            "id": 101
-          }
-          
-          expect(received).toBe(expected) // Object.is equality
-          
-          Expected: true
-          Received: false
-              at captureRawStack (./node_modules/playwright-core/lib/coreBundle.js:8588:17)
-              at callMatcherAsStep (./node_modules/playwright/lib/matchers/expect.js:13310:57)
-              at Object.toBe (./node_modules/playwright/lib/matchers/expect.js:13302:23)
-              at CustomWorld.<anonymous> (./section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:52:5)
-    ↷ And the response should explain what is wrong                  # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:55
-
-  @api @external @jsonplaceholder @known-defect
-  Scenario Outline: a post with null userId is rejected              # section-a/jsonplaceholder/features/create-post-validation.feature:56
-    ✔ Given the JSONPlaceholder posts endpoint is reachable          # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:17
-
-          Payload "a post without body": body omitted
-
-    ✔ Given the JSONPlaceholder posts endpoint is reachable          # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:17
-
-          Payload "a post with null userId": userId explicitly null
-
-
-          POST https://jsonplaceholder.typicode.com/posts
-          → 500 Internal Server Error in 4419 ms
+          → 500 Internal Server Error in 4191 ms
           PayloadTooLargeError: request entity too large
               at readStream (/app/node_modules/body-parser/node_modules/raw-body/index.js:155:17)
               at getRawBody (/app/node_modules/body-parser/node_modules/raw-body/index.js:108:12)
@@ -667,7 +486,7 @@ Feature: JSONPlaceholder POST /posts - invalid input is rejected with a 4xx
     ✔ When I create "a title larger than 10 MiB"                             # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:22
     ✘ Then the API should not fail with a server error                       # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:36
           Error: Expected a non-5xx status, got a server-side failure.
-          POST https://jsonplaceholder.typicode.com/posts -> 500 Internal Server Error (4419 ms)
+          POST https://jsonplaceholder.typicode.com/posts -> 500 Internal Server Error (4191 ms)
           PayloadTooLargeError: request entity too large
               at readStream (/app/node_modules/body-parser/node_modules/raw-body/index.js:155:17)
               at getRawBody (/app/node_modules/body-parser/node_modules/raw-body/index.js:108:12)
@@ -696,22 +515,57 @@ Feature: JSONPlaceholder POST /posts - invalid input is rejected with a 4xx
     ↷ And the response should not leak implementation details                # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:41
 
   @api @external @jsonplaceholder @known-defect
-  Scenario Outline: a post with an empty title is rejected           # section-a/jsonplaceholder/features/create-post-validation.feature:57
+  Scenario Outline: a title with bidirectional overrides is rejected # section-a/jsonplaceholder/features/create-post-validation.feature:49
 
           POST https://jsonplaceholder.typicode.com/posts
-          → 201 Created in 333 ms
+          → 201 Created in 508 ms
           {
-            "title": "Quarterly loan book review",
+            "title": "\ud800",
+            "body": "b",
             "userId": 1,
             "id": 101
           }
 
-    ✔ When I create "a post without body"                            # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:22
+    ✔ When I create "a title with an unpaired surrogate"             # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:22
     ✘ Then the API should reject the request with a 4xx client error # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:47
           Error: Expected a 4xx rejection (400 Bad Request, 413 Payload Too Large, 415 Unsupported Media Type or 422 Unprocessable Entity), but the API answered 201 Created and accepted the invalid payload.
-          POST https://jsonplaceholder.typicode.com/posts -> 201 Created (333 ms)
+          POST https://jsonplaceholder.typicode.com/posts -> 201 Created (508 ms)
           {
-            "title": "Quarterly loan book review",
+            "title": "\ud800",
+            "body": "b",
+            "userId": 1,
+            "id": 101
+          }
+          
+          expect(received).toBe(expected) // Object.is equality
+          
+          Expected: true
+          Received: false
+              at captureRawStack (./node_modules/playwright-core/lib/coreBundle.js:8588:17)
+              at callMatcherAsStep (./node_modules/playwright/lib/matchers/expect.js:13310:57)
+              at Object.toBe (./node_modules/playwright/lib/matchers/expect.js:13302:23)
+              at CustomWorld.<anonymous> (./section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:52:5)
+    ↷ And the response should explain what is wrong                  # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:55
+
+          POST https://jsonplaceholder.typicode.com/posts
+          → 201 Created in 345 ms
+          {
+            "title": "���",
+            "body": "b",
+            "userId": 1,
+            "id": 101
+          }
+
+    ✔ When I create "a title with invalid UTF-8 bytes"               # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:22
+
+  @api @external @jsonplaceholder @known-defect
+  Scenario Outline: a post without userId is rejected                # section-a/jsonplaceholder/features/create-post-validation.feature:53
+    ✘ Then the API should reject the request with a 4xx client error # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:47
+          Error: Expected a 4xx rejection (400 Bad Request, 413 Payload Too Large, 415 Unsupported Media Type or 422 Unprocessable Entity), but the API answered 201 Created and accepted the invalid payload.
+          POST https://jsonplaceholder.typicode.com/posts -> 201 Created (345 ms)
+          {
+            "title": "���",
+            "body": "b",
             "userId": 1,
             "id": 101
           }
@@ -727,125 +581,129 @@ Feature: JSONPlaceholder POST /posts - invalid input is rejected with a 4xx
     ↷ And the response should explain what is wrong                  # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:55
 
   @api @external @jsonplaceholder @known-defect
-  Scenario Outline: a post with a text userId is rejected            # section-a/jsonplaceholder/features/create-post-validation.feature:61
+  Scenario Outline: a post without title is rejected                 # section-a/jsonplaceholder/features/create-post-validation.feature:54
+    ✔ Given the JSONPlaceholder posts endpoint is reachable          # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:17
+
+          Payload "a title with bidirectional overrides": U+202E right-to-left override (filename spoofing)
+
+    ✔ Given the JSONPlaceholder posts endpoint is reachable          # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:17
+
+          Payload "a post without title": title omitted
+
+
+          POST https://jsonplaceholder.typicode.com/posts
+          → 201 Created in 321 ms
+          {
+            "title": "invoice‮fdp.exe",
+            "body": "Portfolio notes for Q3.",
+            "userId": 1,
+            "id": 101
+          }
+
+    ✔ When I create "a title with bidirectional overrides"           # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:22
+    ✘ Then the API should reject the request with a 4xx client error # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:47
+          Error: Expected a 4xx rejection (400 Bad Request, 413 Payload Too Large, 415 Unsupported Media Type or 422 Unprocessable Entity), but the API answered 201 Created and accepted the invalid payload.
+          POST https://jsonplaceholder.typicode.com/posts -> 201 Created (321 ms)
+          {
+            "title": "invoice‮fdp.exe",
+            "body": "Portfolio notes for Q3.",
+            "userId": 1,
+            "id": 101
+          }
+          
+          expect(received).toBe(expected) // Object.is equality
+          
+          Expected: true
+          Received: false
+              at captureRawStack (./node_modules/playwright-core/lib/coreBundle.js:8588:17)
+              at callMatcherAsStep (./node_modules/playwright/lib/matchers/expect.js:13310:57)
+              at Object.toBe (./node_modules/playwright/lib/matchers/expect.js:13302:23)
+              at CustomWorld.<anonymous> (./section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:52:5)
+    ↷ And the response should explain what is wrong                  # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:55
+
+  @api @external @jsonplaceholder @known-defect
+  Scenario Outline: a post without body is rejected                  # section-a/jsonplaceholder/features/create-post-validation.feature:55
+    ✔ Given the JSONPlaceholder posts endpoint is reachable          # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:17
+
+          Payload "a post without userId": userId omitted
+
+
+          POST https://jsonplaceholder.typicode.com/posts
+          → 201 Created in 331 ms
+          {
+            "body": "Portfolio notes for Q3.",
+            "userId": 1,
+            "id": 101
+          }
+
+    ✔ When I create "a post without title"                           # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:22
+    ✘ Then the API should reject the request with a 4xx client error # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:47
+          Error: Expected a 4xx rejection (400 Bad Request, 413 Payload Too Large, 415 Unsupported Media Type or 422 Unprocessable Entity), but the API answered 201 Created and accepted the invalid payload.
+          POST https://jsonplaceholder.typicode.com/posts -> 201 Created (331 ms)
+          {
+            "body": "Portfolio notes for Q3.",
+            "userId": 1,
+            "id": 101
+          }
+          
+          expect(received).toBe(expected) // Object.is equality
+          
+          Expected: true
+          Received: false
+              at captureRawStack (./node_modules/playwright-core/lib/coreBundle.js:8588:17)
+              at callMatcherAsStep (./node_modules/playwright/lib/matchers/expect.js:13310:57)
+              at Object.toBe (./node_modules/playwright/lib/matchers/expect.js:13302:23)
+              at CustomWorld.<anonymous> (./section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:52:5)
+    ↷ And the response should explain what is wrong                  # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:55
+
+  @api @external @jsonplaceholder @known-defect
+  Scenario Outline: a post with null userId is rejected              # section-a/jsonplaceholder/features/create-post-validation.feature:56
+
+          POST https://jsonplaceholder.typicode.com/posts
+          → 201 Created in 309 ms
+          {
+            "title": "Quarterly loan book review",
+            "body": "Portfolio notes for Q3.",
+            "id": 101
+          }
+
+    ✔ When I create "a post without userId"                          # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:22
+    ✘ Then the API should reject the request with a 4xx client error # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:47
+          Error: Expected a 4xx rejection (400 Bad Request, 413 Payload Too Large, 415 Unsupported Media Type or 422 Unprocessable Entity), but the API answered 201 Created and accepted the invalid payload.
+          POST https://jsonplaceholder.typicode.com/posts -> 201 Created (309 ms)
+          {
+            "title": "Quarterly loan book review",
+            "body": "Portfolio notes for Q3.",
+            "id": 101
+          }
+          
+          expect(received).toBe(expected) // Object.is equality
+          
+          Expected: true
+          Received: false
+              at captureRawStack (./node_modules/playwright-core/lib/coreBundle.js:8588:17)
+              at callMatcherAsStep (./node_modules/playwright/lib/matchers/expect.js:13310:57)
+              at Object.toBe (./node_modules/playwright/lib/matchers/expect.js:13302:23)
+              at CustomWorld.<anonymous> (./section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:52:5)
+    ↷ And the response should explain what is wrong                  # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:55
+
+  @api @external @jsonplaceholder @known-defect
+  Scenario Outline: a post with an empty title is rejected           # section-a/jsonplaceholder/features/create-post-validation.feature:57
+    ✔ Given the JSONPlaceholder posts endpoint is reachable          # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:17
+
+          Payload "a post without body": body omitted
+
     ✔ Given the JSONPlaceholder posts endpoint is reachable          # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:17
 
           Payload "a post with an empty title": title present but empty
 
-
-          POST https://jsonplaceholder.typicode.com/posts
-          → 201 Created in 328 ms
-          {
-            "title": "Quarterly loan book review",
-            "body": "Portfolio notes for Q3.",
-            "userId": null,
-            "id": 101
-          }
-
-    ✔ When I create "a post with null userId"                        # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:22
-    ✘ Then the API should reject the request with a 4xx client error # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:47
-          Error: Expected a 4xx rejection (400 Bad Request, 413 Payload Too Large, 415 Unsupported Media Type or 422 Unprocessable Entity), but the API answered 201 Created and accepted the invalid payload.
-          POST https://jsonplaceholder.typicode.com/posts -> 201 Created (328 ms)
-          {
-            "title": "Quarterly loan book review",
-            "body": "Portfolio notes for Q3.",
-            "userId": null,
-            "id": 101
-          }
-          
-          expect(received).toBe(expected) // Object.is equality
-          
-          Expected: true
-          Received: false
-              at captureRawStack (./node_modules/playwright-core/lib/coreBundle.js:8588:17)
-              at callMatcherAsStep (./node_modules/playwright/lib/matchers/expect.js:13310:57)
-              at Object.toBe (./node_modules/playwright/lib/matchers/expect.js:13302:23)
-              at CustomWorld.<anonymous> (./section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:52:5)
-    ↷ And the response should explain what is wrong                  # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:55
-
-  @api @external @jsonplaceholder @known-defect
-  Scenario Outline: a post with a negative userId is rejected        # section-a/jsonplaceholder/features/create-post-validation.feature:62
     ✔ Given the JSONPlaceholder posts endpoint is reachable          # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:17
 
-          Payload "a post with a text userId": userId must be an integer
-
-    ✔ Given the JSONPlaceholder posts endpoint is reachable          # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:17
-
-          Payload "a post with a negative userId": ids are positive
+          Payload "a post with null userId": userId explicitly null
 
 
           POST https://jsonplaceholder.typicode.com/posts
-          → 201 Created in 324 ms
-          {
-            "title": "Quarterly loan book review",
-            "body": "Portfolio notes for Q3.",
-            "userId": "abc",
-            "id": 101
-          }
-
-    ✔ When I create "a post with a text userId"                      # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:22
-    ✘ Then the API should reject the request with a 4xx client error # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:47
-          Error: Expected a 4xx rejection (400 Bad Request, 413 Payload Too Large, 415 Unsupported Media Type or 422 Unprocessable Entity), but the API answered 201 Created and accepted the invalid payload.
-          POST https://jsonplaceholder.typicode.com/posts -> 201 Created (324 ms)
-          {
-            "title": "Quarterly loan book review",
-            "body": "Portfolio notes for Q3.",
-            "userId": "abc",
-            "id": 101
-          }
-          
-          expect(received).toBe(expected) // Object.is equality
-          
-          Expected: true
-          Received: false
-              at captureRawStack (./node_modules/playwright-core/lib/coreBundle.js:8588:17)
-              at callMatcherAsStep (./node_modules/playwright/lib/matchers/expect.js:13310:57)
-              at Object.toBe (./node_modules/playwright/lib/matchers/expect.js:13302:23)
-              at CustomWorld.<anonymous> (./section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:52:5)
-    ↷ And the response should explain what is wrong                  # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:55
-
-  @api @external @jsonplaceholder @known-defect
-  Scenario Outline: a post with an unknown userId is rejected        # section-a/jsonplaceholder/features/create-post-validation.feature:63
-    ✔ Given the JSONPlaceholder posts endpoint is reachable          # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:17
-
-          Payload "a post with an unknown userId": JSONPlaceholder has users 1-10
-
-
-          POST https://jsonplaceholder.typicode.com/posts
-          → 201 Created in 796 ms
-          {
-            "title": "",
-            "body": "Portfolio notes for Q3.",
-            "userId": 1,
-            "id": 101
-          }
-
-    ✔ When I create "a post with an empty title"                     # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:22
-    ✘ Then the API should reject the request with a 4xx client error # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:47
-          Error: Expected a 4xx rejection (400 Bad Request, 413 Payload Too Large, 415 Unsupported Media Type or 422 Unprocessable Entity), but the API answered 201 Created and accepted the invalid payload.
-          POST https://jsonplaceholder.typicode.com/posts -> 201 Created (796 ms)
-          {
-            "title": "",
-            "body": "Portfolio notes for Q3.",
-            "userId": 1,
-            "id": 101
-          }
-          
-          expect(received).toBe(expected) // Object.is equality
-          
-          Expected: true
-          Received: false
-              at captureRawStack (./node_modules/playwright-core/lib/coreBundle.js:8588:17)
-              at callMatcherAsStep (./node_modules/playwright/lib/matchers/expect.js:13310:57)
-              at Object.toBe (./node_modules/playwright/lib/matchers/expect.js:13302:23)
-              at CustomWorld.<anonymous> (./section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:52:5)
-    ↷ And the response should explain what is wrong                  # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:55
-
-  @api @external @jsonplaceholder @known-defect
-  Scenario Outline: a post with a numeric title is rejected          # section-a/jsonplaceholder/features/create-post-validation.feature:64
-
-          POST https://jsonplaceholder.typicode.com/posts
-          → 500 Internal Server Error in 3904 ms
+          → 500 Internal Server Error in 3728 ms
           PayloadTooLargeError: request entity too large
               at readStream (/app/node_modules/body-parser/node_modules/raw-body/index.js:155:17)
               at getRawBody (/app/node_modules/body-parser/node_modules/raw-body/index.js:108:12)
@@ -856,7 +714,7 @@ Feature: JSONPlaceholder POST /posts - invalid input is rejected with a 4xx
     ✔ When I create "a title larger than 10 MiB"                     # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:22
     ✘ Then the API should reject the request with a 4xx client error # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:47
           Error: Expected a 4xx rejection (400 Bad Request, 413 Payload Too Large, 415 Unsupported Media Type or 422 Unprocessable Entity), but the API answered 500 Internal Server Error, a server-side failure.
-          POST https://jsonplaceholder.typicode.com/posts -> 500 Internal Server Error (3904 ms)
+          POST https://jsonplaceholder.typicode.com/posts -> 500 Internal Server Error (3728 ms)
           PayloadTooLargeError: request entity too large
               at readStream (/app/node_modules/body-parser/node_modules/raw-body/index.js:155:17)
               at getRawBody (/app/node_modules/body-parser/node_modules/raw-body/index.js:108:12)
@@ -885,25 +743,171 @@ Feature: JSONPlaceholder POST /posts - invalid input is rejected with a 4xx
     ↷ And the response should explain what is wrong                  # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:55
 
   @api @external @jsonplaceholder @known-defect
-  Scenario Outline: malformed JSON is rejected                       # section-a/jsonplaceholder/features/create-post-validation.feature:65
+  Scenario Outline: a post with a text userId is rejected            # section-a/jsonplaceholder/features/create-post-validation.feature:61
 
           POST https://jsonplaceholder.typicode.com/posts
-          → 201 Created in 332 ms
+          → 201 Created in 297 ms
           {
             "title": "Quarterly loan book review",
-            "body": "Portfolio notes for Q3.",
-            "userId": 999999,
+            "userId": 1,
             "id": 101
           }
 
-    ✔ When I create "a post with an unknown userId"                  # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:22
+    ✔ When I create "a post without body"                            # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:22
     ✘ Then the API should reject the request with a 4xx client error # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:47
           Error: Expected a 4xx rejection (400 Bad Request, 413 Payload Too Large, 415 Unsupported Media Type or 422 Unprocessable Entity), but the API answered 201 Created and accepted the invalid payload.
-          POST https://jsonplaceholder.typicode.com/posts -> 201 Created (332 ms)
+          POST https://jsonplaceholder.typicode.com/posts -> 201 Created (297 ms)
+          {
+            "title": "Quarterly loan book review",
+            "userId": 1,
+            "id": 101
+          }
+          
+          expect(received).toBe(expected) // Object.is equality
+          
+          Expected: true
+          Received: false
+              at captureRawStack (./node_modules/playwright-core/lib/coreBundle.js:8588:17)
+              at callMatcherAsStep (./node_modules/playwright/lib/matchers/expect.js:13310:57)
+              at Object.toBe (./node_modules/playwright/lib/matchers/expect.js:13302:23)
+              at CustomWorld.<anonymous> (./section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:52:5)
+    ↷ And the response should explain what is wrong                  # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:55
+
+  @api @external @jsonplaceholder @known-defect
+  Scenario Outline: a post with a negative userId is rejected        # section-a/jsonplaceholder/features/create-post-validation.feature:62
+
+          POST https://jsonplaceholder.typicode.com/posts
+          → 201 Created in 330 ms
+          {
+            "title": "",
+            "body": "Portfolio notes for Q3.",
+            "userId": 1,
+            "id": 101
+          }
+
+    ✔ When I create "a post with an empty title"                     # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:22
+    ✘ Then the API should reject the request with a 4xx client error # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:47
+          Error: Expected a 4xx rejection (400 Bad Request, 413 Payload Too Large, 415 Unsupported Media Type or 422 Unprocessable Entity), but the API answered 201 Created and accepted the invalid payload.
+          POST https://jsonplaceholder.typicode.com/posts -> 201 Created (330 ms)
+          {
+            "title": "",
+            "body": "Portfolio notes for Q3.",
+            "userId": 1,
+            "id": 101
+          }
+          
+          expect(received).toBe(expected) // Object.is equality
+          
+          Expected: true
+          Received: false
+              at captureRawStack (./node_modules/playwright-core/lib/coreBundle.js:8588:17)
+              at callMatcherAsStep (./node_modules/playwright/lib/matchers/expect.js:13310:57)
+              at Object.toBe (./node_modules/playwright/lib/matchers/expect.js:13302:23)
+              at CustomWorld.<anonymous> (./section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:52:5)
+    ↷ And the response should explain what is wrong                  # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:55
+
+  @api @external @jsonplaceholder @known-defect
+  Scenario Outline: a post with an unknown userId is rejected        # section-a/jsonplaceholder/features/create-post-validation.feature:63
+    ✔ Given the JSONPlaceholder posts endpoint is reachable          # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:17
+
+          Payload "a post with a text userId": userId must be an integer
+
+    ✔ Given the JSONPlaceholder posts endpoint is reachable          # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:17
+
+          Payload "a post with a negative userId": ids are positive
+
+
+          POST https://jsonplaceholder.typicode.com/posts
+          → 201 Created in 362 ms
           {
             "title": "Quarterly loan book review",
             "body": "Portfolio notes for Q3.",
-            "userId": 999999,
+            "userId": null,
+            "id": 101
+          }
+
+    ✔ When I create "a post with null userId"                        # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:22
+    ✘ Then the API should reject the request with a 4xx client error # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:47
+          Error: Expected a 4xx rejection (400 Bad Request, 413 Payload Too Large, 415 Unsupported Media Type or 422 Unprocessable Entity), but the API answered 201 Created and accepted the invalid payload.
+          POST https://jsonplaceholder.typicode.com/posts -> 201 Created (362 ms)
+          {
+            "title": "Quarterly loan book review",
+            "body": "Portfolio notes for Q3.",
+            "userId": null,
+            "id": 101
+          }
+          
+          expect(received).toBe(expected) // Object.is equality
+          
+          Expected: true
+          Received: false
+              at captureRawStack (./node_modules/playwright-core/lib/coreBundle.js:8588:17)
+              at callMatcherAsStep (./node_modules/playwright/lib/matchers/expect.js:13310:57)
+              at Object.toBe (./node_modules/playwright/lib/matchers/expect.js:13302:23)
+              at CustomWorld.<anonymous> (./section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:52:5)
+    ↷ And the response should explain what is wrong                  # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:55
+
+  @api @external @jsonplaceholder @known-defect
+  Scenario Outline: a post with a numeric title is rejected          # section-a/jsonplaceholder/features/create-post-validation.feature:64
+    ✔ Given the JSONPlaceholder posts endpoint is reachable          # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:17
+
+          Payload "a post with an unknown userId": JSONPlaceholder has users 1-10
+
+    ✔ Given the JSONPlaceholder posts endpoint is reachable          # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:17
+
+          Payload "a post with a numeric title": title must be a string
+
+
+          POST https://jsonplaceholder.typicode.com/posts
+          → 201 Created in 326 ms
+          {
+            "title": "Quarterly loan book review",
+            "body": "Portfolio notes for Q3.",
+            "userId": "abc",
+            "id": 101
+          }
+
+    ✔ When I create "a post with a text userId"                      # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:22
+    ✘ Then the API should reject the request with a 4xx client error # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:47
+          Error: Expected a 4xx rejection (400 Bad Request, 413 Payload Too Large, 415 Unsupported Media Type or 422 Unprocessable Entity), but the API answered 201 Created and accepted the invalid payload.
+          POST https://jsonplaceholder.typicode.com/posts -> 201 Created (326 ms)
+          {
+            "title": "Quarterly loan book review",
+            "body": "Portfolio notes for Q3.",
+            "userId": "abc",
+            "id": 101
+          }
+          
+          expect(received).toBe(expected) // Object.is equality
+          
+          Expected: true
+          Received: false
+              at captureRawStack (./node_modules/playwright-core/lib/coreBundle.js:8588:17)
+              at callMatcherAsStep (./node_modules/playwright/lib/matchers/expect.js:13310:57)
+              at Object.toBe (./node_modules/playwright/lib/matchers/expect.js:13302:23)
+              at CustomWorld.<anonymous> (./section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:52:5)
+    ↷ And the response should explain what is wrong                  # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:55
+
+  @api @external @jsonplaceholder @known-defect
+  Scenario Outline: malformed JSON is rejected                       # section-a/jsonplaceholder/features/create-post-validation.feature:65
+
+          POST https://jsonplaceholder.typicode.com/posts
+          → 201 Created in 335 ms
+          {
+            "title": "Quarterly loan book review",
+            "body": "Portfolio notes for Q3.",
+            "userId": -1,
+            "id": 101
+          }
+
+    ✔ When I create "a post with a negative userId"                  # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:22
+    ✘ Then the API should reject the request with a 4xx client error # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:47
+          Error: Expected a 4xx rejection (400 Bad Request, 413 Payload Too Large, 415 Unsupported Media Type or 422 Unprocessable Entity), but the API answered 201 Created and accepted the invalid payload.
+          POST https://jsonplaceholder.typicode.com/posts -> 201 Created (335 ms)
+          {
+            "title": "Quarterly loan book review",
+            "body": "Portfolio notes for Q3.",
+            "userId": -1,
             "id": 101
           }
           
@@ -919,28 +923,24 @@ Feature: JSONPlaceholder POST /posts - invalid input is rejected with a 4xx
 
   @api @external @jsonplaceholder @known-defect
   Scenario Outline: a JSON array instead of an object is rejected    # section-a/jsonplaceholder/features/create-post-validation.feature:66
-    ✔ Given the JSONPlaceholder posts endpoint is reachable          # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:17
-
-          Payload "a post with a numeric title": title must be a string
-
 
           POST https://jsonplaceholder.typicode.com/posts
-          → 201 Created in 776 ms
+          → 201 Created in 331 ms
           {
             "title": "Quarterly loan book review",
             "body": "Portfolio notes for Q3.",
-            "userId": -1,
+            "userId": 999999,
             "id": 101
           }
 
-    ✔ When I create "a post with a negative userId"                  # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:22
+    ✔ When I create "a post with an unknown userId"                  # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:22
     ✘ Then the API should reject the request with a 4xx client error # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:47
           Error: Expected a 4xx rejection (400 Bad Request, 413 Payload Too Large, 415 Unsupported Media Type or 422 Unprocessable Entity), but the API answered 201 Created and accepted the invalid payload.
-          POST https://jsonplaceholder.typicode.com/posts -> 201 Created (776 ms)
+          POST https://jsonplaceholder.typicode.com/posts -> 201 Created (331 ms)
           {
             "title": "Quarterly loan book review",
             "body": "Portfolio notes for Q3.",
-            "userId": -1,
+            "userId": 999999,
             "id": 101
           }
           
@@ -970,37 +970,7 @@ Feature: JSONPlaceholder POST /posts - invalid input is rejected with a 4xx
 
 
           POST https://jsonplaceholder.typicode.com/posts
-          → 201 Created in 336 ms
-          {
-            "title": 12345,
-            "body": "Portfolio notes for Q3.",
-            "userId": 1,
-            "id": 101
-          }
-
-    ✔ When I create "a post with a numeric title"                    # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:22
-    ✘ Then the API should reject the request with a 4xx client error # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:47
-          Error: Expected a 4xx rejection (400 Bad Request, 413 Payload Too Large, 415 Unsupported Media Type or 422 Unprocessable Entity), but the API answered 201 Created and accepted the invalid payload.
-          POST https://jsonplaceholder.typicode.com/posts -> 201 Created (336 ms)
-          {
-            "title": 12345,
-            "body": "Portfolio notes for Q3.",
-            "userId": 1,
-            "id": 101
-          }
-          
-          expect(received).toBe(expected) // Object.is equality
-          
-          Expected: true
-          Received: false
-              at captureRawStack (./node_modules/playwright-core/lib/coreBundle.js:8588:17)
-              at callMatcherAsStep (./node_modules/playwright/lib/matchers/expect.js:13310:57)
-              at Object.toBe (./node_modules/playwright/lib/matchers/expect.js:13302:23)
-              at CustomWorld.<anonymous> (./section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:52:5)
-    ↷ And the response should explain what is wrong                  # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:55
-
-          POST https://jsonplaceholder.typicode.com/posts
-          → 201 Created in 327 ms
+          → 201 Created in 323 ms
           {
             "0": {
               "title": "t",
@@ -1013,7 +983,7 @@ Feature: JSONPlaceholder POST /posts - invalid input is rejected with a 4xx
     ✔ When I create "a JSON array instead of an object"              # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:22
     ✘ Then the API should reject the request with a 4xx client error # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:47
           Error: Expected a 4xx rejection (400 Bad Request, 413 Payload Too Large, 415 Unsupported Media Type or 422 Unprocessable Entity), but the API answered 201 Created and accepted the invalid payload.
-          POST https://jsonplaceholder.typicode.com/posts -> 201 Created (327 ms)
+          POST https://jsonplaceholder.typicode.com/posts -> 201 Created (323 ms)
           {
             "0": {
               "title": "t",
@@ -1034,7 +1004,7 @@ Feature: JSONPlaceholder POST /posts - invalid input is rejected with a 4xx
     ↷ And the response should explain what is wrong                  # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:55
 
           POST https://jsonplaceholder.typicode.com/posts
-          → 201 Created in 335 ms
+          → 201 Created in 331 ms
           {
             "id": 101
           }
@@ -1042,7 +1012,7 @@ Feature: JSONPlaceholder POST /posts - invalid input is rejected with a 4xx
     ✔ When I create "a JSON body sent as text/plain"                 # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:22
     ✘ Then the API should reject the request with a 4xx client error # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:47
           Error: Expected a 4xx rejection (400 Bad Request, 413 Payload Too Large, 415 Unsupported Media Type or 422 Unprocessable Entity), but the API answered 201 Created and accepted the invalid payload.
-          POST https://jsonplaceholder.typicode.com/posts -> 201 Created (335 ms)
+          POST https://jsonplaceholder.typicode.com/posts -> 201 Created (331 ms)
           {
             "id": 101
           }
@@ -1058,7 +1028,37 @@ Feature: JSONPlaceholder POST /posts - invalid input is rejected with a 4xx
     ↷ And the response should explain what is wrong                  # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:55
 
           POST https://jsonplaceholder.typicode.com/posts
-          → 500 Internal Server Error in 818 ms
+          → 201 Created in 811 ms
+          {
+            "title": 12345,
+            "body": "Portfolio notes for Q3.",
+            "userId": 1,
+            "id": 101
+          }
+
+    ✔ When I create "a post with a numeric title"                    # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:22
+    ✘ Then the API should reject the request with a 4xx client error # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:47
+          Error: Expected a 4xx rejection (400 Bad Request, 413 Payload Too Large, 415 Unsupported Media Type or 422 Unprocessable Entity), but the API answered 201 Created and accepted the invalid payload.
+          POST https://jsonplaceholder.typicode.com/posts -> 201 Created (811 ms)
+          {
+            "title": 12345,
+            "body": "Portfolio notes for Q3.",
+            "userId": 1,
+            "id": 101
+          }
+          
+          expect(received).toBe(expected) // Object.is equality
+          
+          Expected: true
+          Received: false
+              at captureRawStack (./node_modules/playwright-core/lib/coreBundle.js:8588:17)
+              at callMatcherAsStep (./node_modules/playwright/lib/matchers/expect.js:13310:57)
+              at Object.toBe (./node_modules/playwright/lib/matchers/expect.js:13302:23)
+              at CustomWorld.<anonymous> (./section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:52:5)
+    ↷ And the response should explain what is wrong                  # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:55
+
+          POST https://jsonplaceholder.typicode.com/posts
+          → 500 Internal Server Error in 794 ms
           SyntaxError: Unterminated string in JSON at position 23 (line 1 column 24)
               at JSON.parse (<anonymous>)
               at parse (/app/node_modules/body-parser/lib/types/json.js:89:19)
@@ -1069,7 +1069,7 @@ Feature: JSONPlaceholder POST /posts - invalid input is rejected with a 4xx
     ✔ When I create "malformed JSON"                                 # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:22
     ✘ Then the API should reject the request with a 4xx client error # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:47
           Error: Expected a 4xx rejection (400 Bad Request, 413 Payload Too Large, 415 Unsupported Media Type or 422 Unprocessable Entity), but the API answered 500 Internal Server Error, a server-side failure.
-          POST https://jsonplaceholder.typicode.com/posts -> 500 Internal Server Error (818 ms)
+          POST https://jsonplaceholder.typicode.com/posts -> 500 Internal Server Error (794 ms)
           SyntaxError: Unterminated string in JSON at position 23 (line 1 column 24)
               at JSON.parse (<anonymous>)
               at parse (/app/node_modules/body-parser/lib/types/json.js:89:19)
@@ -1100,7 +1100,7 @@ Failed scenarios:
   1) malformed JSON does not cause a server error # section-a/jsonplaceholder/features/create-post-robustness.feature:47
        Then the API should not fail with a server error # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:36
            Error: Expected a non-5xx status, got a server-side failure.
-           POST https://jsonplaceholder.typicode.com/posts -> 500 Internal Server Error (332 ms)
+           POST https://jsonplaceholder.typicode.com/posts -> 500 Internal Server Error (524 ms)
            SyntaxError: Unterminated string in JSON at position 23 (line 1 column 24)
                at JSON.parse (<anonymous>)
                at parse (/app/node_modules/body-parser/lib/types/json.js:89:19)
@@ -1128,7 +1128,7 @@ Failed scenarios:
   2) a 256-character title is rejected # section-a/jsonplaceholder/features/create-post-validation.feature:41
        Then the API should reject the request with a 4xx client error # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:47
            Error: Expected a 4xx rejection (400 Bad Request, 413 Payload Too Large, 415 Unsupported Media Type or 422 Unprocessable Entity), but the API answered 201 Created and accepted the invalid payload.
-           POST https://jsonplaceholder.typicode.com/posts -> 201 Created (595 ms)
+           POST https://jsonplaceholder.typicode.com/posts -> 201 Created (299 ms)
            {
              "title": "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
              "body": "Portfolio notes for Q3.",
@@ -1147,7 +1147,7 @@ Failed scenarios:
   3) a title with a NUL byte is rejected # section-a/jsonplaceholder/features/create-post-validation.feature:46
        Then the API should reject the request with a 4xx client error # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:47
            Error: Expected a 4xx rejection (400 Bad Request, 413 Payload Too Large, 415 Unsupported Media Type or 422 Unprocessable Entity), but the API answered 201 Created and accepted the invalid payload.
-           POST https://jsonplaceholder.typicode.com/posts -> 201 Created (374 ms)
+           POST https://jsonplaceholder.typicode.com/posts -> 201 Created (816 ms)
            {
              "title": "Loan\u0000review",
              "body": "Portfolio notes for Q3.",
@@ -1163,103 +1163,10 @@ Failed scenarios:
                at callMatcherAsStep (./node_modules/playwright/lib/matchers/expect.js:13310:57)
                at Object.toBe (./node_modules/playwright/lib/matchers/expect.js:13302:23)
                at CustomWorld.<anonymous> (./section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:52:5)
-  4) a title with an unpaired surrogate is rejected # section-a/jsonplaceholder/features/create-post-validation.feature:47
-       Then the API should reject the request with a 4xx client error # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:47
-           Error: Expected a 4xx rejection (400 Bad Request, 413 Payload Too Large, 415 Unsupported Media Type or 422 Unprocessable Entity), but the API answered 201 Created and accepted the invalid payload.
-           POST https://jsonplaceholder.typicode.com/posts -> 201 Created (480 ms)
-           {
-             "title": "\ud800",
-             "body": "b",
-             "userId": 1,
-             "id": 101
-           }
-           
-           expect(received).toBe(expected) // Object.is equality
-           
-           Expected: true
-           Received: false
-               at captureRawStack (./node_modules/playwright-core/lib/coreBundle.js:8588:17)
-               at callMatcherAsStep (./node_modules/playwright/lib/matchers/expect.js:13310:57)
-               at Object.toBe (./node_modules/playwright/lib/matchers/expect.js:13302:23)
-               at CustomWorld.<anonymous> (./section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:52:5)
-  5) a title with bidirectional overrides is rejected # section-a/jsonplaceholder/features/create-post-validation.feature:49
-       Then the API should reject the request with a 4xx client error # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:47
-           Error: Expected a 4xx rejection (400 Bad Request, 413 Payload Too Large, 415 Unsupported Media Type or 422 Unprocessable Entity), but the API answered 201 Created and accepted the invalid payload.
-           POST https://jsonplaceholder.typicode.com/posts -> 201 Created (316 ms)
-           {
-             "title": "invoice‮fdp.exe",
-             "body": "Portfolio notes for Q3.",
-             "userId": 1,
-             "id": 101
-           }
-           
-           expect(received).toBe(expected) // Object.is equality
-           
-           Expected: true
-           Received: false
-               at captureRawStack (./node_modules/playwright-core/lib/coreBundle.js:8588:17)
-               at callMatcherAsStep (./node_modules/playwright/lib/matchers/expect.js:13310:57)
-               at Object.toBe (./node_modules/playwright/lib/matchers/expect.js:13302:23)
-               at CustomWorld.<anonymous> (./section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:52:5)
-  6) a title with invalid UTF-8 bytes is rejected # section-a/jsonplaceholder/features/create-post-validation.feature:48
-       Then the API should reject the request with a 4xx client error # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:47
-           Error: Expected a 4xx rejection (400 Bad Request, 413 Payload Too Large, 415 Unsupported Media Type or 422 Unprocessable Entity), but the API answered 201 Created and accepted the invalid payload.
-           POST https://jsonplaceholder.typicode.com/posts -> 201 Created (335 ms)
-           {
-             "title": "���",
-             "body": "b",
-             "userId": 1,
-             "id": 101
-           }
-           
-           expect(received).toBe(expected) // Object.is equality
-           
-           Expected: true
-           Received: false
-               at captureRawStack (./node_modules/playwright-core/lib/coreBundle.js:8588:17)
-               at callMatcherAsStep (./node_modules/playwright/lib/matchers/expect.js:13310:57)
-               at Object.toBe (./node_modules/playwright/lib/matchers/expect.js:13302:23)
-               at CustomWorld.<anonymous> (./section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:52:5)
-  7) a post without userId is rejected # section-a/jsonplaceholder/features/create-post-validation.feature:53
-       Then the API should reject the request with a 4xx client error # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:47
-           Error: Expected a 4xx rejection (400 Bad Request, 413 Payload Too Large, 415 Unsupported Media Type or 422 Unprocessable Entity), but the API answered 201 Created and accepted the invalid payload.
-           POST https://jsonplaceholder.typicode.com/posts -> 201 Created (360 ms)
-           {
-             "title": "Quarterly loan book review",
-             "body": "Portfolio notes for Q3.",
-             "id": 101
-           }
-           
-           expect(received).toBe(expected) // Object.is equality
-           
-           Expected: true
-           Received: false
-               at captureRawStack (./node_modules/playwright-core/lib/coreBundle.js:8588:17)
-               at callMatcherAsStep (./node_modules/playwright/lib/matchers/expect.js:13310:57)
-               at Object.toBe (./node_modules/playwright/lib/matchers/expect.js:13302:23)
-               at CustomWorld.<anonymous> (./section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:52:5)
-  8) a post without title is rejected # section-a/jsonplaceholder/features/create-post-validation.feature:54
-       Then the API should reject the request with a 4xx client error # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:47
-           Error: Expected a 4xx rejection (400 Bad Request, 413 Payload Too Large, 415 Unsupported Media Type or 422 Unprocessable Entity), but the API answered 201 Created and accepted the invalid payload.
-           POST https://jsonplaceholder.typicode.com/posts -> 201 Created (354 ms)
-           {
-             "body": "Portfolio notes for Q3.",
-             "userId": 1,
-             "id": 101
-           }
-           
-           expect(received).toBe(expected) // Object.is equality
-           
-           Expected: true
-           Received: false
-               at captureRawStack (./node_modules/playwright-core/lib/coreBundle.js:8588:17)
-               at callMatcherAsStep (./node_modules/playwright/lib/matchers/expect.js:13310:57)
-               at Object.toBe (./node_modules/playwright/lib/matchers/expect.js:13302:23)
-               at CustomWorld.<anonymous> (./section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:52:5)
-  9) a title larger than 10 MiB does not cause a server error # section-a/jsonplaceholder/features/create-post-robustness.feature:46
+  4) a title larger than 10 MiB does not cause a server error # section-a/jsonplaceholder/features/create-post-robustness.feature:46
        Then the API should not fail with a server error # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:36
            Error: Expected a non-5xx status, got a server-side failure.
-           POST https://jsonplaceholder.typicode.com/posts -> 500 Internal Server Error (4419 ms)
+           POST https://jsonplaceholder.typicode.com/posts -> 500 Internal Server Error (4191 ms)
            PayloadTooLargeError: request entity too large
                at readStream (/app/node_modules/body-parser/node_modules/raw-body/index.js:155:17)
                at getRawBody (/app/node_modules/body-parser/node_modules/raw-body/index.js:108:12)
@@ -1285,12 +1192,13 @@ Failed scenarios:
                at callMatcherAsStep (./node_modules/playwright/lib/matchers/expect.js:13310:57)
                at Object.toBeLessThan (./node_modules/playwright/lib/matchers/expect.js:13302:23)
                at CustomWorld.<anonymous> (./section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:38:97)
-  10) a post without body is rejected # section-a/jsonplaceholder/features/create-post-validation.feature:55
+  5) a title with an unpaired surrogate is rejected # section-a/jsonplaceholder/features/create-post-validation.feature:47
        Then the API should reject the request with a 4xx client error # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:47
            Error: Expected a 4xx rejection (400 Bad Request, 413 Payload Too Large, 415 Unsupported Media Type or 422 Unprocessable Entity), but the API answered 201 Created and accepted the invalid payload.
-           POST https://jsonplaceholder.typicode.com/posts -> 201 Created (333 ms)
+           POST https://jsonplaceholder.typicode.com/posts -> 201 Created (508 ms)
            {
-             "title": "Quarterly loan book review",
+             "title": "\ud800",
+             "body": "b",
              "userId": 1,
              "id": 101
            }
@@ -1303,14 +1211,14 @@ Failed scenarios:
                at callMatcherAsStep (./node_modules/playwright/lib/matchers/expect.js:13310:57)
                at Object.toBe (./node_modules/playwright/lib/matchers/expect.js:13302:23)
                at CustomWorld.<anonymous> (./section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:52:5)
-  11) a post with null userId is rejected # section-a/jsonplaceholder/features/create-post-validation.feature:56
+  6) a title with invalid UTF-8 bytes is rejected # section-a/jsonplaceholder/features/create-post-validation.feature:48
        Then the API should reject the request with a 4xx client error # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:47
            Error: Expected a 4xx rejection (400 Bad Request, 413 Payload Too Large, 415 Unsupported Media Type or 422 Unprocessable Entity), but the API answered 201 Created and accepted the invalid payload.
-           POST https://jsonplaceholder.typicode.com/posts -> 201 Created (328 ms)
+           POST https://jsonplaceholder.typicode.com/posts -> 201 Created (345 ms)
            {
-             "title": "Quarterly loan book review",
-             "body": "Portfolio notes for Q3.",
-             "userId": null,
+             "title": "���",
+             "body": "b",
+             "userId": 1,
              "id": 101
            }
            
@@ -1322,31 +1230,12 @@ Failed scenarios:
                at callMatcherAsStep (./node_modules/playwright/lib/matchers/expect.js:13310:57)
                at Object.toBe (./node_modules/playwright/lib/matchers/expect.js:13302:23)
                at CustomWorld.<anonymous> (./section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:52:5)
-  12) a post with a text userId is rejected # section-a/jsonplaceholder/features/create-post-validation.feature:61
+  7) a title with bidirectional overrides is rejected # section-a/jsonplaceholder/features/create-post-validation.feature:49
        Then the API should reject the request with a 4xx client error # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:47
            Error: Expected a 4xx rejection (400 Bad Request, 413 Payload Too Large, 415 Unsupported Media Type or 422 Unprocessable Entity), but the API answered 201 Created and accepted the invalid payload.
-           POST https://jsonplaceholder.typicode.com/posts -> 201 Created (324 ms)
+           POST https://jsonplaceholder.typicode.com/posts -> 201 Created (321 ms)
            {
-             "title": "Quarterly loan book review",
-             "body": "Portfolio notes for Q3.",
-             "userId": "abc",
-             "id": 101
-           }
-           
-           expect(received).toBe(expected) // Object.is equality
-           
-           Expected: true
-           Received: false
-               at captureRawStack (./node_modules/playwright-core/lib/coreBundle.js:8588:17)
-               at callMatcherAsStep (./node_modules/playwright/lib/matchers/expect.js:13310:57)
-               at Object.toBe (./node_modules/playwright/lib/matchers/expect.js:13302:23)
-               at CustomWorld.<anonymous> (./section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:52:5)
-  13) a post with an empty title is rejected # section-a/jsonplaceholder/features/create-post-validation.feature:57
-       Then the API should reject the request with a 4xx client error # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:47
-           Error: Expected a 4xx rejection (400 Bad Request, 413 Payload Too Large, 415 Unsupported Media Type or 422 Unprocessable Entity), but the API answered 201 Created and accepted the invalid payload.
-           POST https://jsonplaceholder.typicode.com/posts -> 201 Created (796 ms)
-           {
-             "title": "",
+             "title": "invoice‮fdp.exe",
              "body": "Portfolio notes for Q3.",
              "userId": 1,
              "id": 101
@@ -1360,10 +1249,46 @@ Failed scenarios:
                at callMatcherAsStep (./node_modules/playwright/lib/matchers/expect.js:13310:57)
                at Object.toBe (./node_modules/playwright/lib/matchers/expect.js:13302:23)
                at CustomWorld.<anonymous> (./section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:52:5)
-  14) a title larger than 10 MiB is rejected # section-a/jsonplaceholder/features/create-post-validation.feature:42
+  8) a post without title is rejected # section-a/jsonplaceholder/features/create-post-validation.feature:54
+       Then the API should reject the request with a 4xx client error # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:47
+           Error: Expected a 4xx rejection (400 Bad Request, 413 Payload Too Large, 415 Unsupported Media Type or 422 Unprocessable Entity), but the API answered 201 Created and accepted the invalid payload.
+           POST https://jsonplaceholder.typicode.com/posts -> 201 Created (331 ms)
+           {
+             "body": "Portfolio notes for Q3.",
+             "userId": 1,
+             "id": 101
+           }
+           
+           expect(received).toBe(expected) // Object.is equality
+           
+           Expected: true
+           Received: false
+               at captureRawStack (./node_modules/playwright-core/lib/coreBundle.js:8588:17)
+               at callMatcherAsStep (./node_modules/playwright/lib/matchers/expect.js:13310:57)
+               at Object.toBe (./node_modules/playwright/lib/matchers/expect.js:13302:23)
+               at CustomWorld.<anonymous> (./section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:52:5)
+  9) a post without userId is rejected # section-a/jsonplaceholder/features/create-post-validation.feature:53
+       Then the API should reject the request with a 4xx client error # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:47
+           Error: Expected a 4xx rejection (400 Bad Request, 413 Payload Too Large, 415 Unsupported Media Type or 422 Unprocessable Entity), but the API answered 201 Created and accepted the invalid payload.
+           POST https://jsonplaceholder.typicode.com/posts -> 201 Created (309 ms)
+           {
+             "title": "Quarterly loan book review",
+             "body": "Portfolio notes for Q3.",
+             "id": 101
+           }
+           
+           expect(received).toBe(expected) // Object.is equality
+           
+           Expected: true
+           Received: false
+               at captureRawStack (./node_modules/playwright-core/lib/coreBundle.js:8588:17)
+               at callMatcherAsStep (./node_modules/playwright/lib/matchers/expect.js:13310:57)
+               at Object.toBe (./node_modules/playwright/lib/matchers/expect.js:13302:23)
+               at CustomWorld.<anonymous> (./section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:52:5)
+  10) a title larger than 10 MiB is rejected # section-a/jsonplaceholder/features/create-post-validation.feature:42
        Then the API should reject the request with a 4xx client error # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:47
            Error: Expected a 4xx rejection (400 Bad Request, 413 Payload Too Large, 415 Unsupported Media Type or 422 Unprocessable Entity), but the API answered 500 Internal Server Error, a server-side failure.
-           POST https://jsonplaceholder.typicode.com/posts -> 500 Internal Server Error (3904 ms)
+           POST https://jsonplaceholder.typicode.com/posts -> 500 Internal Server Error (3728 ms)
            PayloadTooLargeError: request entity too large
                at readStream (/app/node_modules/body-parser/node_modules/raw-body/index.js:155:17)
                at getRawBody (/app/node_modules/body-parser/node_modules/raw-body/index.js:108:12)
@@ -1389,14 +1314,13 @@ Failed scenarios:
                at callMatcherAsStep (./node_modules/playwright/lib/matchers/expect.js:13310:57)
                at Object.toBe (./node_modules/playwright/lib/matchers/expect.js:13302:23)
                at CustomWorld.<anonymous> (./section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:52:5)
-  15) a post with an unknown userId is rejected # section-a/jsonplaceholder/features/create-post-validation.feature:63
+  11) a post without body is rejected # section-a/jsonplaceholder/features/create-post-validation.feature:55
        Then the API should reject the request with a 4xx client error # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:47
            Error: Expected a 4xx rejection (400 Bad Request, 413 Payload Too Large, 415 Unsupported Media Type or 422 Unprocessable Entity), but the API answered 201 Created and accepted the invalid payload.
-           POST https://jsonplaceholder.typicode.com/posts -> 201 Created (332 ms)
+           POST https://jsonplaceholder.typicode.com/posts -> 201 Created (297 ms)
            {
              "title": "Quarterly loan book review",
-             "body": "Portfolio notes for Q3.",
-             "userId": 999999,
+             "userId": 1,
              "id": 101
            }
            
@@ -1408,10 +1332,67 @@ Failed scenarios:
                at callMatcherAsStep (./node_modules/playwright/lib/matchers/expect.js:13310:57)
                at Object.toBe (./node_modules/playwright/lib/matchers/expect.js:13302:23)
                at CustomWorld.<anonymous> (./section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:52:5)
-  16) a post with a negative userId is rejected # section-a/jsonplaceholder/features/create-post-validation.feature:62
+  12) a post with an empty title is rejected # section-a/jsonplaceholder/features/create-post-validation.feature:57
        Then the API should reject the request with a 4xx client error # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:47
            Error: Expected a 4xx rejection (400 Bad Request, 413 Payload Too Large, 415 Unsupported Media Type or 422 Unprocessable Entity), but the API answered 201 Created and accepted the invalid payload.
-           POST https://jsonplaceholder.typicode.com/posts -> 201 Created (776 ms)
+           POST https://jsonplaceholder.typicode.com/posts -> 201 Created (330 ms)
+           {
+             "title": "",
+             "body": "Portfolio notes for Q3.",
+             "userId": 1,
+             "id": 101
+           }
+           
+           expect(received).toBe(expected) // Object.is equality
+           
+           Expected: true
+           Received: false
+               at captureRawStack (./node_modules/playwright-core/lib/coreBundle.js:8588:17)
+               at callMatcherAsStep (./node_modules/playwright/lib/matchers/expect.js:13310:57)
+               at Object.toBe (./node_modules/playwright/lib/matchers/expect.js:13302:23)
+               at CustomWorld.<anonymous> (./section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:52:5)
+  13) a post with null userId is rejected # section-a/jsonplaceholder/features/create-post-validation.feature:56
+       Then the API should reject the request with a 4xx client error # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:47
+           Error: Expected a 4xx rejection (400 Bad Request, 413 Payload Too Large, 415 Unsupported Media Type or 422 Unprocessable Entity), but the API answered 201 Created and accepted the invalid payload.
+           POST https://jsonplaceholder.typicode.com/posts -> 201 Created (362 ms)
+           {
+             "title": "Quarterly loan book review",
+             "body": "Portfolio notes for Q3.",
+             "userId": null,
+             "id": 101
+           }
+           
+           expect(received).toBe(expected) // Object.is equality
+           
+           Expected: true
+           Received: false
+               at captureRawStack (./node_modules/playwright-core/lib/coreBundle.js:8588:17)
+               at callMatcherAsStep (./node_modules/playwright/lib/matchers/expect.js:13310:57)
+               at Object.toBe (./node_modules/playwright/lib/matchers/expect.js:13302:23)
+               at CustomWorld.<anonymous> (./section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:52:5)
+  14) a post with a text userId is rejected # section-a/jsonplaceholder/features/create-post-validation.feature:61
+       Then the API should reject the request with a 4xx client error # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:47
+           Error: Expected a 4xx rejection (400 Bad Request, 413 Payload Too Large, 415 Unsupported Media Type or 422 Unprocessable Entity), but the API answered 201 Created and accepted the invalid payload.
+           POST https://jsonplaceholder.typicode.com/posts -> 201 Created (326 ms)
+           {
+             "title": "Quarterly loan book review",
+             "body": "Portfolio notes for Q3.",
+             "userId": "abc",
+             "id": 101
+           }
+           
+           expect(received).toBe(expected) // Object.is equality
+           
+           Expected: true
+           Received: false
+               at captureRawStack (./node_modules/playwright-core/lib/coreBundle.js:8588:17)
+               at callMatcherAsStep (./node_modules/playwright/lib/matchers/expect.js:13310:57)
+               at Object.toBe (./node_modules/playwright/lib/matchers/expect.js:13302:23)
+               at CustomWorld.<anonymous> (./section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:52:5)
+  15) a post with a negative userId is rejected # section-a/jsonplaceholder/features/create-post-validation.feature:62
+       Then the API should reject the request with a 4xx client error # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:47
+           Error: Expected a 4xx rejection (400 Bad Request, 413 Payload Too Large, 415 Unsupported Media Type or 422 Unprocessable Entity), but the API answered 201 Created and accepted the invalid payload.
+           POST https://jsonplaceholder.typicode.com/posts -> 201 Created (335 ms)
            {
              "title": "Quarterly loan book review",
              "body": "Portfolio notes for Q3.",
@@ -1427,14 +1408,14 @@ Failed scenarios:
                at callMatcherAsStep (./node_modules/playwright/lib/matchers/expect.js:13310:57)
                at Object.toBe (./node_modules/playwright/lib/matchers/expect.js:13302:23)
                at CustomWorld.<anonymous> (./section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:52:5)
-  17) a post with a numeric title is rejected # section-a/jsonplaceholder/features/create-post-validation.feature:64
+  16) a post with an unknown userId is rejected # section-a/jsonplaceholder/features/create-post-validation.feature:63
        Then the API should reject the request with a 4xx client error # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:47
            Error: Expected a 4xx rejection (400 Bad Request, 413 Payload Too Large, 415 Unsupported Media Type or 422 Unprocessable Entity), but the API answered 201 Created and accepted the invalid payload.
-           POST https://jsonplaceholder.typicode.com/posts -> 201 Created (336 ms)
+           POST https://jsonplaceholder.typicode.com/posts -> 201 Created (331 ms)
            {
-             "title": 12345,
+             "title": "Quarterly loan book review",
              "body": "Portfolio notes for Q3.",
-             "userId": 1,
+             "userId": 999999,
              "id": 101
            }
            
@@ -1446,10 +1427,10 @@ Failed scenarios:
                at callMatcherAsStep (./node_modules/playwright/lib/matchers/expect.js:13310:57)
                at Object.toBe (./node_modules/playwright/lib/matchers/expect.js:13302:23)
                at CustomWorld.<anonymous> (./section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:52:5)
-  18) a JSON array instead of an object is rejected # section-a/jsonplaceholder/features/create-post-validation.feature:66
+  17) a JSON array instead of an object is rejected # section-a/jsonplaceholder/features/create-post-validation.feature:66
        Then the API should reject the request with a 4xx client error # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:47
            Error: Expected a 4xx rejection (400 Bad Request, 413 Payload Too Large, 415 Unsupported Media Type or 422 Unprocessable Entity), but the API answered 201 Created and accepted the invalid payload.
-           POST https://jsonplaceholder.typicode.com/posts -> 201 Created (327 ms)
+           POST https://jsonplaceholder.typicode.com/posts -> 201 Created (323 ms)
            {
              "0": {
                "title": "t",
@@ -1467,11 +1448,30 @@ Failed scenarios:
                at callMatcherAsStep (./node_modules/playwright/lib/matchers/expect.js:13310:57)
                at Object.toBe (./node_modules/playwright/lib/matchers/expect.js:13302:23)
                at CustomWorld.<anonymous> (./section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:52:5)
-  19) a JSON body sent as text/plain is rejected # section-a/jsonplaceholder/features/create-post-validation.feature:67
+  18) a JSON body sent as text/plain is rejected # section-a/jsonplaceholder/features/create-post-validation.feature:67
        Then the API should reject the request with a 4xx client error # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:47
            Error: Expected a 4xx rejection (400 Bad Request, 413 Payload Too Large, 415 Unsupported Media Type or 422 Unprocessable Entity), but the API answered 201 Created and accepted the invalid payload.
-           POST https://jsonplaceholder.typicode.com/posts -> 201 Created (335 ms)
+           POST https://jsonplaceholder.typicode.com/posts -> 201 Created (331 ms)
            {
+             "id": 101
+           }
+           
+           expect(received).toBe(expected) // Object.is equality
+           
+           Expected: true
+           Received: false
+               at captureRawStack (./node_modules/playwright-core/lib/coreBundle.js:8588:17)
+               at callMatcherAsStep (./node_modules/playwright/lib/matchers/expect.js:13310:57)
+               at Object.toBe (./node_modules/playwright/lib/matchers/expect.js:13302:23)
+               at CustomWorld.<anonymous> (./section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:52:5)
+  19) a post with a numeric title is rejected # section-a/jsonplaceholder/features/create-post-validation.feature:64
+       Then the API should reject the request with a 4xx client error # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:47
+           Error: Expected a 4xx rejection (400 Bad Request, 413 Payload Too Large, 415 Unsupported Media Type or 422 Unprocessable Entity), but the API answered 201 Created and accepted the invalid payload.
+           POST https://jsonplaceholder.typicode.com/posts -> 201 Created (811 ms)
+           {
+             "title": 12345,
+             "body": "Portfolio notes for Q3.",
+             "userId": 1,
              "id": 101
            }
            
@@ -1486,7 +1486,7 @@ Failed scenarios:
   20) malformed JSON is rejected # section-a/jsonplaceholder/features/create-post-validation.feature:65
        Then the API should reject the request with a 4xx client error # section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:47
            Error: Expected a 4xx rejection (400 Bad Request, 413 Payload Too Large, 415 Unsupported Media Type or 422 Unprocessable Entity), but the API answered 500 Internal Server Error, a server-side failure.
-           POST https://jsonplaceholder.typicode.com/posts -> 500 Internal Server Error (818 ms)
+           POST https://jsonplaceholder.typicode.com/posts -> 500 Internal Server Error (794 ms)
            SyntaxError: Unterminated string in JSON at position 23 (line 1 column 24)
                at JSON.parse (<anonymous>)
                at parse (/app/node_modules/body-parser/lib/types/json.js:89:19)
@@ -1515,4 +1515,4 @@ Failed scenarios:
 8 hooks (8 passed)
 36 scenarios (16 passed, 20 failed)
 327 steps (287 passed, 20 skipped, 20 failed)
-0m 9.761s (0m 35.899s executing your code)
+0m 10.821s (0m 40.322s executing your code)

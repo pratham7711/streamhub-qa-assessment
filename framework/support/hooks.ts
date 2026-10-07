@@ -3,7 +3,8 @@ import { chromium, firefox, request, webkit, type Browser } from 'playwright';
 import { mkdirSync } from 'node:fs';
 import path from 'node:path';
 import { env } from '../config/env.js';
-import { assertWebBuilt, ensureAppServer, stopAppServer } from './app-server.js';
+import { APPS, assertWebBuilt, ensureAppServer, stopAppServers } from './app-server.js';
+import { setLoanBookFile } from '../oracles/loan-book.js';
 import { CustomWorld, slug } from './world.js';
 
 setDefaultTimeout(env.timeouts.stepMs);
@@ -28,12 +29,16 @@ Before(function (this: CustomWorld, { pickle }: ITestCaseHookParameter) {
   this.scenarioName = pickle.name;
 });
 
-Before({ tags: '@app' }, async function () {
-  await ensureAppServer();
+// The oracle computes expectations from the same mock data file the app under test reads.
+Before({ tags: '@web-app' }, async function () {
+  setLoanBookFile(APPS.web.dataFile);
+  assertWebBuilt();
+  await ensureAppServer('web');
 });
 
-Before({ tags: '@app and @ui' }, function () {
-  assertWebBuilt();
+Before({ tags: '@api-app' }, async function () {
+  setLoanBookFile(APPS.api.dataFile);
+  await ensureAppServer('api');
 });
 
 Before({ tags: '@ui' }, async function (this: CustomWorld) {
@@ -67,7 +72,7 @@ Before({ tags: '@ui' }, async function (this: CustomWorld) {
 // something injected. An uncaught page error can leave a blank screen that a scenario looking
 // elsewhere would not notice. Either way the scenario fails, whatever it was checking.
 // Third-party sites (@external) are not held to this.
-After({ tags: '@app and @ui' }, function (this: CustomWorld) {
+After({ tags: '@web-app and @ui' }, function (this: CustomWorld) {
   if (this.cspViolations.length) {
     throw new Error(`The Content-Security-Policy blocked ${this.cspViolations.length} thing(s):\n${this.cspViolations.join('\n')}`);
   }
@@ -112,5 +117,5 @@ After(async function (this: CustomWorld, { result, pickle }: ITestCaseHookParame
 AfterAll(async function () {
   await browser?.close();
   browser = undefined;
-  await stopAppServer();
+  await stopAppServers();
 });

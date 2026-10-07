@@ -1,4 +1,4 @@
-@app @api
+@api-app @api
 Feature: LoanLens API - service basics
   The API is read-only, speaks JSON on every path (including errors), and
   rejects methods and routes it does not serve with a structured error body.

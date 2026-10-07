@@ -1,4 +1,4 @@
-@app @ui @loanlens-ui @security
+@web-app @ui @loanlens-ui @security
 Feature: LoanLens UI - text from the URL is shown, never run
   Three screens repeat part of the address back to the user: the report's search box, the
   report's note about a bad page number, and the loan-not-found message. Each is a reflected
@@ -39,12 +39,13 @@ Feature: LoanLens UI - text from the URL is shown, never run
       | /        |
       | /reports |
 
-  # The API refuses writes in its own router test; pages are served by a different route.
+  # The web app only serves pages and its mock data; it has no write routes at all.
   Scenario: A page refuses a write method instead of revealing the server's default error page
     When I send a POST request to the LoanLens page "/"
     Then the page response should be a JSON 405 that allows only "GET, HEAD"
 
-  # The web root sits two folders below package.json; an encoded "../" must not climb out of it.
+  # The web root (section-a/app/dist) sits three folders below package.json; an encoded "../"
+  # must not climb out of it.
   Scenario: A file outside the web root is never served
-    When I send a GET request to the LoanLens page "/..%2f..%2fpackage.json"
+    When I send a GET request to the LoanLens page "/..%2f..%2f..%2fpackage.json"
     Then the page response should be the app's own page, not "package.json"

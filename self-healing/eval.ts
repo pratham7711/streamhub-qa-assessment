@@ -29,8 +29,8 @@ import { CalculatorPage } from '../section-a/loanlens-ui/pages/CalculatorPage.js
 import { DashboardPage } from '../section-a/loanlens-ui/pages/DashboardPage.js';
 import { ReportsPage } from '../section-a/loanlens-ui/pages/ReportsPage.js';
 import { LoanDetailPage } from '../section-a/loanlens-ui/pages/LoanDetailPage.js';
-import { LegacyLocators } from './pages/LegacyLocators.js';
-import { assertWebBuilt, ensureAppServer, stopAppServer } from '../framework/support/app-server.js';
+import { LegacyLocators } from '../section-a/self-healing/pages/LegacyLocators.js';
+import { assertWebBuilt, ensureAppServer, stopAppServers } from '../framework/support/app-server.js';
 import { claudeCliAvailable } from './providers/claude-cli.js';
 import { pickProvider } from './providers/index.js';
 import { healable as declareHealable, type HealableLocator } from './runtime.js';
@@ -111,7 +111,7 @@ async function sameElement(candidate: Locator, truth: Locator): Promise<boolean>
 }
 
 assertWebBuilt();
-await ensureAppServer();
+await ensureAppServer('web');
 const browser = await chromium.launch({ headless: env.browser.headless });
 const context = await browser.newContext({ viewport: env.browser.viewport });
 const results: Trial[] = [];
@@ -165,7 +165,7 @@ try {
   }
 } finally {
   await browser.close();
-  await stopAppServer();
+  await stopAppServers();
 }
 
 // ---------------------------------------------------------------- scoring
