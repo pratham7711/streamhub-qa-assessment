@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Scenario 2: IPL 2024 players with 30+ runs in 3+ consecutive matches</title>
+<style>
+  :root { --ink:#1b2430; --muted:#5b6675; --rule:#d9dee5; --bg:#f6f7f9; --ok:#1f7a4d; --bad:#b3261e; }
+  * { box-sizing: border-box; }
+  body { margin: 0; padding: 32px 40px 40px; background: var(--bg); color: var(--ink); font: 15px/1.5 -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+  h1 { font-size: 22px; margin: 0 0 6px; }
+  .meta { color: var(--muted); font-size: 13px; margin-bottom: 18px; }
+  .badge { display: inline-block; padding: 2px 10px; border-radius: 999px; font-weight: 600; font-size: 13px; color: #fff; background: var(--ok); }
+  .badge.bad { background: var(--bad); }
+  h2 { font-size: 13px; letter-spacing: .02em; text-transform: uppercase; color: var(--muted); margin: 26px 0 8px; }
+  pre { margin: 0; background: #fff; border: 1px solid var(--rule); border-radius: 8px; padding: 14px 16px; font: 12.5px/1.55 ui-monospace, "SF Mono", Menlo, Consolas, monospace; white-space: pre-wrap; overflow-wrap: anywhere; }
+  pre b { color: #1d4ed8; font-weight: 600; } pre i { color: #6b7280; }
+  table { border-collapse: collapse; background: #fff; border: 1px solid var(--rule); border-radius: 8px; overflow: hidden; font: 13px/1.4 ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-variant-numeric: tabular-nums; }
+  th, td { padding: 7px 12px; border-bottom: 1px solid var(--rule); text-align: left; white-space: nowrap; }
+  th { background: #eef1f5; font-weight: 700; }
+  tr:last-child td { border-bottom: 0; }
+  .grid { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 18px; }
+</style></head>
+<body>
+  <h1>Scenario 2: IPL 2024 players with 30+ runs in 3+ consecutive matches</h1>
+  <div class="meta">Engine: PostgreSQL 18.3 (PGlite 0.5.8) &middot; Data: batting_innings 102, matches 50, players 12 &middot; Generated 2026-10-07 15:40:05 UTC &middot; Query: sql/queries/scenario2_ipl_30plus_streaks.sql</div>
+  <span class="badge">7 rows &middot; matches the independent TypeScript oracle</span>
+  <h2>Query output</h2>
+  <table><thead><tr><th>player_name</th><th>streak_start_date</th><th>streak_end_date</th><th>streak_length</th></tr></thead><tbody>
+<tr><td>Travis Head</td><td>2024-03-22</td><td>2024-04-05</td><td>3</td></tr>
+<tr><td>Phil Salt</td><td>2024-03-23</td><td>2024-04-04</td><td>3</td></tr>
+<tr><td>Virat Kohli</td><td>2024-03-23</td><td>2024-04-19</td><td>5</td></tr>
+<tr><td>KL Rahul</td><td>2024-03-25</td><td>2024-04-09</td><td>3</td></tr>
+<tr><td>Ruturaj Gaikwad</td><td>2024-03-28</td><td>2024-04-09</td><td>3</td></tr>
+<tr><td>Rishabh Pant</td><td>2024-04-01</td><td>2024-04-12</td><td>3</td></tr>
+<tr><td>Travis Head</td><td>2024-04-19</td><td>2024-05-05</td><td>4</td></tr>
+  </tbody></table>
+  <div class="grid">
+    <div><h2>Query</h2><pre><i>-- Scenario 2: players who scored 30+ runs in at least 3 consecutive matches</i>
+<i>-- in the 2024 season, with the date each streak started.</i>
+<i>--</i>
+<i>-- Technique: "gaps and islands" with two ROW_NUMBER()s.</i>
+<i>--   1. Number each player's 2024 innings in date order (innings_no).</i>
+<i>--   2. Keep only the 30+ innings and number them again with a second ROW_NUMBER().</i>
+<i>--   3. Inside an unbroken run of 30+ innings both numbers rise together, so</i>
+<i>--      their difference is constant: that difference is the streak id.</i>
+<i>--   4. Group by (player, streak id) and keep groups of 3 or more.</i>
+<i>-- A 5-match streak therefore comes out as ONE row (length 5), not as three</i>
+<i>-- overlapping 3-match windows, which is what a LAG/LEAD-based query returns.</i>
+<i>--</i>
+<i>-- Assumptions (see sql/README.md):</i>
+<i>--   * 30+ means runs &gt;= 30.</i>
+<i>--   * "Consecutive matches" = consecutive matches in which the player batted</i>
+<i>--     in 2024. A fixture the player sat out or did not bat in is skipped, not a break.</i>
+<i>--     To make a missed team fixture break the streak, number the team's</i>
+<i>--     fixtures instead and LEFT JOIN the innings (treat a missing row as &lt; 30).</i>
+<i>--   * The season filter is applied BEFORE numbering, so runs that started in</i>
+<i>--     2023 cannot carry into 2024.</i>
+<b>WITH</b> innings_2024 <b>AS</b> (
+  <b>SELECT</b>
+    b.player_id,
+    m.match_date,
+    b.runs,
+    <b>ROW_NUMBER</b>() <b>OVER</b> (<b>PARTITION BY</b> b.player_id
+                       <b>ORDER BY</b> m.match_date, m.match_id) <b>AS</b> innings_no
+  <b>FROM</b> batting_innings <b>AS</b> b
+  <b>JOIN</b> matches         <b>AS</b> m <b>ON</b> m.match_id = b.match_id
+  <b>WHERE</b> m.season = 2024
+),
+scores_30_plus <b>AS</b> (
+  <b>SELECT</b>
+    player_id,
+    match_date,
+    innings_no - <b>ROW_NUMBER</b>() <b>OVER</b> (<b>PARTITION BY</b> player_id <b>ORDER BY</b> innings_no) <b>AS</b> streak_id
+  <b>FROM</b> innings_2024
+  <b>WHERE</b> runs &gt;= 30
+),
+streaks <b>AS</b> (
+  <b>SELECT</b>
+    player_id,
+    <b>MIN</b>(match_date)  <b>AS</b> streak_start_date,
+    <b>MAX</b>(match_date)  <b>AS</b> streak_end_date,
+    <b>COUNT</b>(*)::<b>INT</b>    <b>AS</b> streak_length
+  <b>FROM</b> scores_30_plus
+  <b>GROUP BY</b> player_id, streak_id
+  <b>HAVING</b> <b>COUNT</b>(*) &gt;= 3
+)
+<b>SELECT</b>
+  p.player_name,
+  <b>TO_CHAR</b>(s.streak_start_date, 'YYYY-MM-DD') <b>AS</b> streak_start_date,
+  <b>TO_CHAR</b>(s.streak_end_date,   'YYYY-MM-DD') <b>AS</b> streak_end_date,
+  s.streak_length
+<b>FROM</b> streaks <b>AS</b> s
+<b>JOIN</b> players <b>AS</b> p <b>ON</b> p.player_id = s.player_id
+<b>ORDER BY</b> s.streak_start_date, p.player_name;
+</pre></div>
+    <div><h2>Table schema</h2><pre><i>-- Scenario 2 schema: an IPL-style batting dataset.</i>
+<i>-- PostgreSQL dialect (runs unchanged on PostgreSQL 12+ and on PGlite).</i>
+
+<b>CREATE TABLE</b> players (
+  player_id    <b>INT</b>          <b>PRIMARY KEY</b>,
+  player_name  <b>VARCHAR</b>(80)  <b>NOT NULL</b>,
+  team         <b>VARCHAR</b>(4)   <b>NOT NULL</b>          <i>-- franchise code, e.g. RCB, CSK</i>
+);
+
+<b>CREATE TABLE</b> matches (
+  match_id     <b>INT</b>          <b>PRIMARY KEY</b>,
+  season       <b>INT</b>          <b>NOT NULL</b>,         <i>-- IPL season year</i>
+  match_date   <b>DATE</b>         <b>NOT NULL</b>,
+  home_team    <b>VARCHAR</b>(4)   <b>NOT NULL</b>,
+  away_team    <b>VARCHAR</b>(4)   <b>NOT NULL</b>,
+  venue        <b>VARCHAR</b>(80)  <b>NOT NULL</b>,
+  <b>CHECK</b> (home_team &lt;&gt; away_team)
+);
+
+<i>-- One row per player per match in which the player batted.</i>
+<i>-- A player who was in the XI but did not bat has no row for that match.</i>
+<b>CREATE TABLE</b> batting_innings (
+  match_id     <b>INT</b>  <b>NOT NULL</b> <b>REFERENCES</b> matches (match_id),
+  player_id    <b>INT</b>  <b>NOT NULL</b> <b>REFERENCES</b> players (player_id),
+  runs         <b>INT</b>  <b>NOT NULL</b> <b>CHECK</b> (runs &gt;= 0),
+  balls        <b>INT</b>  <b>NOT NULL</b> <b>CHECK</b> (balls &gt;= 0),
+  <b>PRIMARY KEY</b> (match_id, player_id)
+);
+
+<b>CREATE INDEX</b> ix_matches_season_date <b>ON</b> matches (season, match_date);
+</pre></div>
+  </div>
+</body></html>

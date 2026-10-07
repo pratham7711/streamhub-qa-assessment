@@ -1,0 +1,250 @@
+# sql — 2026-10-07T15:41:54.832Z — TEST_ENV=local — node v26.7.0
+
+
+Feature: SQL scenario 2 - IPL 2024 players with 30+ runs in 3+ consecutive matches
+
+  @sql
+  Scenario: The query returns exactly the streaks worked out by hand                                     # sql/features/ipl-streaks.feature:15
+    ✔ Given the "IPL 2024" SQL scenario is loaded                                                        # sql/steps/sql.steps.ts:63
+
+          sql/queries/scenario2_ipl_30plus_streaks.sql
+          
+           player_name     | streak_start_date | streak_end_date | streak_length
+          -----------------+-------------------+-----------------+---------------
+           Travis Head     | 2024-03-22        | 2024-04-05      | 3            
+           Phil Salt       | 2024-03-23        | 2024-04-04      | 3            
+           Virat Kohli     | 2024-03-23        | 2024-04-19      | 5            
+           KL Rahul        | 2024-03-25        | 2024-04-09      | 3            
+           Ruturaj Gaikwad | 2024-03-28        | 2024-04-09      | 3            
+           Rishabh Pant    | 2024-04-01        | 2024-04-12      | 3            
+           Travis Head     | 2024-04-19        | 2024-05-05      | 4            
+          (7 rows)
+
+    ✔ When I run the scenario query                                                                      # sql/steps/sql.steps.ts:68
+    ✔ Then the result columns should be "player_name, streak_start_date, streak_end_date, streak_length" # sql/steps/sql.steps.ts:78
+    ✔ And the result should be exactly these streaks, worked out by hand:                                # sql/steps/sql.steps.ts:140
+        | player          | start      | end        | length | why                                                    |
+        | Virat Kohli     | 2024-03-23 | 2024-04-19 | 5      | a 5-match streak is one row, not three 3-match windows |
+        | Ruturaj Gaikwad | 2024-03-28 | 2024-04-09 | 3      | exactly 3 matches, the last one exactly 30 runs        |
+        | Phil Salt       | 2024-03-23 | 2024-04-04 | 3      | 30, 30, 30: 30 counts as 30+                           |
+        | Travis Head     | 2024-03-22 | 2024-04-05 | 3      | first of two streaks in the season                     |
+        | Travis Head     | 2024-04-19 | 2024-05-05 | 4      | second streak after a duck: both are reported          |
+        | KL Rahul        | 2024-03-25 | 2024-04-09 | 3      | a match the player did not bat in is skipped           |
+        | Rishabh Pant    | 2024-04-01 | 2024-04-12 | 3      | rows inserted newest-first are ordered by date         |
+
+          Independent TypeScript oracle
+          
+           player_name     | streak_start_date | streak_end_date | streak_length
+          -----------------+-------------------+-----------------+---------------
+           Travis Head     | 2024-03-22        | 2024-04-05      | 3            
+           Phil Salt       | 2024-03-23        | 2024-04-04      | 3            
+           Virat Kohli     | 2024-03-23        | 2024-04-19      | 5            
+           KL Rahul        | 2024-03-25        | 2024-04-09      | 3            
+           Ruturaj Gaikwad | 2024-03-28        | 2024-04-09      | 3            
+           Rishabh Pant    | 2024-04-01        | 2024-04-12      | 3            
+           Travis Head     | 2024-04-19        | 2024-05-05      | 4            
+          (7 rows)
+
+    ✔ And the result should match the independent oracle                                                 # sql/steps/sql.steps.ts:87
+    ✔ And the seed should hold these players, and none of them should be reported:                       # sql/steps/sql.steps.ts:150
+        | player          | why                                                       |
+        | Abhishek Sharma | a 29 breaks what would otherwise be a 5-match run         |
+        | Sanju Samson    | four 30+ scores, never two in a row                       |
+        | Shubman Gill    | 36, 52 at the end of 2023 and 41, 33 at the start of 2024 |
+        | Rohit Sharma    | big scores in isolation                                   |
+        | Jasprit Bumrah  | a tail-ender with gaps and ducks                          |
+        | Shashank Singh  | background player with no streak                          |
+
+  @sql
+  Scenario: A plausible but wrong query is caught by the same checks                         # sql/features/ipl-streaks.feature:37
+    ✔ Given the "IPL 2024" SQL scenario is loaded                                            # sql/steps/sql.steps.ts:63
+
+          sql/queries/anti-patterns/scenario2_lag_lead_windows.sql (deliberately wrong)
+          
+           player_name     | streak_start_date | streak_end_date | streak_length
+          -----------------+-------------------+-----------------+---------------
+           Shubman Gill    | 2023-05-18        | 2024-03-31      | 3            
+           Travis Head     | 2024-03-22        | 2024-04-05      | 3            
+           Phil Salt       | 2024-03-23        | 2024-04-04      | 3            
+           Virat Kohli     | 2024-03-23        | 2024-04-06      | 3            
+           KL Rahul        | 2024-03-25        | 2024-04-09      | 3            
+           Ruturaj Gaikwad | 2024-03-28        | 2024-04-09      | 3            
+           Virat Kohli     | 2024-03-30        | 2024-04-13      | 3            
+           Rishabh Pant    | 2024-04-01        | 2024-04-12      | 3            
+           Virat Kohli     | 2024-04-06        | 2024-04-19      | 3            
+           Travis Head     | 2024-04-19        | 2024-04-30      | 3            
+           Travis Head     | 2024-04-25        | 2024-05-05      | 3            
+          (11 rows)
+
+    ✔ When I run the anti-pattern query "scenario2_lag_lead_windows"                         # sql/steps/sql.steps.ts:73
+
+          Rows the oracle does not expect (6):
+          {"player_name":"Shubman Gill","streak_start_date":"2023-05-18","streak_end_date":"2024-03-31","streak_length":3}
+          {"player_name":"Virat Kohli","streak_start_date":"2024-03-23","streak_end_date":"2024-04-06","streak_length":3}
+          {"player_name":"Virat Kohli","streak_start_date":"2024-03-30","streak_end_date":"2024-04-13","streak_length":3}
+          {"player_name":"Virat Kohli","streak_start_date":"2024-04-06","streak_end_date":"2024-04-19","streak_length":3}
+          {"player_name":"Travis Head","streak_start_date":"2024-04-19","streak_end_date":"2024-04-30","streak_length":3}
+          {"player_name":"Travis Head","streak_start_date":"2024-04-25","streak_end_date":"2024-05-05","streak_length":3}
+          
+          Expected rows missing (2):
+          {"player_name":"Virat Kohli","streak_start_date":"2024-03-23","streak_end_date":"2024-04-19","streak_length":5}
+          {"player_name":"Travis Head","streak_start_date":"2024-04-19","streak_end_date":"2024-05-05","streak_length":4}
+
+    ✔ Then the result should not match the independent oracle                                # sql/steps/sql.steps.ts:94
+    ✔ And the result should have 11 rows                                                     # sql/steps/sql.steps.ts:82
+    ✔ And "Virat Kohli" should appear in exactly 3 rows                                      # sql/steps/sql.steps.ts:135
+    ✔ And "Shubman Gill" should have a streak from "2023-05-18" to "2024-03-31" of 3 matches # sql/steps/sql.steps.ts:125
+
+  @sql
+  Scenario: Evidence - the query output screenshot is regenerated by this run         # sql/features/ipl-streaks.feature:46
+    ✔ Given the "IPL 2024" SQL scenario is loaded                                     # sql/steps/sql.steps.ts:63
+    ✔ When I render the query output screenshot                                       # sql/steps/sql.steps.ts:157
+
+          Embedding scenario2.png [image/png 578571 bytes]
+
+
+          Evidence written to sql/results/scenario2.png, sql/results/scenario2.html, sql/results/scenario2.txt
+
+    ✔ Then the screenshot should show the oracle match and be attached to this report # sql/steps/sql.steps.ts:161
+
+Feature: SQL scenario 1 - round-trip transfers (possible reversals)
+
+  @sql
+  Scenario: The query returns exactly the round trips worked out by hand                                                                                                      # sql/features/round-trip-transfers.feature:16
+    ✔ Given the "round-trip transfers" SQL scenario is loaded                                                                                                                 # sql/steps/sql.steps.ts:63
+
+          sql/queries/scenario1_round_trip_transfers.sql
+          
+           account_a | account_b | sent_txn_id | sent_amount | sent_at             | returned_txn_id | returned_amount | returned_at         | hours_apart | pct_difference
+          -----------+-----------+-------------+-------------+---------------------+-----------------+-----------------+---------------------+-------------+----------------
+           AC101     | AC201     | TX0101      | 25000.00    | 2024-03-01 09:00:00 | TX0102          | 25000.00        | 2024-03-01 11:30:00 | 2.50        | 0.000         
+           AC102     | AC202     | TX0201      | 10000.00    | 2024-03-02 10:00:00 | TX0202          | 9800.00         | 2024-03-03 10:00:00 | 24.00       | 2.000         
+           AC104     | AC204     | TX0401      | 20000.00    | 2024-03-06 09:00:00 | TX0402          | 18000.00        | 2024-03-06 15:00:00 | 6.00        | 10.000        
+           AC105     | AC205     | TX0501      | 20000.00    | 2024-03-07 09:00:00 | TX0502          | 22000.00        | 2024-03-07 21:00:00 | 12.00       | 10.000        
+           AC207     | AC107     | TX0701      | 15000.00    | 2024-03-09 08:00:00 | TX0702          | 15000.00        | 2024-03-09 10:00:00 | 2.00        | 0.000         
+           AC110     | AC210     | TX1001      | 50000.00    | 2024-03-12 09:00:00 | TX1002          | 49000.00        | 2024-03-12 11:00:00 | 2.00        | 2.000         
+           AC110     | AC210     | TX1001      | 50000.00    | 2024-03-12 09:00:00 | TX1003          | 52500.00        | 2024-03-12 18:00:00 | 9.00        | 5.000         
+           AC111     | AC211     | TX1101      | 40000.00    | 2024-03-13 09:00:00 | TX1102          | 40000.00        | 2024-03-13 13:00:00 | 4.00        | 0.000         
+           AC211     | AC111     | TX1102      | 40000.00    | 2024-03-13 13:00:00 | TX1103          | 39000.00        | 2024-03-13 20:00:00 | 7.00        | 2.500         
+           AC113     | AC213     | TX1301      | 333.33      | 2024-03-15 09:00:00 | TX1302          | 366.66          | 2024-03-15 09:45:00 | 0.75        | 9.999         
+          (10 rows)
+
+    ✔ When I run the scenario query                                                                                                                                           # sql/steps/sql.steps.ts:68
+    ✔ Then the result columns should be "account_a, account_b, sent_txn_id, sent_amount, sent_at, returned_txn_id, returned_amount, returned_at, hours_apart, pct_difference" # sql/steps/sql.steps.ts:78
+    ✔ And the result should be exactly these round trips, worked out by hand:                                                                                                 # sql/steps/sql.steps.ts:108
+        | sent   | returned | hours | pct    | why                                                         |
+        | TX0101 | TX0102   | 2.50  | 0.000  | same amount sent back 2.5 hours later                       |
+        | TX0201 | TX0202   | 24.00 | 2.000  | sent back exactly 24 hours later (inclusive)                |
+        | TX0401 | TX0402   | 6.00  | 10.000 | sent back exactly 10% less (inclusive)                      |
+        | TX0501 | TX0502   | 12.00 | 10.000 | sent back exactly 10% more (inclusive)                      |
+        | TX0701 | TX0702   | 2.00  | 0.000  | the earlier transfer is A, even when its account sorts last |
+        | TX1001 | TX1002   | 2.00  | 2.000  | first of two qualifying returns                             |
+        | TX1001 | TX1003   | 9.00  | 5.000  | second of two qualifying returns: both pairs are reported   |
+        | TX1101 | TX1102   | 4.00  | 0.000  | chain A to B to A to B, first round trip                    |
+        | TX1102 | TX1103   | 7.00  | 2.500  | chain A to B to A to B, the return starts a new round trip  |
+        | TX1301 | TX1302   | 0.75  | 9.999  | odd paise just inside 10% (33.33 on 333.33)                 |
+
+          Independent TypeScript oracle
+          
+           account_a | account_b | sent_txn_id | sent_amount | sent_at             | returned_txn_id | returned_amount | returned_at         | hours_apart | pct_difference
+          -----------+-----------+-------------+-------------+---------------------+-----------------+-----------------+---------------------+-------------+----------------
+           AC101     | AC201     | TX0101      | 25000.00    | 2024-03-01 09:00:00 | TX0102          | 25000.00        | 2024-03-01 11:30:00 | 2.50        | 0.000         
+           AC102     | AC202     | TX0201      | 10000.00    | 2024-03-02 10:00:00 | TX0202          | 9800.00         | 2024-03-03 10:00:00 | 24.00       | 2.000         
+           AC104     | AC204     | TX0401      | 20000.00    | 2024-03-06 09:00:00 | TX0402          | 18000.00        | 2024-03-06 15:00:00 | 6.00        | 10.000        
+           AC105     | AC205     | TX0501      | 20000.00    | 2024-03-07 09:00:00 | TX0502          | 22000.00        | 2024-03-07 21:00:00 | 12.00       | 10.000        
+           AC207     | AC107     | TX0701      | 15000.00    | 2024-03-09 08:00:00 | TX0702          | 15000.00        | 2024-03-09 10:00:00 | 2.00        | 0.000         
+           AC110     | AC210     | TX1001      | 50000.00    | 2024-03-12 09:00:00 | TX1002          | 49000.00        | 2024-03-12 11:00:00 | 2.00        | 2.000         
+           AC110     | AC210     | TX1001      | 50000.00    | 2024-03-12 09:00:00 | TX1003          | 52500.00        | 2024-03-12 18:00:00 | 9.00        | 5.000         
+           AC111     | AC211     | TX1101      | 40000.00    | 2024-03-13 09:00:00 | TX1102          | 40000.00        | 2024-03-13 13:00:00 | 4.00        | 0.000         
+           AC211     | AC111     | TX1102      | 40000.00    | 2024-03-13 13:00:00 | TX1103          | 39000.00        | 2024-03-13 20:00:00 | 7.00        | 2.500         
+           AC113     | AC213     | TX1301      | 333.33      | 2024-03-15 09:00:00 | TX1302          | 366.66          | 2024-03-15 09:45:00 | 0.75        | 9.999         
+          (10 rows)
+
+    ✔ And the result should match the independent oracle                                                                                                                      # sql/steps/sql.steps.ts:87
+    ✔ And the seed should hold these near misses, and none of them should be reported:                                                                                        # sql/steps/sql.steps.ts:118
+        | sent   | returned | why                                                             |
+        | TX0301 | TX0302   | sent back 24 hours and 1 second later                           |
+        | TX0601 | TX0602   | 10% less and one paisa more (17999.99 on 20000)                 |
+        | TX0601 | TX0603   | 10% more and one paisa more (22000.01 on 20000)                 |
+        | TX0702 | TX0701   | same pair read backwards: the return must come after            |
+        | TX0102 | TX0101   | a round trip is reported once, never again with A and B swapped |
+        | TX0801 | TX0802   | self-transfers (from = to) are not round trips                  |
+        | TX0901 | TX0903   | a triangle A to B to C to A never sends money straight back     |
+        | TX1201 | TX1202   | only 5% of the amount comes back                                |
+        | TX1301 | TX1303   | odd paise just outside 10% (33.34 on 333.33)                    |
+
+  @sql
+  Scenario: A plausible but wrong query is caught by the same checks         # sql/features/round-trip-transfers.feature:44
+    ✔ Given the "round-trip transfers" SQL scenario is loaded                # sql/steps/sql.steps.ts:63
+
+          sql/queries/anti-patterns/scenario1_absolute_time_difference.sql (deliberately wrong)
+          
+           account_a | account_b | sent_txn_id | sent_amount | sent_at             | returned_txn_id | returned_amount | returned_at         | hours_apart | pct_difference
+          -----------+-----------+-------------+-------------+---------------------+-----------------+-----------------+---------------------+-------------+----------------
+           AC101     | AC201     | TX0101      | 25000.00    | 2024-03-01 09:00:00 | TX0102          | 25000.00        | 2024-03-01 11:30:00 | 2.50        | 0.000         
+           AC201     | AC101     | TX0102      | 25000.00    | 2024-03-01 11:30:00 | TX0101          | 25000.00        | 2024-03-01 09:00:00 | 2.50        | 0.000         
+           AC102     | AC202     | TX0201      | 10000.00    | 2024-03-02 10:00:00 | TX0202          | 9800.00         | 2024-03-03 10:00:00 | 24.00       | 2.000         
+           AC202     | AC102     | TX0202      | 9800.00     | 2024-03-03 10:00:00 | TX0201          | 10000.00        | 2024-03-02 10:00:00 | 24.00       | 2.041         
+           AC104     | AC204     | TX0401      | 20000.00    | 2024-03-06 09:00:00 | TX0402          | 18000.00        | 2024-03-06 15:00:00 | 6.00        | 10.000        
+           AC105     | AC205     | TX0501      | 20000.00    | 2024-03-07 09:00:00 | TX0502          | 22000.00        | 2024-03-07 21:00:00 | 12.00       | 10.000        
+           AC205     | AC105     | TX0502      | 22000.00    | 2024-03-07 21:00:00 | TX0501          | 20000.00        | 2024-03-07 09:00:00 | 12.00       | 9.091         
+           AC206     | AC106     | TX0603      | 22000.01    | 2024-03-08 11:00:00 | TX0601          | 20000.00        | 2024-03-08 09:00:00 | 2.00        | 9.091         
+           AC207     | AC107     | TX0701      | 15000.00    | 2024-03-09 08:00:00 | TX0702          | 15000.00        | 2024-03-09 10:00:00 | 2.00        | 0.000         
+           AC107     | AC207     | TX0702      | 15000.00    | 2024-03-09 10:00:00 | TX0701          | 15000.00        | 2024-03-09 08:00:00 | 2.00        | 0.000         
+           AC108     | AC108     | TX0801      | 5000.00     | 2024-03-10 09:00:00 | TX0802          | 5000.00         | 2024-03-10 09:30:00 | 0.50        | 0.000         
+           AC108     | AC108     | TX0802      | 5000.00     | 2024-03-10 09:30:00 | TX0801          | 5000.00         | 2024-03-10 09:00:00 | 0.50        | 0.000         
+           AC110     | AC210     | TX1001      | 50000.00    | 2024-03-12 09:00:00 | TX1002          | 49000.00        | 2024-03-12 11:00:00 | 2.00        | 2.000         
+           AC110     | AC210     | TX1001      | 50000.00    | 2024-03-12 09:00:00 | TX1003          | 52500.00        | 2024-03-12 18:00:00 | 9.00        | 5.000         
+           AC210     | AC110     | TX1002      | 49000.00    | 2024-03-12 11:00:00 | TX1001          | 50000.00        | 2024-03-12 09:00:00 | 2.00        | 2.041         
+           AC210     | AC110     | TX1003      | 52500.00    | 2024-03-12 18:00:00 | TX1001          | 50000.00        | 2024-03-12 09:00:00 | 9.00        | 4.762         
+           AC111     | AC211     | TX1101      | 40000.00    | 2024-03-13 09:00:00 | TX1102          | 40000.00        | 2024-03-13 13:00:00 | 4.00        | 0.000         
+           AC211     | AC111     | TX1102      | 40000.00    | 2024-03-13 13:00:00 | TX1101          | 40000.00        | 2024-03-13 09:00:00 | 4.00        | 0.000         
+           AC211     | AC111     | TX1102      | 40000.00    | 2024-03-13 13:00:00 | TX1103          | 39000.00        | 2024-03-13 20:00:00 | 7.00        | 2.500         
+           AC111     | AC211     | TX1103      | 39000.00    | 2024-03-13 20:00:00 | TX1102          | 40000.00        | 2024-03-13 13:00:00 | 7.00        | 2.564         
+           AC113     | AC213     | TX1301      | 333.33      | 2024-03-15 09:00:00 | TX1302          | 366.66          | 2024-03-15 09:45:00 | 0.75        | 9.999         
+           AC213     | AC113     | TX1302      | 366.66      | 2024-03-15 09:45:00 | TX1301          | 333.33          | 2024-03-15 09:00:00 | 0.75        | 9.090         
+           AC213     | AC113     | TX1303      | 366.67      | 2024-03-15 10:00:00 | TX1301          | 333.33          | 2024-03-15 09:00:00 | 1.00        | 9.093         
+          (23 rows)
+
+    ✔ When I run the anti-pattern query "scenario1_absolute_time_difference" # sql/steps/sql.steps.ts:73
+
+          Rows the oracle does not expect (13):
+          {"account_a":"AC201","account_b":"AC101","sent_txn_id":"TX0102","sent_amount":"25000.00","sent_at":"2024-03-01 11:30:00","returned_txn_id":"TX0101","returned_amount":"25000.00","returned_at":"2024-03-01 09:00:00","hours_apart":"2.50","pct_difference":"0.000"}
+          {"account_a":"AC202","account_b":"AC102","sent_txn_id":"TX0202","sent_amount":"9800.00","sent_at":"2024-03-03 10:00:00","returned_txn_id":"TX0201","returned_amount":"10000.00","returned_at":"2024-03-02 10:00:00","hours_apart":"24.00","pct_difference":"2.041"}
+          {"account_a":"AC205","account_b":"AC105","sent_txn_id":"TX0502","sent_amount":"22000.00","sent_at":"2024-03-07 21:00:00","returned_txn_id":"TX0501","returned_amount":"20000.00","returned_at":"2024-03-07 09:00:00","hours_apart":"12.00","pct_difference":"9.091"}
+          {"account_a":"AC206","account_b":"AC106","sent_txn_id":"TX0603","sent_amount":"22000.01","sent_at":"2024-03-08 11:00:00","returned_txn_id":"TX0601","returned_amount":"20000.00","returned_at":"2024-03-08 09:00:00","hours_apart":"2.00","pct_difference":"9.091"}
+          {"account_a":"AC107","account_b":"AC207","sent_txn_id":"TX0702","sent_amount":"15000.00","sent_at":"2024-03-09 10:00:00","returned_txn_id":"TX0701","returned_amount":"15000.00","returned_at":"2024-03-09 08:00:00","hours_apart":"2.00","pct_difference":"0.000"}
+          {"account_a":"AC108","account_b":"AC108","sent_txn_id":"TX0801","sent_amount":"5000.00","sent_at":"2024-03-10 09:00:00","returned_txn_id":"TX0802","returned_amount":"5000.00","returned_at":"2024-03-10 09:30:00","hours_apart":"0.50","pct_difference":"0.000"}
+          {"account_a":"AC108","account_b":"AC108","sent_txn_id":"TX0802","sent_amount":"5000.00","sent_at":"2024-03-10 09:30:00","returned_txn_id":"TX0801","returned_amount":"5000.00","returned_at":"2024-03-10 09:00:00","hours_apart":"0.50","pct_difference":"0.000"}
+          {"account_a":"AC210","account_b":"AC110","sent_txn_id":"TX1002","sent_amount":"49000.00","sent_at":"2024-03-12 11:00:00","returned_txn_id":"TX1001","returned_amount":"50000.00","returned_at":"2024-03-12 09:00:00","hours_apart":"2.00","pct_difference":"2.041"}
+          {"account_a":"AC210","account_b":"AC110","sent_txn_id":"TX1003","sent_amount":"52500.00","sent_at":"2024-03-12 18:00:00","returned_txn_id":"TX1001","returned_amount":"50000.00","returned_at":"2024-03-12 09:00:00","hours_apart":"9.00","pct_difference":"4.762"}
+          {"account_a":"AC211","account_b":"AC111","sent_txn_id":"TX1102","sent_amount":"40000.00","sent_at":"2024-03-13 13:00:00","returned_txn_id":"TX1101","returned_amount":"40000.00","returned_at":"2024-03-13 09:00:00","hours_apart":"4.00","pct_difference":"0.000"}
+          {"account_a":"AC111","account_b":"AC211","sent_txn_id":"TX1103","sent_amount":"39000.00","sent_at":"2024-03-13 20:00:00","returned_txn_id":"TX1102","returned_amount":"40000.00","returned_at":"2024-03-13 13:00:00","hours_apart":"7.00","pct_difference":"2.564"}
+          {"account_a":"AC213","account_b":"AC113","sent_txn_id":"TX1302","sent_amount":"366.66","sent_at":"2024-03-15 09:45:00","returned_txn_id":"TX1301","returned_amount":"333.33","returned_at":"2024-03-15 09:00:00","hours_apart":"0.75","pct_difference":"9.090"}
+          {"account_a":"AC213","account_b":"AC113","sent_txn_id":"TX1303","sent_amount":"366.67","sent_at":"2024-03-15 10:00:00","returned_txn_id":"TX1301","returned_amount":"333.33","returned_at":"2024-03-15 09:00:00","hours_apart":"1.00","pct_difference":"9.093"}
+          
+          Expected rows missing (0):
+          
+
+    ✔ Then the result should not match the independent oracle                # sql/steps/sql.steps.ts:94
+    ✔ And the result should have 23 rows                                     # sql/steps/sql.steps.ts:82
+    ✔ And sent transfer "TX0102" and return "TX0101" should be reported      # sql/steps/sql.steps.ts:103
+    ✔ And sent transfer "TX0801" and return "TX0802" should be reported      # sql/steps/sql.steps.ts:103
+    ✔ And sent transfer "TX0603" and return "TX0601" should be reported      # sql/steps/sql.steps.ts:103
+
+  @sql
+  Scenario: Evidence - the query output screenshot is regenerated by this run         # sql/features/round-trip-transfers.feature:54
+    ✔ Given the "round-trip transfers" SQL scenario is loaded                         # sql/steps/sql.steps.ts:63
+    ✔ When I render the query output screenshot                                       # sql/steps/sql.steps.ts:157
+
+          Embedding scenario1.png [image/png 576978 bytes]
+
+
+          Evidence written to sql/results/scenario1.png, sql/results/scenario1.html, sql/results/scenario1.txt
+
+    ✔ Then the screenshot should show the oracle match and be attached to this report # sql/steps/sql.steps.ts:161
+
+3 hooks (3 passed)
+6 scenarios (6 passed)
+55 steps (55 passed)
+0m 2.196s (0m 2.184s executing your code)

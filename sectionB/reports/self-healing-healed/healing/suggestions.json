@@ -1,0 +1,411 @@
+[
+  {
+    "key": "emicalculator.loanTenureBox",
+    "scenario": "Wrong id - the tenure box sets the loan tenure",
+    "brokenLocator": "page.locator('#loan-term')",
+    "kind": "no-match",
+    "detail": "No element matched within 5 s.",
+    "mode": "heal",
+    "provider": "claude-cli (sonnet)",
+    "durationMs": 5048,
+    "costUsd": 0.0046806,
+    "accepted": {
+      "candidate": {
+        "spec": {
+          "by": "role",
+          "role": "textbox",
+          "name": "Loan Tenure"
+        },
+        "rationale": "The snapshot and inventory show exactly one textbox named 'Loan Tenure', next to the Yr/Mo radios.",
+        "confidence": 0.95,
+        "provider": "claude-cli (sonnet)"
+      },
+      "code": "page.getByRole('textbox', { name: 'Loan Tenure' })",
+      "ok": true,
+      "checks": [
+        {
+          "name": "vocabulary",
+          "ok": true,
+          "detail": "role strategy, no CSS/XPath/position"
+        },
+        {
+          "name": "differs from failed locator",
+          "ok": true,
+          "detail": "new locator"
+        },
+        {
+          "name": "unique match",
+          "ok": true,
+          "detail": "1 element(s) matched"
+        },
+        {
+          "name": "visible",
+          "ok": true,
+          "detail": "visible"
+        },
+        {
+          "name": "fingerprint: role and name",
+          "ok": true,
+          "detail": "element has role textbox named Loan Tenure"
+        }
+      ]
+    },
+    "alternatives": [
+      {
+        "candidate": {
+          "spec": {
+            "by": "label",
+            "value": "Loan Tenure",
+            "exact": true
+          },
+          "rationale": "The input has the label 'Loan Tenure', which is unique on the page.",
+          "confidence": 0.85,
+          "provider": "claude-cli (sonnet)"
+        },
+        "code": "page.getByLabel('Loan Tenure', { exact: true })",
+        "ok": true,
+        "checks": [
+          {
+            "name": "vocabulary",
+            "ok": true,
+            "detail": "label strategy, no CSS/XPath/position"
+          },
+          {
+            "name": "differs from failed locator",
+            "ok": true,
+            "detail": "new locator"
+          },
+          {
+            "name": "unique match",
+            "ok": true,
+            "detail": "1 element(s) matched"
+          },
+          {
+            "name": "visible",
+            "ok": true,
+            "detail": "visible"
+          },
+          {
+            "name": "fingerprint: role and name",
+            "ok": true,
+            "detail": "element has role textbox named Loan Tenure"
+          }
+        ]
+      }
+    ],
+    "malformed": [],
+    "source": {
+      "file": "self-healing/pages/LegacyEmiLocators.ts",
+      "line": 62,
+      "text": "    this.loanTenureBox = healable(page, TENURE_BOX, (p) => p.locator('#loan-term'));",
+      "expression": "p.locator('#loan-term')",
+      "param": "p"
+    },
+    "patch": "--- a/self-healing/pages/LegacyEmiLocators.ts\n+++ b/self-healing/pages/LegacyEmiLocators.ts\n@@ -59,7 +59,7 @@\n   readonly emailScheduleButton;\n \n   constructor(page: Page) {\n-    this.loanTenureBox = healable(page, TENURE_BOX, (p) => p.locator('#loan-term'));\n+    this.loanTenureBox = healable(page, TENURE_BOX, (p) => p.getByRole('textbox', { name: 'Loan Tenure' }));\n     this.personalLoanTab = healable(page, PERSONAL_LOAN_TAB, (p) => p.getByRole('link', { name: 'Personal Loans', exact: true }));\n     this.homeLoanAmountBox = healable(page, AMOUNT_BOX, (p) => p.getByRole('textbox', { name: /loan/i }));\n     this.interestRateBox = healable(page, RATE_BOX, (p) => p.locator('input[type=\"text\"]').last());\n",
+    "incidentFile": "reports/self-healing-healed/healing/incidents/emicalculator.loanTenureBox.json",
+    "replay": "passed"
+  },
+  {
+    "key": "emicalculator.personalLoanTab",
+    "scenario": "Wrong link text - the Personal Loan tab switches the calculator",
+    "brokenLocator": "page.getByRole('link', { name: 'Personal Loans', exact: true })",
+    "kind": "no-match",
+    "detail": "No element matched within 5 s.",
+    "mode": "heal",
+    "provider": "claude-cli (sonnet)",
+    "durationMs": 3835,
+    "costUsd": 0.004041,
+    "accepted": {
+      "candidate": {
+        "spec": {
+          "by": "role",
+          "role": "link",
+          "name": "Personal Loan",
+          "exact": true
+        },
+        "rationale": "The tab link is named exactly 'Personal Loan' (singular) in the snapshot and appears once; the old locator used the plural.",
+        "confidence": 0.95,
+        "provider": "claude-cli (sonnet)"
+      },
+      "code": "page.getByRole('link', { name: 'Personal Loan', exact: true })",
+      "ok": true,
+      "checks": [
+        {
+          "name": "vocabulary",
+          "ok": true,
+          "detail": "role strategy, no CSS/XPath/position"
+        },
+        {
+          "name": "differs from failed locator",
+          "ok": true,
+          "detail": "new locator"
+        },
+        {
+          "name": "unique match",
+          "ok": true,
+          "detail": "1 element(s) matched"
+        },
+        {
+          "name": "visible",
+          "ok": true,
+          "detail": "visible"
+        },
+        {
+          "name": "fingerprint: role and name",
+          "ok": true,
+          "detail": "element has role link named Personal Loan"
+        }
+      ]
+    },
+    "alternatives": [],
+    "malformed": [],
+    "source": {
+      "file": "self-healing/pages/LegacyEmiLocators.ts",
+      "line": 63,
+      "text": "    this.personalLoanTab = healable(page, PERSONAL_LOAN_TAB, (p) => p.getByRole('link', { name: 'Personal Loans', exact: true }));",
+      "expression": "p.getByRole('link', { name: 'Personal Loans', exact: true })",
+      "param": "p"
+    },
+    "patch": "--- a/self-healing/pages/LegacyEmiLocators.ts\n+++ b/self-healing/pages/LegacyEmiLocators.ts\n@@ -60,7 +60,7 @@\n \n   constructor(page: Page) {\n     this.loanTenureBox = healable(page, TENURE_BOX, (p) => p.locator('#loan-term'));\n-    this.personalLoanTab = healable(page, PERSONAL_LOAN_TAB, (p) => p.getByRole('link', { name: 'Personal Loans', exact: true }));\n+    this.personalLoanTab = healable(page, PERSONAL_LOAN_TAB, (p) => p.getByRole('link', { name: 'Personal Loan', exact: true }));\n     this.homeLoanAmountBox = healable(page, AMOUNT_BOX, (p) => p.getByRole('textbox', { name: /loan/i }));\n     this.interestRateBox = healable(page, RATE_BOX, (p) => p.locator('input[type=\"text\"]').last());\n     this.emailScheduleButton = healable(page, EMAIL_SCHEDULE, (p) => p.getByRole('button', { name: 'Email schedule' }));\n",
+    "incidentFile": "reports/self-healing-healed/healing/incidents/emicalculator.personalLoanTab.json",
+    "replay": "passed"
+  },
+  {
+    "key": "emicalculator.homeLoanAmountBox",
+    "scenario": "Ambiguous name - the amount box sets the principal",
+    "brokenLocator": "page.getByRole('textbox', { name: /loan/i })",
+    "kind": "ambiguous",
+    "detail": "2 elements matched; an action on it would violate strict mode.",
+    "mode": "heal",
+    "provider": "claude-cli (sonnet)",
+    "durationMs": 4693,
+    "costUsd": 0.0047498,
+    "accepted": {
+      "candidate": {
+        "spec": {
+          "by": "role",
+          "role": "textbox",
+          "name": "Home Loan Amount",
+          "exact": true
+        },
+        "rationale": "The textbox with the exact accessible name 'Home Loan Amount' matches the fingerprint and is unique on the page.",
+        "confidence": 0.97,
+        "provider": "claude-cli (sonnet)"
+      },
+      "code": "page.getByRole('textbox', { name: 'Home Loan Amount', exact: true })",
+      "ok": true,
+      "checks": [
+        {
+          "name": "vocabulary",
+          "ok": true,
+          "detail": "role strategy, no CSS/XPath/position"
+        },
+        {
+          "name": "differs from failed locator",
+          "ok": true,
+          "detail": "new locator"
+        },
+        {
+          "name": "unique match",
+          "ok": true,
+          "detail": "1 element(s) matched"
+        },
+        {
+          "name": "visible",
+          "ok": true,
+          "detail": "visible"
+        },
+        {
+          "name": "fingerprint: role and name",
+          "ok": true,
+          "detail": "element has role textbox named Home Loan Amount"
+        }
+      ]
+    },
+    "alternatives": [
+      {
+        "candidate": {
+          "spec": {
+            "by": "label",
+            "value": "Home Loan Amount",
+            "exact": true
+          },
+          "rationale": "The input is labelled 'Home Loan Amount', and the exact label match is unique.",
+          "confidence": 0.9,
+          "provider": "claude-cli (sonnet)"
+        },
+        "code": "page.getByLabel('Home Loan Amount', { exact: true })",
+        "ok": true,
+        "checks": [
+          {
+            "name": "vocabulary",
+            "ok": true,
+            "detail": "label strategy, no CSS/XPath/position"
+          },
+          {
+            "name": "differs from failed locator",
+            "ok": true,
+            "detail": "new locator"
+          },
+          {
+            "name": "unique match",
+            "ok": true,
+            "detail": "1 element(s) matched"
+          },
+          {
+            "name": "visible",
+            "ok": true,
+            "detail": "visible"
+          },
+          {
+            "name": "fingerprint: role and name",
+            "ok": true,
+            "detail": "element has role textbox named Home Loan Amount"
+          }
+        ]
+      }
+    ],
+    "malformed": [],
+    "source": {
+      "file": "self-healing/pages/LegacyEmiLocators.ts",
+      "line": 64,
+      "text": "    this.homeLoanAmountBox = healable(page, AMOUNT_BOX, (p) => p.getByRole('textbox', { name: /loan/i }));",
+      "expression": "p.getByRole('textbox', { name: /loan/i })",
+      "param": "p"
+    },
+    "patch": "--- a/self-healing/pages/LegacyEmiLocators.ts\n+++ b/self-healing/pages/LegacyEmiLocators.ts\n@@ -61,7 +61,7 @@\n   constructor(page: Page) {\n     this.loanTenureBox = healable(page, TENURE_BOX, (p) => p.locator('#loan-term'));\n     this.personalLoanTab = healable(page, PERSONAL_LOAN_TAB, (p) => p.getByRole('link', { name: 'Personal Loans', exact: true }));\n-    this.homeLoanAmountBox = healable(page, AMOUNT_BOX, (p) => p.getByRole('textbox', { name: /loan/i }));\n+    this.homeLoanAmountBox = healable(page, AMOUNT_BOX, (p) => p.getByRole('textbox', { name: 'Home Loan Amount', exact: true }));\n     this.interestRateBox = healable(page, RATE_BOX, (p) => p.locator('input[type=\"text\"]').last());\n     this.emailScheduleButton = healable(page, EMAIL_SCHEDULE, (p) => p.getByRole('button', { name: 'Email schedule' }));\n   }\n",
+    "incidentFile": "reports/self-healing-healed/healing/incidents/emicalculator.homeLoanAmountBox.json",
+    "replay": "passed"
+  },
+  {
+    "key": "emicalculator.interestRateBox",
+    "scenario": "Positional locator - the interest rate box sets the rate",
+    "brokenLocator": "page.locator('input[type=\"text\"]').last()",
+    "kind": "wrong-element",
+    "detail": "Resolved, but element does not have role textbox named Interest Rate.",
+    "mode": "heal",
+    "provider": "claude-cli (sonnet)",
+    "durationMs": 4365,
+    "costUsd": 0.004584,
+    "accepted": {
+      "candidate": {
+        "spec": {
+          "by": "role",
+          "role": "textbox",
+          "name": "Interest Rate",
+          "exact": true
+        },
+        "rationale": "The snapshot and inventory list exactly one textbox with the accessible name 'Interest Rate'.",
+        "confidence": 0.97,
+        "provider": "claude-cli (sonnet)"
+      },
+      "code": "page.getByRole('textbox', { name: 'Interest Rate', exact: true })",
+      "ok": true,
+      "checks": [
+        {
+          "name": "vocabulary",
+          "ok": true,
+          "detail": "role strategy, no CSS/XPath/position"
+        },
+        {
+          "name": "differs from failed locator",
+          "ok": true,
+          "detail": "new locator"
+        },
+        {
+          "name": "unique match",
+          "ok": true,
+          "detail": "1 element(s) matched"
+        },
+        {
+          "name": "visible",
+          "ok": true,
+          "detail": "visible"
+        },
+        {
+          "name": "fingerprint: role and name",
+          "ok": true,
+          "detail": "element has role textbox named Interest Rate"
+        }
+      ]
+    },
+    "alternatives": [
+      {
+        "candidate": {
+          "spec": {
+            "by": "label",
+            "value": "Interest Rate",
+            "exact": true
+          },
+          "rationale": "The input is labelled 'Interest Rate' in the inventory.",
+          "confidence": 0.9,
+          "provider": "claude-cli (sonnet)"
+        },
+        "code": "page.getByLabel('Interest Rate', { exact: true })",
+        "ok": true,
+        "checks": [
+          {
+            "name": "vocabulary",
+            "ok": true,
+            "detail": "label strategy, no CSS/XPath/position"
+          },
+          {
+            "name": "differs from failed locator",
+            "ok": true,
+            "detail": "new locator"
+          },
+          {
+            "name": "unique match",
+            "ok": true,
+            "detail": "1 element(s) matched"
+          },
+          {
+            "name": "visible",
+            "ok": true,
+            "detail": "visible"
+          },
+          {
+            "name": "fingerprint: role and name",
+            "ok": true,
+            "detail": "element has role textbox named Interest Rate"
+          }
+        ]
+      }
+    ],
+    "malformed": [],
+    "source": {
+      "file": "self-healing/pages/LegacyEmiLocators.ts",
+      "line": 65,
+      "text": "    this.interestRateBox = healable(page, RATE_BOX, (p) => p.locator('input[type=\"text\"]').last());",
+      "expression": "p.locator('input[type=\"text\"]').last()",
+      "param": "p"
+    },
+    "patch": "--- a/self-healing/pages/LegacyEmiLocators.ts\n+++ b/self-healing/pages/LegacyEmiLocators.ts\n@@ -62,7 +62,7 @@\n     this.loanTenureBox = healable(page, TENURE_BOX, (p) => p.locator('#loan-term'));\n     this.personalLoanTab = healable(page, PERSONAL_LOAN_TAB, (p) => p.getByRole('link', { name: 'Personal Loans', exact: true }));\n     this.homeLoanAmountBox = healable(page, AMOUNT_BOX, (p) => p.getByRole('textbox', { name: /loan/i }));\n-    this.interestRateBox = healable(page, RATE_BOX, (p) => p.locator('input[type=\"text\"]').last());\n+    this.interestRateBox = healable(page, RATE_BOX, (p) => p.getByRole('textbox', { name: 'Interest Rate', exact: true }));\n     this.emailScheduleButton = healable(page, EMAIL_SCHEDULE, (p) => p.getByRole('button', { name: 'Email schedule' }));\n   }\n }\n",
+    "incidentFile": "reports/self-healing-healed/healing/incidents/emicalculator.interestRateBox.json",
+    "replay": "passed"
+  },
+  {
+    "key": "emicalculator.emailScheduleButton",
+    "scenario": "Missing feature - e-mailing the repayment schedule",
+    "brokenLocator": "page.getByRole('button', { name: 'Email schedule' })",
+    "kind": "no-match",
+    "detail": "No element matched within 5 s.",
+    "mode": "heal",
+    "provider": "claude-cli (sonnet)",
+    "durationMs": 3984,
+    "costUsd": 0.0039806,
+    "accepted": null,
+    "alternatives": [],
+    "malformed": [],
+    "source": {
+      "file": "self-healing/pages/LegacyEmiLocators.ts",
+      "line": 66,
+      "text": "    this.emailScheduleButton = healable(page, EMAIL_SCHEDULE, (p) => p.getByRole('button', { name: 'Email schedule' }));",
+      "expression": "p.getByRole('button', { name: 'Email schedule' })",
+      "param": "p"
+    },
+    "patch": null,
+    "incidentFile": "reports/self-healing-healed/healing/incidents/emicalculator.emailScheduleButton.json",
+    "replay": "not-run"
+  }
+]

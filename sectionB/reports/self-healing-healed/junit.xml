@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<testsuite name="self-healing-healed" time="46.778" tests="5" skipped="0" failures="1" errors="0" timestamp="2026-10-07T15:42:20.329Z">
+  <testcase classname="Self-healing exercise - five locators on emicalculator.net broken on purpose" name="Wrong id - the tenure box sets the loan tenure" time="12.496">
+    <system-out><![CDATA[Given I launch the EMI calculator application...............................passed
+When I type a tenure of 15 years into the legacy tenure box.................passed
+Then the EMI shown should match my own calculation..........................passed]]></system-out>
+  </testcase>
+  <testcase classname="Self-healing exercise - five locators on emicalculator.net broken on purpose" name="Wrong link text - the Personal Loan tab switches the calculator" time="10.25">
+    <system-out><![CDATA[Given I launch the EMI calculator application...............................passed
+When I open the Personal Loan tab with the legacy tab link..................passed
+Then the amount box should be labelled "Personal Loan Amount"...............passed]]></system-out>
+  </testcase>
+  <testcase classname="Self-healing exercise - five locators on emicalculator.net broken on purpose" name="Ambiguous name - the amount box sets the principal" time="6.965">
+    <system-out><![CDATA[Given I launch the EMI calculator application...............................passed
+When I type a loan amount of 2500000 into the legacy amount box.............passed
+Then the EMI shown should match my own calculation..........................passed]]></system-out>
+  </testcase>
+  <testcase classname="Self-healing exercise - five locators on emicalculator.net broken on purpose" name="Positional locator - the interest rate box sets the rate" time="6.664">
+    <system-out><![CDATA[Given I launch the EMI calculator application...............................passed
+When I type an interest rate of 10.5 into the legacy rate box...............passed
+Then the EMI shown should match my own calculation..........................passed]]></system-out>
+  </testcase>
+  <testcase classname="Self-healing exercise - five locators on emicalculator.net broken on purpose" name="Missing feature - e-mailing the repayment schedule" time="10.364">
+    <failure type="LocatorHealingError" message="Locator &quot;emicalculator.emailScheduleButton&quot; failed: page.getByRole('button', { name: 'Email schedule' }) → No element matched within 5 s.&#xA;Healer (claude-cli (sonnet)) found no candidate that passed validation (0 failed, 0 malformed)."><![CDATA[LocatorHealingError: Locator "emicalculator.emailScheduleButton" failed: page.getByRole('button', { name: 'Email schedule' }) → No element matched within 5 s.
+Healer (claude-cli (sonnet)) found no candidate that passed validation (0 failed, 0 malformed).
+    at HealableLocator.heal (./self-healing/runtime.ts:127:11)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async CustomWorld.<anonymous> (./self-healing/steps/self-healing.steps.ts:54:10)]]></failure>
+    <system-out><![CDATA[Given I launch the EMI calculator application...............................passed
+When I press the legacy Email schedule button...............................failed
+Then a form to e-mail the schedule should open..............................skipped]]></system-out>
+  </testcase>
+</testsuite>

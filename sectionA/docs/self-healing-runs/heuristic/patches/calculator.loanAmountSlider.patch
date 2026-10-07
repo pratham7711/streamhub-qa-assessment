@@ -1,0 +1,11 @@
+--- a/self-healing/pages/LegacyLocators.ts
++++ b/self-healing/pages/LegacyLocators.ts
+@@ -60,7 +60,7 @@
+   constructor(private readonly page: Page) {
+     this.totalLoansValue = healable(page, TOTAL_LOANS, (p) => p.getByTestId('kpi-total-loans'));
+     this.applyFiltersButton = healable(page, APPLY_FILTERS, (p) => p.getByRole('button', { name: 'Apply filter', exact: true }));
+-    this.loanAmountSlider = healable(page, AMOUNT_SLIDER, (p) => p.getByLabel('Loan amount'));
++    this.loanAmountSlider = healable(page, AMOUNT_SLIDER, (p) => p.getByRole('slider', { name: 'Loan amount', exact: true }));
+     this.recentDisbursementsTable = healable(page, RECENT_TABLE, (p) => p.locator('table').first());
+     this.exportCsvButton = healable(page, EXPORT_CSV, (p) => p.getByRole('button', { name: 'Export CSV' }));
+   }

@@ -1,10 +1,2 @@
-node_modules
-section-a/app/dist/
-.env
-config/env/.env.*.local
-test-results/
 .DS_Store
-# Ad-hoc single-suite runs; the committed evidence is section-a/reports and section-b/reports.
-/reports/
-**/reports/**/traces/
-**/reports/**/@rerun.txt
+node_modules

@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Scenario 1: round-trip transfers within 24 hours and 10%</title>
+<style>
+  :root { --ink:#1b2430; --muted:#5b6675; --rule:#d9dee5; --bg:#f6f7f9; --ok:#1f7a4d; --bad:#b3261e; }
+  * { box-sizing: border-box; }
+  body { margin: 0; padding: 32px 40px 40px; background: var(--bg); color: var(--ink); font: 15px/1.5 -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+  h1 { font-size: 22px; margin: 0 0 6px; }
+  .meta { color: var(--muted); font-size: 13px; margin-bottom: 18px; }
+  .badge { display: inline-block; padding: 2px 10px; border-radius: 999px; font-weight: 600; font-size: 13px; color: #fff; background: var(--ok); }
+  .badge.bad { background: var(--bad); }
+  h2 { font-size: 13px; letter-spacing: .02em; text-transform: uppercase; color: var(--muted); margin: 26px 0 8px; }
+  pre { margin: 0; background: #fff; border: 1px solid var(--rule); border-radius: 8px; padding: 14px 16px; font: 12.5px/1.55 ui-monospace, "SF Mono", Menlo, Consolas, monospace; white-space: pre-wrap; overflow-wrap: anywhere; }
+  pre b { color: #1d4ed8; font-weight: 600; } pre i { color: #6b7280; }
+  table { border-collapse: collapse; background: #fff; border: 1px solid var(--rule); border-radius: 8px; overflow: hidden; font: 13px/1.4 ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-variant-numeric: tabular-nums; }
+  th, td { padding: 7px 12px; border-bottom: 1px solid var(--rule); text-align: left; white-space: nowrap; }
+  th { background: #eef1f5; font-weight: 700; }
+  tr:last-child td { border-bottom: 0; }
+  .grid { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 18px; }
+</style></head>
+<body>
+  <h1>Scenario 1: round-trip transfers within 24 hours and 10%</h1>
+  <div class="meta">Engine: PostgreSQL 18.3 (PGlite 0.5.8) &middot; Data: accounts 28, transactions 35 &middot; Generated 2026-10-07 15:40:06 UTC &middot; Query: sql/queries/scenario1_round_trip_transfers.sql</div>
+  <span class="badge">10 rows &middot; matches the independent TypeScript oracle</span>
+  <h2>Query output</h2>
+  <table><thead><tr><th>account_a</th><th>account_b</th><th>sent_txn_id</th><th>sent_amount</th><th>sent_at</th><th>returned_txn_id</th><th>returned_amount</th><th>returned_at</th><th>hours_apart</th><th>pct_difference</th></tr></thead><tbody>
+<tr><td>AC101</td><td>AC201</td><td>TX0101</td><td>25000.00</td><td>2024-03-01 09:00:00</td><td>TX0102</td><td>25000.00</td><td>2024-03-01 11:30:00</td><td>2.50</td><td>0.000</td></tr>
+<tr><td>AC102</td><td>AC202</td><td>TX0201</td><td>10000.00</td><td>2024-03-02 10:00:00</td><td>TX0202</td><td>9800.00</td><td>2024-03-03 10:00:00</td><td>24.00</td><td>2.000</td></tr>
+<tr><td>AC104</td><td>AC204</td><td>TX0401</td><td>20000.00</td><td>2024-03-06 09:00:00</td><td>TX0402</td><td>18000.00</td><td>2024-03-06 15:00:00</td><td>6.00</td><td>10.000</td></tr>
+<tr><td>AC105</td><td>AC205</td><td>TX0501</td><td>20000.00</td><td>2024-03-07 09:00:00</td><td>TX0502</td><td>22000.00</td><td>2024-03-07 21:00:00</td><td>12.00</td><td>10.000</td></tr>
+<tr><td>AC207</td><td>AC107</td><td>TX0701</td><td>15000.00</td><td>2024-03-09 08:00:00</td><td>TX0702</td><td>15000.00</td><td>2024-03-09 10:00:00</td><td>2.00</td><td>0.000</td></tr>
+<tr><td>AC110</td><td>AC210</td><td>TX1001</td><td>50000.00</td><td>2024-03-12 09:00:00</td><td>TX1002</td><td>49000.00</td><td>2024-03-12 11:00:00</td><td>2.00</td><td>2.000</td></tr>
+<tr><td>AC110</td><td>AC210</td><td>TX1001</td><td>50000.00</td><td>2024-03-12 09:00:00</td><td>TX1003</td><td>52500.00</td><td>2024-03-12 18:00:00</td><td>9.00</td><td>5.000</td></tr>
+<tr><td>AC111</td><td>AC211</td><td>TX1101</td><td>40000.00</td><td>2024-03-13 09:00:00</td><td>TX1102</td><td>40000.00</td><td>2024-03-13 13:00:00</td><td>4.00</td><td>0.000</td></tr>
+<tr><td>AC211</td><td>AC111</td><td>TX1102</td><td>40000.00</td><td>2024-03-13 13:00:00</td><td>TX1103</td><td>39000.00</td><td>2024-03-13 20:00:00</td><td>7.00</td><td>2.500</td></tr>
+<tr><td>AC113</td><td>AC213</td><td>TX1301</td><td>333.33</td><td>2024-03-15 09:00:00</td><td>TX1302</td><td>366.66</td><td>2024-03-15 09:45:00</td><td>0.75</td><td>9.999</td></tr>
+  </tbody></table>
+  <div class="grid">
+    <div><h2>Query</h2><pre><i>-- Scenario 1: quick round-trip transfers (possible reversals or wash transfers).</i>
+<i>--</i>
+<i>-- Report every pair of transfers where</i>
+<i>--   * account A sends money to account B ("sent"), and</i>
+<i>--   * B later sends money back to A ("returned"),</i>
+<i>--   * at most 24 hours after the sent transfer (inclusive), and</i>
+<i>--   * the returned amount is within 10% of the SENT amount (inclusive):</i>
+<i>--       |returned - sent| &lt;= 0.10 * sent</i>
+<i>--</i>
+<i>-- Assumptions (see sql/README.md):</i>
+<i>--   * "Back" means strictly later; the earlier transfer is the original, so a</i>
+<i>--     pair is reported once, never again with A and B swapped.</i>
+<i>--   * Self-transfers (from = to) are not round trips.</i>
+<i>--   * Every qualifying pair is reported: one transfer with two qualifying</i>
+<i>--     returns yields two rows. Add "DISTINCT ON (s.txn_id)" to keep only the</i>
+<i>--     first return per sent transfer.</i>
+<i>--   * To measure 10% against the larger of the two amounts instead, replace</i>
+<i>--     "0.10 * s.amount" with "0.10 * GREATEST(s.amount, r.amount)".</i>
+<b>WITH</b> transfers <b>AS</b> (
+  <b>SELECT</b> txn_id, from_account, to_account, amount, txn_time
+  <b>FROM</b> transactions
+  <b>WHERE</b> from_account &lt;&gt; to_account
+)
+<b>SELECT</b>
+  s.from_account                                                   <b>AS</b> account_a,
+  s.to_account                                                     <b>AS</b> account_b,
+  s.txn_id                                                         <b>AS</b> sent_txn_id,
+  s.amount                                                         <b>AS</b> sent_amount,
+  <b>TO_CHAR</b>(s.txn_time, 'YYYY-MM-DD HH24:MI:SS')                     <b>AS</b> sent_at,
+  r.txn_id                                                         <b>AS</b> returned_txn_id,
+  r.amount                                                         <b>AS</b> returned_amount,
+  <b>TO_CHAR</b>(r.txn_time, 'YYYY-MM-DD HH24:MI:SS')                     <b>AS</b> returned_at,
+  <b>ROUND</b>(<b>EXTRACT</b>(<b>EPOCH</b> <b>FROM</b> (r.txn_time - s.txn_time)) / 3600, 2)   <b>AS</b> hours_apart,
+  <b>ROUND</b>(<b>ABS</b>(r.amount - s.amount) * 100 / s.amount, 3)              <b>AS</b> pct_difference
+<b>FROM</b> transfers <b>AS</b> s
+<b>JOIN</b> transfers <b>AS</b> r
+  <b>ON</b>  r.from_account = s.to_account                          <i>-- B sends ...</i>
+  <b>AND</b> r.to_account   = s.from_account                        <i>-- ... back to A</i>
+  <b>AND</b> r.txn_time     &gt;  s.txn_time                           <i>-- strictly after the original</i>
+  <b>AND</b> r.txn_time     &lt;= s.txn_time + <b>INTERVAL</b> '24 hours'     <i>-- within 24 hours, inclusive</i>
+  <b>AND</b> <b>ABS</b>(r.amount - s.amount) &lt;= 0.10 * s.amount            <i>-- within 10% of the original</i>
+<b>ORDER BY</b> s.txn_time, s.txn_id, r.txn_time, r.txn_id;
+</pre></div>
+    <div><h2>Table schema</h2><pre><i>-- Scenario 1 schema: accounts and the transfers between them.</i>
+<i>-- PostgreSQL dialect (runs unchanged on PostgreSQL 12+ and on PGlite).</i>
+<i>-- Money is NUMERIC(12,2): exact decimal arithmetic, so the "within 10%"</i>
+<i>-- boundary is decided exactly (a FLOAT column could misjudge it by 1e-16).</i>
+
+<b>CREATE TABLE</b> accounts (
+  account_id   <b>VARCHAR</b>(12)  <b>PRIMARY KEY</b>,
+  holder_name  <b>VARCHAR</b>(80)  <b>NOT NULL</b>
+);
+
+<b>CREATE TABLE</b> transactions (
+  txn_id        <b>VARCHAR</b>(12)    <b>PRIMARY KEY</b>,
+  from_account  <b>VARCHAR</b>(12)    <b>NOT NULL</b> <b>REFERENCES</b> accounts (account_id),
+  to_account    <b>VARCHAR</b>(12)    <b>NOT NULL</b> <b>REFERENCES</b> accounts (account_id),
+  amount        <b>NUMERIC</b>(12, 2) <b>NOT NULL</b> <b>CHECK</b> (amount &gt; 0),
+  txn_time      <b>TIMESTAMP</b>      <b>NOT NULL</b>
+);
+
+<i>-- Supports the self-join: find B -&gt; A transfers for a given A -&gt; B in a time range.</i>
+<b>CREATE INDEX</b> ix_transactions_pair_time <b>ON</b> transactions (from_account, to_account, txn_time);
+</pre></div>
+  </div>
+</body></html>

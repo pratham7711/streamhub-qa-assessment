@@ -1,0 +1,1844 @@
+{
+  "key": "dashboard.totalLoansValue",
+  "description": "The number shown in the \"Total loans\" key figure on the dashboard",
+  "expect": {
+    "text": "/^\\d[\\d,]*$/",
+    "within": "group \"Total loans\""
+  },
+  "brokenLocator": "page.getByTestId('kpi-total-loans')",
+  "kind": "no-match",
+  "matchCount": 0,
+  "detail": "No element matched within 5 s.",
+  "url": "http://localhost:5055/",
+  "scenario": "Renamed test id - the Total loans figure shows the size of the loan book",
+  "source": {
+    "file": "self-healing/pages/LegacyLocators.ts",
+    "line": 61,
+    "text": "    this.totalLoansValue = healable(page, TOTAL_LOANS, (p) => p.getByTestId('kpi-total-loans'));",
+    "expression": "p.getByTestId('kpi-total-loans')",
+    "param": "p"
+  },
+  "ariaSnapshot": "- link \"Skip to content\":\n  - /url: \"#main\"\n- banner:\n  - link \"LoanLens home\":\n    - /url: /\n    - text: LoanLens\n  - navigation \"Primary\":\n    - list:\n      - listitem:\n        - link \"Dashboard\":\n          - /url: /\n      - listitem:\n        - link \"EMI calculator\":\n          - /url: /calculator\n      - listitem:\n        - link \"Reports\":\n          - /url: /reports\n- main:\n  - heading \"Portfolio overview\" [level=1]\n  - paragraph: 120 loans across four products and eight cities.\n  - link \"Open loan book report\":\n    - /url: /reports\n  - group \"Total loans\":\n    - term: Total loans\n    - definition: \"120\"\n    - definition: 74 active\n  - group \"Principal disbursed\":\n    - term: Principal disbursed\n    - definition: ₹36,80,70,000\n    - definition: Across four loan products\n  - group \"Weighted avg. rate\":\n    - term: Weighted avg. rate\n    - definition: 9.86%\n    - definition: Weighted by principal\n  - group \"Monthly EMI inflow\":\n    - term: Monthly EMI inflow\n    - definition: ₹38,72,688\n    - definition: Active and overdue loans\n  - figure \"Principal by loan type\":\n    - text: Principal by loan type\n    - group \"Principal by loan type chart\":\n      - 'img \"Home: ₹26,05,00,000 (70.8%)\"'\n      - 'img \"Personal: ₹6,34,40,000 (17.2%)\"'\n      - 'img \"Car: ₹3,31,80,000 (9.0%)\"'\n      - 'img \"Education: ₹1,09,50,000 (3.0%)\"'\n    - table \"Principal by loan type values\":\n      - rowgroup:\n        - row \"Segment Principal Share\":\n          - columnheader \"Segment\"\n          - columnheader \"Principal\"\n          - columnheader \"Share\"\n      - rowgroup:\n        - row \"Home ₹26,05,00,000 70.8%\":\n          - rowheader \"Home\"\n          - cell \"₹26,05,00,000\"\n          - cell \"70.8%\"\n        - row \"Personal ₹6,34,40,000 17.2%\":\n          - rowheader \"Personal\"\n          - cell \"₹6,34,40,000\"\n          - cell \"17.2%\"\n        - row \"Car ₹3,31,80,000 9.0%\":\n          - rowheader \"Car\"\n          - cell \"₹3,31,80,000\"\n          - cell \"9.0%\"\n        - row \"Education ₹1,09,50,000 3.0%\":\n          - rowheader \"Education\"\n          - cell \"₹1,09,50,000\"\n          - cell \"3.0%\"\n      - rowgroup:\n        - row \"Total ₹36,80,70,000 100.0%\":\n          - rowheader \"Total\"\n          - cell \"₹36,80,70,000\"\n          - cell \"100.0%\"\n  - figure \"Loans by status\":\n    - text: Loans by status\n    - paragraph: Number of loans in each repayment status.\n    - group \"Loans by status chart\":\n      - 'img \"Active: 74 loans\"'\n      - 'img \"Closed: 31 loans\"'\n      - 'img \"Overdue: 7 loans\"'\n      - 'img \"Pending: 8 loans\"'\n  - heading \"Recent disbursements\" [level=2]\n  - link \"View all\":\n    - /url: /reports?sort=-disbursedOn\n  - table \"Recent disbursements\":\n    - rowgroup:\n      - row \"Loan Borrower Type City Amount Disbursed Status\":\n        - columnheader \"Loan\"\n        - columnheader \"Borrower\"\n        - columnheader \"Type\"\n        - columnheader \"City\"\n        - columnheader \"Amount\"\n        - columnheader \"Disbursed\"\n        - columnheader \"Status\"\n    - rowgroup:\n      - row \"LN-1075 Karan Joshi Education Hyderabad ₹22,00,000 24 Sept 2025 Active\":\n        - cell \"LN-1075\":\n          - link \"LN-1075\":\n            - /url: /loans/LN-1075\n        - cell \"Karan Joshi\"\n        - cell \"Education\"\n        - cell \"Hyderabad\"\n        - cell \"₹22,00,000\"\n        - cell \"24 Sept 2025\"\n        - cell \"Active\"\n      - row \"LN-1045 Kabir Malhotra Personal Delhi ₹15,70,000 21 Sept 2025 Pending\":\n        - cell \"LN-1045\":\n          - link \"LN-1045\":\n            - /url: /loans/LN-1045\n        - cell \"Kabir Malhotra\"\n        - cell \"Personal\"\n        - cell \"Delhi\"\n        - cell \"₹15,70,000\"\n        - cell \"21 Sept 2025\"\n        - cell \"Pending\"\n      - row \"LN-1117 Pooja Chopra Car Mumbai ₹16,30,000 13 Sept 2025 Active\":\n        - cell \"LN-1117\":\n          - link \"LN-1117\":\n            - /url: /loans/LN-1117\n        - cell \"Pooja Chopra\"\n        - cell \"Car\"\n        - cell \"Mumbai\"\n        - cell \"₹16,30,000\"\n        - cell \"13 Sept 2025\"\n        - cell \"Active\"\n      - row \"LN-1047 Ishaan Pillai Home Jaipur ₹1,19,00,000 10 Sept 2025 Active\":\n        - cell \"LN-1047\":\n          - link \"LN-1047\":\n            - /url: /loans/LN-1047\n        - cell \"Ishaan Pillai\"\n        - cell \"Home\"\n        - cell \"Jaipur\"\n        - cell \"₹1,19,00,000\"\n        - cell \"10 Sept 2025\"\n        - cell \"Active\"\n      - row \"LN-1084 Neha Mehta Home Delhi ₹93,00,000 31 Aug 2025 Active\":\n        - cell \"LN-1084\":\n          - link \"LN-1084\":\n            - /url: /loans/LN-1084\n        - cell \"Neha Mehta\"\n        - cell \"Home\"\n        - cell \"Delhi\"\n        - cell \"₹93,00,000\"\n        - cell \"31 Aug 2025\"\n        - cell \"Active\"\n- contentinfo:\n  - paragraph: LoanLens · demonstration build · all borrowers, amounts and dates are synthetic.\n  - paragraph:\n    - text: EMI = P × r × (1 + r)\n    - superscript: \"n\"\n    - text: ÷ ((1 + r)\n    - superscript: \"n\"\n    - text: − 1), reducing balance, monthly rests.",
+  "inventory": [
+    {
+      "ref": 0,
+      "tag": "a",
+      "role": "link",
+      "name": "Skip to content",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "Skip to content",
+      "container": null,
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 1,
+      "tag": "header",
+      "role": "banner",
+      "name": "",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "LoanLens Dashboard EMI calculator Reports",
+      "container": null,
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 2,
+      "tag": "a",
+      "role": "link",
+      "name": "LoanLens home",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "LoanLens",
+      "container": null,
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 3,
+      "tag": "nav",
+      "role": "navigation",
+      "name": "Primary",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "Dashboard EMI calculator Reports",
+      "container": null,
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 4,
+      "tag": "ul",
+      "role": "list",
+      "name": "",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "Dashboard EMI calculator Reports",
+      "container": {
+        "role": "navigation",
+        "name": "Primary"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 5,
+      "tag": "li",
+      "role": "listitem",
+      "name": "Dashboard",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "Dashboard",
+      "container": {
+        "role": "navigation",
+        "name": "Primary"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 6,
+      "tag": "a",
+      "role": "link",
+      "name": "Dashboard",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "Dashboard",
+      "container": {
+        "role": "navigation",
+        "name": "Primary"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 7,
+      "tag": "li",
+      "role": "listitem",
+      "name": "EMI calculator",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "EMI calculator",
+      "container": {
+        "role": "navigation",
+        "name": "Primary"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 8,
+      "tag": "a",
+      "role": "link",
+      "name": "EMI calculator",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "EMI calculator",
+      "container": {
+        "role": "navigation",
+        "name": "Primary"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 9,
+      "tag": "li",
+      "role": "listitem",
+      "name": "Reports",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "Reports",
+      "container": {
+        "role": "navigation",
+        "name": "Primary"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 10,
+      "tag": "a",
+      "role": "link",
+      "name": "Reports",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "Reports",
+      "container": {
+        "role": "navigation",
+        "name": "Primary"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 11,
+      "tag": "main",
+      "role": "main",
+      "name": "",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "Portfolio overview 120 loans across four products and eight cities. Open loan book report Total loan",
+      "container": null,
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 12,
+      "tag": "header",
+      "role": "banner",
+      "name": "",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "Portfolio overview 120 loans across four products and eight cities. Open loan book report",
+      "container": null,
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 13,
+      "tag": "h1",
+      "role": "heading",
+      "name": "Portfolio overview",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "Portfolio overview",
+      "container": null,
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 14,
+      "tag": "a",
+      "role": "link",
+      "name": "Open loan book report",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "Open loan book report",
+      "container": null,
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 15,
+      "tag": "div",
+      "role": "group",
+      "name": "Total loans",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "Total loans 120 74 active",
+      "container": null,
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 16,
+      "tag": "dd",
+      "role": null,
+      "name": "",
+      "testid": "kpi-value",
+      "label": null,
+      "placeholder": null,
+      "text": "120",
+      "container": {
+        "role": "group",
+        "name": "Total loans"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 17,
+      "tag": "div",
+      "role": "group",
+      "name": "Principal disbursed",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "Principal disbursed ₹36,80,70,000 Across four loan products",
+      "container": null,
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 18,
+      "tag": "dd",
+      "role": null,
+      "name": "",
+      "testid": "kpi-value",
+      "label": null,
+      "placeholder": null,
+      "text": "₹36,80,70,000",
+      "container": {
+        "role": "group",
+        "name": "Principal disbursed"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 19,
+      "tag": "div",
+      "role": "group",
+      "name": "Weighted avg. rate",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "Weighted avg. rate 9.86% Weighted by principal",
+      "container": null,
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 20,
+      "tag": "dd",
+      "role": null,
+      "name": "",
+      "testid": "kpi-value",
+      "label": null,
+      "placeholder": null,
+      "text": "9.86%",
+      "container": {
+        "role": "group",
+        "name": "Weighted avg. rate"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 21,
+      "tag": "div",
+      "role": "group",
+      "name": "Monthly EMI inflow",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "Monthly EMI inflow ₹38,72,688 Active and overdue loans",
+      "container": null,
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 22,
+      "tag": "dd",
+      "role": null,
+      "name": "",
+      "testid": "kpi-value",
+      "label": null,
+      "placeholder": null,
+      "text": "₹38,72,688",
+      "container": {
+        "role": "group",
+        "name": "Monthly EMI inflow"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 23,
+      "tag": "figure",
+      "role": "figure",
+      "name": "Principal by loan type",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "Principal by loan type Principal ₹36.81 Cr Segment Principal Share Home ₹26,05,00,000 70.8% Personal",
+      "container": null,
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 24,
+      "tag": "svg",
+      "role": "group",
+      "name": "Principal by loan type chart",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "Principal₹36.81 Cr",
+      "container": {
+        "role": "figure",
+        "name": "Principal by loan type"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 25,
+      "tag": "path",
+      "role": "img",
+      "name": "Home: ₹26,05,00,000 (70.8%)",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "",
+      "container": {
+        "role": "group",
+        "name": "Principal by loan type chart"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 26,
+      "tag": "path",
+      "role": "img",
+      "name": "Personal: ₹6,34,40,000 (17.2%)",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "",
+      "container": {
+        "role": "group",
+        "name": "Principal by loan type chart"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 27,
+      "tag": "path",
+      "role": "img",
+      "name": "Car: ₹3,31,80,000 (9.0%)",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "",
+      "container": {
+        "role": "group",
+        "name": "Principal by loan type chart"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 28,
+      "tag": "path",
+      "role": "img",
+      "name": "Education: ₹1,09,50,000 (3.0%)",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "",
+      "container": {
+        "role": "group",
+        "name": "Principal by loan type chart"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 29,
+      "tag": "table",
+      "role": "table",
+      "name": "Principal by loan type values",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "Segment Principal Share Home ₹26,05,00,000 70.8% Personal ₹6,34,40,000 17.2% Car ₹3,31,80,000 9.0% E",
+      "container": {
+        "role": "figure",
+        "name": "Principal by loan type"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 30,
+      "tag": "tr",
+      "role": "row",
+      "name": "",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "Segment Principal Share",
+      "container": {
+        "role": "table",
+        "name": "Principal by loan type values"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 31,
+      "tag": "th",
+      "role": "columnheader",
+      "name": "Segment",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "Segment",
+      "container": {
+        "role": "table",
+        "name": "Principal by loan type values"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 32,
+      "tag": "th",
+      "role": "columnheader",
+      "name": "Principal",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "Principal",
+      "container": {
+        "role": "table",
+        "name": "Principal by loan type values"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 33,
+      "tag": "th",
+      "role": "columnheader",
+      "name": "Share",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "Share",
+      "container": {
+        "role": "table",
+        "name": "Principal by loan type values"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 34,
+      "tag": "tr",
+      "role": "row",
+      "name": "",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "Home ₹26,05,00,000 70.8%",
+      "container": {
+        "role": "table",
+        "name": "Principal by loan type values"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 35,
+      "tag": "th",
+      "role": "columnheader",
+      "name": "Home",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "Home",
+      "container": {
+        "role": "table",
+        "name": "Principal by loan type values"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 36,
+      "tag": "td",
+      "role": "cell",
+      "name": "₹26,05,00,000",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "₹26,05,00,000",
+      "container": {
+        "role": "table",
+        "name": "Principal by loan type values"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 37,
+      "tag": "td",
+      "role": "cell",
+      "name": "70.8%",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "70.8%",
+      "container": {
+        "role": "table",
+        "name": "Principal by loan type values"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 38,
+      "tag": "tr",
+      "role": "row",
+      "name": "",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "Personal ₹6,34,40,000 17.2%",
+      "container": {
+        "role": "table",
+        "name": "Principal by loan type values"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 39,
+      "tag": "th",
+      "role": "columnheader",
+      "name": "Personal",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "Personal",
+      "container": {
+        "role": "table",
+        "name": "Principal by loan type values"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 40,
+      "tag": "td",
+      "role": "cell",
+      "name": "₹6,34,40,000",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "₹6,34,40,000",
+      "container": {
+        "role": "table",
+        "name": "Principal by loan type values"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 41,
+      "tag": "td",
+      "role": "cell",
+      "name": "17.2%",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "17.2%",
+      "container": {
+        "role": "table",
+        "name": "Principal by loan type values"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 42,
+      "tag": "tr",
+      "role": "row",
+      "name": "",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "Car ₹3,31,80,000 9.0%",
+      "container": {
+        "role": "table",
+        "name": "Principal by loan type values"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 43,
+      "tag": "th",
+      "role": "columnheader",
+      "name": "Car",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "Car",
+      "container": {
+        "role": "table",
+        "name": "Principal by loan type values"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 44,
+      "tag": "td",
+      "role": "cell",
+      "name": "₹3,31,80,000",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "₹3,31,80,000",
+      "container": {
+        "role": "table",
+        "name": "Principal by loan type values"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 45,
+      "tag": "td",
+      "role": "cell",
+      "name": "9.0%",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "9.0%",
+      "container": {
+        "role": "table",
+        "name": "Principal by loan type values"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 46,
+      "tag": "tr",
+      "role": "row",
+      "name": "",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "Education ₹1,09,50,000 3.0%",
+      "container": {
+        "role": "table",
+        "name": "Principal by loan type values"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 47,
+      "tag": "th",
+      "role": "columnheader",
+      "name": "Education",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "Education",
+      "container": {
+        "role": "table",
+        "name": "Principal by loan type values"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 48,
+      "tag": "td",
+      "role": "cell",
+      "name": "₹1,09,50,000",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "₹1,09,50,000",
+      "container": {
+        "role": "table",
+        "name": "Principal by loan type values"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 49,
+      "tag": "td",
+      "role": "cell",
+      "name": "3.0%",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "3.0%",
+      "container": {
+        "role": "table",
+        "name": "Principal by loan type values"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 50,
+      "tag": "tr",
+      "role": "row",
+      "name": "",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "Total ₹36,80,70,000 100.0%",
+      "container": {
+        "role": "table",
+        "name": "Principal by loan type values"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 51,
+      "tag": "th",
+      "role": "columnheader",
+      "name": "Total",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "Total",
+      "container": {
+        "role": "table",
+        "name": "Principal by loan type values"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 52,
+      "tag": "td",
+      "role": "cell",
+      "name": "₹36,80,70,000",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "₹36,80,70,000",
+      "container": {
+        "role": "table",
+        "name": "Principal by loan type values"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 53,
+      "tag": "td",
+      "role": "cell",
+      "name": "100.0%",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "100.0%",
+      "container": {
+        "role": "table",
+        "name": "Principal by loan type values"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 54,
+      "tag": "figure",
+      "role": "figure",
+      "name": "Loans by status",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "Loans by status Number of loans in each repayment status. 0 20 40 60 80 Active Closed Overdue Pendin",
+      "container": null,
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 55,
+      "tag": "svg",
+      "role": "group",
+      "name": "Loans by status chart",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "020406080ActiveClosedOverduePending",
+      "container": {
+        "role": "figure",
+        "name": "Loans by status"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 56,
+      "tag": "g",
+      "role": "img",
+      "name": "Active: 74 loans",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "",
+      "container": {
+        "role": "group",
+        "name": "Loans by status chart"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 57,
+      "tag": "g",
+      "role": "img",
+      "name": "Closed: 31 loans",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "",
+      "container": {
+        "role": "group",
+        "name": "Loans by status chart"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 58,
+      "tag": "g",
+      "role": "img",
+      "name": "Overdue: 7 loans",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "",
+      "container": {
+        "role": "group",
+        "name": "Loans by status chart"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 59,
+      "tag": "g",
+      "role": "img",
+      "name": "Pending: 8 loans",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "",
+      "container": {
+        "role": "group",
+        "name": "Loans by status chart"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 60,
+      "tag": "h2",
+      "role": "heading",
+      "name": "Recent disbursements",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "Recent disbursements",
+      "container": null,
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 61,
+      "tag": "a",
+      "role": "link",
+      "name": "View all",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "View all",
+      "container": null,
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 62,
+      "tag": "table",
+      "role": "table",
+      "name": "Recent disbursements",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "Loan Borrower Type City Amount Disbursed Status LN-1075 Karan Joshi Education Hyderabad ₹22,00,000 2",
+      "container": null,
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 63,
+      "tag": "tr",
+      "role": "row",
+      "name": "",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "Loan Borrower Type City Amount Disbursed Status",
+      "container": {
+        "role": "table",
+        "name": "Recent disbursements"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 64,
+      "tag": "th",
+      "role": "columnheader",
+      "name": "Loan",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "Loan",
+      "container": {
+        "role": "table",
+        "name": "Recent disbursements"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 65,
+      "tag": "th",
+      "role": "columnheader",
+      "name": "Borrower",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "Borrower",
+      "container": {
+        "role": "table",
+        "name": "Recent disbursements"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 66,
+      "tag": "th",
+      "role": "columnheader",
+      "name": "Type",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "Type",
+      "container": {
+        "role": "table",
+        "name": "Recent disbursements"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 67,
+      "tag": "th",
+      "role": "columnheader",
+      "name": "City",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "City",
+      "container": {
+        "role": "table",
+        "name": "Recent disbursements"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 68,
+      "tag": "th",
+      "role": "columnheader",
+      "name": "Amount",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "Amount",
+      "container": {
+        "role": "table",
+        "name": "Recent disbursements"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 69,
+      "tag": "th",
+      "role": "columnheader",
+      "name": "Disbursed",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "Disbursed",
+      "container": {
+        "role": "table",
+        "name": "Recent disbursements"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 70,
+      "tag": "th",
+      "role": "columnheader",
+      "name": "Status",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "Status",
+      "container": {
+        "role": "table",
+        "name": "Recent disbursements"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 71,
+      "tag": "tr",
+      "role": "row",
+      "name": "",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "LN-1075 Karan Joshi Education Hyderabad ₹22,00,000 24 Sept 2025 Active",
+      "container": {
+        "role": "table",
+        "name": "Recent disbursements"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 72,
+      "tag": "td",
+      "role": "cell",
+      "name": "LN-1075",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "LN-1075",
+      "container": {
+        "role": "table",
+        "name": "Recent disbursements"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 73,
+      "tag": "a",
+      "role": "link",
+      "name": "LN-1075",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "LN-1075",
+      "container": {
+        "role": "table",
+        "name": "Recent disbursements"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 74,
+      "tag": "td",
+      "role": "cell",
+      "name": "Karan Joshi",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "Karan Joshi",
+      "container": {
+        "role": "table",
+        "name": "Recent disbursements"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 75,
+      "tag": "td",
+      "role": "cell",
+      "name": "Education",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "Education",
+      "container": {
+        "role": "table",
+        "name": "Recent disbursements"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 76,
+      "tag": "td",
+      "role": "cell",
+      "name": "Hyderabad",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "Hyderabad",
+      "container": {
+        "role": "table",
+        "name": "Recent disbursements"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 77,
+      "tag": "td",
+      "role": "cell",
+      "name": "₹22,00,000",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "₹22,00,000",
+      "container": {
+        "role": "table",
+        "name": "Recent disbursements"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 78,
+      "tag": "td",
+      "role": "cell",
+      "name": "24 Sept 2025",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "24 Sept 2025",
+      "container": {
+        "role": "table",
+        "name": "Recent disbursements"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 79,
+      "tag": "td",
+      "role": "cell",
+      "name": "Active",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "Active",
+      "container": {
+        "role": "table",
+        "name": "Recent disbursements"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 80,
+      "tag": "tr",
+      "role": "row",
+      "name": "",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "LN-1045 Kabir Malhotra Personal Delhi ₹15,70,000 21 Sept 2025 Pending",
+      "container": {
+        "role": "table",
+        "name": "Recent disbursements"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 81,
+      "tag": "td",
+      "role": "cell",
+      "name": "LN-1045",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "LN-1045",
+      "container": {
+        "role": "table",
+        "name": "Recent disbursements"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 82,
+      "tag": "a",
+      "role": "link",
+      "name": "LN-1045",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "LN-1045",
+      "container": {
+        "role": "table",
+        "name": "Recent disbursements"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 83,
+      "tag": "td",
+      "role": "cell",
+      "name": "Kabir Malhotra",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "Kabir Malhotra",
+      "container": {
+        "role": "table",
+        "name": "Recent disbursements"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 84,
+      "tag": "td",
+      "role": "cell",
+      "name": "Personal",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "Personal",
+      "container": {
+        "role": "table",
+        "name": "Recent disbursements"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 85,
+      "tag": "td",
+      "role": "cell",
+      "name": "Delhi",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "Delhi",
+      "container": {
+        "role": "table",
+        "name": "Recent disbursements"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 86,
+      "tag": "td",
+      "role": "cell",
+      "name": "₹15,70,000",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "₹15,70,000",
+      "container": {
+        "role": "table",
+        "name": "Recent disbursements"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 87,
+      "tag": "td",
+      "role": "cell",
+      "name": "21 Sept 2025",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "21 Sept 2025",
+      "container": {
+        "role": "table",
+        "name": "Recent disbursements"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 88,
+      "tag": "td",
+      "role": "cell",
+      "name": "Pending",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "Pending",
+      "container": {
+        "role": "table",
+        "name": "Recent disbursements"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 89,
+      "tag": "tr",
+      "role": "row",
+      "name": "",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "LN-1117 Pooja Chopra Car Mumbai ₹16,30,000 13 Sept 2025 Active",
+      "container": {
+        "role": "table",
+        "name": "Recent disbursements"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 90,
+      "tag": "td",
+      "role": "cell",
+      "name": "LN-1117",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "LN-1117",
+      "container": {
+        "role": "table",
+        "name": "Recent disbursements"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 91,
+      "tag": "a",
+      "role": "link",
+      "name": "LN-1117",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "LN-1117",
+      "container": {
+        "role": "table",
+        "name": "Recent disbursements"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 92,
+      "tag": "td",
+      "role": "cell",
+      "name": "Pooja Chopra",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "Pooja Chopra",
+      "container": {
+        "role": "table",
+        "name": "Recent disbursements"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 93,
+      "tag": "td",
+      "role": "cell",
+      "name": "Car",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "Car",
+      "container": {
+        "role": "table",
+        "name": "Recent disbursements"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 94,
+      "tag": "td",
+      "role": "cell",
+      "name": "Mumbai",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "Mumbai",
+      "container": {
+        "role": "table",
+        "name": "Recent disbursements"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 95,
+      "tag": "td",
+      "role": "cell",
+      "name": "₹16,30,000",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "₹16,30,000",
+      "container": {
+        "role": "table",
+        "name": "Recent disbursements"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 96,
+      "tag": "td",
+      "role": "cell",
+      "name": "13 Sept 2025",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "13 Sept 2025",
+      "container": {
+        "role": "table",
+        "name": "Recent disbursements"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 97,
+      "tag": "td",
+      "role": "cell",
+      "name": "Active",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "Active",
+      "container": {
+        "role": "table",
+        "name": "Recent disbursements"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 98,
+      "tag": "tr",
+      "role": "row",
+      "name": "",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "LN-1047 Ishaan Pillai Home Jaipur ₹1,19,00,000 10 Sept 2025 Active",
+      "container": {
+        "role": "table",
+        "name": "Recent disbursements"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 99,
+      "tag": "td",
+      "role": "cell",
+      "name": "LN-1047",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "LN-1047",
+      "container": {
+        "role": "table",
+        "name": "Recent disbursements"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 100,
+      "tag": "a",
+      "role": "link",
+      "name": "LN-1047",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "LN-1047",
+      "container": {
+        "role": "table",
+        "name": "Recent disbursements"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 101,
+      "tag": "td",
+      "role": "cell",
+      "name": "Ishaan Pillai",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "Ishaan Pillai",
+      "container": {
+        "role": "table",
+        "name": "Recent disbursements"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 102,
+      "tag": "td",
+      "role": "cell",
+      "name": "Home",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "Home",
+      "container": {
+        "role": "table",
+        "name": "Recent disbursements"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 103,
+      "tag": "td",
+      "role": "cell",
+      "name": "Jaipur",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "Jaipur",
+      "container": {
+        "role": "table",
+        "name": "Recent disbursements"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 104,
+      "tag": "td",
+      "role": "cell",
+      "name": "₹1,19,00,000",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "₹1,19,00,000",
+      "container": {
+        "role": "table",
+        "name": "Recent disbursements"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 105,
+      "tag": "td",
+      "role": "cell",
+      "name": "10 Sept 2025",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "10 Sept 2025",
+      "container": {
+        "role": "table",
+        "name": "Recent disbursements"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 106,
+      "tag": "td",
+      "role": "cell",
+      "name": "Active",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "Active",
+      "container": {
+        "role": "table",
+        "name": "Recent disbursements"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 107,
+      "tag": "tr",
+      "role": "row",
+      "name": "",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "LN-1084 Neha Mehta Home Delhi ₹93,00,000 31 Aug 2025 Active",
+      "container": {
+        "role": "table",
+        "name": "Recent disbursements"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 108,
+      "tag": "td",
+      "role": "cell",
+      "name": "LN-1084",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "LN-1084",
+      "container": {
+        "role": "table",
+        "name": "Recent disbursements"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 109,
+      "tag": "a",
+      "role": "link",
+      "name": "LN-1084",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "LN-1084",
+      "container": {
+        "role": "table",
+        "name": "Recent disbursements"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 110,
+      "tag": "td",
+      "role": "cell",
+      "name": "Neha Mehta",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "Neha Mehta",
+      "container": {
+        "role": "table",
+        "name": "Recent disbursements"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 111,
+      "tag": "td",
+      "role": "cell",
+      "name": "Home",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "Home",
+      "container": {
+        "role": "table",
+        "name": "Recent disbursements"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 112,
+      "tag": "td",
+      "role": "cell",
+      "name": "Delhi",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "Delhi",
+      "container": {
+        "role": "table",
+        "name": "Recent disbursements"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 113,
+      "tag": "td",
+      "role": "cell",
+      "name": "₹93,00,000",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "₹93,00,000",
+      "container": {
+        "role": "table",
+        "name": "Recent disbursements"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 114,
+      "tag": "td",
+      "role": "cell",
+      "name": "31 Aug 2025",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "31 Aug 2025",
+      "container": {
+        "role": "table",
+        "name": "Recent disbursements"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 115,
+      "tag": "td",
+      "role": "cell",
+      "name": "Active",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "Active",
+      "container": {
+        "role": "table",
+        "name": "Recent disbursements"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 116,
+      "tag": "footer",
+      "role": "contentinfo",
+      "name": "",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "LoanLens · demonstration build · all borrowers, amounts and dates are synthetic. EMI = P × r × (1 + ",
+      "container": null,
+      "visible": true,
+      "matchedBroken": false
+    }
+  ],
+  "screenshot": "reports/self-healing/healing/incidents/dashboard.totalLoansValue.png",
+  "at": "2026-10-07T15:40:12.745Z"
+}

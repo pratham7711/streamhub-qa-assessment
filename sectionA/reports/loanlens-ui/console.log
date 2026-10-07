@@ -1,0 +1,1070 @@
+# loanlens-ui — 2026-10-07T15:39:36.403Z — TEST_ENV=local — node v26.7.0
+
+
+Feature: LoanLens UI - EMI calculator
+
+  @web-app @ui @loanlens-ui
+  Scenario Outline: A 25L loan at 10% for 10 years from 2026-10                                        # loanlens-ui/features/calculator.feature:22
+    ✔ Given I open the LoanLens EMI calculator                                                         # loanlens-ui/steps/loanlens-ui.steps.ts:102
+    ✔ When I enter a loan of "25L" at 10% for 10 years with the first EMI in "2026-10"                 # loanlens-ui/steps/loanlens-ui.steps.ts:276
+
+          Independently computed
+          {
+            "input": {
+              "principal": 2500000,
+              "annualRatePct": 10,
+              "months": 120
+            },
+            "emi": 33037.684220440475,
+            "totalPayment": 3964522.106452857,
+            "totalInterest": 1464522.1064528571,
+            "principalShare": 0.6305930280804521,
+            "interestShare": 0.3694069719195478
+          }
+
+    ✔ Then the monthly EMI, total interest and total payment should match my own calculation           # loanlens-ui/steps/loanlens-ui.steps.ts:328
+    ✔ And the payment break-up donut should split the total payment into principal and total interest  # loanlens-ui/steps/loanlens-ui.steps.ts:345
+    ✔ And the slices of the "Break-up of total payment" donut should add up to the total in its legend # loanlens-ui/steps/loanlens-ui.steps.ts:205
+
+          Calendar years: 2026, 2027, 2028, 2029, 2030, 2031, 2032, 2033, 2034, 2035, 2036 (11 bars)
+
+    ✔ And the yearly payments chart should have one bar per calendar year of my own schedule           # loanlens-ui/steps/loanlens-ui.steps.ts:372
+    ✔ And every yearly bar should match my own calendar-year amortisation                              # loanlens-ui/steps/loanlens-ui.steps.ts:379
+    ✔ And the yearly amortisation table should match my own calendar-year amortisation                 # loanlens-ui/steps/loanlens-ui.steps.ts:386
+
+          Embedding a-25l-loan-at-10-for-10-years-from-2026-10--01-calculated-25l-at-10-for-10-years.png [image/png 111963 bytes]
+
+    ✔ And I capture evidence "calculated 25L at 10% for 10 years"                                      # loanlens-ui/steps/loanlens-ui.steps.ts:174
+
+  @web-app @ui @loanlens-ui
+  Scenario Outline: A 18L loan at 9.25% for 30 months from 2026-12                                     # loanlens-ui/features/calculator.feature:26
+    ✔ Given I open the LoanLens EMI calculator                                                         # loanlens-ui/steps/loanlens-ui.steps.ts:102
+    ✔ When I enter a loan of "18L" at 9.25% for 30 months with the first EMI in "2026-12"              # loanlens-ui/steps/loanlens-ui.steps.ts:276
+
+          Independently computed
+          {
+            "input": {
+              "principal": 1800000,
+              "annualRatePct": 9.25,
+              "months": 30
+            },
+            "emi": 67434.57630370873,
+            "totalPayment": 2023037.289111262,
+            "totalInterest": 223037.28911126195,
+            "principalShare": 0.8897512713622574,
+            "interestShare": 0.11024872863774261
+          }
+
+    ✔ Then the monthly EMI, total interest and total payment should match my own calculation           # loanlens-ui/steps/loanlens-ui.steps.ts:328
+    ✔ And the payment break-up donut should split the total payment into principal and total interest  # loanlens-ui/steps/loanlens-ui.steps.ts:345
+    ✔ And the slices of the "Break-up of total payment" donut should add up to the total in its legend # loanlens-ui/steps/loanlens-ui.steps.ts:205
+
+          Calendar years: 2026, 2027, 2028, 2029 (4 bars)
+
+    ✔ And the yearly payments chart should have one bar per calendar year of my own schedule           # loanlens-ui/steps/loanlens-ui.steps.ts:372
+    ✔ And every yearly bar should match my own calendar-year amortisation                              # loanlens-ui/steps/loanlens-ui.steps.ts:379
+    ✔ And the yearly amortisation table should match my own calendar-year amortisation                 # loanlens-ui/steps/loanlens-ui.steps.ts:386
+
+          Embedding a-18l-loan-at-9-25-for-30-months-from-2026-12--01-calculated-18l-at-9-25-for-30-months.png [image/png 111552 bytes]
+
+    ✔ And I capture evidence "calculated 18L at 9.25% for 30 months"                                   # loanlens-ui/steps/loanlens-ui.steps.ts:174
+
+  @web-app @ui @loanlens-ui
+  Scenario: A zero-interest loan repays only the principal                                   # loanlens-ui/features/calculator.feature:28
+    ✔ Given I open the LoanLens EMI calculator                                               # loanlens-ui/steps/loanlens-ui.steps.ts:102
+    ✔ When I enter a loan of "6L" at 0% for 24 months with the first EMI in "2027-01"        # loanlens-ui/steps/loanlens-ui.steps.ts:276
+
+          Independently computed
+          {
+            "input": {
+              "principal": 600000,
+              "annualRatePct": 0,
+              "months": 24
+            },
+            "emi": 25000,
+            "totalPayment": 600000,
+            "totalInterest": 0,
+            "principalShare": 1,
+            "interestShare": 0
+          }
+
+    ✔ Then the monthly EMI, total interest and total payment should match my own calculation # loanlens-ui/steps/loanlens-ui.steps.ts:328
+    ✔ And the monthly EMI should be "₹25,000" and the total interest "₹0"                    # loanlens-ui/steps/loanlens-ui.steps.ts:339
+    ✔ And the payment break-up donut should draw the principal as its only slice             # loanlens-ui/steps/loanlens-ui.steps.ts:361
+
+          Calendar years: 2027, 2028 (2 bars)
+
+    ✔ And the yearly payments chart should have one bar per calendar year of my own schedule # loanlens-ui/steps/loanlens-ui.steps.ts:372
+    ✔ And every yearly bar should match my own calendar-year amortisation                    # loanlens-ui/steps/loanlens-ui.steps.ts:379
+
+          Embedding a-zero-interest-loan-repays-only-the-principal--01-zero-interest-loan.png [image/png 104376 bytes]
+
+    ✔ And I capture evidence "zero interest loan"                                            # loanlens-ui/steps/loanlens-ui.steps.ts:174
+
+  @web-app @ui @loanlens-ui
+  Scenario: The sliders set the same values as the number boxes                              # loanlens-ui/features/calculator.feature:37
+    ✔ Given I open the LoanLens EMI calculator                                               # loanlens-ui/steps/loanlens-ui.steps.ts:102
+    ✔ When I use the sliders' keyboard controls to set a loan of "10L" at 12% for 5 years    # loanlens-ui/steps/loanlens-ui.steps.ts:286
+    ✔ Then the number boxes should show 1000000, 12 and 5                                    # loanlens-ui/steps/loanlens-ui.steps.ts:299
+
+          Independently computed
+          {
+            "input": {
+              "principal": 1000000,
+              "annualRatePct": 12,
+              "months": 60
+            },
+            "emi": 22244.447684901763,
+            "totalPayment": 1334666.8610941058,
+            "totalInterest": 334666.86109410576,
+            "principalShare": 0.7492506401037339,
+            "interestShare": 0.2507493598962661
+          }
+
+    ✔ And the monthly EMI, total interest and total payment should match my own calculation  # loanlens-ui/steps/loanlens-ui.steps.ts:328
+
+          Calendar years: 2026, 2027, 2028, 2029, 2030, 2031 (6 bars)
+
+    ✔ And the yearly payments chart should have one bar per calendar year of my own schedule # loanlens-ui/steps/loanlens-ui.steps.ts:372
+
+  @web-app @ui @loanlens-ui
+  Scenario: Switching the tenure unit converts the tenure without changing the EMI          # loanlens-ui/features/calculator.feature:43
+    ✔ Given I open the LoanLens EMI calculator                                              # loanlens-ui/steps/loanlens-ui.steps.ts:102
+    ✔ When I enter a loan of "25L" at 10% for 10 years with the first EMI in "2026-10"      # loanlens-ui/steps/loanlens-ui.steps.ts:276
+    ✔ And I switch the tenure unit to "months"                                              # loanlens-ui/steps/loanlens-ui.steps.ts:306
+    ✔ Then the "Loan tenure" box should contain "120"                                       # loanlens-ui/steps/loanlens-ui.steps.ts:314
+
+          Independently computed
+          {
+            "input": {
+              "principal": 2500000,
+              "annualRatePct": 10,
+              "months": 120
+            },
+            "emi": 33037.684220440475,
+            "totalPayment": 3964522.106452857,
+            "totalInterest": 1464522.1064528571,
+            "principalShare": 0.6305930280804521,
+            "interestShare": 0.3694069719195478
+          }
+
+    ✔ And the monthly EMI, total interest and total payment should match my own calculation # loanlens-ui/steps/loanlens-ui.steps.ts:328
+
+  @web-app @ui @loanlens-ui
+  Scenario: A bar tooltip opens on hover and on keyboard focus                                       # loanlens-ui/features/calculator.feature:49
+    ✔ Given I open the LoanLens EMI calculator                                                       # loanlens-ui/steps/loanlens-ui.steps.ts:102
+    ✔ When I enter a loan of "10L" at 12% for 5 years with the first EMI in "2027-03"                # loanlens-ui/steps/loanlens-ui.steps.ts:276
+    ✔ And I hover over the "2028" bar of the yearly payments chart                                   # loanlens-ui/steps/loanlens-ui.steps.ts:408
+
+          Tooltip for 2028
+          {
+            "title": "2028",
+            "values": {
+              "Principal": "₹1,71,537",
+              "Interest": "₹95,396",
+              "Total": "₹2,66,933",
+              "Payments": "12",
+              "Balance": "₹7,00,359"
+            }
+          }
+
+    ✔ Then the chart tooltip should show the 2028 principal, interest and total from my own schedule # loanlens-ui/steps/loanlens-ui.steps.ts:421
+
+          Embedding a-bar-tooltip-opens-on-hover-and-on-keyboard-focus--01-tooltip-on-hover.png [image/png 113376 bytes]
+
+    ✔ And I capture evidence "tooltip on hover"                                                      # loanlens-ui/steps/loanlens-ui.steps.ts:174
+    ✔ When I move the pointer away from the chart                                                    # loanlens-ui/steps/loanlens-ui.steps.ts:412
+    ✔ Then no chart tooltip should be open                                                           # loanlens-ui/steps/loanlens-ui.steps.ts:437
+    ✔ When I move keyboard focus to the "2027" bar of the yearly payments chart                      # loanlens-ui/steps/loanlens-ui.steps.ts:416
+
+          Tooltip for 2027
+          {
+            "title": "2027",
+            "values": {
+              "Principal": "₹1,28,104",
+              "Interest": "₹94,340",
+              "Total": "₹2,22,444",
+              "Payments": "10",
+              "Balance": "₹8,71,896"
+            }
+          }
+
+    ✔ Then the chart tooltip should show the 2027 principal, interest and total from my own schedule # loanlens-ui/steps/loanlens-ui.steps.ts:421
+    ✔ And the focused bar should be described by the tooltip                                         # loanlens-ui/steps/loanlens-ui.steps.ts:441
+    ✔ When I press Tab                                                                               # loanlens-ui/steps/loanlens-ui.steps.ts:142
+
+          Tooltip for 2028
+          {
+            "title": "2028",
+            "values": {
+              "Principal": "₹1,71,537",
+              "Interest": "₹95,396",
+              "Total": "₹2,66,933",
+              "Payments": "12",
+              "Balance": "₹7,00,359"
+            }
+          }
+
+    ✔ Then the chart tooltip should show the 2028 principal, interest and total from my own schedule # loanlens-ui/steps/loanlens-ui.steps.ts:421
+
+          Embedding a-bar-tooltip-opens-on-hover-and-on-keyboard-focus--02-tooltip-on-keyboard-focus.png [image/png 112953 bytes]
+
+    ✔ And I capture evidence "tooltip on keyboard focus"                                             # loanlens-ui/steps/loanlens-ui.steps.ts:174
+
+  @web-app @ui @loanlens-ui
+  Scenario Outline: Loan amount negative shows the validation message on the field                             # loanlens-ui/features/calculator.feature:78
+    ✔ Given I open the LoanLens EMI calculator                                                                 # loanlens-ui/steps/loanlens-ui.steps.ts:102
+    ✔ When I enter a loan of "25L" at 10% for 10 years with the first EMI in "2026-10"                         # loanlens-ui/steps/loanlens-ui.steps.ts:276
+    ✔ And I type "-2383434" into the "Loan amount" box                                                         # loanlens-ui/steps/loanlens-ui.steps.ts:318
+    ✔ Then the "Loan amount" box should show the error "Loan amount must be between ₹1,000 and ₹10,00,00,000." # loanlens-ui/steps/loanlens-ui.steps.ts:447
+    ✔ And the repayment summary should ask me to fix the highlighted field                                     # loanlens-ui/steps/loanlens-ui.steps.ts:451
+    ✔ And the yearly chart and amortisation table should be hidden                                             # loanlens-ui/steps/loanlens-ui.steps.ts:457
+
+          Embedding loan-amount-negative-shows-the-validation-message-on-the-field--01-validation-loan-amount-negative.png [image/png 77589 bytes]
+
+    ✔ And I capture evidence "validation Loan amount negative"                                                 # loanlens-ui/steps/loanlens-ui.steps.ts:174
+    ✔ When I type "2000000" into the "Loan amount" box                                                         # loanlens-ui/steps/loanlens-ui.steps.ts:318
+
+          Independently computed
+          {
+            "input": {
+              "principal": 2000000,
+              "annualRatePct": 10,
+              "months": 120
+            },
+            "emi": 26430.147376352386,
+            "totalPayment": 3171617.6851622863,
+            "totalInterest": 1171617.6851622863,
+            "principalShare": 0.630593028080452,
+            "interestShare": 0.3694069719195479
+          }
+
+    ✔ Then the monthly EMI, total interest and total payment should match my own calculation                   # loanlens-ui/steps/loanlens-ui.steps.ts:328
+
+  @web-app @ui @loanlens-ui
+  Scenario Outline: Interest rate negative shows the validation message on the field                 # loanlens-ui/features/calculator.feature:79
+    ✔ Given I open the LoanLens EMI calculator                                                       # loanlens-ui/steps/loanlens-ui.steps.ts:102
+    ✔ When I enter a loan of "25L" at 10% for 10 years with the first EMI in "2026-10"               # loanlens-ui/steps/loanlens-ui.steps.ts:276
+    ✔ And I type "-8.5" into the "Interest rate" box                                                 # loanlens-ui/steps/loanlens-ui.steps.ts:318
+    ✔ Then the "Interest rate" box should show the error "Interest rate must be between 0% and 50%." # loanlens-ui/steps/loanlens-ui.steps.ts:447
+    ✔ And the repayment summary should ask me to fix the highlighted field                           # loanlens-ui/steps/loanlens-ui.steps.ts:451
+    ✔ And the yearly chart and amortisation table should be hidden                                   # loanlens-ui/steps/loanlens-ui.steps.ts:457
+
+          Embedding interest-rate-negative-shows-the-validation-message-on-the-field--01-validation-interest-rate-negative.png [image/png 79047 bytes]
+
+    ✔ And I capture evidence "validation Interest rate negative"                                     # loanlens-ui/steps/loanlens-ui.steps.ts:174
+    ✔ When I type "9" into the "Interest rate" box                                                   # loanlens-ui/steps/loanlens-ui.steps.ts:318
+
+          Independently computed
+          {
+            "input": {
+              "principal": 2500000,
+              "annualRatePct": 9,
+              "months": 120
+            },
+            "emi": 31668.943437562215,
+            "totalPayment": 3800273.212507466,
+            "totalInterest": 1300273.2125074659,
+            "principalShare": 0.6578474389083384,
+            "interestShare": 0.3421525610916616
+          }
+
+    ✔ Then the monthly EMI, total interest and total payment should match my own calculation         # loanlens-ui/steps/loanlens-ui.steps.ts:328
+
+  @web-app @ui @loanlens-ui
+  Scenario Outline: Loan tenure over 40 years shows the validation message on the field                                                   # loanlens-ui/features/calculator.feature:80
+    ✔ Given I open the LoanLens EMI calculator                                                                                            # loanlens-ui/steps/loanlens-ui.steps.ts:102
+    ✔ When I enter a loan of "25L" at 10% for 10 years with the first EMI in "2026-10"                                                    # loanlens-ui/steps/loanlens-ui.steps.ts:276
+    ✔ And I type "50" into the "Loan tenure" box                                                                                          # loanlens-ui/steps/loanlens-ui.steps.ts:318
+    ✔ Then the "Loan tenure" box should show the error "Loan tenure must be a whole number of months between 1 and 480 (got 600 months)." # loanlens-ui/steps/loanlens-ui.steps.ts:447
+    ✔ And the repayment summary should ask me to fix the highlighted field                                                                # loanlens-ui/steps/loanlens-ui.steps.ts:451
+    ✔ And the yearly chart and amortisation table should be hidden                                                                        # loanlens-ui/steps/loanlens-ui.steps.ts:457
+
+          Embedding loan-tenure-over-40-years-shows-the-validation-message-on-the-field--01-validation-loan-tenure-over-40-years.png [image/png 82032 bytes]
+
+    ✔ And I capture evidence "validation Loan tenure over 40 years"                                                                       # loanlens-ui/steps/loanlens-ui.steps.ts:174
+    ✔ When I type "20" into the "Loan tenure" box                                                                                         # loanlens-ui/steps/loanlens-ui.steps.ts:318
+
+          Independently computed
+          {
+            "input": {
+              "principal": 2500000,
+              "annualRatePct": 10,
+              "months": 240
+            },
+            "emi": 24125.54112685022,
+            "totalPayment": 5790129.870444053,
+            "totalInterest": 3290129.870444053,
+            "principalShare": 0.4317692445486152,
+            "interestShare": 0.5682307554513848
+          }
+
+    ✔ Then the monthly EMI, total interest and total payment should match my own calculation                                              # loanlens-ui/steps/loanlens-ui.steps.ts:328
+
+  @web-app @ui @loanlens-ui
+  Scenario Outline: Loan amount in fractions of a paisa shows the validation message on the field        # loanlens-ui/features/calculator.feature:84
+    ✔ Given I open the LoanLens EMI calculator                                                           # loanlens-ui/steps/loanlens-ui.steps.ts:102
+    ✔ When I enter a loan of "25L" at 10% for 10 years with the first EMI in "2026-10"                   # loanlens-ui/steps/loanlens-ui.steps.ts:276
+    ✔ And I type "100000.555" into the "Loan amount" box                                                 # loanlens-ui/steps/loanlens-ui.steps.ts:318
+    ✔ Then the "Loan amount" box should show the error "Loan amount must have at most 2 decimal places." # loanlens-ui/steps/loanlens-ui.steps.ts:447
+    ✔ And the repayment summary should ask me to fix the highlighted field                               # loanlens-ui/steps/loanlens-ui.steps.ts:451
+    ✔ And the yearly chart and amortisation table should be hidden                                       # loanlens-ui/steps/loanlens-ui.steps.ts:457
+
+          Embedding loan-amount-in-fractions-of-a-paisa-shows-the-validation-message-on-the-field--01-validation-loan-amount-in-fractions-of-a-paisa.png [image/png 78594 bytes]
+
+    ✔ And I capture evidence "validation Loan amount in fractions of a paisa"                            # loanlens-ui/steps/loanlens-ui.steps.ts:174
+    ✔ When I type "2000000" into the "Loan amount" box                                                   # loanlens-ui/steps/loanlens-ui.steps.ts:318
+
+          Independently computed
+          {
+            "input": {
+              "principal": 2000000,
+              "annualRatePct": 10,
+              "months": 120
+            },
+            "emi": 26430.147376352386,
+            "totalPayment": 3171617.6851622863,
+            "totalInterest": 1171617.6851622863,
+            "principalShare": 0.630593028080452,
+            "interestShare": 0.3694069719195479
+          }
+
+    ✔ Then the monthly EMI, total interest and total payment should match my own calculation             # loanlens-ui/steps/loanlens-ui.steps.ts:328
+
+  @web-app @ui @loanlens-ui
+  Scenario Outline: Loan amount left empty shows the validation message on the field         # loanlens-ui/features/calculator.feature:88
+    ✔ Given I open the LoanLens EMI calculator                                               # loanlens-ui/steps/loanlens-ui.steps.ts:102
+    ✔ When I enter a loan of "25L" at 10% for 10 years with the first EMI in "2026-10"       # loanlens-ui/steps/loanlens-ui.steps.ts:276
+    ✔ And I type "" into the "Loan amount" box                                               # loanlens-ui/steps/loanlens-ui.steps.ts:318
+    ✔ Then the "Loan amount" box should show the error "Enter a loan amount in rupees."      # loanlens-ui/steps/loanlens-ui.steps.ts:447
+    ✔ And the repayment summary should ask me to fix the highlighted field                   # loanlens-ui/steps/loanlens-ui.steps.ts:451
+    ✔ And the yearly chart and amortisation table should be hidden                           # loanlens-ui/steps/loanlens-ui.steps.ts:457
+
+          Embedding loan-amount-left-empty-shows-the-validation-message-on-the-field--01-validation-loan-amount-left-empty.png [image/png 73941 bytes]
+
+    ✔ And I capture evidence "validation Loan amount left empty"                             # loanlens-ui/steps/loanlens-ui.steps.ts:174
+    ✔ When I type "3000000" into the "Loan amount" box                                       # loanlens-ui/steps/loanlens-ui.steps.ts:318
+
+          Independently computed
+          {
+            "input": {
+              "principal": 3000000,
+              "annualRatePct": 10,
+              "months": 120
+            },
+            "emi": 39645.221064528574,
+            "totalPayment": 4757426.527743429,
+            "totalInterest": 1757426.527743429,
+            "principalShare": 0.6305930280804521,
+            "interestShare": 0.36940697191954786
+          }
+
+    ✔ Then the monthly EMI, total interest and total payment should match my own calculation # loanlens-ui/steps/loanlens-ui.steps.ts:328
+
+  @web-app @ui @loanlens-ui
+  Scenario Outline: Loan amount in exponent notation shows the validation message on the field                             # loanlens-ui/features/calculator.feature:93
+    ✔ Given I open the LoanLens EMI calculator                                                                             # loanlens-ui/steps/loanlens-ui.steps.ts:102
+    ✔ When I enter a loan of "25L" at 10% for 10 years with the first EMI in "2026-10"                                     # loanlens-ui/steps/loanlens-ui.steps.ts:276
+    ✔ And I type "1e6" into the "Loan amount" box                                                                          # loanlens-ui/steps/loanlens-ui.steps.ts:318
+    ✔ Then the "Loan amount" box should show the error "Loan amount must be written in plain digits, for example 2500000." # loanlens-ui/steps/loanlens-ui.steps.ts:447
+    ✔ And the repayment summary should ask me to fix the highlighted field                                                 # loanlens-ui/steps/loanlens-ui.steps.ts:451
+    ✔ And the yearly chart and amortisation table should be hidden                                                         # loanlens-ui/steps/loanlens-ui.steps.ts:457
+
+          Embedding loan-amount-in-exponent-notation-shows-the-validation-message-on-the-field--01-validation-loan-amount-in-exponent-notation.png [image/png 79521 bytes]
+
+    ✔ And I capture evidence "validation Loan amount in exponent notation"                                                 # loanlens-ui/steps/loanlens-ui.steps.ts:174
+    ✔ When I type "2000000" into the "Loan amount" box                                                                     # loanlens-ui/steps/loanlens-ui.steps.ts:318
+
+          Independently computed
+          {
+            "input": {
+              "principal": 2000000,
+              "annualRatePct": 10,
+              "months": 120
+            },
+            "emi": 26430.147376352386,
+            "totalPayment": 3171617.6851622863,
+            "totalInterest": 1171617.6851622863,
+            "principalShare": 0.630593028080452,
+            "interestShare": 0.3694069719195479
+          }
+
+    ✔ Then the monthly EMI, total interest and total payment should match my own calculation                               # loanlens-ui/steps/loanlens-ui.steps.ts:328
+
+  @web-app @ui @loanlens-ui
+  Scenario: Keystrokes the browser keeps but cannot read as a number are reported      # loanlens-ui/features/calculator.feature:97
+    ✔ Given I open the LoanLens EMI calculator                                         # loanlens-ui/steps/loanlens-ui.steps.ts:102
+    ✔ When I enter a loan of "25L" at 10% for 10 years with the first EMI in "2026-10" # loanlens-ui/steps/loanlens-ui.steps.ts:276
+
+          Pressed "--5"; the box holds ""
+
+    ✔ And I clear the "Loan amount" box and press the keys "--5"                       # loanlens-ui/steps/loanlens-ui.steps.ts:740
+    ✔ Then the "Loan amount" box should show the error "Loan amount must be a number." # loanlens-ui/steps/loanlens-ui.steps.ts:447
+    ✔ And the repayment summary should ask me to fix the highlighted field             # loanlens-ui/steps/loanlens-ui.steps.ts:451
+
+          Embedding keystrokes-the-browser-keeps-but-cannot-read-as-a-number-are-reported--01-keys-two-minus-signs.png [image/png 73980 bytes]
+
+    ✔ And I capture evidence "keys two minus signs"                                    # loanlens-ui/steps/loanlens-ui.steps.ts:174
+
+  @web-app @ui @loanlens-ui
+  Scenario: Letters typed between digits never reach the amount box                         # loanlens-ui/features/calculator.feature:106
+    ✔ Given I open the LoanLens EMI calculator                                              # loanlens-ui/steps/loanlens-ui.steps.ts:102
+    ✔ When I enter a loan of "25L" at 10% for 10 years with the first EMI in "2026-10"      # loanlens-ui/steps/loanlens-ui.steps.ts:276
+
+          Pressed "12abc34"; the box holds "1234"
+
+    ✔ And I clear the "Loan amount" box and press the keys "12abc34"                        # loanlens-ui/steps/loanlens-ui.steps.ts:740
+    ✔ Then the "Loan amount" box should contain "1234"                                      # loanlens-ui/steps/loanlens-ui.steps.ts:314
+
+          Independently computed
+          {
+            "input": {
+              "principal": 1234,
+              "annualRatePct": 10,
+              "months": 120
+            },
+            "emi": 16.30740093120942,
+            "totalPayment": 1956.8881117451301,
+            "totalInterest": 722.8881117451301,
+            "principalShare": 0.6305930280804523,
+            "interestShare": 0.36940697191954774
+          }
+
+    ✔ And the monthly EMI, total interest and total payment should match my own calculation # loanlens-ui/steps/loanlens-ui.steps.ts:328
+
+  @web-app @ui @loanlens-ui
+  Scenario: The summary shows a busy state while a new plan is calculated                    # loanlens-ui/features/calculator.feature:112
+    ✔ Given I open the LoanLens EMI calculator                                               # loanlens-ui/steps/loanlens-ui.steps.ts:102
+    ✔ Given the browser's clock is under the test's control                                  # loanlens-ui/steps/loanlens-ui.steps.ts:465
+    ✔ When I enter a loan of "25L" at 10% for 10 years with the first EMI in "2026-10"       # loanlens-ui/steps/loanlens-ui.steps.ts:276
+    ✔ And the browser's clock stops                                                          # loanlens-ui/steps/loanlens-ui.steps.ts:470
+    ✔ And I type "3000000" into the "Loan amount" box                                        # loanlens-ui/steps/loanlens-ui.steps.ts:318
+    ✔ Then the repayment summary should be marked as busy                                    # loanlens-ui/steps/loanlens-ui.steps.ts:478
+
+          Embedding the-summary-shows-a-busy-state-while-a-new-plan-is-calculated--01-recalculating.png [image/png 112512 bytes]
+
+    ✔ And I capture evidence "recalculating"                                                 # loanlens-ui/steps/loanlens-ui.steps.ts:174
+    ✔ When the browser's clock runs again                                                    # loanlens-ui/steps/loanlens-ui.steps.ts:474
+
+          Independently computed
+          {
+            "input": {
+              "principal": 3000000,
+              "annualRatePct": 10,
+              "months": 120
+            },
+            "emi": 39645.221064528574,
+            "totalPayment": 4757426.527743429,
+            "totalInterest": 1757426.527743429,
+            "principalShare": 0.6305930280804521,
+            "interestShare": 0.36940697191954786
+          }
+
+    ✔ Then the monthly EMI, total interest and total payment should match my own calculation # loanlens-ui/steps/loanlens-ui.steps.ts:328
+
+Feature: LoanLens UI - Portfolio dashboard
+
+  @web-app @ui @loanlens-ui
+  Scenario: The dashboard loads with its heading, navigation and title                     # loanlens-ui/features/dashboard.feature:10
+    ✔ Given I open the LoanLens dashboard                                                  # loanlens-ui/steps/loanlens-ui.steps.ts:98
+    ✔ Then the LoanLens screen heading should be "Portfolio overview"                      # loanlens-ui/steps/loanlens-ui.steps.ts:155
+    ✔ And the browser tab title should be "Portfolio overview · LoanLens"                  # loanlens-ui/steps/loanlens-ui.steps.ts:159
+    ✔ And the "Dashboard" link in the main navigation should be marked as the current page # loanlens-ui/steps/loanlens-ui.steps.ts:163
+
+  @web-app @ui @loanlens-ui
+  Scenario Outline: The main navigation opens the calculator screen                             # loanlens-ui/features/dashboard.feature:23
+    ✔ Given I open the LoanLens dashboard                                                       # loanlens-ui/steps/loanlens-ui.steps.ts:98
+    ✔ When I follow the "EMI calculator" link in the main navigation                            # loanlens-ui/steps/loanlens-ui.steps.ts:118
+    ✔ Then the address bar should show "/calculator"                                            # loanlens-ui/steps/loanlens-ui.steps.ts:146
+    ✔ And the LoanLens screen heading should be "EMI calculator"                                # loanlens-ui/steps/loanlens-ui.steps.ts:155
+    ✔ And the "EMI calculator" link in the main navigation should be marked as the current page # loanlens-ui/steps/loanlens-ui.steps.ts:163
+
+  @web-app @ui @loanlens-ui
+  Scenario Outline: The main navigation opens the report screen                          # loanlens-ui/features/dashboard.feature:24
+    ✔ Given I open the LoanLens dashboard                                                # loanlens-ui/steps/loanlens-ui.steps.ts:98
+    ✔ When I follow the "Reports" link in the main navigation                            # loanlens-ui/steps/loanlens-ui.steps.ts:118
+    ✔ Then the address bar should show "/reports"                                        # loanlens-ui/steps/loanlens-ui.steps.ts:146
+    ✔ And the LoanLens screen heading should be "Loan book report"                       # loanlens-ui/steps/loanlens-ui.steps.ts:155
+    ✔ And the "Reports" link in the main navigation should be marked as the current page # loanlens-ui/steps/loanlens-ui.steps.ts:163
+
+  @web-app @ui @loanlens-ui
+  Scenario: The key figures match the loan book                 # loanlens-ui/features/dashboard.feature:26
+    ✔ Given I open the LoanLens dashboard                       # loanlens-ui/steps/loanlens-ui.steps.ts:98
+
+          Loan book summary (oracle)
+          {
+            "count": 120,
+            "totalPrincipal": 368070000,
+            "weightedAverageRate": 9.862141712174315,
+            "monthlyEmiInflow": 3872687.9199999995,
+            "byType": {
+              "home": {
+                "count": 39,
+                "principal": 260500000
+              },
+              "personal": {
+                "count": 49,
+                "principal": 63440000
+              },
+              "car": {
+                "count": 27,
+                "principal": 33180000
+              },
+              "education": {
+                "count": 5,
+                "principal": 10950000
+              }
+            },
+            "byStatus": {
+              "active": {
+                "count": 74,
+                "principal": 229460000
+              },
+              "closed": {
+                "count": 31,
+                "principal": 74640000
+              },
+              "overdue": {
+                "count": 7,
+                "principal": 21370000
+              },
+              "pending": {
+                "count": 8,
+                "principal": 42600000
+              }
+            }
+          }
+
+    ✔ Then the dashboard key figures should match the loan book # loanlens-ui/steps/loanlens-ui.steps.ts:180
+
+          Embedding the-key-figures-match-the-loan-book--01-dashboard-key-figures.png [image/png 126057 bytes]
+
+    ✔ And I capture evidence "dashboard key figures"            # loanlens-ui/steps/loanlens-ui.steps.ts:174
+
+  @web-app @ui @loanlens-ui
+  Scenario: The principal-by-type donut reconciles to the total principal                                                  # loanlens-ui/features/dashboard.feature:30
+    ✔ Given I open the LoanLens dashboard                                                                                  # loanlens-ui/steps/loanlens-ui.steps.ts:98
+    ✔ Then the "Principal by loan type" donut should draw one non-empty slice per loan type with the loan book's principal # loanlens-ui/steps/loanlens-ui.steps.ts:191
+    ✔ And the slices of the "Principal by loan type" donut should add up to the total in its legend                        # loanlens-ui/steps/loanlens-ui.steps.ts:205
+    ✔ And the legend shares of the "Principal by loan type" donut should add up to 100%                                    # loanlens-ui/steps/loanlens-ui.steps.ts:222
+
+          Embedding the-principal-by-type-donut-reconciles-to-the-total-principal--01-principal-by-loan-type.png [image/png 126057 bytes]
+
+    ✔ And I capture evidence "principal by loan type"                                                                      # loanlens-ui/steps/loanlens-ui.steps.ts:174
+
+  @web-app @ui @loanlens-ui
+  Scenario: The status chart shows the loan count of every status                         # loanlens-ui/features/dashboard.feature:36
+    ✔ Given I open the LoanLens dashboard                                                 # loanlens-ui/steps/loanlens-ui.steps.ts:98
+    ✔ Then the "Loans by status" chart should show the loan book's count for every status # loanlens-ui/steps/loanlens-ui.steps.ts:228
+    ✔ And the bars of the "Loans by status" chart should add up to 120 loans              # loanlens-ui/steps/loanlens-ui.steps.ts:240
+
+  @web-app @ui @loanlens-ui
+  Scenario: Recent disbursements list the newest loans and link to their detail page      # loanlens-ui/features/dashboard.feature:40
+    ✔ Given I open the LoanLens dashboard                                                 # loanlens-ui/steps/loanlens-ui.steps.ts:98
+    ✔ Then the recent disbursements table should list the 5 most recently disbursed loans # loanlens-ui/steps/loanlens-ui.steps.ts:245
+    ✔ When I open the most recently disbursed loan from the dashboard                     # loanlens-ui/steps/loanlens-ui.steps.ts:261
+    ✔ Then I should be on the detail page of that loan                                    # loanlens-ui/steps/loanlens-ui.steps.ts:267
+
+          Embedding recent-disbursements-list-the-newest-loans-and-link-to-their-detail-page--01-recent-loan-detail.png [image/png 91218 bytes]
+
+    ✔ And I capture evidence "recent loan detail"                                         # loanlens-ui/steps/loanlens-ui.steps.ts:174
+
+Feature: LoanLens UI - Loan detail
+
+  @web-app @ui @loanlens-ui
+  Scenario: Opening a loan from the report search                                                 # loanlens-ui/features/loan-detail.feature:7
+    ✔ Given I open the LoanLens loan book report                                                  # loanlens-ui/steps/loanlens-ui.steps.ts:106
+    ✔ When I apply these report filters:                                                          # loanlens-ui/steps/loanlens-ui.steps.ts:495
+        | Borrower or loan ID | LN-1001 |
+    ✔ And I open loan "LN-1001" from the report                                                   # loanlens-ui/steps/loanlens-ui.steps.ts:668
+    ✔ Then the address bar should show "/loans/LN-1001"                                           # loanlens-ui/steps/loanlens-ui.steps.ts:146
+
+          Loan book record LN-1001
+          {
+            "id": "LN-1001",
+            "borrower": "Meera Verma",
+            "type": "car",
+            "amount": 1560000,
+            "rate": 11.8,
+            "tenureMonths": 84,
+            "disbursedOn": "2023-03-22",
+            "status": "active",
+            "city": "Hyderabad"
+          }
+
+    ✔ And the loan detail page should describe loan "LN-1001" exactly as the loan book records it # loanlens-ui/steps/loanlens-ui.steps.ts:672
+    ✔ And the repayment chart should have one bar per calendar year from the disbursement month   # loanlens-ui/steps/loanlens-ui.steps.ts:712
+    ✔ And every repayment bar should match my own amortisation of the loan                        # loanlens-ui/steps/loanlens-ui.steps.ts:719
+    ✔ And the cost of the loan should match my own amortisation                                   # loanlens-ui/steps/loanlens-ui.steps.ts:726
+
+          Embedding opening-a-loan-from-the-report-search--01-loan-ln-1001.png [image/png 88872 bytes]
+
+    ✔ And I capture evidence "loan LN-1001"                                                       # loanlens-ui/steps/loanlens-ui.steps.ts:174
+
+  @web-app @ui @loanlens-ui
+  Scenario: A tenure that is not a whole number of years shows the remaining months # loanlens-ui/features/loan-detail.feature:21
+    ✔ Given the mock data gives loan "LN-1001" a tenure of 90 months                # loanlens-ui/steps/loanlens-ui.steps.ts:691
+    ✔ When I open the LoanLens loan detail page for "LN-1001"                       # loanlens-ui/steps/loanlens-ui.steps.ts:114
+
+          Tenure shown: "7 yr 6 mo" for 90 months
+
+    ✔ Then the tenure should read back as 90 monthly payments                       # loanlens-ui/steps/loanlens-ui.steps.ts:702
+
+  @web-app @ui @loanlens-ui
+  Scenario: The breadcrumb leads back to the report                # loanlens-ui/features/loan-detail.feature:26
+    ✔ Given I open the LoanLens loan detail page for "LN-1001"     # loanlens-ui/steps/loanlens-ui.steps.ts:114
+    ✔ When I follow the "Loan book report" link in the breadcrumb  # loanlens-ui/steps/loanlens-ui.steps.ts:122
+    ✔ Then the address bar should show "/reports"                  # loanlens-ui/steps/loanlens-ui.steps.ts:146
+    ✔ And the LoanLens screen heading should be "Loan book report" # loanlens-ui/steps/loanlens-ui.steps.ts:155
+
+  @web-app @ui @loanlens-ui
+  Scenario: An unknown loan ID shows a not-found page                             # loanlens-ui/features/loan-detail.feature:32
+    ✔ Given I open the LoanLens loan detail page for "LN-9999"                    # loanlens-ui/steps/loanlens-ui.steps.ts:114
+    ✔ Then the LoanLens screen heading should be "Loan not found"                 # loanlens-ui/steps/loanlens-ui.steps.ts:155
+    ✔ And the page should say "There is no loan with the ID LN-9999 in the book." # loanlens-ui/steps/loanlens-ui.steps.ts:170
+
+          Embedding an-unknown-loan-id-shows-a-not-found-page--01-loan-not-found.png [image/png 33903 bytes]
+
+    ✔ And I capture evidence "loan not found"                                     # loanlens-ui/steps/loanlens-ui.steps.ts:174
+    ✔ When I follow the "Search the loan book" link                               # loanlens-ui/steps/loanlens-ui.steps.ts:126
+    ✔ Then the address bar should show "/reports"                                 # loanlens-ui/steps/loanlens-ui.steps.ts:146
+
+  @web-app @ui @loanlens-ui
+  Scenario Outline: A malformed loan ID explains what an ID looks like: /loans/not-a-loan        # loanlens-ui/features/loan-detail.feature:48
+    ✔ Given I open the LoanLens address "/loans/not-a-loan"                                      # loanlens-ui/steps/loanlens-ui.steps.ts:777
+    ✔ Then the LoanLens screen heading should be "Loan not found"                                # loanlens-ui/steps/loanlens-ui.steps.ts:155
+    ✔ And the page should say "“not-a-loan” is not a valid loan ID. Loan IDs look like LN-1047." # loanlens-ui/steps/loanlens-ui.steps.ts:170
+
+  @web-app @ui @loanlens-ui
+  Scenario Outline: A malformed loan ID explains what an ID looks like: /loans/%E0%A4%A        # loanlens-ui/features/loan-detail.feature:49
+    ✔ Given I open the LoanLens address "/loans/%E0%A4%A"                                      # loanlens-ui/steps/loanlens-ui.steps.ts:777
+    ✔ Then the LoanLens screen heading should be "Loan not found"                              # loanlens-ui/steps/loanlens-ui.steps.ts:155
+    ✔ And the page should say "“%E0%A4%A” is not a valid loan ID. Loan IDs look like LN-1047." # loanlens-ui/steps/loanlens-ui.steps.ts:170
+
+Feature: LoanLens UI - Loan book report
+
+  @web-app @ui @loanlens-ui
+  Scenario: The unfiltered report shows the first page of the whole book, newest first      # loanlens-ui/features/reports.feature:7
+    ✔ Given I open the LoanLens loan book report                                            # loanlens-ui/steps/loanlens-ui.steps.ts:106
+
+          Oracle for ?: LN-1075, LN-1045, LN-1117, LN-1047, LN-1084, LN-1103, LN-1006, LN-1033, LN-1081, LN-1106
+
+    ✔ Then the report should list exactly the loans the loan book has for the current query # loanlens-ui/steps/loanlens-ui.steps.ts:517
+    ✔ And the report totals should match the loan book for the current query                # loanlens-ui/steps/loanlens-ui.steps.ts:546
+    ✔ And the "Principal by status" chart should match the loan book for the current query  # loanlens-ui/steps/loanlens-ui.steps.ts:556
+    ✔ And the report should say "Showing 1–10 of 120 loans" and "Page 1 of 12"              # loanlens-ui/steps/loanlens-ui.steps.ts:572
+    ✔ And the "Disbursed" column should be sorted descending                                # loanlens-ui/steps/loanlens-ui.steps.ts:608
+    ✔ And the "Previous page" button should be disabled                                     # loanlens-ui/steps/loanlens-ui.steps.ts:618
+
+          Embedding the-unfiltered-report-shows-the-first-page-of-the-whole-book-newest-first--01-default-report.png [image/png 138375 bytes]
+
+    ✔ And I capture evidence "default report"                                               # loanlens-ui/steps/loanlens-ui.steps.ts:174
+
+  @web-app @ui @loanlens-ui
+  Scenario Outline: Filtering by home loans that are active                                # loanlens-ui/features/reports.feature:34
+    ✔ Given I open the LoanLens loan book report                                           # loanlens-ui/steps/loanlens-ui.steps.ts:106
+    ✔ When I apply these report filters:                                                   # loanlens-ui/steps/loanlens-ui.steps.ts:495
+        | Loan type           | Home   |
+        | Status              | Active |
+        | City                |        |
+        | Min amount (₹)      |        |
+        | Max amount (₹)      |        |
+        | Borrower or loan ID |        |
+    ✔ Then the address bar should carry exactly those filters                              # loanlens-ui/steps/loanlens-ui.steps.ts:510
+
+          Oracle for ?type=home&status=active: LN-1047, LN-1084, LN-1033, LN-1043, LN-1035, LN-1069, LN-1054, LN-1055, LN-1115, LN-1037
+
+    ✔ And the report should list exactly the loans the loan book has for the current query # loanlens-ui/steps/loanlens-ui.steps.ts:517
+    ✔ And the report totals should match the loan book for the current query               # loanlens-ui/steps/loanlens-ui.steps.ts:546
+    ✔ And the "Principal by status" chart should match the loan book for the current query # loanlens-ui/steps/loanlens-ui.steps.ts:556
+
+          Embedding filtering-by-home-loans-that-are-active--01-filtered-by-home-loans-that-are-active.png [image/png 135528 bytes]
+
+    ✔ And I capture evidence "filtered by home loans that are active"                      # loanlens-ui/steps/loanlens-ui.steps.ts:174
+
+  @web-app @ui @loanlens-ui
+  Scenario Outline: Filtering by personal loans in Delhi                                   # loanlens-ui/features/reports.feature:35
+    ✔ Given I open the LoanLens loan book report                                           # loanlens-ui/steps/loanlens-ui.steps.ts:106
+    ✔ When I apply these report filters:                                                   # loanlens-ui/steps/loanlens-ui.steps.ts:495
+        | Loan type           | Personal |
+        | Status              |          |
+        | City                | Delhi    |
+        | Min amount (₹)      |          |
+        | Max amount (₹)      |          |
+        | Borrower or loan ID |          |
+    ✔ Then the address bar should carry exactly those filters                              # loanlens-ui/steps/loanlens-ui.steps.ts:510
+
+          Oracle for ?type=personal&city=Delhi: LN-1045, LN-1015, LN-1018, LN-1059, LN-1023, LN-1089
+
+    ✔ And the report should list exactly the loans the loan book has for the current query # loanlens-ui/steps/loanlens-ui.steps.ts:517
+    ✔ And the report totals should match the loan book for the current query               # loanlens-ui/steps/loanlens-ui.steps.ts:546
+    ✔ And the "Principal by status" chart should match the loan book for the current query # loanlens-ui/steps/loanlens-ui.steps.ts:556
+
+          Embedding filtering-by-personal-loans-in-delhi--01-filtered-by-personal-loans-in-delhi.png [image/png 131793 bytes]
+
+    ✔ And I capture evidence "filtered by personal loans in Delhi"                         # loanlens-ui/steps/loanlens-ui.steps.ts:174
+
+  @web-app @ui @loanlens-ui
+  Scenario Outline: Filtering by an amount range                                           # loanlens-ui/features/reports.feature:36
+    ✔ Given I open the LoanLens loan book report                                           # loanlens-ui/steps/loanlens-ui.steps.ts:106
+    ✔ When I apply these report filters:                                                   # loanlens-ui/steps/loanlens-ui.steps.ts:495
+        | Loan type           |         |
+        | Status              |         |
+        | City                |         |
+        | Min amount (₹)      | 1000000 |
+        | Max amount (₹)      | 5000000 |
+        | Borrower or loan ID |         |
+    ✔ Then the address bar should carry exactly those filters                              # loanlens-ui/steps/loanlens-ui.steps.ts:510
+
+          Oracle for ?minAmount=1000000&maxAmount=5000000: LN-1075, LN-1045, LN-1117, LN-1006, LN-1081, LN-1086, LN-1110, LN-1025, LN-1083, LN-1087
+
+    ✔ And the report should list exactly the loans the loan book has for the current query # loanlens-ui/steps/loanlens-ui.steps.ts:517
+    ✔ And the report totals should match the loan book for the current query               # loanlens-ui/steps/loanlens-ui.steps.ts:546
+    ✔ And the "Principal by status" chart should match the loan book for the current query # loanlens-ui/steps/loanlens-ui.steps.ts:556
+
+          Embedding filtering-by-an-amount-range--01-filtered-by-an-amount-range.png [image/png 134508 bytes]
+
+    ✔ And I capture evidence "filtered by an amount range"                                 # loanlens-ui/steps/loanlens-ui.steps.ts:174
+
+  @web-app @ui @loanlens-ui
+  Scenario Outline: Filtering by borrower surname                                          # loanlens-ui/features/reports.feature:37
+    ✔ Given I open the LoanLens loan book report                                           # loanlens-ui/steps/loanlens-ui.steps.ts:106
+    ✔ When I apply these report filters:                                                   # loanlens-ui/steps/loanlens-ui.steps.ts:495
+        | Loan type           |       |
+        | Status              |       |
+        | City                |       |
+        | Min amount (₹)      |       |
+        | Max amount (₹)      |       |
+        | Borrower or loan ID | Mehta |
+    ✔ Then the address bar should carry exactly those filters                              # loanlens-ui/steps/loanlens-ui.steps.ts:510
+
+          Oracle for ?q=Mehta: LN-1084, LN-1006, LN-1022, LN-1016, LN-1012, LN-1039
+
+    ✔ And the report should list exactly the loans the loan book has for the current query # loanlens-ui/steps/loanlens-ui.steps.ts:517
+    ✔ And the report totals should match the loan book for the current query               # loanlens-ui/steps/loanlens-ui.steps.ts:546
+    ✔ And the "Principal by status" chart should match the loan book for the current query # loanlens-ui/steps/loanlens-ui.steps.ts:556
+
+          Embedding filtering-by-borrower-surname--01-filtered-by-borrower-surname.png [image/png 127509 bytes]
+
+    ✔ And I capture evidence "filtered by borrower surname"                                # loanlens-ui/steps/loanlens-ui.steps.ts:174
+
+  @web-app @ui @loanlens-ui
+  Scenario: A shared report URL restores its filters, sort and page                               # loanlens-ui/features/reports.feature:39
+    ✔ Given I open the LoanLens loan book report at "?type=home&status=active&sort=amount&page=2" # loanlens-ui/steps/loanlens-ui.steps.ts:110
+    ✔ Then the "Loan type" filter should show "Home"                                              # loanlens-ui/steps/loanlens-ui.steps.ts:578
+    ✔ And the "Status" filter should show "Active"                                                # loanlens-ui/steps/loanlens-ui.steps.ts:578
+    ✔ And the "Amount" column should be sorted ascending                                          # loanlens-ui/steps/loanlens-ui.steps.ts:608
+
+          Oracle for ?type=home&status=active&sort=amount&page=2: LN-1003, LN-1051, LN-1022, LN-1033, LN-1011, LN-1039, LN-1064, LN-1115, LN-1108, LN-1084
+
+    ✔ And the report should list exactly the loans the loan book has for the current query        # loanlens-ui/steps/loanlens-ui.steps.ts:517
+    ✔ And the report totals should match the loan book for the current query                      # loanlens-ui/steps/loanlens-ui.steps.ts:546
+    ✔ When I reload the page                                                                      # loanlens-ui/steps/loanlens-ui.steps.ts:130
+    ✔ Then the address bar should show "/reports?type=home&status=active&sort=amount&page=2"      # loanlens-ui/steps/loanlens-ui.steps.ts:146
+
+          Oracle for ?type=home&status=active&sort=amount&page=2: LN-1003, LN-1051, LN-1022, LN-1033, LN-1011, LN-1039, LN-1064, LN-1115, LN-1108, LN-1084
+
+    ✔ And the report should list exactly the loans the loan book has for the current query        # loanlens-ui/steps/loanlens-ui.steps.ts:517
+
+  @web-app @ui @loanlens-ui
+  Scenario: Back and Reset keep the URL and the form in step                               # loanlens-ui/features/reports.feature:50
+    ✔ Given I open the LoanLens loan book report                                           # loanlens-ui/steps/loanlens-ui.steps.ts:106
+    ✔ When I apply these report filters:                                                   # loanlens-ui/steps/loanlens-ui.steps.ts:495
+        | Loan type | Education |
+    ✔ Then the address bar should show "/reports?type=education"                           # loanlens-ui/steps/loanlens-ui.steps.ts:146
+    ✔ When I go back in the browser history                                                # loanlens-ui/steps/loanlens-ui.steps.ts:134
+    ✔ Then the address bar should show "/reports"                                          # loanlens-ui/steps/loanlens-ui.steps.ts:146
+    ✔ And the "Loan type" filter should show "All types"                                   # loanlens-ui/steps/loanlens-ui.steps.ts:578
+
+          Oracle for ?: LN-1075, LN-1045, LN-1117, LN-1047, LN-1084, LN-1103, LN-1006, LN-1033, LN-1081, LN-1106
+
+    ✔ And the report should list exactly the loans the loan book has for the current query # loanlens-ui/steps/loanlens-ui.steps.ts:517
+    ✔ When I go forward in the browser history                                             # loanlens-ui/steps/loanlens-ui.steps.ts:138
+    ✔ Then the "Loan type" filter should show "Education"                                  # loanlens-ui/steps/loanlens-ui.steps.ts:578
+    ✔ When I reset the report filters                                                      # loanlens-ui/steps/loanlens-ui.steps.ts:583
+    ✔ Then the address bar should show "/reports"                                          # loanlens-ui/steps/loanlens-ui.steps.ts:146
+    ✔ And the "Loan type" filter should show "All types"                                   # loanlens-ui/steps/loanlens-ui.steps.ts:578
+    ✔ And the report should say "Showing 1–10 of 120 loans" and "Page 1 of 12"             # loanlens-ui/steps/loanlens-ui.steps.ts:572
+
+  @web-app @ui @loanlens-ui
+  Scenario Outline: Sorting by Amount, header clicked once                                 # loanlens-ui/features/reports.feature:76
+    ✔ Given I open the LoanLens loan book report                                           # loanlens-ui/steps/loanlens-ui.steps.ts:106
+    ✔ When I click the "Amount" column header once                                         # loanlens-ui/steps/loanlens-ui.steps.ts:600
+    ✔ Then the "Amount" column should be sorted descending                                 # loanlens-ui/steps/loanlens-ui.steps.ts:608
+    ✔ And no other column should claim a sort order                                        # loanlens-ui/steps/loanlens-ui.steps.ts:612
+    ✔ And the address bar should show "/reports?sort=-amount"                              # loanlens-ui/steps/loanlens-ui.steps.ts:146
+
+          Oracle for ?sort=-amount: LN-1047, LN-1043, LN-1090, LN-1069, LN-1007, LN-1061, LN-1100, LN-1079, LN-1058, LN-1084
+
+    ✔ And the report should list exactly the loans the loan book has for the current query # loanlens-ui/steps/loanlens-ui.steps.ts:517
+
+  @web-app @ui @loanlens-ui
+  Scenario Outline: Sorting by Amount, header clicked twice                                # loanlens-ui/features/reports.feature:77
+    ✔ Given I open the LoanLens loan book report                                           # loanlens-ui/steps/loanlens-ui.steps.ts:106
+    ✔ When I click the "Amount" column header twice                                        # loanlens-ui/steps/loanlens-ui.steps.ts:604
+    ✔ Then the "Amount" column should be sorted ascending                                  # loanlens-ui/steps/loanlens-ui.steps.ts:608
+    ✔ And no other column should claim a sort order                                        # loanlens-ui/steps/loanlens-ui.steps.ts:612
+    ✔ And the address bar should show "/reports?sort=amount"                               # loanlens-ui/steps/loanlens-ui.steps.ts:146
+
+          Oracle for ?sort=amount: LN-1085, LN-1088, LN-1092, LN-1009, LN-1041, LN-1056, LN-1114, LN-1072, LN-1109, LN-1014
+
+    ✔ And the report should list exactly the loans the loan book has for the current query # loanlens-ui/steps/loanlens-ui.steps.ts:517
+
+  @web-app @ui @loanlens-ui
+  Scenario Outline: Sorting by Borrower, header clicked once                               # loanlens-ui/features/reports.feature:78
+    ✔ Given I open the LoanLens loan book report                                           # loanlens-ui/steps/loanlens-ui.steps.ts:106
+    ✔ When I click the "Borrower" column header once                                       # loanlens-ui/steps/loanlens-ui.steps.ts:600
+    ✔ Then the "Borrower" column should be sorted ascending                                # loanlens-ui/steps/loanlens-ui.steps.ts:608
+    ✔ And no other column should claim a sort order                                        # loanlens-ui/steps/loanlens-ui.steps.ts:612
+    ✔ And the address bar should show "/reports?sort=borrower"                             # loanlens-ui/steps/loanlens-ui.steps.ts:146
+
+          Oracle for ?sort=borrower: LN-1069, LN-1042, LN-1064, LN-1048, LN-1086, LN-1003, LN-1070, LN-1020, LN-1017, LN-1111
+
+    ✔ And the report should list exactly the loans the loan book has for the current query # loanlens-ui/steps/loanlens-ui.steps.ts:517
+
+  @web-app @ui @loanlens-ui
+  Scenario Outline: Sorting by Rate, header clicked once                                   # loanlens-ui/features/reports.feature:79
+    ✔ Given I open the LoanLens loan book report                                           # loanlens-ui/steps/loanlens-ui.steps.ts:106
+    ✔ When I click the "Rate" column header once                                           # loanlens-ui/steps/loanlens-ui.steps.ts:600
+    ✔ Then the "Rate" column should be sorted descending                                   # loanlens-ui/steps/loanlens-ui.steps.ts:608
+    ✔ And no other column should claim a sort order                                        # loanlens-ui/steps/loanlens-ui.steps.ts:612
+    ✔ And the address bar should show "/reports?sort=-rate"                                # loanlens-ui/steps/loanlens-ui.steps.ts:146
+
+          Oracle for ?sort=-rate: LN-1076, LN-1042, LN-1023, LN-1045, LN-1070, LN-1008, LN-1091, LN-1018, LN-1088, LN-1063
+
+    ✔ And the report should list exactly the loans the loan book has for the current query # loanlens-ui/steps/loanlens-ui.steps.ts:517
+
+  @web-app @ui @loanlens-ui
+  Scenario Outline: Sorting by EMI, header clicked once                                    # loanlens-ui/features/reports.feature:80
+    ✔ Given I open the LoanLens loan book report                                           # loanlens-ui/steps/loanlens-ui.steps.ts:106
+    ✔ When I click the "EMI" column header once                                            # loanlens-ui/steps/loanlens-ui.steps.ts:600
+    ✔ Then the "EMI" column should be sorted descending                                    # loanlens-ui/steps/loanlens-ui.steps.ts:608
+    ✔ And no other column should claim a sort order                                        # loanlens-ui/steps/loanlens-ui.steps.ts:612
+    ✔ And the address bar should show "/reports?sort=-emi"                                 # loanlens-ui/steps/loanlens-ui.steps.ts:146
+
+          Oracle for ?sort=-emi: LN-1060, LN-1090, LN-1045, LN-1089, LN-1028, LN-1047, LN-1059, LN-1120, LN-1087, LN-1108
+
+    ✔ And the report should list exactly the loans the loan book has for the current query # loanlens-ui/steps/loanlens-ui.steps.ts:517
+
+  @web-app @ui @loanlens-ui
+  Scenario Outline: Sorting by Tenure, header clicked twice                                # loanlens-ui/features/reports.feature:81
+    ✔ Given I open the LoanLens loan book report                                           # loanlens-ui/steps/loanlens-ui.steps.ts:106
+    ✔ When I click the "Tenure" column header twice                                        # loanlens-ui/steps/loanlens-ui.steps.ts:604
+    ✔ Then the "Tenure" column should be sorted ascending                                  # loanlens-ui/steps/loanlens-ui.steps.ts:608
+    ✔ And no other column should claim a sort order                                        # loanlens-ui/steps/loanlens-ui.steps.ts:612
+    ✔ And the address bar should show "/reports?sort=tenureMonths"                         # loanlens-ui/steps/loanlens-ui.steps.ts:146
+
+          Oracle for ?sort=tenureMonths: LN-1015, LN-1028, LN-1034, LN-1045, LN-1060, LN-1082, LN-1087, LN-1089, LN-1093, LN-1095
+
+    ✔ And the report should list exactly the loans the loan book has for the current query # loanlens-ui/steps/loanlens-ui.steps.ts:517
+
+  @web-app @ui @loanlens-ui
+  Scenario Outline: Sorting by Disbursed, header clicked once                              # loanlens-ui/features/reports.feature:82
+    ✔ Given I open the LoanLens loan book report                                           # loanlens-ui/steps/loanlens-ui.steps.ts:106
+    ✔ When I click the "Disbursed" column header once                                      # loanlens-ui/steps/loanlens-ui.steps.ts:600
+    ✔ Then the "Disbursed" column should be sorted ascending                               # loanlens-ui/steps/loanlens-ui.steps.ts:608
+    ✔ And no other column should claim a sort order                                        # loanlens-ui/steps/loanlens-ui.steps.ts:612
+    ✔ And the address bar should show "/reports?sort=disbursedOn"                          # loanlens-ui/steps/loanlens-ui.steps.ts:146
+
+          Oracle for ?sort=disbursedOn: LN-1079, LN-1001, LN-1071, LN-1107, LN-1060, LN-1008, LN-1063, LN-1002, LN-1099, LN-1021
+
+    ✔ And the report should list exactly the loans the loan book has for the current query # loanlens-ui/steps/loanlens-ui.steps.ts:517
+
+  @web-app @ui @loanlens-ui
+  Scenario: Paging through a sorted report                                                 # loanlens-ui/features/reports.feature:84
+    ✔ Given I open the LoanLens loan book report                                           # loanlens-ui/steps/loanlens-ui.steps.ts:106
+    ✔ When I click the "Amount" column header once                                         # loanlens-ui/steps/loanlens-ui.steps.ts:600
+    ✔ And I go to the next page of the report                                              # loanlens-ui/steps/loanlens-ui.steps.ts:622
+    ✔ Then the address bar should show "/reports?sort=-amount&page=2"                      # loanlens-ui/steps/loanlens-ui.steps.ts:146
+    ✔ And the report should say "Showing 11–20 of 120 loans" and "Page 2 of 12"            # loanlens-ui/steps/loanlens-ui.steps.ts:572
+
+          Oracle for ?sort=-amount&page=2: LN-1103, LN-1053, LN-1102, LN-1108, LN-1115, LN-1116, LN-1064, LN-1039, LN-1011, LN-1033
+
+    ✔ And the report should list exactly the loans the loan book has for the current query # loanlens-ui/steps/loanlens-ui.steps.ts:517
+
+          Embedding paging-through-a-sorted-report--01-sorted-page-2.png [image/png 151605 bytes]
+
+    ✔ And I capture evidence "sorted page 2"                                               # loanlens-ui/steps/loanlens-ui.steps.ts:174
+    ✔ When I click the "Rate" column header once                                           # loanlens-ui/steps/loanlens-ui.steps.ts:600
+    ✔ Then the address bar should show "/reports?sort=-rate"                               # loanlens-ui/steps/loanlens-ui.steps.ts:146
+    ✔ And the report should say "Showing 1–10 of 120 loans" and "Page 1 of 12"             # loanlens-ui/steps/loanlens-ui.steps.ts:572
+
+  @web-app @ui @loanlens-ui
+  Scenario: The last page disables Next page                                               # loanlens-ui/features/reports.feature:96
+    ✔ Given I open the LoanLens loan book report at "?page=12"                             # loanlens-ui/steps/loanlens-ui.steps.ts:110
+    ✔ Then the report should say "Showing 111–120 of 120 loans" and "Page 12 of 12"        # loanlens-ui/steps/loanlens-ui.steps.ts:572
+    ✔ And the "Next page" button should be disabled                                        # loanlens-ui/steps/loanlens-ui.steps.ts:618
+
+          Oracle for ?page=12: LN-1080, LN-1002, LN-1099, LN-1063, LN-1008, LN-1060, LN-1071, LN-1107, LN-1001, LN-1079
+
+    ✔ And the report should list exactly the loans the loan book has for the current query # loanlens-ui/steps/loanlens-ui.steps.ts:517
+    ✔ When I go to the previous page of the report                                         # loanlens-ui/steps/loanlens-ui.steps.ts:629
+    ✔ Then the address bar should show "/reports?page=11"                                  # loanlens-ui/steps/loanlens-ui.steps.ts:146
+
+  @web-app @ui @loanlens-ui
+  Scenario: Filters that match nothing show an empty state that explains what to do # loanlens-ui/features/reports.feature:104
+    ✔ Given I open the LoanLens loan book report                                    # loanlens-ui/steps/loanlens-ui.steps.ts:106
+    ✔ When I apply these report filters:                                            # loanlens-ui/steps/loanlens-ui.steps.ts:495
+        | Status              | Overdue |
+        | Borrower or loan ID | Zzyzx   |
+    ✔ Then the report should show its empty state                                   # loanlens-ui/steps/loanlens-ui.steps.ts:636
+    ✔ And the report totals should show 0 matching loans                            # loanlens-ui/steps/loanlens-ui.steps.ts:645
+
+          Embedding filters-that-match-nothing-show-an-empty-state-that-explains-what-to-do--01-empty-state.png [image/png 76623 bytes]
+
+    ✔ And I capture evidence "empty state"                                          # loanlens-ui/steps/loanlens-ui.steps.ts:174
+    ✔ When I clear all filters from the empty state                                 # loanlens-ui/steps/loanlens-ui.steps.ts:649
+    ✔ Then the address bar should show "/reports"                                   # loanlens-ui/steps/loanlens-ui.steps.ts:146
+    ✔ And the report should say "Showing 1–10 of 120 loans" and "Page 1 of 12"      # loanlens-ui/steps/loanlens-ui.steps.ts:572
+
+  @web-app @ui @loanlens-ui
+  Scenario Outline: A page number that is not a page is explained, and the report starts at page 1: text # loanlens-ui/features/reports.feature:123
+    ✔ Given I open the LoanLens loan book report at "?page=abc"                                          # loanlens-ui/steps/loanlens-ui.steps.ts:110
+    ✔ Then the report should note "“abc” is not a page number, so the report starts at page 1."          # loanlens-ui/steps/loanlens-ui.steps.ts:754
+    ✔ And the report should say "Showing 1–10 of 120 loans" and "Page 1 of 12"                           # loanlens-ui/steps/loanlens-ui.steps.ts:572
+
+  @web-app @ui @loanlens-ui
+  Scenario Outline: A page number that is not a page is explained, and the report starts at page 1: zero # loanlens-ui/features/reports.feature:124
+    ✔ Given I open the LoanLens loan book report at "?page=0"                                            # loanlens-ui/steps/loanlens-ui.steps.ts:110
+    ✔ Then the report should note "“0” is not a page number, so the report starts at page 1."            # loanlens-ui/steps/loanlens-ui.steps.ts:754
+    ✔ And the report should say "Showing 1–10 of 120 loans" and "Page 1 of 12"                           # loanlens-ui/steps/loanlens-ui.steps.ts:572
+
+  @web-app @ui @loanlens-ui
+  Scenario Outline: A page number that is not a page is explained, and the report starts at page 1: decimal # loanlens-ui/features/reports.feature:125
+    ✔ Given I open the LoanLens loan book report at "?page=1.5"                                             # loanlens-ui/steps/loanlens-ui.steps.ts:110
+    ✔ Then the report should note "“1.5” is not a page number, so the report starts at page 1."             # loanlens-ui/steps/loanlens-ui.steps.ts:754
+    ✔ And the report should say "Showing 1–10 of 120 loans" and "Page 1 of 12"                              # loanlens-ui/steps/loanlens-ui.steps.ts:572
+
+  @web-app @ui @loanlens-ui
+  Scenario: A page past the end of the report says so and offers the last page     # loanlens-ui/features/reports.feature:127
+    ✔ Given I open the LoanLens loan book report at "?page=9999"                   # loanlens-ui/steps/loanlens-ui.steps.ts:110
+    ✔ Then the report should say there is no page "9,999" and that it has 12 pages # loanlens-ui/steps/loanlens-ui.steps.ts:758
+
+          Embedding a-page-past-the-end-of-the-report-says-so-and-offers-the-last-page--01-page-past-the-end.png [image/png 78753 bytes]
+
+    ✔ And I capture evidence "page past the end"                                   # loanlens-ui/steps/loanlens-ui.steps.ts:174
+    ✔ When I go to the last page from that message                                 # loanlens-ui/steps/loanlens-ui.steps.ts:767
+    ✔ Then the address bar should show "/reports?page=12"                          # loanlens-ui/steps/loanlens-ui.steps.ts:146
+    ✔ And the report should say "Showing 111–120 of 120 loans" and "Page 12 of 12" # loanlens-ui/steps/loanlens-ui.steps.ts:572
+
+  @web-app @ui @loanlens-ui
+  Scenario: An impossible amount range is explained instead of silently returning nothing # loanlens-ui/features/reports.feature:135
+    ✔ Given I open the LoanLens loan book report                                          # loanlens-ui/steps/loanlens-ui.steps.ts:106
+    ✔ When I apply these report filters:                                                  # loanlens-ui/steps/loanlens-ui.steps.ts:495
+        | Min amount (₹) | 5000000 |
+        | Max amount (₹) | 100000  |
+    ✔ Then the report should explain that "These filters cannot be applied."              # loanlens-ui/steps/loanlens-ui.steps.ts:655
+    ✔ And the explanation should name the "minAmount" and "maxAmount" filters             # loanlens-ui/steps/loanlens-ui.steps.ts:659
+
+          Embedding an-impossible-amount-range-is-explained-instead-of-silently-returning-nothing--01-invalid-range.png [image/png 66636 bytes]
+
+    ✔ And I capture evidence "invalid range"                                              # loanlens-ui/steps/loanlens-ui.steps.ts:174
+
+Feature: LoanLens UI - text from the URL is shown, never run
+
+  @web-app @ui @loanlens-ui @security
+  Scenario Outline: The report's search box shows markup from the URL as text and runs none of it # loanlens-ui/features/security.feature:19
+    ✔ Given I open the LoanLens address "/reports?q=%3Cimg%20src%3Dx%20onerror%3Dalert(1)%3E"     # loanlens-ui/steps/loanlens-ui.steps.ts:777
+    ✔ Then the page should show "<img src=x onerror=alert(1)>" as plain text                      # loanlens-ui/steps/loanlens-ui.steps.ts:782
+    ✔ And no element should have been built from "<img src=x onerror=alert(1)>"                   # loanlens-ui/steps/loanlens-ui.steps.ts:793
+    ✔ And no browser dialog should have opened                                                    # loanlens-ui/steps/loanlens-ui.steps.ts:773
+    ✔ And the Content-Security-Policy should not have had to block anything                       # loanlens-ui/steps/loanlens-ui.steps.ts:804
+
+  @web-app @ui @loanlens-ui @security
+  Scenario Outline: The report's page note shows markup from the URL as text and runs none of it # loanlens-ui/features/security.feature:20
+    ✔ Given I open the LoanLens address "/reports?page=%3Cimg%20src%3Dx%20onerror%3Dalert(1)%3E" # loanlens-ui/steps/loanlens-ui.steps.ts:777
+    ✔ Then the page should show "<img src=x onerror=alert(1)>" as plain text                     # loanlens-ui/steps/loanlens-ui.steps.ts:782
+    ✔ And no element should have been built from "<img src=x onerror=alert(1)>"                  # loanlens-ui/steps/loanlens-ui.steps.ts:793
+    ✔ And no browser dialog should have opened                                                   # loanlens-ui/steps/loanlens-ui.steps.ts:773
+    ✔ And the Content-Security-Policy should not have had to block anything                      # loanlens-ui/steps/loanlens-ui.steps.ts:804
+
+  @web-app @ui @loanlens-ui @security
+  Scenario Outline: The loan-not-found message shows markup from the URL as text and runs none of it # loanlens-ui/features/security.feature:21
+    ✔ Given I open the LoanLens address "/loans/%3Cimg%20src%3Dx%20onerror%3Dalert(1)%3E"            # loanlens-ui/steps/loanlens-ui.steps.ts:777
+    ✔ Then the page should show "<img src=x onerror=alert(1)>" as plain text                         # loanlens-ui/steps/loanlens-ui.steps.ts:782
+    ✔ And no element should have been built from "<img src=x onerror=alert(1)>"                      # loanlens-ui/steps/loanlens-ui.steps.ts:793
+    ✔ And no browser dialog should have opened                                                       # loanlens-ui/steps/loanlens-ui.steps.ts:773
+    ✔ And the Content-Security-Policy should not have had to block anything                          # loanlens-ui/steps/loanlens-ui.steps.ts:804
+
+  @web-app @ui @loanlens-ui @security
+  Scenario Outline: / tells the browser not to frame it, sniff it or run outside scripts # loanlens-ui/features/security.feature:39
+
+          GET / -> 200
+          content-security-policy: default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; object-src 'none'; base-uri 'none'; form-action 'self'; frame-ancestors 'none'
+          x-content-type-options: nosniff
+          referrer-policy: no-referrer
+          accept-ranges: bytes
+          cache-control: public, max-age=0
+          last-modified: Wed, 07 Oct 2026 15:39:36 GMT
+          etag: W/"236-1a11705282a"
+          content-type: text/html; charset=utf-8
+          content-length: 566
+          date: Wed, 07 Oct 2026 15:39:51 GMT
+          connection: keep-alive
+          keep-alive: timeout=5
+
+    ✔ Then the LoanLens page "/" should be served with these headers:                    # loanlens-ui/steps/loanlens-ui.steps.ts:819
+        | header                  | directive       | value       |
+        | Content-Security-Policy | default-src     | 'self'      |
+        | Content-Security-Policy | script-src      | 'self'      |
+        | Content-Security-Policy | object-src      | 'none'      |
+        | Content-Security-Policy | frame-ancestors | 'none'      |
+        | X-Content-Type-Options  |                 | nosniff     |
+        | Referrer-Policy         |                 | no-referrer |
+
+  @web-app @ui @loanlens-ui @security
+  Scenario Outline: /reports tells the browser not to frame it, sniff it or run outside scripts # loanlens-ui/features/security.feature:40
+
+          GET /reports -> 200
+          content-security-policy: default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; object-src 'none'; base-uri 'none'; form-action 'self'; frame-ancestors 'none'
+          x-content-type-options: nosniff
+          referrer-policy: no-referrer
+          accept-ranges: bytes
+          cache-control: public, max-age=0
+          last-modified: Wed, 07 Oct 2026 15:39:36 GMT
+          etag: W/"236-1a11705282a"
+          content-type: text/html; charset=utf-8
+          content-length: 566
+          date: Wed, 07 Oct 2026 15:39:51 GMT
+          connection: keep-alive
+          keep-alive: timeout=5
+
+    ✔ Then the LoanLens page "/reports" should be served with these headers:                    # loanlens-ui/steps/loanlens-ui.steps.ts:819
+        | header                  | directive       | value       |
+        | Content-Security-Policy | default-src     | 'self'      |
+        | Content-Security-Policy | script-src      | 'self'      |
+        | Content-Security-Policy | object-src      | 'none'      |
+        | Content-Security-Policy | frame-ancestors | 'none'      |
+        | X-Content-Type-Options  |                 | nosniff     |
+        | Referrer-Policy         |                 | no-referrer |
+
+  @web-app @ui @loanlens-ui @security
+  Scenario: A page refuses a write method instead of revealing the server's default error page # loanlens-ui/features/security.feature:43
+
+          POST / -> 405
+          {"error":{"code":"METHOD_NOT_ALLOWED","message":"POST is not supported; use GET"}}
+
+    ✔ When I send a POST request to the LoanLens page "/"                                      # loanlens-ui/steps/loanlens-ui.steps.ts:830
+    ✔ Then the page response should be a JSON 405 that allows only "GET, HEAD"                 # loanlens-ui/steps/loanlens-ui.steps.ts:839
+
+  @web-app @ui @loanlens-ui @security
+  Scenario: A file outside the web root is never served                        # loanlens-ui/features/security.feature:49
+
+          GET /..%2f..%2fpackage.json -> 200
+          <!doctype html>
+          <html lang="en-IN">
+            <head>
+              <meta charset="UTF-8" />
+              <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+              <meta name="description" content="LoanLens: loan portfolio dashboard, reports and EMI calculator" />
+              <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+              <title>LoanLens</title>
+              <script type="module" crossorigin src="/assets/
+
+    ✔ When I send a GET request to the LoanLens page "/..%2f..%2fpackage.json" # loanlens-ui/steps/loanlens-ui.steps.ts:830
+    ✔ Then the page response should be the app's own page, not "package.json"  # loanlens-ui/steps/loanlens-ui.steps.ts:847
+
+2 hooks (2 passed)
+57 scenarios (57 passed)
+745 steps (745 passed)
+0m 14.725s (0m 14.639s executing your code)

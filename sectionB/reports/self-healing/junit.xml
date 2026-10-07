@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<testsuite name="self-healing" time="21.478" tests="5" skipped="0" failures="5" errors="0" timestamp="2026-10-07T15:41:58.261Z">
+  <testcase classname="Self-healing exercise - five locators on emicalculator.net broken on purpose" name="Wrong id - the tenure box sets the loan tenure" time="6.395">
+    <failure type="LocatorHealingError" message="Locator &quot;emicalculator.loanTenureBox&quot; failed: page.locator('#loan-term') → No element matched within 5 s.&#xA;Self-healing is off. Run &quot;npm run heal&quot; for a validated suggestion. Incident: ./reports/self-healing/healing/incidents/emicalculator.loanTenureBox.json"><![CDATA[LocatorHealingError: Locator "emicalculator.loanTenureBox" failed: page.locator('#loan-term') → No element matched within 5 s.
+Self-healing is off. Run "npm run heal" for a validated suggestion. Incident: ./reports/self-healing/healing/incidents/emicalculator.loanTenureBox.json
+    at HealableLocator.heal (./self-healing/runtime.ts:90:13)
+    at async CustomWorld.<anonymous> (./self-healing/steps/self-healing.steps.ts:34:31)]]></failure>
+    <system-out><![CDATA[Given I launch the EMI calculator application...............................passed
+When I type a tenure of 15 years into the legacy tenure box.................failed
+Then the EMI shown should match my own calculation..........................skipped]]></system-out>
+  </testcase>
+  <testcase classname="Self-healing exercise - five locators on emicalculator.net broken on purpose" name="Wrong link text - the Personal Loan tab switches the calculator" time="6.393">
+    <failure type="LocatorHealingError" message="Locator &quot;emicalculator.personalLoanTab&quot; failed: page.getByRole('link', { name: 'Personal Loans', exact: true }) → No element matched within 5 s.&#xA;Self-healing is off. Run &quot;npm run heal&quot; for a validated suggestion. Incident: ./reports/self-healing/healing/incidents/emicalculator.personalLoanTab.json"><![CDATA[LocatorHealingError: Locator "emicalculator.personalLoanTab" failed: page.getByRole('link', { name: 'Personal Loans', exact: true }) → No element matched within 5 s.
+Self-healing is off. Run "npm run heal" for a validated suggestion. Incident: ./reports/self-healing/healing/incidents/emicalculator.personalLoanTab.json
+    at HealableLocator.heal (./self-healing/runtime.ts:90:13)
+    at async CustomWorld.<anonymous> (./self-healing/steps/self-healing.steps.ts:46:10)]]></failure>
+    <system-out><![CDATA[Given I launch the EMI calculator application...............................passed
+When I open the Personal Loan tab with the legacy tab link..................failed
+Then the amount box should be labelled "Personal Loan Amount"...............skipped]]></system-out>
+  </testcase>
+  <testcase classname="Self-healing exercise - five locators on emicalculator.net broken on purpose" name="Ambiguous name - the amount box sets the principal" time="1.187">
+    <failure type="LocatorHealingError" message="Locator &quot;emicalculator.homeLoanAmountBox&quot; failed: page.getByRole('textbox', { name: /loan/i }) → 2 elements matched; an action on it would violate strict mode.&#xA;Self-healing is off. Run &quot;npm run heal&quot; for a validated suggestion. Incident: ./reports/self-healing/healing/incidents/emicalculator.homeLoanAmountBox.json"><![CDATA[LocatorHealingError: Locator "emicalculator.homeLoanAmountBox" failed: page.getByRole('textbox', { name: /loan/i }) → 2 elements matched; an action on it would violate strict mode.
+Self-healing is off. Run "npm run heal" for a validated suggestion. Incident: ./reports/self-healing/healing/incidents/emicalculator.homeLoanAmountBox.json
+    at HealableLocator.heal (./self-healing/runtime.ts:90:13)
+    at async CustomWorld.<anonymous> (./self-healing/steps/self-healing.steps.ts:38:31)]]></failure>
+    <system-out><![CDATA[Given I launch the EMI calculator application...............................passed
+When I type a loan amount of 2500000 into the legacy amount box.............failed
+Then the EMI shown should match my own calculation..........................skipped]]></system-out>
+  </testcase>
+  <testcase classname="Self-healing exercise - five locators on emicalculator.net broken on purpose" name="Positional locator - the interest rate box sets the rate" time="1.181">
+    <failure type="LocatorHealingError" message="Locator &quot;emicalculator.interestRateBox&quot; failed: page.locator('input[type=&quot;text&quot;]').last() → Resolved, but element does not have role textbox named Interest Rate.&#xA;Self-healing is off. Run &quot;npm run heal&quot; for a validated suggestion. Incident: ./reports/self-healing/healing/incidents/emicalculator.interestRateBox.json"><![CDATA[LocatorHealingError: Locator "emicalculator.interestRateBox" failed: page.locator('input[type="text"]').last() → Resolved, but element does not have role textbox named Interest Rate.
+Self-healing is off. Run "npm run heal" for a validated suggestion. Incident: ./reports/self-healing/healing/incidents/emicalculator.interestRateBox.json
+    at HealableLocator.heal (./self-healing/runtime.ts:90:13)
+    at async CustomWorld.<anonymous> (./self-healing/steps/self-healing.steps.ts:42:31)]]></failure>
+    <system-out><![CDATA[Given I launch the EMI calculator application...............................passed
+When I type an interest rate of 10.5 into the legacy rate box...............failed
+Then the EMI shown should match my own calculation..........................skipped]]></system-out>
+  </testcase>
+  <testcase classname="Self-healing exercise - five locators on emicalculator.net broken on purpose" name="Missing feature - e-mailing the repayment schedule" time="6.291">
+    <failure type="LocatorHealingError" message="Locator &quot;emicalculator.emailScheduleButton&quot; failed: page.getByRole('button', { name: 'Email schedule' }) → No element matched within 5 s.&#xA;Self-healing is off. Run &quot;npm run heal&quot; for a validated suggestion. Incident: ./reports/self-healing/healing/incidents/emicalculator.emailScheduleButton.json"><![CDATA[LocatorHealingError: Locator "emicalculator.emailScheduleButton" failed: page.getByRole('button', { name: 'Email schedule' }) → No element matched within 5 s.
+Self-healing is off. Run "npm run heal" for a validated suggestion. Incident: ./reports/self-healing/healing/incidents/emicalculator.emailScheduleButton.json
+    at HealableLocator.heal (./self-healing/runtime.ts:90:13)
+    at async CustomWorld.<anonymous> (./self-healing/steps/self-healing.steps.ts:54:10)]]></failure>
+    <system-out><![CDATA[Given I launch the EMI calculator application...............................passed
+When I press the legacy Email schedule button...............................failed
+Then a form to e-mail the schedule should open..............................skipped]]></system-out>
+  </testcase>
+</testsuite>

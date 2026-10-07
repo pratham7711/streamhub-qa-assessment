@@ -1,0 +1,35 @@
+{
+  "compilerOptions": {
+    "target": "ES2023",
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
+    "noEmit": true,
+    "jsx": "react-jsx",
+    "lib": [
+      "ES2023",
+      "DOM",
+      "DOM.Iterable"
+    ],
+    "types": [
+      "node"
+    ]
+  },
+  "include": [
+    "framework/**/*.ts",
+    "loanlens-ui/**/*.ts",
+    "jsonplaceholder/**/*.ts",
+    "self-healing/**/*.ts",
+    "sql/**/*.ts",
+    "scripts/**/*.ts",
+    "app/server.ts"
+  ],
+  "exclude": [
+    "app/src",
+    "app/vite.config.ts",
+    "app/dist"
+  ]
+}
