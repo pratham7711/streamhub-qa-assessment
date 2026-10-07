@@ -1,0 +1,450 @@
+<?xml version="1.0"?>
+<testsuite name="loanlens-ui" time="15.737" tests="56" skipped="0" failures="0" errors="0" timestamp="2026-10-07T11:19:38.996Z">
+  <testcase classname="LoanLens UI - EMI calculator" name="A &lt;amount> loan at &lt;rate>% for &lt;tenure> &lt;unit> from &lt;start> - Scenario A of the brief - #1.1: A 25L loan at 10% for 10 years from 2026-10" time="0.572">
+    <system-out><![CDATA[Given I open the LoanLens EMI calculator....................................passed
+When I enter a loan of "25L" at 10% for 10 years with the first EMI in "2026-10"..passed
+Then the monthly EMI, total interest and total payment should match my own calculation..passed
+And the payment break-up donut should split the total payment into principal and total interest..passed
+And the slices of the "Break-up of total payment" donut should add up to the total in its legend..passed
+And the yearly payments chart should have one bar per calendar year of my own schedule..passed
+And every yearly bar should match my own calendar-year amortisation.........passed
+And the yearly amortisation table should match my own calendar-year amortisation..passed
+And I capture evidence "calculated 25L at 10% for 10 years".................passed]]></system-out>
+  </testcase>
+  <testcase classname="LoanLens UI - EMI calculator" name="A &lt;amount> loan at &lt;rate>% for &lt;tenure> &lt;unit> from &lt;start> - Tenure entered in months - #2.1: A 18L loan at 9.25% for 30 months from 2026-12" time="0.515">
+    <system-out><![CDATA[Given I open the LoanLens EMI calculator....................................passed
+When I enter a loan of "18L" at 9.25% for 30 months with the first EMI in "2026-12"..passed
+Then the monthly EMI, total interest and total payment should match my own calculation..passed
+And the payment break-up donut should split the total payment into principal and total interest..passed
+And the slices of the "Break-up of total payment" donut should add up to the total in its legend..passed
+And the yearly payments chart should have one bar per calendar year of my own schedule..passed
+And every yearly bar should match my own calendar-year amortisation.........passed
+And the yearly amortisation table should match my own calendar-year amortisation..passed
+And I capture evidence "calculated 18L at 9.25% for 30 months"..............passed]]></system-out>
+  </testcase>
+  <testcase classname="LoanLens UI - EMI calculator" name="A zero-interest loan repays only the principal" time="0.499">
+    <system-out><![CDATA[Given I open the LoanLens EMI calculator....................................passed
+When I enter a loan of "6L" at 0% for 24 months with the first EMI in "2027-01"..passed
+Then the monthly EMI, total interest and total payment should match my own calculation..passed
+And the monthly EMI should be "₹25,000" and the total interest "₹0".........passed
+And the payment break-up donut should draw the principal as its only slice..passed
+And the yearly payments chart should have one bar per calendar year of my own schedule..passed
+And every yearly bar should match my own calendar-year amortisation.........passed
+And I capture evidence "zero interest loan".................................passed]]></system-out>
+  </testcase>
+  <testcase classname="LoanLens UI - EMI calculator" name="The sliders set the same values as the number boxes" time="0.633">
+    <system-out><![CDATA[Given I open the LoanLens EMI calculator....................................passed
+When I use the sliders' keyboard controls to set a loan of "10L" at 12% for 5 years..passed
+Then the number boxes should show 1000000, 12 and 5.........................passed
+And the monthly EMI, total interest and total payment should match my own calculation..passed
+And the yearly payments chart should have one bar per calendar year of my own schedule..passed]]></system-out>
+  </testcase>
+  <testcase classname="LoanLens UI - EMI calculator" name="Switching the tenure unit converts the tenure without changing the EMI" time="0.441">
+    <system-out><![CDATA[Given I open the LoanLens EMI calculator....................................passed
+When I enter a loan of "25L" at 10% for 10 years with the first EMI in "2026-10"..passed
+And I switch the tenure unit to "months"....................................passed
+Then the "Loan tenure" box should contain "120".............................passed
+And the monthly EMI, total interest and total payment should match my own calculation..passed]]></system-out>
+  </testcase>
+  <testcase classname="LoanLens UI - EMI calculator" name="A bar tooltip opens on hover and on keyboard focus" time="0.536">
+    <system-out><![CDATA[Given I open the LoanLens EMI calculator....................................passed
+When I enter a loan of "10L" at 12% for 5 years with the first EMI in "2027-03"..passed
+And I hover over the "2028" bar of the yearly payments chart................passed
+Then the chart tooltip should show the 2028 principal, interest and total from my own schedule..passed
+And I capture evidence "tooltip on hover"...................................passed
+When I move the pointer away from the chart.................................passed
+Then no chart tooltip should be open........................................passed
+When I move keyboard focus to the "2027" bar of the yearly payments chart...passed
+Then the chart tooltip should show the 2027 principal, interest and total from my own schedule..passed
+And the focused bar should be described by the tooltip......................passed
+When I press Tab............................................................passed
+Then the chart tooltip should show the 2028 principal, interest and total from my own schedule..passed
+And I capture evidence "tooltip on keyboard focus"..........................passed]]></system-out>
+  </testcase>
+  <testcase classname="LoanLens UI - EMI calculator" name="&lt;field> &lt;case> shows the validation message on the field - Out-of-range values, refused by the API and shown on the field - #1.1: Loan amount negative shows the validation message on the field" time="0.752">
+    <system-out><![CDATA[Given I open the LoanLens EMI calculator....................................passed
+When I enter a loan of "25L" at 10% for 10 years with the first EMI in "2026-10"..passed
+And I type "-2383434" into the "Loan amount" box............................passed
+Then the "Loan amount" box should show the error "Loan amount must be between ₹1,000 and ₹10,00,00,000."..passed
+And the repayment summary should ask me to fix the highlighted field........passed
+And the yearly chart and amortisation table should be hidden................passed
+And I capture evidence "validation Loan amount negative"....................passed
+When I type "2000000" into the "Loan amount" box............................passed
+Then the monthly EMI, total interest and total payment should match my own calculation..passed]]></system-out>
+  </testcase>
+  <testcase classname="LoanLens UI - EMI calculator" name="&lt;field> &lt;case> shows the validation message on the field - Out-of-range values, refused by the API and shown on the field - #1.2: Interest rate negative shows the validation message on the field" time="0.757">
+    <system-out><![CDATA[Given I open the LoanLens EMI calculator....................................passed
+When I enter a loan of "25L" at 10% for 10 years with the first EMI in "2026-10"..passed
+And I type "-8.5" into the "Interest rate" box..............................passed
+Then the "Interest rate" box should show the error "Interest rate must be between 0% and 50%."..passed
+And the repayment summary should ask me to fix the highlighted field........passed
+And the yearly chart and amortisation table should be hidden................passed
+And I capture evidence "validation Interest rate negative"..................passed
+When I type "9" into the "Interest rate" box................................passed
+Then the monthly EMI, total interest and total payment should match my own calculation..passed]]></system-out>
+  </testcase>
+  <testcase classname="LoanLens UI - EMI calculator" name="&lt;field> &lt;case> shows the validation message on the field - Out-of-range values, refused by the API and shown on the field - #1.3: Loan tenure over 40 years shows the validation message on the field" time="0.756">
+    <system-out><![CDATA[Given I open the LoanLens EMI calculator....................................passed
+When I enter a loan of "25L" at 10% for 10 years with the first EMI in "2026-10"..passed
+And I type "50" into the "Loan tenure" box..................................passed
+Then the "Loan tenure" box should show the error "Loan tenure must be a whole number of months between 1 and 480 (got 600 months)."..passed
+And the repayment summary should ask me to fix the highlighted field........passed
+And the yearly chart and amortisation table should be hidden................passed
+And I capture evidence "validation Loan tenure over 40 years"...............passed
+When I type "20" into the "Loan tenure" box.................................passed
+Then the monthly EMI, total interest and total payment should match my own calculation..passed]]></system-out>
+  </testcase>
+  <testcase classname="LoanLens UI - EMI calculator" name="&lt;field> &lt;case> shows the validation message on the field - A required value left empty, caught before any request - #2.1: Loan amount left empty shows the validation message on the field" time="0.47">
+    <system-out><![CDATA[Given I open the LoanLens EMI calculator....................................passed
+When I enter a loan of "25L" at 10% for 10 years with the first EMI in "2026-10"..passed
+And I type "" into the "Loan amount" box....................................passed
+Then the "Loan amount" box should show the error "Enter a loan amount in rupees."..passed
+And the repayment summary should ask me to fix the highlighted field........passed
+And the yearly chart and amortisation table should be hidden................passed
+And I capture evidence "validation Loan amount left empty"..................passed
+When I type "3000000" into the "Loan amount" box............................passed
+Then the monthly EMI, total interest and total payment should match my own calculation..passed]]></system-out>
+  </testcase>
+  <testcase classname="LoanLens UI - EMI calculator" name="&lt;field> &lt;case> shows the validation message on the field - A notation a number box allows but money does not, caught before any request - #3.1: Loan amount in exponent notation shows the validation message on the field" time="0.469">
+    <system-out><![CDATA[Given I open the LoanLens EMI calculator....................................passed
+When I enter a loan of "25L" at 10% for 10 years with the first EMI in "2026-10"..passed
+And I type "1e6" into the "Loan amount" box.................................passed
+Then the "Loan amount" box should show the error "Loan amount must be written in plain digits, for example 2500000."..passed
+And the repayment summary should ask me to fix the highlighted field........passed
+And the yearly chart and amortisation table should be hidden................passed
+And I capture evidence "validation Loan amount in exponent notation"........passed
+When I type "2000000" into the "Loan amount" box............................passed
+Then the monthly EMI, total interest and total payment should match my own calculation..passed]]></system-out>
+  </testcase>
+  <testcase classname="LoanLens UI - EMI calculator" name="Keystrokes the browser keeps but cannot read as a number are reported" time="0.166">
+    <system-out><![CDATA[Given I open the LoanLens EMI calculator....................................passed
+When I enter a loan of "25L" at 10% for 10 years with the first EMI in "2026-10"..passed
+And I clear the "Loan amount" box and press the keys "--5"..................passed
+Then the "Loan amount" box should show the error "Loan amount must be a number."..passed
+And the repayment summary should ask me to fix the highlighted field........passed
+And I capture evidence "keys two minus signs"...............................passed]]></system-out>
+  </testcase>
+  <testcase classname="LoanLens UI - EMI calculator" name="Letters typed between digits never reach the amount box" time="0.422">
+    <system-out><![CDATA[Given I open the LoanLens EMI calculator....................................passed
+When I enter a loan of "25L" at 10% for 10 years with the first EMI in "2026-10"..passed
+And I clear the "Loan amount" box and press the keys "12abc34"..............passed
+Then the "Loan amount" box should contain "1234"............................passed
+And the monthly EMI, total interest and total payment should match my own calculation..passed]]></system-out>
+  </testcase>
+  <testcase classname="LoanLens UI - EMI calculator" name="The summary shows a busy state while a new plan is calculated" time="1.97">
+    <system-out><![CDATA[Given I open the LoanLens EMI calculator....................................passed
+When I enter a loan of "25L" at 10% for 10 years with the first EMI in "2026-10"..passed
+And the EMI service starts answering slowly.................................passed
+And I type "3000000" into the "Loan amount" box.............................passed
+Then the repayment summary should be marked as busy.........................passed
+And I capture evidence "recalculating"......................................passed
+And the monthly EMI, total interest and total payment should match my own calculation..passed]]></system-out>
+  </testcase>
+  <testcase classname="LoanLens UI - Portfolio dashboard" name="The dashboard loads with its heading, navigation and title" time="0.108">
+    <system-out><![CDATA[Given I open the LoanLens dashboard.........................................passed
+Then the LoanLens screen heading should be "Portfolio overview".............passed
+And the browser tab title should be "Portfolio overview · LoanLens".........passed
+And the "Dashboard" link in the main navigation should be marked as the current page..passed]]></system-out>
+  </testcase>
+  <testcase classname="LoanLens UI - Portfolio dashboard" name="The main navigation opens the &lt;screen> screen - #1.1: The main navigation opens the calculator screen" time="0.166">
+    <system-out><![CDATA[Given I open the LoanLens dashboard.........................................passed
+When I follow the "EMI calculator" link in the main navigation..............passed
+Then the address bar should show "/calculator"..............................passed
+And the LoanLens screen heading should be "EMI calculator"..................passed
+And the "EMI calculator" link in the main navigation should be marked as the current page..passed]]></system-out>
+  </testcase>
+  <testcase classname="LoanLens UI - Portfolio dashboard" name="The main navigation opens the &lt;screen> screen - #1.2: The main navigation opens the report screen" time="0.162">
+    <system-out><![CDATA[Given I open the LoanLens dashboard.........................................passed
+When I follow the "Reports" link in the main navigation.....................passed
+Then the address bar should show "/reports".................................passed
+And the LoanLens screen heading should be "Loan book report"................passed
+And the "Reports" link in the main navigation should be marked as the current page..passed]]></system-out>
+  </testcase>
+  <testcase classname="LoanLens UI - Portfolio dashboard" name="The key figures match the loan book" time="0.115">
+    <system-out><![CDATA[Given I open the LoanLens dashboard.........................................passed
+Then the dashboard key figures should match the loan book...................passed
+And I capture evidence "dashboard key figures"..............................passed]]></system-out>
+  </testcase>
+  <testcase classname="LoanLens UI - Portfolio dashboard" name="The principal-by-type donut reconciles to the total principal" time="0.149">
+    <system-out><![CDATA[Given I open the LoanLens dashboard.........................................passed
+Then the "Principal by loan type" donut should draw one non-empty slice per loan type with the loan book's principal..passed
+And the slices of the "Principal by loan type" donut should add up to the total in its legend..passed
+And the legend shares of the "Principal by loan type" donut should add up to 100%..passed
+And I capture evidence "principal by loan type".............................passed]]></system-out>
+  </testcase>
+  <testcase classname="LoanLens UI - Portfolio dashboard" name="The status chart shows the loan count of every status" time="0.102">
+    <system-out><![CDATA[Given I open the LoanLens dashboard.........................................passed
+Then the "Loans by status" chart should show the loan book's count for every status..passed
+And the bars of the "Loans by status" chart should add up to 120 loans......passed]]></system-out>
+  </testcase>
+  <testcase classname="LoanLens UI - Portfolio dashboard" name="Recent disbursements list the newest loans and link to their detail page" time="0.172">
+    <system-out><![CDATA[Given I open the LoanLens dashboard.........................................passed
+Then the recent disbursements table should list the 5 most recently disbursed loans..passed
+When I open the most recently disbursed loan from the dashboard.............passed
+Then I should be on the detail page of that loan............................passed
+And I capture evidence "recent loan detail".................................passed]]></system-out>
+  </testcase>
+  <testcase classname="LoanLens UI - Loan detail" name="Opening a loan from the report search" time="0.279">
+    <system-out><![CDATA[Given I open the LoanLens loan book report..................................passed
+When I apply these report filters:..........................................passed
+And I open loan "LN-1001" from the report...................................passed
+Then the address bar should show "/loans/LN-1001"...........................passed
+And the loan detail page should describe loan "LN-1001" exactly as the loan book records it..passed
+And the repayment chart should have one bar per calendar year from the disbursement month..passed
+And every repayment bar should match my own amortisation of the loan........passed
+And the cost of the loan should match my own amortisation...................passed
+And I capture evidence "loan LN-1001".......................................passed]]></system-out>
+  </testcase>
+  <testcase classname="LoanLens UI - Loan detail" name="A tenure that is not a whole number of years shows the remaining months" time="0.106">
+    <system-out><![CDATA[Given the API answers loan "LN-1001" with a tenure of 90 months.............passed
+When I open the LoanLens loan detail page for "LN-1001".....................passed
+Then the tenure should read back as 90 monthly payments.....................passed]]></system-out>
+  </testcase>
+  <testcase classname="LoanLens UI - Loan detail" name="The breadcrumb leads back to the report" time="0.134">
+    <system-out><![CDATA[Given I open the LoanLens loan detail page for "LN-1001"....................passed
+When I follow the "Loan book report" link in the breadcrumb.................passed
+Then the address bar should show "/reports".................................passed
+And the LoanLens screen heading should be "Loan book report"................passed]]></system-out>
+  </testcase>
+  <testcase classname="LoanLens UI - Loan detail" name="An unknown loan ID shows a not-found page" time="0.12">
+    <system-out><![CDATA[Given I open the LoanLens loan detail page for "LN-9999"....................passed
+Then the LoanLens screen heading should be "Loan not found".................passed
+And the page should say "There is no loan with the ID LN-9999 in the book."..passed
+And I capture evidence "loan not found".....................................passed
+When I follow the "Search the loan book" link...............................passed
+Then the address bar should show "/reports".................................passed]]></system-out>
+  </testcase>
+  <testcase classname="LoanLens UI - Loan detail" name="A malformed loan ID explains what an ID looks like: &lt;address> - #1.1: A malformed loan ID explains what an ID looks like: /loans/not-a-loan" time="0.075">
+    <system-out><![CDATA[Given I open the LoanLens address "/loans/not-a-loan".......................passed
+Then the LoanLens screen heading should be "Loan not found".................passed
+And the page should say "“not-a-loan” is not a valid loan ID. Loan IDs look like LN-1047."..passed]]></system-out>
+  </testcase>
+  <testcase classname="LoanLens UI - Loan detail" name="A malformed loan ID explains what an ID looks like: &lt;address> - #1.2: A malformed loan ID explains what an ID looks like: /loans/%E0%A4%A" time="0.076">
+    <system-out><![CDATA[Given I open the LoanLens address "/loans/%E0%A4%A".........................passed
+Then the LoanLens screen heading should be "Loan not found".................passed
+And the page should say "“%E0%A4%A” is not a valid loan ID. Loan IDs look like LN-1047."..passed]]></system-out>
+  </testcase>
+  <testcase classname="LoanLens UI - Loan book report" name="The unfiltered report shows the first page of the whole book, newest first" time="0.149">
+    <system-out><![CDATA[Given I open the LoanLens loan book report..................................passed
+Then the report should list exactly the loans the loan book has for the current query..passed
+And the report totals should match the loan book for the current query......passed
+And the "Principal by status" chart should match the loan book for the current query..passed
+And the report should say "Showing 1–10 of 120 loans" and "Page 1 of 12"....passed
+And the "Disbursed" column should be sorted descending......................passed
+And the "Previous page" button should be disabled...........................passed
+And I capture evidence "default report".....................................passed]]></system-out>
+  </testcase>
+  <testcase classname="LoanLens UI - Loan book report" name="Filtering by &lt;description> - #1.1: Filtering by home loans that are active" time="0.299">
+    <system-out><![CDATA[Given I open the LoanLens loan book report..................................passed
+When I apply these report filters:..........................................passed
+Then the address bar should carry exactly those filters.....................passed
+And the report should list exactly the loans the loan book has for the current query..passed
+And the report totals should match the loan book for the current query......passed
+And the "Principal by status" chart should match the loan book for the current query..passed
+And I capture evidence "filtered by home loans that are active".............passed]]></system-out>
+  </testcase>
+  <testcase classname="LoanLens UI - Loan book report" name="Filtering by &lt;description> - #1.2: Filtering by personal loans in Delhi" time="0.301">
+    <system-out><![CDATA[Given I open the LoanLens loan book report..................................passed
+When I apply these report filters:..........................................passed
+Then the address bar should carry exactly those filters.....................passed
+And the report should list exactly the loans the loan book has for the current query..passed
+And the report totals should match the loan book for the current query......passed
+And the "Principal by status" chart should match the loan book for the current query..passed
+And I capture evidence "filtered by personal loans in Delhi"................passed]]></system-out>
+  </testcase>
+  <testcase classname="LoanLens UI - Loan book report" name="Filtering by &lt;description> - #1.3: Filtering by an amount range" time="0.317">
+    <system-out><![CDATA[Given I open the LoanLens loan book report..................................passed
+When I apply these report filters:..........................................passed
+Then the address bar should carry exactly those filters.....................passed
+And the report should list exactly the loans the loan book has for the current query..passed
+And the report totals should match the loan book for the current query......passed
+And the "Principal by status" chart should match the loan book for the current query..passed
+And I capture evidence "filtered by an amount range"........................passed]]></system-out>
+  </testcase>
+  <testcase classname="LoanLens UI - Loan book report" name="Filtering by &lt;description> - #1.4: Filtering by borrower surname" time="0.3">
+    <system-out><![CDATA[Given I open the LoanLens loan book report..................................passed
+When I apply these report filters:..........................................passed
+Then the address bar should carry exactly those filters.....................passed
+And the report should list exactly the loans the loan book has for the current query..passed
+And the report totals should match the loan book for the current query......passed
+And the "Principal by status" chart should match the loan book for the current query..passed
+And I capture evidence "filtered by borrower surname".......................passed]]></system-out>
+  </testcase>
+  <testcase classname="LoanLens UI - Loan book report" name="A shared report URL restores its filters, sort and page" time="0.168">
+    <system-out><![CDATA[Given I open the LoanLens loan book report at "?type=home&status=active&sort=amount&page=2"..passed
+Then the "Loan type" filter should show "Home"..............................passed
+And the "Status" filter should show "Active"................................passed
+And the "Amount" column should be sorted ascending..........................passed
+And the report should list exactly the loans the loan book has for the current query..passed
+And the report totals should match the loan book for the current query......passed
+When I reload the page......................................................passed
+Then the address bar should show "/reports?type=home&status=active&sort=amount&page=2"..passed
+And the report should list exactly the loans the loan book has for the current query..passed]]></system-out>
+  </testcase>
+  <testcase classname="LoanLens UI - Loan book report" name="Back and Reset keep the URL and the form in step" time="0.238">
+    <system-out><![CDATA[Given I open the LoanLens loan book report..................................passed
+When I apply these report filters:..........................................passed
+Then the address bar should show "/reports?type=education"..................passed
+When I go back in the browser history.......................................passed
+Then the address bar should show "/reports".................................passed
+And the "Loan type" filter should show "All types"..........................passed
+And the report should list exactly the loans the loan book has for the current query..passed
+When I go forward in the browser history....................................passed
+Then the "Loan type" filter should show "Education".........................passed
+When I reset the report filters.............................................passed
+Then the address bar should show "/reports".................................passed
+And the "Loan type" filter should show "All types"..........................passed
+And the report should say "Showing 1–10 of 120 loans" and "Page 1 of 12"....passed]]></system-out>
+  </testcase>
+  <testcase classname="LoanLens UI - Loan book report" name="Sorting by &lt;column>, header clicked &lt;clicks> - #1.1: Sorting by Amount, header clicked once" time="0.185">
+    <system-out><![CDATA[Given I open the LoanLens loan book report..................................passed
+When I click the "Amount" column header once................................passed
+Then the "Amount" column should be sorted descending........................passed
+And no other column should claim a sort order...............................passed
+And the address bar should show "/reports?sort=-amount".....................passed
+And the report should list exactly the loans the loan book has for the current query..passed]]></system-out>
+  </testcase>
+  <testcase classname="LoanLens UI - Loan book report" name="Sorting by &lt;column>, header clicked &lt;clicks> - #1.2: Sorting by Amount, header clicked twice" time="0.243">
+    <system-out><![CDATA[Given I open the LoanLens loan book report..................................passed
+When I click the "Amount" column header twice...............................passed
+Then the "Amount" column should be sorted ascending.........................passed
+And no other column should claim a sort order...............................passed
+And the address bar should show "/reports?sort=amount"......................passed
+And the report should list exactly the loans the loan book has for the current query..passed]]></system-out>
+  </testcase>
+  <testcase classname="LoanLens UI - Loan book report" name="Sorting by &lt;column>, header clicked &lt;clicks> - #1.3: Sorting by Borrower, header clicked once" time="0.184">
+    <system-out><![CDATA[Given I open the LoanLens loan book report..................................passed
+When I click the "Borrower" column header once..............................passed
+Then the "Borrower" column should be sorted ascending.......................passed
+And no other column should claim a sort order...............................passed
+And the address bar should show "/reports?sort=borrower"....................passed
+And the report should list exactly the loans the loan book has for the current query..passed]]></system-out>
+  </testcase>
+  <testcase classname="LoanLens UI - Loan book report" name="Sorting by &lt;column>, header clicked &lt;clicks> - #1.4: Sorting by Rate, header clicked once" time="0.184">
+    <system-out><![CDATA[Given I open the LoanLens loan book report..................................passed
+When I click the "Rate" column header once..................................passed
+Then the "Rate" column should be sorted descending..........................passed
+And no other column should claim a sort order...............................passed
+And the address bar should show "/reports?sort=-rate".......................passed
+And the report should list exactly the loans the loan book has for the current query..passed]]></system-out>
+  </testcase>
+  <testcase classname="LoanLens UI - Loan book report" name="Sorting by &lt;column>, header clicked &lt;clicks> - #1.5: Sorting by EMI, header clicked once" time="0.186">
+    <system-out><![CDATA[Given I open the LoanLens loan book report..................................passed
+When I click the "EMI" column header once...................................passed
+Then the "EMI" column should be sorted descending...........................passed
+And no other column should claim a sort order...............................passed
+And the address bar should show "/reports?sort=-emi"........................passed
+And the report should list exactly the loans the loan book has for the current query..passed]]></system-out>
+  </testcase>
+  <testcase classname="LoanLens UI - Loan book report" name="Sorting by &lt;column>, header clicked &lt;clicks> - #1.6: Sorting by Tenure, header clicked twice" time="0.244">
+    <system-out><![CDATA[Given I open the LoanLens loan book report..................................passed
+When I click the "Tenure" column header twice...............................passed
+Then the "Tenure" column should be sorted ascending.........................passed
+And no other column should claim a sort order...............................passed
+And the address bar should show "/reports?sort=tenureMonths"................passed
+And the report should list exactly the loans the loan book has for the current query..passed]]></system-out>
+  </testcase>
+  <testcase classname="LoanLens UI - Loan book report" name="Sorting by &lt;column>, header clicked &lt;clicks> - #1.7: Sorting by Disbursed, header clicked once" time="0.183">
+    <system-out><![CDATA[Given I open the LoanLens loan book report..................................passed
+When I click the "Disbursed" column header once.............................passed
+Then the "Disbursed" column should be sorted ascending......................passed
+And no other column should claim a sort order...............................passed
+And the address bar should show "/reports?sort=disbursedOn".................passed
+And the report should list exactly the loans the loan book has for the current query..passed]]></system-out>
+  </testcase>
+  <testcase classname="LoanLens UI - Loan book report" name="Paging through a sorted report" time="0.332">
+    <system-out><![CDATA[Given I open the LoanLens loan book report..................................passed
+When I click the "Amount" column header once................................passed
+And I go to the next page of the report.....................................passed
+Then the address bar should show "/reports?sort=-amount&page=2".............passed
+And the report should say "Showing 11–20 of 120 loans" and "Page 2 of 12"...passed
+And the report should list exactly the loans the loan book has for the current query..passed
+And I capture evidence "sorted page 2"......................................passed
+When I click the "Rate" column header once..................................passed
+Then the address bar should show "/reports?sort=-rate"......................passed
+And the report should say "Showing 1–10 of 120 loans" and "Page 1 of 12"....passed]]></system-out>
+  </testcase>
+  <testcase classname="LoanLens UI - Loan book report" name="The last page disables Next page" time="0.179">
+    <system-out><![CDATA[Given I open the LoanLens loan book report at "?page=12"....................passed
+Then the report should say "Showing 111–120 of 120 loans" and "Page 12 of 12"..passed
+And the "Next page" button should be disabled...............................passed
+And the report should list exactly the loans the loan book has for the current query..passed
+When I go to the previous page of the report................................passed
+Then the address bar should show "/reports?page=11".........................passed]]></system-out>
+  </testcase>
+  <testcase classname="LoanLens UI - Loan book report" name="Filters that match nothing show an empty state that explains what to do" time="0.239">
+    <system-out><![CDATA[Given I open the LoanLens loan book report..................................passed
+When I apply these report filters:..........................................passed
+Then the report should show its empty state.................................passed
+And the report totals should show 0 matching loans..........................passed
+And I capture evidence "empty state"........................................passed
+When I clear all filters from the empty state...............................passed
+Then the address bar should show "/reports".................................passed
+And the report should say "Showing 1–10 of 120 loans" and "Page 1 of 12"....passed]]></system-out>
+  </testcase>
+  <testcase classname="LoanLens UI - Loan book report" name="A page number that is not a page is explained, and the report starts at page 1: &lt;case> - #1.1: A page number that is not a page is explained, and the report starts at page 1: text" time="0.091">
+    <system-out><![CDATA[Given I open the LoanLens loan book report at "?page=abc"...................passed
+Then the report should note "“abc” is not a page number, so the report starts at page 1."..passed
+And the report should say "Showing 1–10 of 120 loans" and "Page 1 of 12"....passed]]></system-out>
+  </testcase>
+  <testcase classname="LoanLens UI - Loan book report" name="A page number that is not a page is explained, and the report starts at page 1: &lt;case> - #1.2: A page number that is not a page is explained, and the report starts at page 1: zero" time="0.092">
+    <system-out><![CDATA[Given I open the LoanLens loan book report at "?page=0".....................passed
+Then the report should note "“0” is not a page number, so the report starts at page 1."..passed
+And the report should say "Showing 1–10 of 120 loans" and "Page 1 of 12"....passed]]></system-out>
+  </testcase>
+  <testcase classname="LoanLens UI - Loan book report" name="A page number that is not a page is explained, and the report starts at page 1: &lt;case> - #1.3: A page number that is not a page is explained, and the report starts at page 1: decimal" time="0.092">
+    <system-out><![CDATA[Given I open the LoanLens loan book report at "?page=1.5"...................passed
+Then the report should note "“1.5” is not a page number, so the report starts at page 1."..passed
+And the report should say "Showing 1–10 of 120 loans" and "Page 1 of 12"....passed]]></system-out>
+  </testcase>
+  <testcase classname="LoanLens UI - Loan book report" name="A page past the end of the report says so and offers the last page" time="0.191">
+    <system-out><![CDATA[Given I open the LoanLens loan book report at "?page=9999"..................passed
+Then the report should say there is no page "9,999" and that it has 12 pages..passed
+And I capture evidence "page past the end"..................................passed
+When I go to the last page from that message................................passed
+Then the address bar should show "/reports?page=12".........................passed
+And the report should say "Showing 111–120 of 120 loans" and "Page 12 of 12"..passed]]></system-out>
+  </testcase>
+  <testcase classname="LoanLens UI - Loan book report" name="An impossible amount range is explained instead of silently returning nothing" time="0.194">
+    <system-out><![CDATA[Given I open the LoanLens loan book report..................................passed
+When I apply these report filters:..........................................passed
+Then the report should explain that "These filters cannot be applied."......passed
+And the explanation should name the "minAmount" and "maxAmount" filters.....passed
+And I capture evidence "invalid range"......................................passed]]></system-out>
+  </testcase>
+  <testcase classname="LoanLens UI - text from the URL is shown, never run" name="&lt;sink> shows markup from the URL as text and runs none of it - #1.1: The report's search box shows markup from the URL as text and runs none of it" time="0.078">
+    <system-out><![CDATA[Given I open the LoanLens address "/reports?q=%3Cimg%20src%3Dx%20onerror%3Dalert(1)%3E"..passed
+Then the page should show "<img src=x onerror=alert(1)>" as plain text......passed
+And no element should have been built from "<img src=x onerror=alert(1)>"...passed
+And no browser dialog should have opened....................................passed
+And the Content-Security-Policy should not have had to block anything.......passed]]></system-out>
+  </testcase>
+  <testcase classname="LoanLens UI - text from the URL is shown, never run" name="&lt;sink> shows markup from the URL as text and runs none of it - #1.2: The report's page note shows markup from the URL as text and runs none of it" time="0.082">
+    <system-out><![CDATA[Given I open the LoanLens address "/reports?page=%3Cimg%20src%3Dx%20onerror%3Dalert(1)%3E"..passed
+Then the page should show "<img src=x onerror=alert(1)>" as plain text......passed
+And no element should have been built from "<img src=x onerror=alert(1)>"...passed
+And no browser dialog should have opened....................................passed
+And the Content-Security-Policy should not have had to block anything.......passed]]></system-out>
+  </testcase>
+  <testcase classname="LoanLens UI - text from the URL is shown, never run" name="&lt;sink> shows markup from the URL as text and runs none of it - #1.3: The loan-not-found message shows markup from the URL as text and runs none of it" time="0.077">
+    <system-out><![CDATA[Given I open the LoanLens address "/loans/%3Cimg%20src%3Dx%20onerror%3Dalert(1)%3E"..passed
+Then the page should show "<img src=x onerror=alert(1)>" as plain text......passed
+And no element should have been built from "<img src=x onerror=alert(1)>"...passed
+And no browser dialog should have opened....................................passed
+And the Content-Security-Policy should not have had to block anything.......passed]]></system-out>
+  </testcase>
+  <testcase classname="LoanLens UI - text from the URL is shown, never run" name="&lt;address> tells the browser not to frame it, sniff it or run outside scripts - #1.1: / tells the browser not to frame it, sniff it or run outside scripts" time="0.031">
+    <system-out><![CDATA[Then the LoanLens page "/" should be served with these headers:.............passed]]></system-out>
+  </testcase>
+  <testcase classname="LoanLens UI - text from the URL is shown, never run" name="&lt;address> tells the browser not to frame it, sniff it or run outside scripts - #1.2: /reports tells the browser not to frame it, sniff it or run outside scripts" time="0.029">
+    <system-out><![CDATA[Then the LoanLens page "/reports" should be served with these headers:......passed]]></system-out>
+  </testcase>
+  <testcase classname="LoanLens UI - text from the URL is shown, never run" name="A page refuses a write method instead of revealing the server's default error page" time="0.029">
+    <system-out><![CDATA[When I send a POST request to the LoanLens page "/".........................passed
+Then the page response should be a JSON 405 that allows only "GET, HEAD"....passed]]></system-out>
+  </testcase>
+  <testcase classname="LoanLens UI - text from the URL is shown, never run" name="A file outside the web root is never served" time="0.028">
+    <system-out><![CDATA[When I send a GET request to the LoanLens page "/..%2f..%2fpackage.json"....passed
+Then the page response should be the app's own page, not "package.json".....passed]]></system-out>
+  </testcase>
+</testsuite>

@@ -8,8 +8,11 @@
  * scenarios that failed are recorded. A mutant nobody kills is a gap in the tests, unless it is
  * marked `equivalent` with the reason it cannot change any observable result.
  *
- * Writes reports/mutation/SUMMARY.md. Exits 1 if a non-equivalent mutant survives or a run
- * does not complete (build failure, app not starting, fewer scenarios than the baseline).
+ * Each mutant belongs to the section whose suite should catch it: loanlens-ui (A2) is
+ * Section A, loanlens-api (B2) is Section B. `--section a|b` runs one section's mutants;
+ * mutant IDs run a subset. Writes section-<a|b>/reports/mutation/SUMMARY.md for each section
+ * that ran. Exits 1 if a non-equivalent mutant survives or a run does not complete (build
+ * failure, app not starting, fewer scenarios than the baseline).
  */
 import { spawnSync } from 'node:child_process';
 import { cpSync, existsSync, mkdirSync, mkdtempSync, readdirSync, readFileSync, rmSync, symlinkSync, writeFileSync } from 'node:fs';
@@ -155,9 +158,16 @@ const MUTANTS = [
     edits: [['`Loan ${safeDecode(pathname.slice(7))}`', '`Loan ${decodeURIComponent(pathname.slice(7))}`']] },
 ];
 
+const SECTION_OF = { 'loanlens-ui': 'a', 'loanlens-api': 'b' };
 const repo = process.cwd();
-const only = process.argv.slice(2);
-const selected = only.length ? MUTANTS.filter((m) => only.includes(m.id)) : MUTANTS;
+const args = process.argv.slice(2);
+const sectionArg = args.includes('--section') ? args[args.indexOf('--section') + 1] : undefined;
+if (sectionArg !== undefined && !['a', 'b'].includes(sectionArg)) {
+  console.error('--section must be "a" or "b"');
+  process.exit(2);
+}
+const only = args.filter((a, i) => a !== '--section' && args[i - 1] !== '--section');
+const selected = MUTANTS.filter((m) => (!only.length || only.includes(m.id)) && (!sectionArg || SECTION_OF[m.suite] === sectionArg));
 const env = {
   ...process.env,
   TEST_ENV: 'local',
@@ -165,6 +175,7 @@ const env = {
   APP_BASE_URL: `http://localhost:${PORT}`,
   APP_API_URL: `http://localhost:${PORT}/api`,
   APP_AUTOSTART: 'true',
+  REPORTS_DIR: 'reports',
   SCREENSHOTS: 'off',
   TRACE: 'off',
 };
@@ -216,7 +227,8 @@ const results = [];
 try {
   for (const entry of readdirSync(repo)) {
     if (['node_modules', 'reports', '.git'].includes(entry)) continue;
-    cpSync(path.join(repo, entry), path.join(work, entry), { recursive: true, filter: (src) => !src.includes(`${path.sep}node_modules`) });
+    const skip = (src) => src.includes(`${path.sep}node_modules`) || /[\\/]section-[ab][\\/]reports([\\/]|$)/.test(src);
+    cpSync(path.join(repo, entry), path.join(work, entry), { recursive: true, filter: (src) => !skip(src) });
   }
   symlinkSync(path.join(repo, 'node_modules'), path.join(work, 'node_modules'));
 
@@ -264,26 +276,36 @@ try {
   cleanUp();
 }
 
-const killed = results.filter((r) => r.status === 'killed').length;
-const equivalent = results.filter((r) => r.status === 'equivalent');
-const survived = results.filter((r) => r.status === 'SURVIVED');
-const errored = results.filter((r) => r.status === 'ERROR');
 const cell = (s) => s.replaceAll('|', '\\|');
 const caughtBy = (r) =>
   r.status === 'killed' ? `${r.failed.length}: ${cell(r.failed.slice(0, 3).join('; '))}${r.failed.length > 3 ? '; …' : ''}` : cell(r.error ?? r.equivalent ?? 'none');
-const lines = [
-  '# Mutation check',
-  '',
-  `Run ${new Date().toISOString()} · node ${process.version} · \`npm run test:mutation${only.length ? ` ${only.join(' ')}` : ''}\``,
-  '',
-  `Each mutant is a small, realistic bug, written by hand and planted in a temporary copy of LoanLens. The suite that owns that code is run against the copy. A mutant counts as killed only if the run completed with the baseline's scenario count and at least one step or After-hook assertion failed. **${killed} of ${results.length} killed**, ${equivalent.length} equivalent, **${survived.length} survived**, ${errored.length} did not run cleanly.`,
-  '',
-  '| Mutant | Planted bug | Suite | Result | Scenarios that caught it |',
-  '|---|---|---|---|---|',
-  ...results.map((r) => `| ${r.id} | ${cell(r.what)} | ${r.suite} | ${r.status} | ${caughtBy(r)} |`),
-  '',
-];
-mkdirSync(path.join(repo, 'reports', 'mutation'), { recursive: true });
-writeFileSync(path.join(repo, 'reports', 'mutation', 'SUMMARY.md'), lines.join('\n'));
-console.log(`\n${killed}/${results.length} killed, ${equivalent.length} equivalent, ${survived.length} survived, ${errored.length} errored. reports/mutation/SUMMARY.md written.`);
-process.exit(survived.length || errored.length ? 1 : 0);
+const tally = (rs) => ({
+  killed: rs.filter((r) => r.status === 'killed').length,
+  equivalent: rs.filter((r) => r.status === 'equivalent').length,
+  survived: rs.filter((r) => r.status === 'SURVIVED').length,
+  errored: rs.filter((r) => r.status === 'ERROR').length,
+});
+for (const section of ['a', 'b']) {
+  const rs = results.filter((r) => SECTION_OF[r.suite] === section);
+  if (!rs.length) continue;
+  const t = tally(rs);
+  const command = `npm run test:mutation -- --section ${section}${only.length ? ` ${only.join(' ')}` : ''}`;
+  const lines = [
+    `# Mutation check, Section ${section.toUpperCase()}`,
+    '',
+    `Run ${new Date().toISOString()} · node ${process.version} · \`${command}\``,
+    '',
+    `Each mutant is a small, realistic bug, written by hand and planted in a temporary copy of LoanLens. The suite that owns that code (${section === 'a' ? 'loanlens-ui, A2' : 'loanlens-api, B2'}) is run against the copy. A mutant counts as killed only if the run completed with the baseline's scenario count and at least one step or After-hook assertion failed. **${t.killed} of ${rs.length} killed**, ${t.equivalent} equivalent, **${t.survived} survived**, ${t.errored} did not run cleanly.`,
+    '',
+    '| Mutant | Planted bug | Suite | Result | Scenarios that caught it |',
+    '|---|---|---|---|---|',
+    ...rs.map((r) => `| ${r.id} | ${cell(r.what)} | ${r.suite} | ${r.status} | ${caughtBy(r)} |`),
+    '',
+  ];
+  const dir = path.join(repo, `section-${section}`, 'reports', 'mutation');
+  mkdirSync(dir, { recursive: true });
+  writeFileSync(path.join(dir, 'SUMMARY.md'), lines.join('\n'));
+  console.log(`Section ${section.toUpperCase()}: ${t.killed}/${rs.length} killed, ${t.equivalent} equivalent, ${t.survived} survived, ${t.errored} errored. ${path.relative(repo, dir)}/SUMMARY.md written.`);
+}
+const total = tally(results);
+process.exit(total.survived || total.errored ? 1 : 0);

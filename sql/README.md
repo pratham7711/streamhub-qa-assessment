@@ -11,12 +11,12 @@ independent oracle and every edge case by name.
 | Seed data | [`seed/01_transactions.sql`](seed/01_transactions.sql) (28 accounts, 35 transfers) | [`seed/02_ipl.sql`](seed/02_ipl.sql) (12 players, 50 matches, 102 innings) |
 | Output screenshot | [`results/scenario1.png`](results/scenario1.png) | [`results/scenario2.png`](results/scenario2.png) |
 | Output as text | [`results/scenario1.txt`](results/scenario1.txt) (10 rows) | [`results/scenario2.txt`](results/scenario2.txt) (7 rows) |
-| Tests | [`tests/features/sql/round-trip-transfers.feature`](../tests/features/sql/round-trip-transfers.feature) | [`tests/features/sql/ipl-streaks.feature`](../tests/features/sql/ipl-streaks.feature) |
+| Tests | [`sql/features/round-trip-transfers.feature`](../sql/features/round-trip-transfers.feature) | [`sql/features/ipl-streaks.feature`](../sql/features/ipl-streaks.feature) |
 
 ## How to run
 
 ```bash
-npm run test:sql                          # 40 Cucumber scenarios; reports in reports/sql/
+npm run test:sql                          # 6 Cucumber scenarios; npm run test:section-a/-b writes them to section-<a|b>/reports/sql/
 npx tsx sql/scripts/render-results.ts     # re-renders results/*.png|html|txt (the suite does this too)
 npx tsx sql/scripts/build-ipl-seed.ts     # regenerates seed/02_ipl.sql from data/ipl-fixtures.ts
 ```

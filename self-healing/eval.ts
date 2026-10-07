@@ -3,7 +3,7 @@
  *
  * Measures the healers instead of demonstrating them. For each case it captures the incident
  * the runtime would capture, asks every provider for candidates several times, and scores each
- * answer against ground truth: the element that the healthy page objects in tests/pages/loanlens
+ * answer against ground truth: the element that the healthy page objects in section-a/loanlens-ui/pages
  * (the ones the UI suite runs on) resolve to. The removed Export CSV button has no ground truth,
  * so the only right answer there is a refusal.
  *
@@ -17,20 +17,20 @@
  *   blind  the fingerprint is withheld from the healer and used only by the validator, which
  *          shows whether the healer found the element or was handed its description.
  *
- * Writes reports/self-healing-eval/EVAL.md and results.json. Exits 1 if any trial accepted
+ * Writes self-healing/eval-results/EVAL.md and results.json. Exits 1 if any trial accepted
  * a wrong element (a false heal), because that is the failure that turns a test green for
  * the wrong reason.
  */
 import { mkdirSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 import { chromium, type Locator, type Page } from 'playwright';
-import { env } from '../tests/config/env.js';
-import { CalculatorPage } from '../tests/pages/loanlens/CalculatorPage.js';
-import { DashboardPage } from '../tests/pages/loanlens/DashboardPage.js';
-import { ReportsPage } from '../tests/pages/loanlens/ReportsPage.js';
-import { LoanDetailPage } from '../tests/pages/loanlens/LoanDetailPage.js';
-import { LegacyLocators } from '../tests/pages/self-healing/LegacyLocators.js';
-import { assertWebBuilt, ensureAppServer, stopAppServer } from '../tests/support/app-server.js';
+import { env } from '../framework/config/env.js';
+import { CalculatorPage } from '../section-a/loanlens-ui/pages/CalculatorPage.js';
+import { DashboardPage } from '../section-a/loanlens-ui/pages/DashboardPage.js';
+import { ReportsPage } from '../section-a/loanlens-ui/pages/ReportsPage.js';
+import { LoanDetailPage } from '../section-a/loanlens-ui/pages/LoanDetailPage.js';
+import { LegacyLocators } from './pages/LegacyLocators.js';
+import { assertWebBuilt, ensureAppServer, stopAppServer } from '../framework/support/app-server.js';
 import { claudeCliAvailable } from './providers/claude-cli.js';
 import { pickProvider } from './providers/index.js';
 import { healable as declareHealable, type HealableLocator } from './runtime.js';
@@ -224,7 +224,7 @@ for (const provider of providers) {
 }
 
 const falseHeals = results.filter((r) => r.outcome === 'FALSE HEAL');
-const dir = path.join('reports', 'self-healing-eval');
+const dir = path.join('self-healing', 'eval-results');
 mkdirSync(dir, { recursive: true });
 writeFileSync(path.join(dir, 'results.json'), `${JSON.stringify(results, null, 2)}\n`);
 writeFileSync(
@@ -233,7 +233,7 @@ writeFileSync(
 
 Run ${new Date().toISOString()} · \`npm run heal:eval -- --providers ${requested.join(',')} --modes ${modes.join(',')} --trials ${trials}\`
 
-${CASES.length} cases, ${trials} trial(s) each, per provider and prompt condition: the exercise's five broken locators (four healable, one removed feature) and ${decoyCount} harder cases that exist only in this evaluation, where a plausible wrong element is on the page. A heal is **correct** only if the accepted locator resolves to the very element the healthy page objects in \`tests/pages/loanlens\` resolve to. A **false heal** is an accepted locator that finds anything else; it is the failure that matters, because it turns a test green for the wrong reason.
+${CASES.length} cases, ${trials} trial(s) each, per provider and prompt condition: the exercise's five broken locators (four healable, one removed feature) and ${decoyCount} harder cases that exist only in this evaluation, where a plausible wrong element is on the page. A heal is **correct** only if the accepted locator resolves to the very element the healthy page objects in \`section-a/loanlens-ui/pages\` resolve to. A **false heal** is an accepted locator that finds anything else; it is the failure that matters, because it turns a test green for the wrong reason.
 
 **Conditions.** *open*: the healer sees the declared fingerprint (role, name, container), as at runtime. *blind*: the fingerprint is withheld from the healer and used only by the validator.
 

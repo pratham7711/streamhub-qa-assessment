@@ -12,7 +12,7 @@ npm run heal:eval                     # score the healers over repeated trials (
 
 ## The five broken locators
 
-They live in [`tests/pages/self-healing/LegacyLocators.ts`](../tests/pages/self-healing/LegacyLocators.ts) and are used only by [`broken-locators.feature`](../tests/features/self-healing/broken-locators.feature) (`@broken-locator`, excluded from the regular suites). Each reproduces a different way locators rot:
+They live in [`self-healing/pages/LegacyLocators.ts`](../self-healing/pages/LegacyLocators.ts) and are used only by [`broken-locators.feature`](../self-healing/features/broken-locators.feature) (`@broken-locator`, excluded from the regular suites). Each reproduces a different way locators rot:
 
 | # | Locator | What changed in the app | Failure class |
 |---|---|---|---|
@@ -48,7 +48,7 @@ this.recentDisbursementsTable = healable(page, RECENT_TABLE, (p) => p.locator('t
 
 Diagnosing at resolution time is better than reading timeouts afterwards: a timeout cannot tell a slow page from a broken locator. The cost is one `count()` per resolve.
 
-On failure an **incident** is written to `reports/<suite>/healing/incidents/<key>.json` with a full-page screenshot beside it. It holds:
+On failure an **incident** is written to `<section>/reports/<suite>/healing/incidents/<key>.json` with a full-page screenshot beside it. It holds:
 - the intent, the fingerprint, the failed locator and its failure class;
 - the URL;
 - the declaring source line, found from the stack through tsx's source maps;
@@ -97,7 +97,7 @@ Every candidate from every provider passes through the same deterministic gates 
 | `suggest` | Also ask the healer, validate, write the patch; still fail. |
 | `heal` | Also continue *this run* on the validated locator, so the replay result is known. |
 
-## 4. Results of one heal run (committed in `reports/`, 2026-10-07)
+## 4. Results of the committed heal runs (one per section, 2026-10-07)
 
 | # | Failure | Offline heuristic | Claude Sonnet via `claude -p` | Replay |
 |---|---|---|---|---|
@@ -107,16 +107,16 @@ Every candidate from every provider passes through the same deterministic gates 
 | 4 | wrong-element | `getByRole('table', { name: 'Recent disbursements', exact: true })` | same | passed (both) |
 | 5 | no-match | none passed validation | **returned no candidates** | not run (stays red, as it should) |
 
-- **Claude.** 3.3–4.9 s and $0.0033–$0.0047 per incident, $0.021 for all five, in the committed run. Earlier runs gave the same answers; the first one cost $0.034–$0.050 per incident, and later ones about $0.004, presumably from prompt caching (not verified). For case 3 its rationale reads: *"The slider role with exact name 'Loan amount' is unique, since the other same-named element is a spinbutton."* The locator it returned has no `exact: true`, so the rationale describes a stricter locator than the one it wrote. The locator is still unique, and validation checks the locator, not the rationale.
+- **Claude.** Both committed runs gave the answers above, as earlier runs did. Section A's run took 3.5–8.7 s and $0.034–$0.050 per incident ($0.215 for all five); Section B's, a few minutes later, 3.1–4.9 s and $0.0030–$0.0052 ($0.020). The tenfold drop is presumably prompt caching (not verified). For case 3 its rationale in Section B's run reads: *"The slider role with exact name 'Loan amount' is unique, since the other same-named element is a spinbutton."* The locator it returned has no `exact: true`, so the rationale describes a stricter locator than the one it wrote. The locator is still unique, and validation checks the locator, not the rationale.
 - **Heuristic.** Under 0.1 s per incident. Its full report is saved in [`docs/self-healing-runs/heuristic/SUGGESTIONS.md`](self-healing-runs/heuristic/SUGGESTIONS.md).
 - **What the validation stopped.** For case 5 the heuristic proposed the table's **"Disbursed"** sort button: unique, visible and the right role, but the wrong element. Gate 5 rejected it (`element does not have role button named /export|csv|download/i`). Without the fingerprint, a naive healer would have clicked a sort header and the test would have failed later for a misleading reason. Or, given a looser assertion, it would have passed on a product that lost its export.
-- **Where the result lives.** The latest `npm run heal` report is in `reports/self-healing-healed/healing/SUGGESTIONS.md`. One run shows what a heal looks like; section 5 measures how often it is right.
+- **Where the result lives.** Each section's run heals the same five locators, so there are two reports: [`section-a/reports/self-healing-healed/healing/SUGGESTIONS.md`](../section-a/reports/self-healing-healed/healing/SUGGESTIONS.md) and [`section-b/reports/self-healing-healed/healing/SUGGESTIONS.md`](../section-b/reports/self-healing-healed/healing/SUGGESTIONS.md). One run shows what a heal looks like; section 5 measures how often it is right.
 
 ## 5. Evaluation: how good is the healer?
 
-A demo shows that a heal can work. `npm run heal:eval` ([`self-healing/eval.ts`](../self-healing/eval.ts)) measures how often it does, and how it fails. Latest report: [`reports/self-healing-eval/EVAL.md`](../reports/self-healing-eval/EVAL.md).
+A demo shows that a heal can work. `npm run heal:eval` ([`self-healing/eval.ts`](../self-healing/eval.ts)) measures how often it does, and how it fails. Latest report: [`self-healing/eval-results/EVAL.md`](../self-healing/eval-results/EVAL.md).
 
-- **Ground truth comes from outside the healer.** A heal is *correct* only if the accepted locator resolves to the very DOM element that the healthy page objects in `tests/pages/loanlens` resolve to. Those page objects run the 56 UI scenarios. For the removed Export CSV feature there is no ground truth; the only correct answer is a refusal.
+- **Ground truth comes from outside the healer.** A heal is *correct* only if the accepted locator resolves to the very DOM element that the healthy page objects in `section-a/loanlens-ui/pages` resolve to. Those page objects run the 56 UI scenarios. For the removed Export CSV feature there is no ground truth; the only correct answer is a refusal.
 - **Outcomes.** *Correct*, *missed* (nothing accepted: the test stays red, which is safe), *refused* (correct for the removed feature), and **false heal**: an accepted locator that finds any other element. The script exits 1 on any false heal, because that is the failure that turns a test green for the wrong reason.
 - **Two conditions.** *open*: the healer sees the fingerprint, as at runtime. *blind*: the fingerprint is withheld from the healer and used only by the validator. A fingerprint names the role and accessible name, so the open condition partly hands the answer over; blind shows whether the healer can find the element from the intent and the page alone.
 - **Separate scores for the model and the guard.** "Top-1 right" scores the provider's first choice before validation. "Wrong candidates rejected" and "right candidates rejected" score the validator as a classifier.

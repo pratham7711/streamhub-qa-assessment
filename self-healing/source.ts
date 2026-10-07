@@ -4,11 +4,12 @@ import { fileURLToPath } from 'node:url';
 import type { SourceRef } from './types.js';
 
 const ROOT = process.cwd();
+const TEST_CODE = ['self-healing/pages/', 'section-a/', 'section-b/', 'framework/'].map((d) => d.split('/').join(path.sep));
 
 /**
  * Finds the page-object line that declared a healable locator, from the stack
  * at declaration time (tsx maps stack frames back to the .ts source). Only
- * frames under tests/ count, so the self-healing runtime itself is skipped.
+ * frames in test code count, so the self-healing runtime itself is skipped.
  */
 export function callerSource(stack = new Error().stack ?? ''): SourceRef | null {
   for (const frame of stack.split('\n').slice(1)) {
@@ -16,7 +17,7 @@ export function callerSource(stack = new Error().stack ?? ''): SourceRef | null 
     if (!m) continue;
     const file = m[1].startsWith('file://') ? fileURLToPath(m[1]) : m[1];
     const rel = path.relative(ROOT, file);
-    if (!rel.startsWith(`tests${path.sep}`) || rel.includes('node_modules') || !existsSync(file)) continue;
+    if (!TEST_CODE.some((d) => rel.startsWith(d)) || rel.includes('node_modules') || !existsSync(file)) continue;
     const line = Number(m[2]);
     const text = readFileSync(file, 'utf8').split('\n')[line - 1] ?? '';
     const arrow = /\((\w+)\)\s*=>\s*(.+)\)\s*[;,]?\s*$/.exec(text);

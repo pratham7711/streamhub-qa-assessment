@@ -1,0 +1,1350 @@
+# emicalculator — 2026-10-07T11:21:09.264Z — TEST_ENV=local — node v26.7.0
+
+
+Feature: emicalculator.net - rules that combine inputs
+
+  @ui @external @emicalculator
+  Scenario Outline: The EMI scheme is offered only for car loans: Home Loan # section-b/emicalculator/features/calculator-rules.feature:21
+
+  @ui @external @emicalculator
+  Scenario Outline: The EMI scheme is offered only for car loans: Personal Loan # section-b/emicalculator/features/calculator-rules.feature:22
+
+  @ui @external @emicalculator
+  Scenario: EMI in advance on a car loan is the arrears EMI discounted by one month       # section-b/emicalculator/features/calculator-rules.feature:7
+    ✔ Given I launch the EMI calculator application                         # section-b/emicalculator/steps/emicalculator.steps.ts:22
+    ✔ Given I launch the EMI calculator application                                       # section-b/emicalculator/steps/emicalculator.steps.ts:22
+    ✔ When I navigate to the "Home Loan" tab                                # section-b/emicalculator/steps/emicalculator.steps.ts:26
+    ✔ And I navigate to the "Car Loan" tab                                                # section-b/emicalculator/steps/emicalculator.steps.ts:26
+    ✔ Then the "EMI in Advance" option should not be offered                # section-b/emicalculator/steps/emicalculator-validation.steps.ts:149
+
+  @ui @external @emicalculator
+  Scenario Outline: Switching the tenure between years and months keeps the same loan: 0.5 years # section-b/emicalculator/features/calculator-rules.feature:37
+    ✔ Given I launch the EMI calculator application                             # section-b/emicalculator/steps/emicalculator.steps.ts:22
+    ✔ When I navigate to the "Personal Loan" tab                                # section-b/emicalculator/steps/emicalculator.steps.ts:26
+    ✔ Then the "EMI in Advance" option should not be offered                    # section-b/emicalculator/steps/emicalculator-validation.steps.ts:149
+
+  @ui @external @emicalculator
+  Scenario Outline: Switching the tenure between years and months keeps the same loan: 1.75 years # section-b/emicalculator/features/calculator-rules.feature:38
+    ✔ And I enter a loan amount of "6L", an interest rate of 9.5% and a tenure of 4 years # section-b/emicalculator/steps/emicalculator.steps.ts:30
+    ✔ Given I launch the EMI calculator application                                              # section-b/emicalculator/steps/emicalculator.steps.ts:22
+    ✔ And I navigate to the "Home Loan" tab                                                      # section-b/emicalculator/steps/emicalculator.steps.ts:26
+    ✔ Given I launch the EMI calculator application                                               # section-b/emicalculator/steps/emicalculator.steps.ts:22
+    ✔ And I navigate to the "Home Loan" tab                                                       # section-b/emicalculator/steps/emicalculator.steps.ts:26
+    ✔ When I choose "EMI in Advance"                                                      # section-b/emicalculator/steps/emicalculator-validation.steps.ts:133
+
+          EMI in arrears ₹15,074; in advance: site ₹14,955 | mine ₹14955.48
+
+    ✔ Then the EMI shown should be the EMI in advance from my own calculation             # section-b/emicalculator/steps/emicalculator-validation.steps.ts:138
+
+  @ui @external @emicalculator
+  Scenario Outline: Switching the tenure between years and months keeps the same loan: 7 years # section-b/emicalculator/features/calculator-rules.feature:39
+
+          Typed "0.5" into Loan Tenure, pressed Tab
+          Boxes before: {"amount":"50,00,000","rate":"9","tenure":"20"}
+          Boxes after:  {"amount":"50,00,000","rate":"9","tenure":"0.5"}
+          Results before: ₹44,986 | ₹57,96,711 | ₹1,07,96,711
+          Results after:  ₹8,55,345 | ₹1,32,067 | ₹51,32,067
+
+    ✔ When I type "0.5" into the "Loan Tenure" box and press Tab                                 # section-b/emicalculator/steps/emicalculator-validation.steps.ts:64
+
+          Typed "1.75" into Loan Tenure, pressed Tab
+          Boxes before: {"amount":"50,00,000","rate":"9","tenure":"20"}
+          Boxes after:  {"amount":"50,00,000","rate":"9","tenure":"1.75"}
+          Results before: ₹44,986 | ₹57,96,711 | ₹1,07,96,711
+          Results after:  ₹2,58,227 | ₹4,22,770 | ₹54,22,770
+
+    ✔ When I type "1.75" into the "Loan Tenure" box and press Tab                                 # section-b/emicalculator/steps/emicalculator-validation.steps.ts:64
+    ✔ Given I launch the EMI calculator application                                            # section-b/emicalculator/steps/emicalculator.steps.ts:22
+    ✔ And I navigate to the "Home Loan" tab                                                    # section-b/emicalculator/steps/emicalculator.steps.ts:26
+    ✔ And I switch the tenure to months using the Yr and Mo buttons                              # section-b/emicalculator/steps/emicalculator-validation.steps.ts:57
+    ✔ Then the "Loan Tenure" box should show "6"                                                 # section-b/emicalculator/steps/emicalculator-validation.steps.ts:108
+    ✔ And the EMI should not have changed                                                        # section-b/emicalculator/steps/emicalculator-validation.steps.ts:129
+    ✔ And I switch the tenure to months using the Yr and Mo buttons                               # section-b/emicalculator/steps/emicalculator-validation.steps.ts:57
+    ✔ Then the "Loan Tenure" box should show "21"                                                 # section-b/emicalculator/steps/emicalculator-validation.steps.ts:108
+    ✔ And the EMI should not have changed                                                         # section-b/emicalculator/steps/emicalculator-validation.steps.ts:129
+    ✔ When I switch the tenure to years using the Yr and Mo buttons                              # section-b/emicalculator/steps/emicalculator-validation.steps.ts:57
+    ✔ Then the "Loan Tenure" box should show "0.5"                                               # section-b/emicalculator/steps/emicalculator-validation.steps.ts:108
+    ✔ And the EMI should not have changed                                                        # section-b/emicalculator/steps/emicalculator-validation.steps.ts:129
+
+Feature: emicalculator.net - Test Case 1: Validate the EMI pie chart
+
+  @ui @external @emicalculator
+  Scenario Outline: Scenario A: home loan of 25L at 10% for 10 years                        # section-b/emicalculator/features/home-loan-pie-chart.feature:21
+
+          Typed "7" into Loan Tenure, pressed Tab
+          Boxes before: {"amount":"50,00,000","rate":"9","tenure":"20"}
+          Boxes after:  {"amount":"50,00,000","rate":"9","tenure":"7"}
+          Results before: ₹44,986 | ₹57,96,711 | ₹1,07,96,711
+          Results after:  ₹80,445 | ₹17,57,413 | ₹67,57,413
+
+    ✔ When I type "7" into the "Loan Tenure" box and press Tab                                 # section-b/emicalculator/steps/emicalculator-validation.steps.ts:64
+    ✔ When I switch the tenure to years using the Yr and Mo buttons                               # section-b/emicalculator/steps/emicalculator-validation.steps.ts:57
+    ✔ Then the "Loan Tenure" box should show "1.75"                                               # section-b/emicalculator/steps/emicalculator-validation.steps.ts:108
+    ✔ And the EMI should not have changed                                                         # section-b/emicalculator/steps/emicalculator-validation.steps.ts:129
+
+  @ui @external @emicalculator
+  Scenario Outline: Scenario B: home loan of 50L at 7.5% for 15 years                        # section-b/emicalculator/features/home-loan-pie-chart.feature:22
+    ✔ And I switch the tenure to months using the Yr and Mo buttons                            # section-b/emicalculator/steps/emicalculator-validation.steps.ts:57
+    ✔ Then the "Loan Tenure" box should show "84"                                              # section-b/emicalculator/steps/emicalculator-validation.steps.ts:108
+    ✔ Given I launch the EMI calculator application                                         # section-b/emicalculator/steps/emicalculator.steps.ts:22
+    ✔ When I navigate to the "Home Loan" tab                                                # section-b/emicalculator/steps/emicalculator.steps.ts:26
+    ✔ And the EMI should not have changed                                                      # section-b/emicalculator/steps/emicalculator-validation.steps.ts:129
+    ✔ Given I launch the EMI calculator application                                          # section-b/emicalculator/steps/emicalculator.steps.ts:22
+    ✔ When I navigate to the "Home Loan" tab                                                 # section-b/emicalculator/steps/emicalculator.steps.ts:26
+    ✔ When I switch the tenure to years using the Yr and Mo buttons                            # section-b/emicalculator/steps/emicalculator-validation.steps.ts:57
+    ✔ Then the "Loan Tenure" box should show "7"                                               # section-b/emicalculator/steps/emicalculator-validation.steps.ts:108
+    ✔ When I enter a loan amount of "25L", an interest rate of 10% and a tenure of 10 years # section-b/emicalculator/steps/emicalculator.steps.ts:30
+    ✔ And the EMI should not have changed                                                      # section-b/emicalculator/steps/emicalculator-validation.steps.ts:129
+
+Feature: emicalculator.net - what the calculator does with entries it should not accept
+
+  @ui @external @emicalculator @negative
+  Scenario Outline: A loan amount written the way people write money is understood: plain digits # section-b/emicalculator/features/input-validation.feature:25
+
+          EMI: site ₹33,038 | mine ₹33037.68
+
+    ✔ Then the EMI shown should match my own calculation                                    # section-b/emicalculator/steps/emicalculator.steps.ts:71
+    ✔ When I enter a loan amount of "50L", an interest rate of 7.5% and a tenure of 15 years # section-b/emicalculator/steps/emicalculator.steps.ts:30
+
+          Total interest: site ₹14,64,522 | mine ₹1464522.11
+          Total payment: site ₹39,64,522 | mine ₹3964522.11
+
+
+          Embedding scenario-a-home-loan-of-25l-at-10-for-10-years--01-emi-results.png [image/png 155070 bytes]
+
+    ✔ And the total interest and total payment shown should match my own calculation        # section-b/emicalculator/steps/emicalculator.steps.ts:79
+
+          EMI: site ₹46,351 | mine ₹46350.62
+
+    ✔ Then the EMI shown should match my own calculation                                     # section-b/emicalculator/steps/emicalculator.steps.ts:71
+
+          Embedding scenario-a-home-loan-of-25l-at-10-for-10-years--02-pie-chart.png [image/png 12168 bytes]
+
+    ✔ And the pie chart should be visible and available                                     # section-b/emicalculator/steps/emicalculator.steps.ts:93
+    ✔ Given I launch the EMI calculator application                                              # section-b/emicalculator/steps/emicalculator.steps.ts:22
+
+          Principal Loan Amount: 63.1% (data label "63.1%")
+          Total Interest: 36.9% (data label "36.9%")
+
+    ✔ And both sections of the pie chart should have numerical values greater than zero     # section-b/emicalculator/steps/emicalculator.steps.ts:106
+    ✔ And the pie chart split should match my calculated principal and interest shares      # section-b/emicalculator/steps/emicalculator.steps.ts:118
+
+  @ui @external @emicalculator @negative
+  Scenario Outline: A loan amount written the way people write money is understood: Indian grouping # section-b/emicalculator/features/input-validation.feature:26
+
+          Total interest: site ₹33,43,111 | mine ₹3343111.24
+          Total payment: site ₹83,43,111 | mine ₹8343111.24
+
+    ✔ And I navigate to the "Car Loan" tab                                                       # section-b/emicalculator/steps/emicalculator.steps.ts:26
+
+          Embedding scenario-b-home-loan-of-50l-at-7-5-for-15-years--01-emi-results.png [image/png 153348 bytes]
+
+    ✔ And the total interest and total payment shown should match my own calculation         # section-b/emicalculator/steps/emicalculator.steps.ts:79
+
+          Embedding scenario-b-home-loan-of-50l-at-7-5-for-15-years--02-pie-chart.png [image/png 12084 bytes]
+
+    ✔ And the pie chart should be visible and available                                      # section-b/emicalculator/steps/emicalculator.steps.ts:93
+
+          Principal Loan Amount: 59.9% (data label "59.9%")
+          Total Interest: 40.1% (data label "40.1%")
+
+    ✔ And both sections of the pie chart should have numerical values greater than zero      # section-b/emicalculator/steps/emicalculator.steps.ts:106
+    ✔ And the pie chart split should match my calculated principal and interest shares       # section-b/emicalculator/steps/emicalculator.steps.ts:118
+
+  @ui @external @emicalculator @negative
+  Scenario Outline: A loan amount written the way people write money is understood: rupee sign # section-b/emicalculator/features/input-validation.feature:27
+    ✔ Given I launch the EMI calculator application                                                 # section-b/emicalculator/steps/emicalculator.steps.ts:22
+    ✔ And I navigate to the "Car Loan" tab                                                          # section-b/emicalculator/steps/emicalculator.steps.ts:26
+    ✔ And I enter a loan amount of "6L", an interest rate of 9.5% and a tenure of 4 years        # section-b/emicalculator/steps/emicalculator.steps.ts:30
+    ✔ Given I launch the EMI calculator application                                            # section-b/emicalculator/steps/emicalculator.steps.ts:22
+    ✔ And I navigate to the "Car Loan" tab                                                     # section-b/emicalculator/steps/emicalculator.steps.ts:26
+    ✔ And I enter a loan amount of "6L", an interest rate of 9.5% and a tenure of 4 years           # section-b/emicalculator/steps/emicalculator.steps.ts:30
+    ✔ And I enter a loan amount of "6L", an interest rate of 9.5% and a tenure of 4 years      # section-b/emicalculator/steps/emicalculator.steps.ts:30
+
+          Typed "1500000" into Loan Amount, pressed Tab
+          Boxes before: {"amount":"6,00,000","rate":"9.5","tenure":"4"}
+          Boxes after:  {"amount":"15,00,000","rate":"9.5","tenure":"4"}
+          Results before: ₹15,074 | ₹1,23,546 | ₹7,23,546
+          Results after:  ₹37,685 | ₹3,08,866 | ₹18,08,866
+
+    ✔ When I type "1500000" into the "Loan Amount" box and press Tab                             # section-b/emicalculator/steps/emicalculator-validation.steps.ts:64
+    ✔ Then the "Loan Amount" box should show "15,00,000"                                         # section-b/emicalculator/steps/emicalculator-validation.steps.ts:108
+
+          Boxes read as ₹15,00,000 at 9.5% for 48 months
+          EMI: site ₹37,685 | mine ₹37684.71
+          Total payment: site ₹18,08,866 | mine ₹1808865.84
+
+    ✔ And the results should match my own calculation for the values the boxes show              # section-b/emicalculator/steps/emicalculator-validation.steps.ts:112
+
+  @ui @external @emicalculator @negative
+  Scenario Outline: A loan amount written the way people write money is understood: smallest whole amount, ₹1 # section-b/emicalculator/features/input-validation.feature:31
+
+          Typed "15,00,000" into Loan Amount, pressed Tab
+          Boxes before: {"amount":"6,00,000","rate":"9.5","tenure":"4"}
+          Boxes after:  {"amount":"15,00,000","rate":"9.5","tenure":"4"}
+          Results before: ₹15,074 | ₹1,23,546 | ₹7,23,546
+          Results after:  ₹37,685 | ₹3,08,866 | ₹18,08,866
+
+    ✔ When I type "15,00,000" into the "Loan Amount" box and press Tab                              # section-b/emicalculator/steps/emicalculator-validation.steps.ts:64
+    ✔ Then the "Loan Amount" box should show "15,00,000"                                            # section-b/emicalculator/steps/emicalculator-validation.steps.ts:108
+
+          Boxes read as ₹15,00,000 at 9.5% for 48 months
+          EMI: site ₹37,685 | mine ₹37684.71
+          Total payment: site ₹18,08,866 | mine ₹1808865.84
+
+    ✔ And the results should match my own calculation for the values the boxes show                 # section-b/emicalculator/steps/emicalculator-validation.steps.ts:112
+
+  @ui @external @emicalculator @negative
+  Scenario Outline: A loan amount written the way people write money is understood: above the slider's ₹20 lakh maximum # section-b/emicalculator/features/input-validation.feature:32
+    ✔ Given I launch the EMI calculator application                                                           # section-b/emicalculator/steps/emicalculator.steps.ts:22
+    ✔ And I navigate to the "Car Loan" tab                                                                    # section-b/emicalculator/steps/emicalculator.steps.ts:26
+
+          Typed "₹15,00,000" into Loan Amount, pressed Tab
+          Boxes before: {"amount":"6,00,000","rate":"9.5","tenure":"4"}
+          Boxes after:  {"amount":"15,00,000","rate":"9.5","tenure":"4"}
+          Results before: ₹15,074 | ₹1,23,546 | ₹7,23,546
+          Results after:  ₹37,685 | ₹3,08,866 | ₹18,08,866
+
+    ✔ When I type "₹15,00,000" into the "Loan Amount" box and press Tab                        # section-b/emicalculator/steps/emicalculator-validation.steps.ts:64
+    ✔ Then the "Loan Amount" box should show "15,00,000"                                       # section-b/emicalculator/steps/emicalculator-validation.steps.ts:108
+
+          Boxes read as ₹15,00,000 at 9.5% for 48 months
+          EMI: site ₹37,685 | mine ₹37684.71
+          Total payment: site ₹18,08,866 | mine ₹1808865.84
+
+    ✔ And the results should match my own calculation for the values the boxes show            # section-b/emicalculator/steps/emicalculator-validation.steps.ts:112
+
+  @ui @external @emicalculator @negative @known-defect
+  Scenario Outline: An invalid loan amount is refused, not reinterpreted: negative amount, leaving the box # section-b/emicalculator/features/input-validation.feature:42
+    ✔ Given I launch the EMI calculator application                                                                     # section-b/emicalculator/steps/emicalculator.steps.ts:22
+    ✔ And I navigate to the "Car Loan" tab                                                                              # section-b/emicalculator/steps/emicalculator.steps.ts:26
+    ✔ And I enter a loan amount of "6L", an interest rate of 9.5% and a tenure of 4 years                     # section-b/emicalculator/steps/emicalculator.steps.ts:30
+    ✔ Given I launch the EMI calculator application                                                        # section-b/emicalculator/steps/emicalculator.steps.ts:22
+    ✔ And I navigate to the "Car Loan" tab                                                                 # section-b/emicalculator/steps/emicalculator.steps.ts:26
+    ✔ And I enter a loan amount of "6L", an interest rate of 9.5% and a tenure of 4 years                               # section-b/emicalculator/steps/emicalculator.steps.ts:30
+
+          Typed "1" into Loan Amount, pressed Tab
+          Boxes before: {"amount":"6,00,000","rate":"9.5","tenure":"4"}
+          Boxes after:  {"amount":"1","rate":"9.5","tenure":"4"}
+          Results before: ₹15,074 | ₹1,23,546 | ₹7,23,546
+          Results after:  ₹0 | ₹0 | ₹1
+
+    ✔ When I type "1" into the "Loan Amount" box and press Tab                                                # section-b/emicalculator/steps/emicalculator-validation.steps.ts:64
+    ✔ Then the "Loan Amount" box should show "1"                                                              # section-b/emicalculator/steps/emicalculator-validation.steps.ts:108
+    ✔ And I enter a loan amount of "6L", an interest rate of 9.5% and a tenure of 4 years                  # section-b/emicalculator/steps/emicalculator.steps.ts:30
+
+          Boxes read as ₹1 at 9.5% for 48 months
+          EMI: site ₹0 | mine ₹0.03
+          Total payment: site ₹1 | mine ₹1.21
+
+    ✔ And the results should match my own calculation for the values the boxes show                           # section-b/emicalculator/steps/emicalculator-validation.steps.ts:112
+
+  @ui @external @emicalculator @negative @known-defect
+  Scenario Outline: An invalid loan amount is refused, not reinterpreted: negative amount, pressing Enter # section-b/emicalculator/features/input-validation.feature:43
+
+          Typed "5000000" into Loan Amount, pressed Tab
+          Boxes before: {"amount":"6,00,000","rate":"9.5","tenure":"4"}
+          Boxes after:  {"amount":"50,00,000","rate":"9.5","tenure":"4"}
+          Results before: ₹15,074 | ₹1,23,546 | ₹7,23,546
+          Results after:  ₹1,25,616 | ₹10,29,553 | ₹60,29,553
+
+    ✔ When I type "5000000" into the "Loan Amount" box and press Tab                                                    # section-b/emicalculator/steps/emicalculator-validation.steps.ts:64
+    ✔ Then the "Loan Amount" box should show "50,00,000"                                                                # section-b/emicalculator/steps/emicalculator-validation.steps.ts:108
+
+          Boxes read as ₹50,00,000 at 9.5% for 48 months
+          EMI: site ₹1,25,616 | mine ₹125615.68
+          Total payment: site ₹60,29,553 | mine ₹6029552.80
+
+    ✔ And the results should match my own calculation for the values the boxes show                                     # section-b/emicalculator/steps/emicalculator-validation.steps.ts:112
+
+  @ui @external @emicalculator @negative @known-defect
+  Scenario Outline: An invalid loan amount is refused, not reinterpreted: zero               # section-b/emicalculator/features/input-validation.feature:48
+    ✔ Given I launch the EMI calculator application                                                       # section-b/emicalculator/steps/emicalculator.steps.ts:22
+    ✔ And I navigate to the "Car Loan" tab                                                                # section-b/emicalculator/steps/emicalculator.steps.ts:26
+
+          Typed "-2383434" into Loan Amount, pressed Tab
+          Boxes before: {"amount":"6,00,000","rate":"9.5","tenure":"4"}
+          Boxes after:  {"amount":"23,83,434","rate":"9.5","tenure":"4"}
+          Results before: ₹15,074 | ₹1,23,546 | ₹7,23,546
+          Results after:  ₹59,879 | ₹4,90,774 | ₹28,74,208
+
+    ✔ When I type "-2383434" into the "Loan Amount" box and press Tab                                      # section-b/emicalculator/steps/emicalculator-validation.steps.ts:64
+
+          Embedding an-invalid-loan-amount-is-refused-not-reinterpreted-negative-amount-leaving-the---01-entry-2383434.png [image/png 148050 bytes]
+
+    ✘ Then the calculator should refuse the entry instead of calculating with something else               # section-b/emicalculator/steps/emicalculator-validation.steps.ts:78
+          Error: I typed "-2383434" into the Loan Amount box and pressed Tab. The calculator did not refuse it and showed no message.
+          The box now shows "23,83,434" (it showed "6,00,000" before).
+          The EMI changed from ₹15,074 to ₹59,879.
+          That EMI belongs to a loan of about ₹23,83,421 at 9.5% for 48 months, so that is the amount it calculated with.
+          
+          expect(received).toBe(expected) // Object.is equality
+          
+          Expected: true
+          Received: false
+              at captureRawStack (./node_modules/playwright-core/lib/coreBundle.js:8588:17)
+              at callMatcherAsStep (./node_modules/playwright/lib/matchers/expect.js:13310:57)
+              at Object.toBe (./node_modules/playwright/lib/matchers/expect.js:13302:23)
+              at CustomWorld.<anonymous> (./section-b/emicalculator/steps/emicalculator-validation.steps.ts:98:56)
+    ↷ And no figure on the calculator should read NaN, Infinity or a negative number                       # section-b/emicalculator/steps/emicalculator-validation.steps.ts:101
+
+          Embedding an-invalid-loan-amount-is-refused-not-reinterpreted-negative-amount-leaving-the---02-failure.png [image/png 148200 bytes]
+
+
+          Page URL at end of scenario: https://emicalculator.net/
+
+
+          Playwright trace: section-b/reports/emicalculator/traces/an-invalid-loan-amount-is-refused-not-reinterpreted-negative-amount-leaving-the-.zip (open with: npx playwright show-trace <file>)
+
+
+  @ui @external @emicalculator @negative @known-defect
+  Scenario Outline: An invalid loan amount is refused, not reinterpreted: letters only       # section-b/emicalculator/features/input-validation.feature:49
+    ✔ And I enter a loan amount of "6L", an interest rate of 9.5% and a tenure of 4 years                 # section-b/emicalculator/steps/emicalculator.steps.ts:30
+    ✔ Given I launch the EMI calculator application                                          # section-b/emicalculator/steps/emicalculator.steps.ts:22
+    ✔ And I navigate to the "Car Loan" tab                                                   # section-b/emicalculator/steps/emicalculator.steps.ts:26
+    ✔ Given I launch the EMI calculator application                                          # section-b/emicalculator/steps/emicalculator.steps.ts:22
+    ✔ And I navigate to the "Car Loan" tab                                                   # section-b/emicalculator/steps/emicalculator.steps.ts:26
+    ✔ And I enter a loan amount of "6L", an interest rate of 9.5% and a tenure of 4 years    # section-b/emicalculator/steps/emicalculator.steps.ts:30
+
+          Typed "-2383434" into Loan Amount, pressed Enter
+          Boxes before: {"amount":"6,00,000","rate":"9.5","tenure":"4"}
+          Boxes after:  {"amount":"-2383434","rate":"9.5","tenure":"4"}
+          Results before: ₹15,074 | ₹1,23,546 | ₹7,23,546
+          Results after:  ₹59,879 | ₹4,90,774 | ₹28,74,208
+
+    ✔ When I type "-2383434" into the "Loan Amount" box and press Enter                                   # section-b/emicalculator/steps/emicalculator-validation.steps.ts:64
+
+          Embedding an-invalid-loan-amount-is-refused-not-reinterpreted-negative-amount-pressing-ent--01-entry-2383434.png [image/png 147834 bytes]
+
+    ✘ Then the calculator should refuse the entry instead of calculating with something else              # section-b/emicalculator/steps/emicalculator-validation.steps.ts:78
+          Error: I typed "-2383434" into the Loan Amount box and pressed Enter. The calculator did not refuse it and showed no message.
+          The box now shows "-2383434" (it showed "6,00,000" before).
+          The EMI changed from ₹15,074 to ₹59,879.
+          That EMI belongs to a loan of about ₹23,83,421 at 9.5% for 48 months, so that is the amount it calculated with.
+          
+          expect(received).toBe(expected) // Object.is equality
+          
+          Expected: true
+          Received: false
+              at captureRawStack (./node_modules/playwright-core/lib/coreBundle.js:8588:17)
+              at callMatcherAsStep (./node_modules/playwright/lib/matchers/expect.js:13310:57)
+              at Object.toBe (./node_modules/playwright/lib/matchers/expect.js:13302:23)
+              at CustomWorld.<anonymous> (./section-b/emicalculator/steps/emicalculator-validation.steps.ts:98:56)
+    ↷ And no figure on the calculator should read NaN, Infinity or a negative number                      # section-b/emicalculator/steps/emicalculator-validation.steps.ts:101
+    ✔ And I enter a loan amount of "6L", an interest rate of 9.5% and a tenure of 4 years    # section-b/emicalculator/steps/emicalculator.steps.ts:30
+
+          Embedding an-invalid-loan-amount-is-refused-not-reinterpreted-negative-amount-pressing-ent--02-failure.png [image/png 148398 bytes]
+
+
+          Page URL at end of scenario: https://emicalculator.net/
+
+
+          Playwright trace: section-b/reports/emicalculator/traces/an-invalid-loan-amount-is-refused-not-reinterpreted-negative-amount-pressing-ent.zip (open with: npx playwright show-trace <file>)
+
+
+  @ui @external @emicalculator @negative @known-defect
+  Scenario Outline: An invalid loan amount is refused, not reinterpreted: letters between digits # section-b/emicalculator/features/input-validation.feature:54
+
+          Typed "0" into Loan Amount, pressed Tab
+          Boxes before: {"amount":"6,00,000","rate":"9.5","tenure":"4"}
+          Boxes after:  {"amount":"0","rate":"9.5","tenure":"4"}
+          Results before: ₹15,074 | ₹1,23,546 | ₹7,23,546
+          Results after:  ₹0 | ₹0 | ₹0
+
+    ✔ When I type "0" into the "Loan Amount" box and press Tab                               # section-b/emicalculator/steps/emicalculator-validation.steps.ts:64
+
+          Embedding an-invalid-loan-amount-is-refused-not-reinterpreted-zero--01-entry-0.png [image/png 140124 bytes]
+
+    ✘ Then the calculator should refuse the entry instead of calculating with something else # section-b/emicalculator/steps/emicalculator-validation.steps.ts:78
+          Error: I typed "0" into the Loan Amount box and pressed Tab. The calculator did not refuse it and showed no message.
+          The box now shows "0" (it showed "6,00,000" before).
+          The EMI changed from ₹15,074 to ₹0.
+          That EMI belongs to a loan of about ₹0 at 9.5% for 48 months, so that is the amount it calculated with.
+          
+          expect(received).toBe(expected) // Object.is equality
+          
+          Expected: true
+          Received: false
+              at captureRawStack (./node_modules/playwright-core/lib/coreBundle.js:8588:17)
+              at callMatcherAsStep (./node_modules/playwright/lib/matchers/expect.js:13310:57)
+              at Object.toBe (./node_modules/playwright/lib/matchers/expect.js:13302:23)
+              at CustomWorld.<anonymous> (./section-b/emicalculator/steps/emicalculator-validation.steps.ts:98:56)
+    ↷ And no figure on the calculator should read NaN, Infinity or a negative number         # section-b/emicalculator/steps/emicalculator-validation.steps.ts:101
+
+          Embedding an-invalid-loan-amount-is-refused-not-reinterpreted-zero--02-failure.png [image/png 140133 bytes]
+
+
+          Page URL at end of scenario: https://emicalculator.net/
+
+    ✔ Given I launch the EMI calculator application                                              # section-b/emicalculator/steps/emicalculator.steps.ts:22
+    ✔ And I navigate to the "Car Loan" tab                                                       # section-b/emicalculator/steps/emicalculator.steps.ts:26
+
+          Playwright trace: section-b/reports/emicalculator/traces/an-invalid-loan-amount-is-refused-not-reinterpreted-zero.zip (open with: npx playwright show-trace <file>)
+
+
+  @ui @external @emicalculator @negative @known-defect
+  Scenario Outline: An invalid loan amount is refused, not reinterpreted: two decimal points # section-b/emicalculator/features/input-validation.feature:59
+
+          Typed "abc" into Loan Amount, pressed Tab
+          Boxes before: {"amount":"6,00,000","rate":"9.5","tenure":"4"}
+          Boxes after:  {"amount":"0","rate":"9.5","tenure":"4"}
+          Results before: ₹15,074 | ₹1,23,546 | ₹7,23,546
+          Results after:  ₹0 | ₹0 | ₹0
+
+    ✔ When I type "abc" into the "Loan Amount" box and press Tab                             # section-b/emicalculator/steps/emicalculator-validation.steps.ts:64
+
+          Embedding an-invalid-loan-amount-is-refused-not-reinterpreted-letters-only--01-entry-abc.png [image/png 140124 bytes]
+
+    ✘ Then the calculator should refuse the entry instead of calculating with something else # section-b/emicalculator/steps/emicalculator-validation.steps.ts:78
+          Error: I typed "abc" into the Loan Amount box and pressed Tab. The calculator did not refuse it and showed no message.
+          The box now shows "0" (it showed "6,00,000" before).
+          The EMI changed from ₹15,074 to ₹0.
+          That EMI belongs to a loan of about ₹0 at 9.5% for 48 months, so that is the amount it calculated with.
+          
+          expect(received).toBe(expected) // Object.is equality
+          
+          Expected: true
+          Received: false
+              at captureRawStack (./node_modules/playwright-core/lib/coreBundle.js:8588:17)
+              at callMatcherAsStep (./node_modules/playwright/lib/matchers/expect.js:13310:57)
+              at Object.toBe (./node_modules/playwright/lib/matchers/expect.js:13302:23)
+              at CustomWorld.<anonymous> (./section-b/emicalculator/steps/emicalculator-validation.steps.ts:98:56)
+    ↷ And no figure on the calculator should read NaN, Infinity or a negative number         # section-b/emicalculator/steps/emicalculator-validation.steps.ts:101
+
+          Embedding an-invalid-loan-amount-is-refused-not-reinterpreted-letters-only--02-failure.png [image/png 140115 bytes]
+
+
+          Page URL at end of scenario: https://emicalculator.net/
+
+
+          Playwright trace: section-b/reports/emicalculator/traces/an-invalid-loan-amount-is-refused-not-reinterpreted-letters-only.zip (open with: npx playwright show-trace <file>)
+
+
+  @ui @external @emicalculator @negative @known-defect
+  Scenario Outline: An invalid loan amount is refused, not reinterpreted: a 26-digit amount  # section-b/emicalculator/features/input-validation.feature:60
+    ✔ And I enter a loan amount of "6L", an interest rate of 9.5% and a tenure of 4 years        # section-b/emicalculator/steps/emicalculator.steps.ts:30
+    ✔ Given I launch the EMI calculator application                                          # section-b/emicalculator/steps/emicalculator.steps.ts:22
+    ✔ And I navigate to the "Car Loan" tab                                                   # section-b/emicalculator/steps/emicalculator.steps.ts:26
+    ✔ Given I launch the EMI calculator application                                          # section-b/emicalculator/steps/emicalculator.steps.ts:22
+    ✔ And I navigate to the "Car Loan" tab                                                   # section-b/emicalculator/steps/emicalculator.steps.ts:26
+    ✔ And I enter a loan amount of "6L", an interest rate of 9.5% and a tenure of 4 years    # section-b/emicalculator/steps/emicalculator.steps.ts:30
+
+          Typed "12abc34" into Loan Amount, pressed Tab
+          Boxes before: {"amount":"6,00,000","rate":"9.5","tenure":"4"}
+          Boxes after:  {"amount":"1,234","rate":"9.5","tenure":"4"}
+          Results before: ₹15,074 | ₹1,23,546 | ₹7,23,546
+          Results after:  ₹31 | ₹254 | ₹1,488
+
+    ✔ When I type "12abc34" into the "Loan Amount" box and press Tab                             # section-b/emicalculator/steps/emicalculator-validation.steps.ts:64
+
+          Embedding an-invalid-loan-amount-is-refused-not-reinterpreted-letters-between-digits--01-entry-12abc34.png [image/png 145086 bytes]
+
+    ✘ Then the calculator should refuse the entry instead of calculating with something else     # section-b/emicalculator/steps/emicalculator-validation.steps.ts:78
+          Error: I typed "12abc34" into the Loan Amount box and pressed Tab. The calculator did not refuse it and showed no message.
+          The box now shows "1,234" (it showed "6,00,000" before).
+          The EMI changed from ₹15,074 to ₹31.
+          That EMI belongs to a loan of about ₹1,234 at 9.5% for 48 months, so that is the amount it calculated with.
+          
+          expect(received).toBe(expected) // Object.is equality
+          
+          Expected: true
+          Received: false
+              at captureRawStack (./node_modules/playwright-core/lib/coreBundle.js:8588:17)
+              at callMatcherAsStep (./node_modules/playwright/lib/matchers/expect.js:13310:57)
+              at Object.toBe (./node_modules/playwright/lib/matchers/expect.js:13302:23)
+              at CustomWorld.<anonymous> (./section-b/emicalculator/steps/emicalculator-validation.steps.ts:98:56)
+    ↷ And no figure on the calculator should read NaN, Infinity or a negative number             # section-b/emicalculator/steps/emicalculator-validation.steps.ts:101
+
+          Embedding an-invalid-loan-amount-is-refused-not-reinterpreted-letters-between-digits--02-failure.png [image/png 145227 bytes]
+
+
+          Page URL at end of scenario: https://emicalculator.net/
+
+    ✔ And I enter a loan amount of "6L", an interest rate of 9.5% and a tenure of 4 years    # section-b/emicalculator/steps/emicalculator.steps.ts:30
+
+          Playwright trace: section-b/reports/emicalculator/traces/an-invalid-loan-amount-is-refused-not-reinterpreted-letters-between-digits.zip (open with: npx playwright show-trace <file>)
+
+
+  @ui @external @emicalculator @negative
+  Scenario Outline: A valid interest rate is used as typed: smallest step, 0.01%          # section-b/emicalculator/features/input-validation.feature:69
+
+          Typed "25.00.000" into Loan Amount, pressed Tab
+          Boxes before: {"amount":"6,00,000","rate":"9.5","tenure":"4"}
+          Boxes after:  {"amount":"NaN","rate":"9.5","tenure":"4"}
+          Results before: ₹15,074 | ₹1,23,546 | ₹7,23,546
+          Results after:  ₹0 | ₹0 | ₹0
+
+    ✔ When I type "25.00.000" into the "Loan Amount" box and press Tab                       # section-b/emicalculator/steps/emicalculator-validation.steps.ts:64
+
+          Embedding an-invalid-loan-amount-is-refused-not-reinterpreted-two-decimal-points--01-entry-25-00-000.png [image/png 140289 bytes]
+
+    ✘ Then the calculator should refuse the entry instead of calculating with something else # section-b/emicalculator/steps/emicalculator-validation.steps.ts:78
+          Error: I typed "25.00.000" into the Loan Amount box and pressed Tab. The calculator did not refuse it and showed no message.
+          The box now shows "NaN" (it showed "6,00,000" before).
+          The EMI changed from ₹15,074 to ₹0.
+          That EMI belongs to a loan of about ₹0 at 9.5% for 48 months, so that is the amount it calculated with.
+          
+          expect(received).toBe(expected) // Object.is equality
+          
+          Expected: true
+          Received: false
+              at captureRawStack (./node_modules/playwright-core/lib/coreBundle.js:8588:17)
+              at callMatcherAsStep (./node_modules/playwright/lib/matchers/expect.js:13310:57)
+              at Object.toBe (./node_modules/playwright/lib/matchers/expect.js:13302:23)
+              at CustomWorld.<anonymous> (./section-b/emicalculator/steps/emicalculator-validation.steps.ts:98:56)
+    ↷ And no figure on the calculator should read NaN, Infinity or a negative number         # section-b/emicalculator/steps/emicalculator-validation.steps.ts:101
+
+          Embedding an-invalid-loan-amount-is-refused-not-reinterpreted-two-decimal-points--02-failure.png [image/png 140274 bytes]
+
+
+          Page URL at end of scenario: https://emicalculator.net/
+
+    ✔ Given I launch the EMI calculator application                                       # section-b/emicalculator/steps/emicalculator.steps.ts:22
+    ✔ And I navigate to the "Car Loan" tab                                                # section-b/emicalculator/steps/emicalculator.steps.ts:26
+
+          Playwright trace: section-b/reports/emicalculator/traces/an-invalid-loan-amount-is-refused-not-reinterpreted-two-decimal-points.zip (open with: npx playwright show-trace <file>)
+
+
+  @ui @external @emicalculator @negative
+  Scenario Outline: A valid interest rate is used as typed: below the slider's 5% minimum # section-b/emicalculator/features/input-validation.feature:70
+
+          Typed "99999999999999999999999999" into Loan Amount, pressed Tab
+          Boxes before: {"amount":"6,00,000","rate":"9.5","tenure":"4"}
+          Boxes after:  {"amount":"10,00,00,00,00,00,00,00,00,00,00,00,000","rate":"9.5","tenure":"4"}
+          Results before: ₹15,074 | ₹1,23,546 | ₹7,23,546
+          Results after:  ₹25,12,31,36,67,09,35,95,00,00,00,000 | ₹2,05,91,05,60,20,49,25,50,00,00,00,000 | ₹12,05,91,05,60,20,49,25,60,00,00,00,000
+
+    ✔ When I type "99999999999999999999999999" into the "Loan Amount" box and press Tab      # section-b/emicalculator/steps/emicalculator-validation.steps.ts:64
+
+          Embedding an-invalid-loan-amount-is-refused-not-reinterpreted-a-26-digit-amount--01-entry-99999999999999999999999999.png [image/png 155934 bytes]
+
+    ✘ Then the calculator should refuse the entry instead of calculating with something else # section-b/emicalculator/steps/emicalculator-validation.steps.ts:78
+          Error: I typed "99999999999999999999999999" into the Loan Amount box and pressed Tab. The calculator did not refuse it and showed no message.
+          The box now shows "10,00,00,00,00,00,00,00,00,00,00,00,000" (it showed "6,00,000" before).
+          The EMI changed from ₹15,074 to ₹25,12,31,36,67,09,35,95,00,00,00,000.
+          That EMI belongs to a loan of about ₹9,99,99,99,99,99,99,99,90,00,00,00,000 at 9.5% for 48 months, so that is the amount it calculated with.
+          
+          expect(received).toBe(expected) // Object.is equality
+          
+          Expected: true
+          Received: false
+              at captureRawStack (./node_modules/playwright-core/lib/coreBundle.js:8588:17)
+              at callMatcherAsStep (./node_modules/playwright/lib/matchers/expect.js:13310:57)
+              at Object.toBe (./node_modules/playwright/lib/matchers/expect.js:13302:23)
+              at CustomWorld.<anonymous> (./section-b/emicalculator/steps/emicalculator-validation.steps.ts:98:56)
+    ↷ And no figure on the calculator should read NaN, Infinity or a negative number         # section-b/emicalculator/steps/emicalculator-validation.steps.ts:101
+
+          Embedding an-invalid-loan-amount-is-refused-not-reinterpreted-a-26-digit-amount--02-failure.png [image/png 155868 bytes]
+
+
+          Page URL at end of scenario: https://emicalculator.net/
+
+
+          Playwright trace: section-b/reports/emicalculator/traces/an-invalid-loan-amount-is-refused-not-reinterpreted-a-26-digit-amount.zip (open with: npx playwright show-trace <file>)
+
+
+  @ui @external @emicalculator @negative
+  Scenario Outline: A valid interest rate is used as typed: above the slider's 20% maximum # section-b/emicalculator/features/input-validation.feature:71
+    ✔ And I enter a loan amount of "6L", an interest rate of 9.5% and a tenure of 4 years # section-b/emicalculator/steps/emicalculator.steps.ts:30
+    ✔ Given I launch the EMI calculator application                                       # section-b/emicalculator/steps/emicalculator.steps.ts:22
+    ✔ And I navigate to the "Car Loan" tab                                                # section-b/emicalculator/steps/emicalculator.steps.ts:26
+    ✔ Given I launch the EMI calculator application                                        # section-b/emicalculator/steps/emicalculator.steps.ts:22
+    ✔ And I navigate to the "Car Loan" tab                                                 # section-b/emicalculator/steps/emicalculator.steps.ts:26
+    ✔ And I enter a loan amount of "6L", an interest rate of 9.5% and a tenure of 4 years # section-b/emicalculator/steps/emicalculator.steps.ts:30
+
+          Typed "0.01" into Interest Rate, pressed Tab
+          Boxes before: {"amount":"6,00,000","rate":"9.5","tenure":"4"}
+          Boxes after:  {"amount":"6,00,000","rate":"0.01","tenure":"4"}
+          Results before: ₹15,074 | ₹1,23,546 | ₹7,23,546
+          Results after:  ₹12,503 | ₹123 | ₹6,00,123
+
+    ✔ When I type "0.01" into the "Interest Rate" box and press Tab                       # section-b/emicalculator/steps/emicalculator-validation.steps.ts:64
+    ✔ Then the "Interest Rate" box should show "0.01"                                     # section-b/emicalculator/steps/emicalculator-validation.steps.ts:108
+    ✔ And I enter a loan amount of "6L", an interest rate of 9.5% and a tenure of 4 years  # section-b/emicalculator/steps/emicalculator.steps.ts:30
+
+          Boxes read as ₹6,00,000 at 0.01% for 48 months
+          EMI: site ₹12,503 | mine ₹12502.55
+          Total payment: site ₹6,00,123 | mine ₹600122.51
+
+    ✔ And the results should match my own calculation for the values the boxes show       # section-b/emicalculator/steps/emicalculator-validation.steps.ts:112
+
+  @ui @external @emicalculator @negative
+  Scenario Outline: A valid interest rate is used as typed: with a percent sign           # section-b/emicalculator/features/input-validation.feature:72
+
+          Typed "4" into Interest Rate, pressed Tab
+          Boxes before: {"amount":"6,00,000","rate":"9.5","tenure":"4"}
+          Boxes after:  {"amount":"6,00,000","rate":"4","tenure":"4"}
+          Results before: ₹15,074 | ₹1,23,546 | ₹7,23,546
+          Results after:  ₹13,547 | ₹50,277 | ₹6,50,277
+
+    ✔ When I type "4" into the "Interest Rate" box and press Tab                          # section-b/emicalculator/steps/emicalculator-validation.steps.ts:64
+    ✔ Then the "Interest Rate" box should show "4"                                        # section-b/emicalculator/steps/emicalculator-validation.steps.ts:108
+    ✔ Given I launch the EMI calculator application                                       # section-b/emicalculator/steps/emicalculator.steps.ts:22
+    ✔ And I navigate to the "Car Loan" tab                                                # section-b/emicalculator/steps/emicalculator.steps.ts:26
+
+          Boxes read as ₹6,00,000 at 4% for 48 months
+          EMI: site ₹13,547 | mine ₹13547.43
+          Total payment: site ₹6,50,277 | mine ₹650276.77
+
+    ✔ And the results should match my own calculation for the values the boxes show       # section-b/emicalculator/steps/emicalculator-validation.steps.ts:112
+
+  @ui @external @emicalculator @negative @known-defect
+  Scenario Outline: A valid interest rate is used as typed: zero interest                 # section-b/emicalculator/features/input-validation.feature:77
+
+          Typed "25" into Interest Rate, pressed Tab
+          Boxes before: {"amount":"6,00,000","rate":"9.5","tenure":"4"}
+          Boxes after:  {"amount":"6,00,000","rate":"25","tenure":"4"}
+          Results before: ₹15,074 | ₹1,23,546 | ₹7,23,546
+          Results after:  ₹19,894 | ₹3,54,925 | ₹9,54,925
+
+    ✔ When I type "25" into the "Interest Rate" box and press Tab                          # section-b/emicalculator/steps/emicalculator-validation.steps.ts:64
+    ✔ Then the "Interest Rate" box should show "25"                                        # section-b/emicalculator/steps/emicalculator-validation.steps.ts:108
+
+          Boxes read as ₹6,00,000 at 25% for 48 months
+          EMI: site ₹19,894 | mine ₹19894.28
+          Total payment: site ₹9,54,925 | mine ₹954925.29
+
+    ✔ And the results should match my own calculation for the values the boxes show        # section-b/emicalculator/steps/emicalculator-validation.steps.ts:112
+
+  @ui @external @emicalculator @negative @known-defect
+  Scenario Outline: An invalid interest rate is refused, not reinterpreted: negative rate    # section-b/emicalculator/features/input-validation.feature:87
+    ✔ And I enter a loan amount of "6L", an interest rate of 9.5% and a tenure of 4 years # section-b/emicalculator/steps/emicalculator.steps.ts:30
+    ✔ Given I launch the EMI calculator application                                       # section-b/emicalculator/steps/emicalculator.steps.ts:22
+    ✔ And I navigate to the "Car Loan" tab                                                # section-b/emicalculator/steps/emicalculator.steps.ts:26
+    ✔ Given I launch the EMI calculator application                                          # section-b/emicalculator/steps/emicalculator.steps.ts:22
+    ✔ And I navigate to the "Car Loan" tab                                                   # section-b/emicalculator/steps/emicalculator.steps.ts:26
+    ✔ And I enter a loan amount of "6L", an interest rate of 9.5% and a tenure of 4 years # section-b/emicalculator/steps/emicalculator.steps.ts:30
+
+          Typed "8.5%" into Interest Rate, pressed Tab
+          Boxes before: {"amount":"6,00,000","rate":"9.5","tenure":"4"}
+          Boxes after:  {"amount":"6,00,000","rate":"8.5","tenure":"4"}
+          Results before: ₹15,074 | ₹1,23,546 | ₹7,23,546
+          Results after:  ₹14,789 | ₹1,09,871 | ₹7,09,871
+
+    ✔ When I type "8.5%" into the "Interest Rate" box and press Tab                       # section-b/emicalculator/steps/emicalculator-validation.steps.ts:64
+    ✔ Then the "Interest Rate" box should show "8.5"                                      # section-b/emicalculator/steps/emicalculator-validation.steps.ts:108
+    ✔ And I enter a loan amount of "6L", an interest rate of 9.5% and a tenure of 4 years    # section-b/emicalculator/steps/emicalculator.steps.ts:30
+
+          Boxes read as ₹6,00,000 at 8.5% for 48 months
+          EMI: site ₹14,789 | mine ₹14788.98
+          Total payment: site ₹7,09,871 | mine ₹709871.14
+
+    ✔ And the results should match my own calculation for the values the boxes show       # section-b/emicalculator/steps/emicalculator-validation.steps.ts:112
+
+  @ui @external @emicalculator @negative @known-defect
+  Scenario Outline: An invalid interest rate is refused, not reinterpreted: letters          # section-b/emicalculator/features/input-validation.feature:88
+
+          Typed "0" into Interest Rate, pressed Tab
+          Boxes before: {"amount":"6,00,000","rate":"9.5","tenure":"4"}
+          Boxes after:  {"amount":"6,00,000","rate":"9","tenure":"4"}
+          Results before: ₹15,074 | ₹1,23,546 | ₹7,23,546
+          Results after:  ₹14,931 | ₹1,16,689 | ₹7,16,689
+
+    ✔ When I type "0" into the "Interest Rate" box and press Tab                          # section-b/emicalculator/steps/emicalculator-validation.steps.ts:64
+    ✔ Given I launch the EMI calculator application                                          # section-b/emicalculator/steps/emicalculator.steps.ts:22
+    ✔ And I navigate to the "Car Loan" tab                                                   # section-b/emicalculator/steps/emicalculator.steps.ts:26
+
+          Typed "-8.5" into Interest Rate, pressed Tab
+          Boxes before: {"amount":"6,00,000","rate":"9.5","tenure":"4"}
+          Boxes after:  {"amount":"6,00,000","rate":"8.5","tenure":"4"}
+          Results before: ₹15,074 | ₹1,23,546 | ₹7,23,546
+          Results after:  ₹14,789 | ₹1,09,871 | ₹7,09,871
+
+    ✔ When I type "-8.5" into the "Interest Rate" box and press Tab                          # section-b/emicalculator/steps/emicalculator-validation.steps.ts:64
+
+          Embedding an-invalid-interest-rate-is-refused-not-reinterpreted-negative-rate--01-entry-8-5.png [image/png 148008 bytes]
+
+    ✘ Then the calculator should refuse the entry instead of calculating with something else # section-b/emicalculator/steps/emicalculator-validation.steps.ts:78
+          Error: I typed "-8.5" into the Interest Rate box and pressed Tab. The calculator did not refuse it and showed no message.
+          The box now shows "8.5" (it showed "9.5" before).
+          The EMI changed from ₹15,074 to ₹14,789.
+          
+          expect(received).toBe(expected) // Object.is equality
+          
+          Expected: true
+          Received: false
+              at captureRawStack (./node_modules/playwright-core/lib/coreBundle.js:8588:17)
+              at callMatcherAsStep (./node_modules/playwright/lib/matchers/expect.js:13310:57)
+              at Object.toBe (./node_modules/playwright/lib/matchers/expect.js:13302:23)
+              at CustomWorld.<anonymous> (./section-b/emicalculator/steps/emicalculator-validation.steps.ts:98:56)
+    ↷ And no figure on the calculator should read NaN, Infinity or a negative number         # section-b/emicalculator/steps/emicalculator-validation.steps.ts:101
+
+          Embedding an-invalid-interest-rate-is-refused-not-reinterpreted-negative-rate--02-failure.png [image/png 147618 bytes]
+
+
+          Page URL at end of scenario: https://emicalculator.net/
+
+
+          Playwright trace: section-b/reports/emicalculator/traces/an-invalid-interest-rate-is-refused-not-reinterpreted-negative-rate.zip (open with: npx playwright show-trace <file>)
+
+
+  @ui @external @emicalculator @negative @known-defect
+  Scenario Outline: An invalid interest rate is refused, not reinterpreted: decimal comma    # section-b/emicalculator/features/input-validation.feature:89
+    ✔ And I enter a loan amount of "6L", an interest rate of 9.5% and a tenure of 4 years    # section-b/emicalculator/steps/emicalculator.steps.ts:30
+    ✔ Given I launch the EMI calculator application                                          # section-b/emicalculator/steps/emicalculator.steps.ts:22
+    ✔ And I navigate to the "Car Loan" tab                                                   # section-b/emicalculator/steps/emicalculator.steps.ts:26
+
+          Typed "abc" into Interest Rate, pressed Tab
+          Boxes before: {"amount":"6,00,000","rate":"9.5","tenure":"4"}
+          Boxes after:  {"amount":"6,00,000","rate":"9","tenure":"4"}
+          Results before: ₹15,074 | ₹1,23,546 | ₹7,23,546
+          Results after:  ₹14,931 | ₹1,16,689 | ₹7,16,689
+
+    ✔ When I type "abc" into the "Interest Rate" box and press Tab                           # section-b/emicalculator/steps/emicalculator-validation.steps.ts:64
+
+          Embedding an-invalid-interest-rate-is-refused-not-reinterpreted-letters--01-entry-abc.png [image/png 147270 bytes]
+
+    ✘ Then the calculator should refuse the entry instead of calculating with something else # section-b/emicalculator/steps/emicalculator-validation.steps.ts:78
+          Error: I typed "abc" into the Interest Rate box and pressed Tab. The calculator did not refuse it and showed no message.
+          The box now shows "9" (it showed "9.5" before).
+          The EMI changed from ₹15,074 to ₹14,931.
+          
+          expect(received).toBe(expected) // Object.is equality
+          
+          Expected: true
+          Received: false
+              at captureRawStack (./node_modules/playwright-core/lib/coreBundle.js:8588:17)
+              at callMatcherAsStep (./node_modules/playwright/lib/matchers/expect.js:13310:57)
+              at Object.toBe (./node_modules/playwright/lib/matchers/expect.js:13302:23)
+              at CustomWorld.<anonymous> (./section-b/emicalculator/steps/emicalculator-validation.steps.ts:98:56)
+    ↷ And no figure on the calculator should read NaN, Infinity or a negative number         # section-b/emicalculator/steps/emicalculator-validation.steps.ts:101
+    ✔ And I enter a loan amount of "6L", an interest rate of 9.5% and a tenure of 4 years    # section-b/emicalculator/steps/emicalculator.steps.ts:30
+
+          Embedding an-invalid-interest-rate-is-refused-not-reinterpreted-letters--02-failure.png [image/png 147117 bytes]
+
+
+          Page URL at end of scenario: https://emicalculator.net/
+
+
+          Playwright trace: section-b/reports/emicalculator/traces/an-invalid-interest-rate-is-refused-not-reinterpreted-letters.zip (open with: npx playwright show-trace <file>)
+
+
+  @ui @external @emicalculator @negative
+  Scenario Outline: A valid tenure in years is used as typed: one year                    # section-b/emicalculator/features/input-validation.feature:98
+    ✔ Given I launch the EMI calculator application                                       # section-b/emicalculator/steps/emicalculator.steps.ts:22
+    ✔ And I navigate to the "Car Loan" tab                                                # section-b/emicalculator/steps/emicalculator.steps.ts:26
+
+          Typed "8,5" into Interest Rate, pressed Tab
+          Boxes before: {"amount":"6,00,000","rate":"9.5","tenure":"4"}
+          Boxes after:  {"amount":"6,00,000","rate":"85","tenure":"4"}
+          Results before: ₹15,074 | ₹1,23,546 | ₹7,23,546
+          Results after:  ₹44,153 | ₹15,19,351 | ₹21,19,351
+
+    ✔ When I type "8,5" into the "Interest Rate" box and press Tab                           # section-b/emicalculator/steps/emicalculator-validation.steps.ts:64
+
+          Embedding an-invalid-interest-rate-is-refused-not-reinterpreted-decimal-comma--01-entry-8-5.png [image/png 147306 bytes]
+
+    ✘ Then the calculator should refuse the entry instead of calculating with something else # section-b/emicalculator/steps/emicalculator-validation.steps.ts:78
+          Error: I typed "8,5" into the Interest Rate box and pressed Tab. The calculator did not refuse it and showed no message.
+          The box now shows "85" (it showed "9.5" before).
+          The EMI changed from ₹15,074 to ₹44,153.
+          
+          expect(received).toBe(expected) // Object.is equality
+          
+          Expected: true
+          Received: false
+              at captureRawStack (./node_modules/playwright-core/lib/coreBundle.js:8588:17)
+              at callMatcherAsStep (./node_modules/playwright/lib/matchers/expect.js:13310:57)
+              at Object.toBe (./node_modules/playwright/lib/matchers/expect.js:13302:23)
+              at CustomWorld.<anonymous> (./section-b/emicalculator/steps/emicalculator-validation.steps.ts:98:56)
+    ↷ And no figure on the calculator should read NaN, Infinity or a negative number         # section-b/emicalculator/steps/emicalculator-validation.steps.ts:101
+
+          Embedding an-invalid-interest-rate-is-refused-not-reinterpreted-decimal-comma--02-failure.png [image/png 147390 bytes]
+
+
+          Page URL at end of scenario: https://emicalculator.net/
+
+
+          Playwright trace: section-b/reports/emicalculator/traces/an-invalid-interest-rate-is-refused-not-reinterpreted-decimal-comma.zip (open with: npx playwright show-trace <file>)
+
+
+  @ui @external @emicalculator @negative
+  Scenario Outline: A valid tenure in years is used as typed: fractional years            # section-b/emicalculator/features/input-validation.feature:99
+    ✔ And I enter a loan amount of "6L", an interest rate of 9.5% and a tenure of 4 years # section-b/emicalculator/steps/emicalculator.steps.ts:30
+    ✔ Given I launch the EMI calculator application                                       # section-b/emicalculator/steps/emicalculator.steps.ts:22
+    ✔ And I navigate to the "Car Loan" tab                                                # section-b/emicalculator/steps/emicalculator.steps.ts:26
+    ✘ Then the "Interest Rate" box should show "0"                                        # section-b/emicalculator/steps/emicalculator-validation.steps.ts:108
+          Error: expect(locator).toHaveValue(expected) failed
+          
+          Locator:  getByLabel('Interest Rate', { exact: true })
+          Expected: "0"
+          Received: "9"
+          Timeout:  5000ms
+          
+          Call log:
+            - Expect "toHaveValue" getByLabel('Interest Rate', { exact: true }) with timeout 5000ms
+            - waiting for getByLabel('Interest Rate', { exact: true })
+              14 × locator resolved to <input type="text" value="10.5" id="loaninterest" name="loaninterest" class="form-control"/>
+                 - unexpected value "9"
+          
+              at captureRawStack (./node_modules/playwright-core/lib/coreBundle.js:8588:17)
+              at callMatcherAsStep (./node_modules/playwright/lib/matchers/expect.js:13310:57)
+              at Object.toHaveValue (./node_modules/playwright/lib/matchers/expect.js:13302:23)
+              at CustomWorld.<anonymous> (./section-b/emicalculator/steps/emicalculator-validation.steps.ts:109:43)
+    ↷ And the results should match my own calculation for the values the boxes show       # section-b/emicalculator/steps/emicalculator-validation.steps.ts:112
+
+          Embedding a-valid-interest-rate-is-used-as-typed-zero-interest--01-failure.png [image/png 147117 bytes]
+
+
+          Page URL at end of scenario: https://emicalculator.net/
+
+
+          Playwright trace: section-b/reports/emicalculator/traces/a-valid-interest-rate-is-used-as-typed-zero-interest.zip (open with: npx playwright show-trace <file>)
+
+
+  @ui @external @emicalculator @negative
+  Scenario Outline: A valid tenure in years is used as typed: above the slider's 7-year maximum # section-b/emicalculator/features/input-validation.feature:100
+
+          Typed "1" into Loan Tenure, pressed Tab
+          Boxes before: {"amount":"6,00,000","rate":"9.5","tenure":"4"}
+          Boxes after:  {"amount":"6,00,000","rate":"9.5","tenure":"1"}
+          Results before: ₹15,074 | ₹1,23,546 | ₹7,23,546
+          Results after:  ₹52,610 | ₹31,321 | ₹6,31,321
+
+    ✔ When I type "1" into the "Loan Tenure" box and press Tab                            # section-b/emicalculator/steps/emicalculator-validation.steps.ts:64
+    ✔ Then the "Loan Tenure" box should show "1"                                          # section-b/emicalculator/steps/emicalculator-validation.steps.ts:108
+    ✔ And I enter a loan amount of "6L", an interest rate of 9.5% and a tenure of 4 years # section-b/emicalculator/steps/emicalculator.steps.ts:30
+
+          Boxes read as ₹6,00,000 at 9.5% for 12 months
+          EMI: site ₹52,610 | mine ₹52610.11
+          Total payment: site ₹6,31,321 | mine ₹631321.28
+
+    ✔ And the results should match my own calculation for the values the boxes show       # section-b/emicalculator/steps/emicalculator-validation.steps.ts:112
+
+  @ui @external @emicalculator @negative
+  Scenario Outline: A valid tenure in months is used as typed: one month, the floor       # section-b/emicalculator/features/input-validation.feature:110
+    ✔ Given I launch the EMI calculator application                                             # section-b/emicalculator/steps/emicalculator.steps.ts:22
+    ✔ And I navigate to the "Car Loan" tab                                                      # section-b/emicalculator/steps/emicalculator.steps.ts:26
+    ✔ Given I launch the EMI calculator application                                       # section-b/emicalculator/steps/emicalculator.steps.ts:22
+    ✔ And I enter a loan amount of "6L", an interest rate of 9.5% and a tenure of 4 years       # section-b/emicalculator/steps/emicalculator.steps.ts:30
+    ✔ And I navigate to the "Car Loan" tab                                                # section-b/emicalculator/steps/emicalculator.steps.ts:26
+
+          Typed "2.5" into Loan Tenure, pressed Tab
+          Boxes before: {"amount":"6,00,000","rate":"9.5","tenure":"4"}
+          Boxes after:  {"amount":"6,00,000","rate":"9.5","tenure":"2.5"}
+          Results before: ₹15,074 | ₹1,23,546 | ₹7,23,546
+          Results after:  ₹22,548 | ₹76,428 | ₹6,76,428
+
+    ✔ When I type "2.5" into the "Loan Tenure" box and press Tab                          # section-b/emicalculator/steps/emicalculator-validation.steps.ts:64
+    ✔ Then the "Loan Tenure" box should show "2.5"                                        # section-b/emicalculator/steps/emicalculator-validation.steps.ts:108
+
+          Boxes read as ₹6,00,000 at 9.5% for 30 months
+          EMI: site ₹22,548 | mine ₹22547.62
+          Total payment: site ₹6,76,428 | mine ₹676428.47
+
+    ✔ And the results should match my own calculation for the values the boxes show       # section-b/emicalculator/steps/emicalculator-validation.steps.ts:112
+
+  @ui @external @emicalculator @negative
+  Scenario Outline: A valid tenure in months is used as typed: 30 months                  # section-b/emicalculator/features/input-validation.feature:111
+    ✔ And I enter a loan amount of "6L", an interest rate of 9.5% and a tenure of 4 years # section-b/emicalculator/steps/emicalculator.steps.ts:30
+    ✔ Given I launch the EMI calculator application                                       # section-b/emicalculator/steps/emicalculator.steps.ts:22
+    ✔ And I navigate to the "Car Loan" tab                                                # section-b/emicalculator/steps/emicalculator.steps.ts:26
+
+          Typed "10" into Loan Tenure, pressed Tab
+          Boxes before: {"amount":"6,00,000","rate":"9.5","tenure":"4"}
+          Boxes after:  {"amount":"6,00,000","rate":"9.5","tenure":"10"}
+          Results before: ₹15,074 | ₹1,23,546 | ₹7,23,546
+          Results after:  ₹7,764 | ₹3,31,662 | ₹9,31,662
+
+    ✔ When I type "10" into the "Loan Tenure" box and press Tab                                 # section-b/emicalculator/steps/emicalculator-validation.steps.ts:64
+    ✔ Then the "Loan Tenure" box should show "10"                                               # section-b/emicalculator/steps/emicalculator-validation.steps.ts:108
+    ✔ Given I switch the tenure to months using the Yr and Mo buttons                     # section-b/emicalculator/steps/emicalculator-validation.steps.ts:57
+
+          Boxes read as ₹6,00,000 at 9.5% for 120 months
+          EMI: site ₹7,764 | mine ₹7763.85
+          Total payment: site ₹9,31,662 | mine ₹931662.41
+
+    ✔ And the results should match my own calculation for the values the boxes show             # section-b/emicalculator/steps/emicalculator-validation.steps.ts:112
+
+  @ui @external @emicalculator @negative @known-defect
+  Scenario Outline: An invalid tenure in years is refused, not reinterpreted: negative tenure # section-b/emicalculator/features/input-validation.feature:121
+    ✔ And I enter a loan amount of "6L", an interest rate of 9.5% and a tenure of 4 years # section-b/emicalculator/steps/emicalculator.steps.ts:30
+    ✔ Given I launch the EMI calculator application                                           # section-b/emicalculator/steps/emicalculator.steps.ts:22
+    ✔ And I navigate to the "Car Loan" tab                                                    # section-b/emicalculator/steps/emicalculator.steps.ts:26
+
+          Typed "1" into Loan Tenure, pressed Tab
+          Boxes before: {"amount":"6,00,000","rate":"9.5","tenure":"48"}
+          Boxes after:  {"amount":"6,00,000","rate":"9.5","tenure":"1"}
+          Results before: ₹15,074 | ₹1,23,546 | ₹7,23,546
+          Results after:  ₹6,04,750 | ₹4,750 | ₹6,04,750
+
+    ✔ When I type "1" into the "Loan Tenure" box and press Tab                            # section-b/emicalculator/steps/emicalculator-validation.steps.ts:64
+    ✔ Then the "Loan Tenure" box should show "1"                                          # section-b/emicalculator/steps/emicalculator-validation.steps.ts:108
+    ✔ Given I switch the tenure to months using the Yr and Mo buttons                     # section-b/emicalculator/steps/emicalculator-validation.steps.ts:57
+
+          Boxes read as ₹6,00,000 at 9.5% for 1 months
+          EMI: site ₹6,04,750 | mine ₹604750.00
+          Total payment: site ₹6,04,750 | mine ₹604750.00
+
+    ✔ And the results should match my own calculation for the values the boxes show       # section-b/emicalculator/steps/emicalculator-validation.steps.ts:112
+
+  @ui @external @emicalculator @negative @known-defect
+  Scenario Outline: An invalid tenure in years is refused, not reinterpreted: zero           # section-b/emicalculator/features/input-validation.feature:122
+    ✔ And I enter a loan amount of "6L", an interest rate of 9.5% and a tenure of 4 years     # section-b/emicalculator/steps/emicalculator.steps.ts:30
+    ✔ Given I launch the EMI calculator application                                          # section-b/emicalculator/steps/emicalculator.steps.ts:22
+    ✔ And I navigate to the "Car Loan" tab                                                   # section-b/emicalculator/steps/emicalculator.steps.ts:26
+
+          Typed "30" into Loan Tenure, pressed Tab
+          Boxes before: {"amount":"6,00,000","rate":"9.5","tenure":"48"}
+          Boxes after:  {"amount":"6,00,000","rate":"9.5","tenure":"30"}
+          Results before: ₹15,074 | ₹1,23,546 | ₹7,23,546
+          Results after:  ₹22,548 | ₹76,428 | ₹6,76,428
+
+    ✔ When I type "30" into the "Loan Tenure" box and press Tab                           # section-b/emicalculator/steps/emicalculator-validation.steps.ts:64
+    ✔ Then the "Loan Tenure" box should show "30"                                         # section-b/emicalculator/steps/emicalculator-validation.steps.ts:108
+
+          Boxes read as ₹6,00,000 at 9.5% for 30 months
+          EMI: site ₹22,548 | mine ₹22547.62
+          Total payment: site ₹6,76,428 | mine ₹676428.47
+
+    ✔ And the results should match my own calculation for the values the boxes show       # section-b/emicalculator/steps/emicalculator-validation.steps.ts:112
+
+  @ui @external @emicalculator @negative @known-defect
+  Scenario Outline: An invalid tenure in years is refused, not reinterpreted: letters        # section-b/emicalculator/features/input-validation.feature:123
+
+          Typed "-2" into Loan Tenure, pressed Tab
+          Boxes before: {"amount":"6,00,000","rate":"9.5","tenure":"4"}
+          Boxes after:  {"amount":"6,00,000","rate":"9.5","tenure":"2"}
+          Results before: ₹15,074 | ₹1,23,546 | ₹7,23,546
+          Results after:  ₹27,549 | ₹61,169 | ₹6,61,169
+
+    ✔ When I type "-2" into the "Loan Tenure" box and press Tab                               # section-b/emicalculator/steps/emicalculator-validation.steps.ts:64
+
+          Embedding an-invalid-tenure-in-years-is-refused-not-reinterpreted-negative-tenure--01-entry-2.png [image/png 147297 bytes]
+
+    ✘ Then the calculator should refuse the entry instead of calculating with something else  # section-b/emicalculator/steps/emicalculator-validation.steps.ts:78
+          Error: I typed "-2" into the Loan Tenure box and pressed Tab. The calculator did not refuse it and showed no message.
+          The box now shows "2" (it showed "4" before).
+          The EMI changed from ₹15,074 to ₹27,549.
+          
+          expect(received).toBe(expected) // Object.is equality
+          
+          Expected: true
+          Received: false
+              at captureRawStack (./node_modules/playwright-core/lib/coreBundle.js:8588:17)
+              at callMatcherAsStep (./node_modules/playwright/lib/matchers/expect.js:13310:57)
+              at Object.toBe (./node_modules/playwright/lib/matchers/expect.js:13302:23)
+              at CustomWorld.<anonymous> (./section-b/emicalculator/steps/emicalculator-validation.steps.ts:98:56)
+    ↷ And no figure on the calculator should read NaN, Infinity or a negative number          # section-b/emicalculator/steps/emicalculator-validation.steps.ts:101
+
+          Embedding an-invalid-tenure-in-years-is-refused-not-reinterpreted-negative-tenure--02-failure.png [image/png 147069 bytes]
+
+
+          Page URL at end of scenario: https://emicalculator.net/
+
+    ✔ And I enter a loan amount of "6L", an interest rate of 9.5% and a tenure of 4 years    # section-b/emicalculator/steps/emicalculator.steps.ts:30
+
+          Playwright trace: section-b/reports/emicalculator/traces/an-invalid-tenure-in-years-is-refused-not-reinterpreted-negative-tenure.zip (open with: npx playwright show-trace <file>)
+
+
+  @ui @external @emicalculator @negative @known-defect
+  Scenario Outline: An invalid tenure in months is refused, not reinterpreted: half a month  # section-b/emicalculator/features/input-validation.feature:134
+    ✔ Given I launch the EMI calculator application                                          # section-b/emicalculator/steps/emicalculator.steps.ts:22
+    ✔ And I navigate to the "Car Loan" tab                                                   # section-b/emicalculator/steps/emicalculator.steps.ts:26
+    ✔ Given I launch the EMI calculator application                                          # section-b/emicalculator/steps/emicalculator.steps.ts:22
+    ✔ And I navigate to the "Car Loan" tab                                                   # section-b/emicalculator/steps/emicalculator.steps.ts:26
+
+          Typed "0" into Loan Tenure, pressed Tab
+          Boxes before: {"amount":"6,00,000","rate":"9.5","tenure":"4"}
+          Boxes after:  {"amount":"6,00,000","rate":"9.5","tenure":"1"}
+          Results before: ₹15,074 | ₹1,23,546 | ₹7,23,546
+          Results after:  ₹52,610 | ₹31,321 | ₹6,31,321
+
+    ✔ When I type "0" into the "Loan Tenure" box and press Tab                               # section-b/emicalculator/steps/emicalculator-validation.steps.ts:64
+    ✔ And I enter a loan amount of "6L", an interest rate of 9.5% and a tenure of 4 years    # section-b/emicalculator/steps/emicalculator.steps.ts:30
+
+          Embedding an-invalid-tenure-in-years-is-refused-not-reinterpreted-zero--01-entry-0.png [image/png 146589 bytes]
+
+    ✘ Then the calculator should refuse the entry instead of calculating with something else # section-b/emicalculator/steps/emicalculator-validation.steps.ts:78
+          Error: I typed "0" into the Loan Tenure box and pressed Tab. The calculator did not refuse it and showed no message.
+          The box now shows "1" (it showed "4" before).
+          The EMI changed from ₹15,074 to ₹52,610.
+          
+          expect(received).toBe(expected) // Object.is equality
+          
+          Expected: true
+          Received: false
+              at captureRawStack (./node_modules/playwright-core/lib/coreBundle.js:8588:17)
+              at callMatcherAsStep (./node_modules/playwright/lib/matchers/expect.js:13310:57)
+              at Object.toBe (./node_modules/playwright/lib/matchers/expect.js:13302:23)
+              at CustomWorld.<anonymous> (./section-b/emicalculator/steps/emicalculator-validation.steps.ts:98:56)
+    ↷ And no figure on the calculator should read NaN, Infinity or a negative number         # section-b/emicalculator/steps/emicalculator-validation.steps.ts:101
+
+          Embedding an-invalid-tenure-in-years-is-refused-not-reinterpreted-zero--02-failure.png [image/png 146343 bytes]
+
+
+          Page URL at end of scenario: https://emicalculator.net/
+
+
+          Playwright trace: section-b/reports/emicalculator/traces/an-invalid-tenure-in-years-is-refused-not-reinterpreted-zero.zip (open with: npx playwright show-trace <file>)
+
+
+Feature: emicalculator.net - Test Case 2: Validate the EMI bar chart
+
+  @ui @external @emicalculator
+  Scenario: Personal loan of 10L at 12% for 5 years, schedule starting in a chosen month                        # section-b/emicalculator/features/personal-loan-bar-chart.feature:7
+    ✔ And I enter a loan amount of "6L", an interest rate of 9.5% and a tenure of 4 years    # section-b/emicalculator/steps/emicalculator.steps.ts:30
+    ✔ Given I launch the EMI calculator application                                                             # section-b/emicalculator/steps/emicalculator.steps.ts:22
+    ✔ Given I switch the tenure to months using the Yr and Mo buttons                        # section-b/emicalculator/steps/emicalculator-validation.steps.ts:57
+    ✔ When I navigate to the "Personal Loan" tab                                                                # section-b/emicalculator/steps/emicalculator.steps.ts:26
+
+          Typed "abc" into Loan Tenure, pressed Tab
+          Boxes before: {"amount":"6,00,000","rate":"9.5","tenure":"4"}
+          Boxes after:  {"amount":"6,00,000","rate":"9.5","tenure":"1"}
+          Results before: ₹15,074 | ₹1,23,546 | ₹7,23,546
+          Results after:  ₹52,610 | ₹31,321 | ₹6,31,321
+
+    ✔ When I type "abc" into the "Loan Tenure" box and press Tab                             # section-b/emicalculator/steps/emicalculator-validation.steps.ts:64
+
+          Embedding an-invalid-tenure-in-years-is-refused-not-reinterpreted-letters--01-entry-abc.png [image/png 146775 bytes]
+
+    ✘ Then the calculator should refuse the entry instead of calculating with something else # section-b/emicalculator/steps/emicalculator-validation.steps.ts:78
+          Error: I typed "abc" into the Loan Tenure box and pressed Tab. The calculator did not refuse it and showed no message.
+          The box now shows "1" (it showed "4" before).
+          The EMI changed from ₹15,074 to ₹52,610.
+          
+          expect(received).toBe(expected) // Object.is equality
+          
+          Expected: true
+          Received: false
+              at captureRawStack (./node_modules/playwright-core/lib/coreBundle.js:8588:17)
+              at callMatcherAsStep (./node_modules/playwright/lib/matchers/expect.js:13310:57)
+              at Object.toBe (./node_modules/playwright/lib/matchers/expect.js:13302:23)
+              at CustomWorld.<anonymous> (./section-b/emicalculator/steps/emicalculator-validation.steps.ts:98:56)
+    ↷ And no figure on the calculator should read NaN, Infinity or a negative number         # section-b/emicalculator/steps/emicalculator-validation.steps.ts:101
+
+          Embedding an-invalid-tenure-in-years-is-refused-not-reinterpreted-letters--02-failure.png [image/png 146343 bytes]
+
+
+          Page URL at end of scenario: https://emicalculator.net/
+
+
+          Playwright trace: section-b/reports/emicalculator/traces/an-invalid-tenure-in-years-is-refused-not-reinterpreted-letters.zip (open with: npx playwright show-trace <file>)
+
+
+          Loan amount: 750000 -> dragged to 1000000, then 0 arrow-key nudge(s) to reach 1000000
+          Interest rate: 11 -> dragged to 12, then 0 arrow-key nudge(s) to reach 12
+          Loan tenure: 3 -> dragged to 5, then 0 arrow-key nudge(s) to reach 5
+
+
+          Typed "2.5" into Loan Tenure, pressed Tab
+          Boxes before: {"amount":"6,00,000","rate":"9.5","tenure":"48"}
+          Boxes after:  {"amount":"6,00,000","rate":"9.5","tenure":"3"}
+          Results before: ₹15,074 | ₹1,23,546 | ₹7,23,546
+          Results after:  ₹2,03,175 | ₹9,525 | ₹6,09,525
+
+    ✔ When I type "2.5" into the "Loan Tenure" box and press Tab                             # section-b/emicalculator/steps/emicalculator-validation.steps.ts:64
+
+          Embedding an-invalid-tenure-in-months-is-refused-not-reinterpreted-half-a-month--01-entry-2-5.png [image/png 147510 bytes]
+
+    ✘ Then the calculator should refuse the entry instead of calculating with something else # section-b/emicalculator/steps/emicalculator-validation.steps.ts:78
+          Error: I typed "2.5" into the Loan Tenure box and pressed Tab. The calculator did not refuse it and showed no message.
+          The box now shows "3" (it showed "48" before).
+          The EMI changed from ₹15,074 to ₹2,03,175.
+          
+          expect(received).toBe(expected) // Object.is equality
+          
+          Expected: true
+          Received: false
+              at captureRawStack (./node_modules/playwright-core/lib/coreBundle.js:8588:17)
+              at callMatcherAsStep (./node_modules/playwright/lib/matchers/expect.js:13310:57)
+              at Object.toBe (./node_modules/playwright/lib/matchers/expect.js:13302:23)
+              at CustomWorld.<anonymous> (./section-b/emicalculator/steps/emicalculator-validation.steps.ts:98:56)
+    ↷ And no figure on the calculator should read NaN, Infinity or a negative number         # section-b/emicalculator/steps/emicalculator-validation.steps.ts:101
+
+          Embedding an-invalid-tenure-in-months-is-refused-not-reinterpreted-half-a-month--02-failure.png [image/png 147273 bytes]
+
+
+          Page URL at end of scenario: https://emicalculator.net/
+
+    ✔ And I use the sliders to set the loan amount to "10L", the interest rate to 12% and the tenure to 5 years # section-b/emicalculator/steps/emicalculator.steps.ts:44
+
+          Playwright trace: section-b/reports/emicalculator/traces/an-invalid-tenure-in-months-is-refused-not-reinterpreted-half-a-month.zip (open with: npx playwright show-trace <file>)
+
+
+          Start month changed from "Oct 2026" to "Mar 2027"
+
+    ✔ And I change the schedule start month to "Mar 2027" using the calendar widget                             # section-b/emicalculator/steps/emicalculator.steps.ts:62
+
+          EMI: site ₹22,244 | mine ₹22244.45
+
+    ✔ Then the EMI shown should match my own calculation                                                        # section-b/emicalculator/steps/emicalculator.steps.ts:71
+
+          Embedding personal-loan-of-10l-at-12-for-5-years-schedule-starting-in-a-chosen-month--01-bar-chart.png [image/png 29544 bytes]
+
+    ✔ And the bar chart should be visible and available                                                         # section-b/emicalculator/steps/emicalculator.steps.ts:127
+
+          Bars counted: 6
+          Years on the axis: 2027, 2028, 2029, 2030, 2031, 2032
+          Years in my schedule: 2027, 2028, 2029, 2030, 2031, 2032
+
+    ✔ And the bar chart should have one bar per calendar year of the repayment schedule                         # section-b/emicalculator/steps/emicalculator.steps.ts:135
+
+          2027: tooltip "Year : 2027Interest : ₹ 94,340Total Payment : ₹ 2,22,444 | Year : 2027Principal : ₹ 1,28,104Total Payment : ₹ 2,22,444" | mine principal ₹128104.01, interest ₹94340.46, total ₹222444.48
+          2028: tooltip "Year : 2028Interest : ₹ 95,396Total Payment : ₹ 2,66,933 | Year : 2028Principal : ₹ 1,71,537Total Payment : ₹ 2,66,933" | mine principal ₹171537.04, interest ₹95396.33, total ₹266933.37
+          2029: tooltip "Year : 2029Interest : ₹ 73,641Total Payment : ₹ 2,66,933 | Year : 2029Principal : ₹ 1,93,292Total Payment : ₹ 2,66,933" | mine principal ₹193292.23, interest ₹73641.14, total ₹266933.37
+          2030: tooltip "Year : 2030Interest : ₹ 49,127Total Payment : ₹ 2,66,933 | Year : 2030Principal : ₹ 2,17,807Total Payment : ₹ 2,66,933" | mine principal ₹217806.52, interest ₹49126.85, total ₹266933.37
+          2031: tooltip "Year : 2031Interest : ₹ 21,504Total Payment : ₹ 2,66,933 | Year : 2031Principal : ₹ 2,45,430Total Payment : ₹ 2,66,933" | mine principal ₹245429.84, interest ₹21503.53, total ₹266933.37
+          2032: tooltip "Year : 2032Interest : ₹ 659Total Payment : ₹ 44,489 | Year : 2032Principal : ₹ 43,830Total Payment : ₹ 44,489" | mine principal ₹43830.35, interest ₹658.55, total ₹44488.90
+
+
+          Embedding personal-loan-of-10l-at-12-for-5-years-schedule-starting-in-a-chosen-month--02-bar-tooltip.png [image/png 35433 bytes]
+
+    ✔ And the tooltip of every bar should show values that match my own amortisation                            # section-b/emicalculator/steps/emicalculator.steps.ts:147
+
+Failed scenarios:
+  1) An invalid loan amount is refused, not reinterpreted: negative amount, leaving the box # section-b/emicalculator/features/input-validation.feature:42
+       Then the calculator should refuse the entry instead of calculating with something else # section-b/emicalculator/steps/emicalculator-validation.steps.ts:78
+           Error: I typed "-2383434" into the Loan Amount box and pressed Tab. The calculator did not refuse it and showed no message.
+           The box now shows "23,83,434" (it showed "6,00,000" before).
+           The EMI changed from ₹15,074 to ₹59,879.
+           That EMI belongs to a loan of about ₹23,83,421 at 9.5% for 48 months, so that is the amount it calculated with.
+           
+           expect(received).toBe(expected) // Object.is equality
+           
+           Expected: true
+           Received: false
+               at captureRawStack (./node_modules/playwright-core/lib/coreBundle.js:8588:17)
+               at callMatcherAsStep (./node_modules/playwright/lib/matchers/expect.js:13310:57)
+               at Object.toBe (./node_modules/playwright/lib/matchers/expect.js:13302:23)
+               at CustomWorld.<anonymous> (./section-b/emicalculator/steps/emicalculator-validation.steps.ts:98:56)
+
+           Embedding an-invalid-loan-amount-is-refused-not-reinterpreted-negative-amount-leaving-the---01-entry-2383434.png [image/png 148050 bytes]
+  2) An invalid loan amount is refused, not reinterpreted: negative amount, pressing Enter # section-b/emicalculator/features/input-validation.feature:43
+       Then the calculator should refuse the entry instead of calculating with something else # section-b/emicalculator/steps/emicalculator-validation.steps.ts:78
+           Error: I typed "-2383434" into the Loan Amount box and pressed Enter. The calculator did not refuse it and showed no message.
+           The box now shows "-2383434" (it showed "6,00,000" before).
+           The EMI changed from ₹15,074 to ₹59,879.
+           That EMI belongs to a loan of about ₹23,83,421 at 9.5% for 48 months, so that is the amount it calculated with.
+           
+           expect(received).toBe(expected) // Object.is equality
+           
+           Expected: true
+           Received: false
+               at captureRawStack (./node_modules/playwright-core/lib/coreBundle.js:8588:17)
+               at callMatcherAsStep (./node_modules/playwright/lib/matchers/expect.js:13310:57)
+               at Object.toBe (./node_modules/playwright/lib/matchers/expect.js:13302:23)
+               at CustomWorld.<anonymous> (./section-b/emicalculator/steps/emicalculator-validation.steps.ts:98:56)
+
+           Embedding an-invalid-loan-amount-is-refused-not-reinterpreted-negative-amount-pressing-ent--01-entry-2383434.png [image/png 147834 bytes]
+  3) An invalid loan amount is refused, not reinterpreted: zero # section-b/emicalculator/features/input-validation.feature:48
+       Then the calculator should refuse the entry instead of calculating with something else # section-b/emicalculator/steps/emicalculator-validation.steps.ts:78
+           Error: I typed "0" into the Loan Amount box and pressed Tab. The calculator did not refuse it and showed no message.
+           The box now shows "0" (it showed "6,00,000" before).
+           The EMI changed from ₹15,074 to ₹0.
+           That EMI belongs to a loan of about ₹0 at 9.5% for 48 months, so that is the amount it calculated with.
+           
+           expect(received).toBe(expected) // Object.is equality
+           
+           Expected: true
+           Received: false
+               at captureRawStack (./node_modules/playwright-core/lib/coreBundle.js:8588:17)
+               at callMatcherAsStep (./node_modules/playwright/lib/matchers/expect.js:13310:57)
+               at Object.toBe (./node_modules/playwright/lib/matchers/expect.js:13302:23)
+               at CustomWorld.<anonymous> (./section-b/emicalculator/steps/emicalculator-validation.steps.ts:98:56)
+
+           Embedding an-invalid-loan-amount-is-refused-not-reinterpreted-zero--01-entry-0.png [image/png 140124 bytes]
+  4) An invalid loan amount is refused, not reinterpreted: letters only # section-b/emicalculator/features/input-validation.feature:49
+       Then the calculator should refuse the entry instead of calculating with something else # section-b/emicalculator/steps/emicalculator-validation.steps.ts:78
+           Error: I typed "abc" into the Loan Amount box and pressed Tab. The calculator did not refuse it and showed no message.
+           The box now shows "0" (it showed "6,00,000" before).
+           The EMI changed from ₹15,074 to ₹0.
+           That EMI belongs to a loan of about ₹0 at 9.5% for 48 months, so that is the amount it calculated with.
+           
+           expect(received).toBe(expected) // Object.is equality
+           
+           Expected: true
+           Received: false
+               at captureRawStack (./node_modules/playwright-core/lib/coreBundle.js:8588:17)
+               at callMatcherAsStep (./node_modules/playwright/lib/matchers/expect.js:13310:57)
+               at Object.toBe (./node_modules/playwright/lib/matchers/expect.js:13302:23)
+               at CustomWorld.<anonymous> (./section-b/emicalculator/steps/emicalculator-validation.steps.ts:98:56)
+
+           Embedding an-invalid-loan-amount-is-refused-not-reinterpreted-letters-only--01-entry-abc.png [image/png 140124 bytes]
+  5) An invalid loan amount is refused, not reinterpreted: letters between digits # section-b/emicalculator/features/input-validation.feature:54
+       Then the calculator should refuse the entry instead of calculating with something else # section-b/emicalculator/steps/emicalculator-validation.steps.ts:78
+           Error: I typed "12abc34" into the Loan Amount box and pressed Tab. The calculator did not refuse it and showed no message.
+           The box now shows "1,234" (it showed "6,00,000" before).
+           The EMI changed from ₹15,074 to ₹31.
+           That EMI belongs to a loan of about ₹1,234 at 9.5% for 48 months, so that is the amount it calculated with.
+           
+           expect(received).toBe(expected) // Object.is equality
+           
+           Expected: true
+           Received: false
+               at captureRawStack (./node_modules/playwright-core/lib/coreBundle.js:8588:17)
+               at callMatcherAsStep (./node_modules/playwright/lib/matchers/expect.js:13310:57)
+               at Object.toBe (./node_modules/playwright/lib/matchers/expect.js:13302:23)
+               at CustomWorld.<anonymous> (./section-b/emicalculator/steps/emicalculator-validation.steps.ts:98:56)
+
+           Embedding an-invalid-loan-amount-is-refused-not-reinterpreted-letters-between-digits--01-entry-12abc34.png [image/png 145086 bytes]
+  6) An invalid loan amount is refused, not reinterpreted: two decimal points # section-b/emicalculator/features/input-validation.feature:59
+       Then the calculator should refuse the entry instead of calculating with something else # section-b/emicalculator/steps/emicalculator-validation.steps.ts:78
+           Error: I typed "25.00.000" into the Loan Amount box and pressed Tab. The calculator did not refuse it and showed no message.
+           The box now shows "NaN" (it showed "6,00,000" before).
+           The EMI changed from ₹15,074 to ₹0.
+           That EMI belongs to a loan of about ₹0 at 9.5% for 48 months, so that is the amount it calculated with.
+           
+           expect(received).toBe(expected) // Object.is equality
+           
+           Expected: true
+           Received: false
+               at captureRawStack (./node_modules/playwright-core/lib/coreBundle.js:8588:17)
+               at callMatcherAsStep (./node_modules/playwright/lib/matchers/expect.js:13310:57)
+               at Object.toBe (./node_modules/playwright/lib/matchers/expect.js:13302:23)
+               at CustomWorld.<anonymous> (./section-b/emicalculator/steps/emicalculator-validation.steps.ts:98:56)
+
+           Embedding an-invalid-loan-amount-is-refused-not-reinterpreted-two-decimal-points--01-entry-25-00-000.png [image/png 140289 bytes]
+  7) An invalid loan amount is refused, not reinterpreted: a 26-digit amount # section-b/emicalculator/features/input-validation.feature:60
+       Then the calculator should refuse the entry instead of calculating with something else # section-b/emicalculator/steps/emicalculator-validation.steps.ts:78
+           Error: I typed "99999999999999999999999999" into the Loan Amount box and pressed Tab. The calculator did not refuse it and showed no message.
+           The box now shows "10,00,00,00,00,00,00,00,00,00,00,00,000" (it showed "6,00,000" before).
+           The EMI changed from ₹15,074 to ₹25,12,31,36,67,09,35,95,00,00,00,000.
+           That EMI belongs to a loan of about ₹9,99,99,99,99,99,99,99,90,00,00,00,000 at 9.5% for 48 months, so that is the amount it calculated with.
+           
+           expect(received).toBe(expected) // Object.is equality
+           
+           Expected: true
+           Received: false
+               at captureRawStack (./node_modules/playwright-core/lib/coreBundle.js:8588:17)
+               at callMatcherAsStep (./node_modules/playwright/lib/matchers/expect.js:13310:57)
+               at Object.toBe (./node_modules/playwright/lib/matchers/expect.js:13302:23)
+               at CustomWorld.<anonymous> (./section-b/emicalculator/steps/emicalculator-validation.steps.ts:98:56)
+
+           Embedding an-invalid-loan-amount-is-refused-not-reinterpreted-a-26-digit-amount--01-entry-99999999999999999999999999.png [image/png 155934 bytes]
+  8) An invalid interest rate is refused, not reinterpreted: negative rate # section-b/emicalculator/features/input-validation.feature:87
+       Then the calculator should refuse the entry instead of calculating with something else # section-b/emicalculator/steps/emicalculator-validation.steps.ts:78
+           Error: I typed "-8.5" into the Interest Rate box and pressed Tab. The calculator did not refuse it and showed no message.
+           The box now shows "8.5" (it showed "9.5" before).
+           The EMI changed from ₹15,074 to ₹14,789.
+           
+           expect(received).toBe(expected) // Object.is equality
+           
+           Expected: true
+           Received: false
+               at captureRawStack (./node_modules/playwright-core/lib/coreBundle.js:8588:17)
+               at callMatcherAsStep (./node_modules/playwright/lib/matchers/expect.js:13310:57)
+               at Object.toBe (./node_modules/playwright/lib/matchers/expect.js:13302:23)
+               at CustomWorld.<anonymous> (./section-b/emicalculator/steps/emicalculator-validation.steps.ts:98:56)
+
+           Embedding an-invalid-interest-rate-is-refused-not-reinterpreted-negative-rate--01-entry-8-5.png [image/png 148008 bytes]
+  9) An invalid interest rate is refused, not reinterpreted: letters # section-b/emicalculator/features/input-validation.feature:88
+       Then the calculator should refuse the entry instead of calculating with something else # section-b/emicalculator/steps/emicalculator-validation.steps.ts:78
+           Error: I typed "abc" into the Interest Rate box and pressed Tab. The calculator did not refuse it and showed no message.
+           The box now shows "9" (it showed "9.5" before).
+           The EMI changed from ₹15,074 to ₹14,931.
+           
+           expect(received).toBe(expected) // Object.is equality
+           
+           Expected: true
+           Received: false
+               at captureRawStack (./node_modules/playwright-core/lib/coreBundle.js:8588:17)
+               at callMatcherAsStep (./node_modules/playwright/lib/matchers/expect.js:13310:57)
+               at Object.toBe (./node_modules/playwright/lib/matchers/expect.js:13302:23)
+               at CustomWorld.<anonymous> (./section-b/emicalculator/steps/emicalculator-validation.steps.ts:98:56)
+
+           Embedding an-invalid-interest-rate-is-refused-not-reinterpreted-letters--01-entry-abc.png [image/png 147270 bytes]
+  10) An invalid interest rate is refused, not reinterpreted: decimal comma # section-b/emicalculator/features/input-validation.feature:89
+       Then the calculator should refuse the entry instead of calculating with something else # section-b/emicalculator/steps/emicalculator-validation.steps.ts:78
+           Error: I typed "8,5" into the Interest Rate box and pressed Tab. The calculator did not refuse it and showed no message.
+           The box now shows "85" (it showed "9.5" before).
+           The EMI changed from ₹15,074 to ₹44,153.
+           
+           expect(received).toBe(expected) // Object.is equality
+           
+           Expected: true
+           Received: false
+               at captureRawStack (./node_modules/playwright-core/lib/coreBundle.js:8588:17)
+               at callMatcherAsStep (./node_modules/playwright/lib/matchers/expect.js:13310:57)
+               at Object.toBe (./node_modules/playwright/lib/matchers/expect.js:13302:23)
+               at CustomWorld.<anonymous> (./section-b/emicalculator/steps/emicalculator-validation.steps.ts:98:56)
+
+           Embedding an-invalid-interest-rate-is-refused-not-reinterpreted-decimal-comma--01-entry-8-5.png [image/png 147306 bytes]
+  11) A valid interest rate is used as typed: zero interest # section-b/emicalculator/features/input-validation.feature:77
+       Then the "Interest Rate" box should show "0" # section-b/emicalculator/steps/emicalculator-validation.steps.ts:108
+           Error: expect(locator).toHaveValue(expected) failed
+           
+           Locator:  getByLabel('Interest Rate', { exact: true })
+           Expected: "0"
+           Received: "9"
+           Timeout:  5000ms
+           
+           Call log:
+             - Expect "toHaveValue" getByLabel('Interest Rate', { exact: true }) with timeout 5000ms
+             - waiting for getByLabel('Interest Rate', { exact: true })
+               14 × locator resolved to <input type="text" value="10.5" id="loaninterest" name="loaninterest" class="form-control"/>
+                  - unexpected value "9"
+           
+               at captureRawStack (./node_modules/playwright-core/lib/coreBundle.js:8588:17)
+               at callMatcherAsStep (./node_modules/playwright/lib/matchers/expect.js:13310:57)
+               at Object.toHaveValue (./node_modules/playwright/lib/matchers/expect.js:13302:23)
+               at CustomWorld.<anonymous> (./section-b/emicalculator/steps/emicalculator-validation.steps.ts:109:43)
+  12) An invalid tenure in years is refused, not reinterpreted: negative tenure # section-b/emicalculator/features/input-validation.feature:121
+       Then the calculator should refuse the entry instead of calculating with something else # section-b/emicalculator/steps/emicalculator-validation.steps.ts:78
+           Error: I typed "-2" into the Loan Tenure box and pressed Tab. The calculator did not refuse it and showed no message.
+           The box now shows "2" (it showed "4" before).
+           The EMI changed from ₹15,074 to ₹27,549.
+           
+           expect(received).toBe(expected) // Object.is equality
+           
+           Expected: true
+           Received: false
+               at captureRawStack (./node_modules/playwright-core/lib/coreBundle.js:8588:17)
+               at callMatcherAsStep (./node_modules/playwright/lib/matchers/expect.js:13310:57)
+               at Object.toBe (./node_modules/playwright/lib/matchers/expect.js:13302:23)
+               at CustomWorld.<anonymous> (./section-b/emicalculator/steps/emicalculator-validation.steps.ts:98:56)
+
+           Embedding an-invalid-tenure-in-years-is-refused-not-reinterpreted-negative-tenure--01-entry-2.png [image/png 147297 bytes]
+  13) An invalid tenure in years is refused, not reinterpreted: zero # section-b/emicalculator/features/input-validation.feature:122
+       Then the calculator should refuse the entry instead of calculating with something else # section-b/emicalculator/steps/emicalculator-validation.steps.ts:78
+           Error: I typed "0" into the Loan Tenure box and pressed Tab. The calculator did not refuse it and showed no message.
+           The box now shows "1" (it showed "4" before).
+           The EMI changed from ₹15,074 to ₹52,610.
+           
+           expect(received).toBe(expected) // Object.is equality
+           
+           Expected: true
+           Received: false
+               at captureRawStack (./node_modules/playwright-core/lib/coreBundle.js:8588:17)
+               at callMatcherAsStep (./node_modules/playwright/lib/matchers/expect.js:13310:57)
+               at Object.toBe (./node_modules/playwright/lib/matchers/expect.js:13302:23)
+               at CustomWorld.<anonymous> (./section-b/emicalculator/steps/emicalculator-validation.steps.ts:98:56)
+
+           Embedding an-invalid-tenure-in-years-is-refused-not-reinterpreted-zero--01-entry-0.png [image/png 146589 bytes]
+  14) An invalid tenure in years is refused, not reinterpreted: letters # section-b/emicalculator/features/input-validation.feature:123
+       Then the calculator should refuse the entry instead of calculating with something else # section-b/emicalculator/steps/emicalculator-validation.steps.ts:78
+           Error: I typed "abc" into the Loan Tenure box and pressed Tab. The calculator did not refuse it and showed no message.
+           The box now shows "1" (it showed "4" before).
+           The EMI changed from ₹15,074 to ₹52,610.
+           
+           expect(received).toBe(expected) // Object.is equality
+           
+           Expected: true
+           Received: false
+               at captureRawStack (./node_modules/playwright-core/lib/coreBundle.js:8588:17)
+               at callMatcherAsStep (./node_modules/playwright/lib/matchers/expect.js:13310:57)
+               at Object.toBe (./node_modules/playwright/lib/matchers/expect.js:13302:23)
+               at CustomWorld.<anonymous> (./section-b/emicalculator/steps/emicalculator-validation.steps.ts:98:56)
+
+           Embedding an-invalid-tenure-in-years-is-refused-not-reinterpreted-letters--01-entry-abc.png [image/png 146775 bytes]
+  15) An invalid tenure in months is refused, not reinterpreted: half a month # section-b/emicalculator/features/input-validation.feature:134
+       Then the calculator should refuse the entry instead of calculating with something else # section-b/emicalculator/steps/emicalculator-validation.steps.ts:78
+           Error: I typed "2.5" into the Loan Tenure box and pressed Tab. The calculator did not refuse it and showed no message.
+           The box now shows "3" (it showed "48" before).
+           The EMI changed from ₹15,074 to ₹2,03,175.
+           
+           expect(received).toBe(expected) // Object.is equality
+           
+           Expected: true
+           Received: false
+               at captureRawStack (./node_modules/playwright-core/lib/coreBundle.js:8588:17)
+               at callMatcherAsStep (./node_modules/playwright/lib/matchers/expect.js:13310:57)
+               at Object.toBe (./node_modules/playwright/lib/matchers/expect.js:13302:23)
+               at CustomWorld.<anonymous> (./section-b/emicalculator/steps/emicalculator-validation.steps.ts:98:56)
+
+           Embedding an-invalid-tenure-in-months-is-refused-not-reinterpreted-half-a-month--01-entry-2-5.png [image/png 147510 bytes]
+
+6 hooks (6 passed)
+38 scenarios (23 passed, 15 failed)
+429 steps (399 passed, 15 skipped, 15 failed)
+0m 48.006s (2m 15.722s executing your code)

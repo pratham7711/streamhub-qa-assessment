@@ -2,8 +2,8 @@
  * npm run heal [-- --provider auto|claude-cli|anthropic|heuristic] [--mode heal|suggest]
  *
  * Runs the @broken-locator scenarios with self-healing switched on, then prints
- * the validated suggestions. Reports go to reports/self-healing-healed/, the
- * reviewer-facing summary to reports/self-healing-healed/healing/SUGGESTIONS.md.
+ * the validated suggestions. Reports go to <REPORTS_DIR>/self-healing-healed/ (REPORTS_DIR
+ * defaults to reports/), the reviewer-facing summary to its healing/SUGGESTIONS.md.
  * The page objects are never modified; applying a patch is a human decision.
  */
 import { spawn } from 'node:child_process';
@@ -23,13 +23,14 @@ if (!['heal', 'suggest'].includes(mode)) {
 }
 
 const suite = 'self-healing-healed';
+const dir = `${process.env.REPORTS_DIR ?? 'reports'}/${suite}`;
 console.log(`Self-healing run: mode=${mode}, provider=${provider}\n`);
 const child = spawn(process.execPath, ['scripts/run-suite.mjs', suite], {
   stdio: 'inherit',
   env: { ...process.env, SELF_HEAL: mode, HEAL_PROVIDER: provider },
 });
 child.on('exit', (code) => {
-  const file = `reports/${suite}/healing/suggestions.json`;
+  const file = `${dir}/healing/suggestions.json`;
   if (!existsSync(file)) {
     console.log('\nNo locator needed healing.');
     process.exit(code ?? 1);
@@ -42,6 +43,6 @@ child.on('exit', (code) => {
     console.log(`    now:  ${s.accepted ? s.accepted.code : 'no candidate passed validation'}`);
     console.log(`    via:  ${s.provider}${s.providerNote ? ` (${s.providerNote})` : ''}; replay ${s.replay}`);
   }
-  console.log(`\nReview: reports/${suite}/healing/SUGGESTIONS.md (patches in reports/${suite}/healing/patches/)`);
+  console.log(`\nReview: ${dir}/healing/SUGGESTIONS.md (patches in ${dir}/healing/patches/)`);
   process.exit(code ?? 1);
 });

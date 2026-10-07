@@ -1,7 +1,7 @@
 import { mkdirSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 import type { Locator, Page } from 'playwright';
-import { env } from '../tests/config/env.js';
+import { env } from '../framework/config/env.js';
 import { collectInventory } from './inventory.js';
 import { pickProvider, suggestWithFallback } from './providers/index.js';
 import { renderSuggestions } from './report.js';

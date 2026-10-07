@@ -1,0 +1,4747 @@
+[
+  {
+    "description": "  Brief A3: \"The API should respond with the appropriate HTTP error codes or\n  error messages for invalid inputs without encountering server-side failures.\"\n  This feature checks the second half of that sentence: whatever we send, the\n  server must answer with a non-5xx status, and must not expose internals.\n  Each row is a different way to crash a server (size, encoding, injection, a missing\n  or mistyped field, the wrong body shape or type). Payloads that carry no extra risk\n  of a crash are only in the validation feature.",
+    "elements": [
+      {
+        "description": "",
+        "id": "jsonplaceholder-post-/posts---no-input-causes-a-server-side-failure;a-1,000,000-character-title-does-not-cause-a-server-error",
+        "keyword": "Scenario Outline",
+        "line": 21,
+        "name": "a 1,000,000-character title does not cause a server error",
+        "steps": [
+          {
+            "result": {
+              "status": "passed",
+              "duration": 65957
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 21704542
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 49624
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 281885999
+            },
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 12,
+            "name": "the JSONPlaceholder posts endpoint is reachable",
+            "match": {
+              "location": "section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:17"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 2199773125
+            },
+            "arguments": [],
+            "keyword": "When ",
+            "line": 15,
+            "name": "I create \"a 1,000,000-character title\"",
+            "match": {
+              "location": "section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:22"
+            },
+            "embeddings": [
+              {
+                "data": "UGF5bG9hZCAiYSAxLDAwMCwwMDAtY2hhcmFjdGVyIHRpdGxlIjogMSBNQiB0aXRsZQ==",
+                "mime_type": "text/plain"
+              },
+              {
+                "data": "UE9TVCBodHRwczovL2pzb25wbGFjZWhvbGRlci50eXBpY29kZS5jb20vcG9zdHMK4oaSIDIwMSBDcmVhdGVkIGluIDIxOTIgbXMKewogICJ0aXRsZSI6ICJBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQeKApiAoMTAsMDAsMDgyIGNoYXJhY3RlcnMp",
+                "mime_type": "text/plain"
+              }
+            ]
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 930457
+            },
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 16,
+            "name": "the API should not fail with a server error",
+            "match": {
+              "location": "section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:36"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 1234375
+            },
+            "arguments": [],
+            "keyword": "And ",
+            "line": 17,
+            "name": "the response should not leak implementation details",
+            "match": {
+              "location": "section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:41"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 57667
+            },
+            "keyword": "After",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 1898499
+            },
+            "keyword": "After",
+            "hidden": true
+          }
+        ],
+        "tags": [
+          {
+            "name": "@api",
+            "line": 1
+          },
+          {
+            "name": "@external",
+            "line": 1
+          },
+          {
+            "name": "@jsonplaceholder",
+            "line": 1
+          }
+        ],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "jsonplaceholder-post-/posts---no-input-causes-a-server-side-failure;a-title-with-a-nul-byte-does-not-cause-a-server-error",
+        "keyword": "Scenario Outline",
+        "line": 25,
+        "name": "a title with a NUL byte does not cause a server error",
+        "steps": [
+          {
+            "result": {
+              "status": "passed",
+              "duration": 65540
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 21659875
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 70415
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 281867457
+            },
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 12,
+            "name": "the JSONPlaceholder posts endpoint is reachable",
+            "match": {
+              "location": "section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:17"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 320754832
+            },
+            "arguments": [],
+            "keyword": "When ",
+            "line": 15,
+            "name": "I create \"a title with a NUL byte\"",
+            "match": {
+              "location": "section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:22"
+            },
+            "embeddings": [
+              {
+                "data": "UGF5bG9hZCAiYSB0aXRsZSB3aXRoIGEgTlVMIGJ5dGUiOiBVKzAwMDAgdHJ1bmNhdGVzIEMgc3RyaW5ncyBhbmQgYnJlYWtzIG1hbnkgZGF0YWJhc2Vz",
+                "mime_type": "text/plain"
+              },
+              {
+                "data": "UE9TVCBodHRwczovL2pzb25wbGFjZWhvbGRlci50eXBpY29kZS5jb20vcG9zdHMK4oaSIDIwMSBDcmVhdGVkIGluIDMxOCBtcwp7CiAgInRpdGxlIjogIkxvYW5cdTAwMDByZXZpZXciLAogICJib2R5IjogIlBvcnRmb2xpbyBub3RlcyBmb3IgUTMuIiwKICAidXNlcklkIjogMSwKICAiaWQiOiAxMDEKfQ==",
+                "mime_type": "text/plain"
+              }
+            ]
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 1155624
+            },
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 16,
+            "name": "the API should not fail with a server error",
+            "match": {
+              "location": "section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:36"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 1459624
+            },
+            "arguments": [],
+            "keyword": "And ",
+            "line": 17,
+            "name": "the response should not leak implementation details",
+            "match": {
+              "location": "section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:41"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 71166
+            },
+            "keyword": "After",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 1472083
+            },
+            "keyword": "After",
+            "hidden": true
+          }
+        ],
+        "tags": [
+          {
+            "name": "@api",
+            "line": 1
+          },
+          {
+            "name": "@external",
+            "line": 1
+          },
+          {
+            "name": "@jsonplaceholder",
+            "line": 1
+          }
+        ],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "jsonplaceholder-post-/posts---no-input-causes-a-server-side-failure;a-title-with-an-unpaired-surrogate-does-not-cause-a-server-error",
+        "keyword": "Scenario Outline",
+        "line": 26,
+        "name": "a title with an unpaired surrogate does not cause a server error",
+        "steps": [
+          {
+            "result": {
+              "status": "passed",
+              "duration": 65417
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 21622041
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 144084
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 297746209
+            },
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 12,
+            "name": "the JSONPlaceholder posts endpoint is reachable",
+            "match": {
+              "location": "section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:17"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 332185958
+            },
+            "arguments": [],
+            "keyword": "When ",
+            "line": 15,
+            "name": "I create \"a title with an unpaired surrogate\"",
+            "match": {
+              "location": "section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:22"
+            },
+            "embeddings": [
+              {
+                "data": "UGF5bG9hZCAiYSB0aXRsZSB3aXRoIGFuIHVucGFpcmVkIHN1cnJvZ2F0ZSI6IGxvbmUgVVRGLTE2IHN1cnJvZ2F0ZTogbm90IHJlcHJlc2VudGFibGUgaW4gVVRGLTg=",
+                "mime_type": "text/plain"
+              },
+              {
+                "data": "UE9TVCBodHRwczovL2pzb25wbGFjZWhvbGRlci50eXBpY29kZS5jb20vcG9zdHMK4oaSIDIwMSBDcmVhdGVkIGluIDMzMCBtcwp7CiAgInRpdGxlIjogIlx1ZDgwMCIsCiAgImJvZHkiOiAiYiIsCiAgInVzZXJJZCI6IDEsCiAgImlkIjogMTAxCn0=",
+                "mime_type": "text/plain"
+              }
+            ]
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 746082
+            },
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 16,
+            "name": "the API should not fail with a server error",
+            "match": {
+              "location": "section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:36"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 1085958
+            },
+            "arguments": [],
+            "keyword": "And ",
+            "line": 17,
+            "name": "the response should not leak implementation details",
+            "match": {
+              "location": "section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:41"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 48749
+            },
+            "keyword": "After",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 940041
+            },
+            "keyword": "After",
+            "hidden": true
+          }
+        ],
+        "tags": [
+          {
+            "name": "@api",
+            "line": 1
+          },
+          {
+            "name": "@external",
+            "line": 1
+          },
+          {
+            "name": "@jsonplaceholder",
+            "line": 1
+          }
+        ],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "jsonplaceholder-post-/posts---no-input-causes-a-server-side-failure;a-title-with-invalid-utf-8-bytes-does-not-cause-a-server-error",
+        "keyword": "Scenario Outline",
+        "line": 27,
+        "name": "a title with invalid UTF-8 bytes does not cause a server error",
+        "steps": [
+          {
+            "result": {
+              "status": "passed",
+              "duration": 124500
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 21042416
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 64250
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 288716459
+            },
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 12,
+            "name": "the JSONPlaceholder posts endpoint is reachable",
+            "match": {
+              "location": "section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:17"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 323097207
+            },
+            "arguments": [],
+            "keyword": "When ",
+            "line": 15,
+            "name": "I create \"a title with invalid UTF-8 bytes\"",
+            "match": {
+              "location": "section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:22"
+            },
+            "embeddings": [
+              {
+                "data": "UGF5bG9hZCAiYSB0aXRsZSB3aXRoIGludmFsaWQgVVRGLTggYnl0ZXMiOiAweEZGIDB4RkUgMHhGRCBjYW4gbmV2ZXIgYXBwZWFyIGluIFVURi04",
+                "mime_type": "text/plain"
+              },
+              {
+                "data": "UE9TVCBodHRwczovL2pzb25wbGFjZWhvbGRlci50eXBpY29kZS5jb20vcG9zdHMK4oaSIDIwMSBDcmVhdGVkIGluIDMyMCBtcwp7CiAgInRpdGxlIjogIu+/ve+/ve+/vSIsCiAgImJvZHkiOiAiYiIsCiAgInVzZXJJZCI6IDEsCiAgImlkIjogMTAxCn0=",
+                "mime_type": "text/plain"
+              }
+            ]
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 1012040
+            },
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 16,
+            "name": "the API should not fail with a server error",
+            "match": {
+              "location": "section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:36"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 1287583
+            },
+            "arguments": [],
+            "keyword": "And ",
+            "line": 17,
+            "name": "the response should not leak implementation details",
+            "match": {
+              "location": "section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:41"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 61999
+            },
+            "keyword": "After",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 1194209
+            },
+            "keyword": "After",
+            "hidden": true
+          }
+        ],
+        "tags": [
+          {
+            "name": "@api",
+            "line": 1
+          },
+          {
+            "name": "@external",
+            "line": 1
+          },
+          {
+            "name": "@jsonplaceholder",
+            "line": 1
+          }
+        ],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "jsonplaceholder-post-/posts---no-input-causes-a-server-side-failure;a-title-with-sql-meta-characters-does-not-cause-a-server-error",
+        "keyword": "Scenario Outline",
+        "line": 28,
+        "name": "a title with SQL meta-characters does not cause a server error",
+        "steps": [
+          {
+            "result": {
+              "status": "passed",
+              "duration": 30250
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 541332
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 19083
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 246573499
+            },
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 12,
+            "name": "the JSONPlaceholder posts endpoint is reachable",
+            "match": {
+              "location": "section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:17"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 329393333
+            },
+            "arguments": [],
+            "keyword": "When ",
+            "line": 15,
+            "name": "I create \"a title with SQL meta-characters\"",
+            "match": {
+              "location": "section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:22"
+            },
+            "embeddings": [
+              {
+                "data": "UGF5bG9hZCAiYSB0aXRsZSB3aXRoIFNRTCBtZXRhLWNoYXJhY3RlcnMiOiBTUUwgaW5qZWN0aW9uIHByb2Jl",
+                "mime_type": "text/plain"
+              },
+              {
+                "data": "UE9TVCBodHRwczovL2pzb25wbGFjZWhvbGRlci50eXBpY29kZS5jb20vcG9zdHMK4oaSIDIwMSBDcmVhdGVkIGluIDMyOSBtcwp7CiAgInRpdGxlIjogIic7IERST1AgVEFCTEUgcG9zdHM7IC0tIiwKICAiYm9keSI6ICJQb3J0Zm9saW8gbm90ZXMgZm9yIFEzLiIsCiAgInVzZXJJZCI6IDEsCiAgImlkIjogMTAxCn0=",
+                "mime_type": "text/plain"
+              }
+            ]
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 279166
+            },
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 16,
+            "name": "the API should not fail with a server error",
+            "match": {
+              "location": "section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:36"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 285792
+            },
+            "arguments": [],
+            "keyword": "And ",
+            "line": 17,
+            "name": "the response should not leak implementation details",
+            "match": {
+              "location": "section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:41"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 20708
+            },
+            "keyword": "After",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 551333
+            },
+            "keyword": "After",
+            "hidden": true
+          }
+        ],
+        "tags": [
+          {
+            "name": "@api",
+            "line": 1
+          },
+          {
+            "name": "@external",
+            "line": 1
+          },
+          {
+            "name": "@jsonplaceholder",
+            "line": 1
+          }
+        ],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "jsonplaceholder-post-/posts---no-input-causes-a-server-side-failure;a-post-without-userid-does-not-cause-a-server-error",
+        "keyword": "Scenario Outline",
+        "line": 32,
+        "name": "a post without userId does not cause a server error",
+        "steps": [
+          {
+            "result": {
+              "status": "passed",
+              "duration": 28874
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 510750
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 16665
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 264723375
+            },
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 12,
+            "name": "the JSONPlaceholder posts endpoint is reachable",
+            "match": {
+              "location": "section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:17"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 794651290
+            },
+            "arguments": [],
+            "keyword": "When ",
+            "line": 15,
+            "name": "I create \"a post without userId\"",
+            "match": {
+              "location": "section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:22"
+            },
+            "embeddings": [
+              {
+                "data": "UGF5bG9hZCAiYSBwb3N0IHdpdGhvdXQgdXNlcklkIjogdXNlcklkIG9taXR0ZWQ=",
+                "mime_type": "text/plain"
+              },
+              {
+                "data": "UE9TVCBodHRwczovL2pzb25wbGFjZWhvbGRlci50eXBpY29kZS5jb20vcG9zdHMK4oaSIDIwMSBDcmVhdGVkIGluIDc5NCBtcwp7CiAgInRpdGxlIjogIlF1YXJ0ZXJseSBsb2FuIGJvb2sgcmV2aWV3IiwKICAiYm9keSI6ICJQb3J0Zm9saW8gbm90ZXMgZm9yIFEzLiIsCiAgImlkIjogMTAxCn0=",
+                "mime_type": "text/plain"
+              }
+            ]
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 180499
+            },
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 16,
+            "name": "the API should not fail with a server error",
+            "match": {
+              "location": "section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:36"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 271249
+            },
+            "arguments": [],
+            "keyword": "And ",
+            "line": 17,
+            "name": "the response should not leak implementation details",
+            "match": {
+              "location": "section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:41"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 6207
+            },
+            "keyword": "After",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 426917
+            },
+            "keyword": "After",
+            "hidden": true
+          }
+        ],
+        "tags": [
+          {
+            "name": "@api",
+            "line": 1
+          },
+          {
+            "name": "@external",
+            "line": 1
+          },
+          {
+            "name": "@jsonplaceholder",
+            "line": 1
+          }
+        ],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "jsonplaceholder-post-/posts---no-input-causes-a-server-side-failure;an-empty-json-object-does-not-cause-a-server-error",
+        "keyword": "Scenario Outline",
+        "line": 33,
+        "name": "an empty JSON object does not cause a server error",
+        "steps": [
+          {
+            "result": {
+              "status": "passed",
+              "duration": 19667
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 349000
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 13542
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 295166375
+            },
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 12,
+            "name": "the JSONPlaceholder posts endpoint is reachable",
+            "match": {
+              "location": "section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:17"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 326457666
+            },
+            "arguments": [],
+            "keyword": "When ",
+            "line": 15,
+            "name": "I create \"an empty JSON object\"",
+            "match": {
+              "location": "section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:22"
+            },
+            "embeddings": [
+              {
+                "data": "UGF5bG9hZCAiYW4gZW1wdHkgSlNPTiBvYmplY3QiOiBubyBmaWVsZHMgYXQgYWxs",
+                "mime_type": "text/plain"
+              },
+              {
+                "data": "UE9TVCBodHRwczovL2pzb25wbGFjZWhvbGRlci50eXBpY29kZS5jb20vcG9zdHMK4oaSIDIwMSBDcmVhdGVkIGluIDMyNiBtcwp7CiAgImlkIjogMTAxCn0=",
+                "mime_type": "text/plain"
+              }
+            ]
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 377958
+            },
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 16,
+            "name": "the API should not fail with a server error",
+            "match": {
+              "location": "section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:36"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 379457
+            },
+            "arguments": [],
+            "keyword": "And ",
+            "line": 17,
+            "name": "the response should not leak implementation details",
+            "match": {
+              "location": "section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:41"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 13084
+            },
+            "keyword": "After",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 769207
+            },
+            "keyword": "After",
+            "hidden": true
+          }
+        ],
+        "tags": [
+          {
+            "name": "@api",
+            "line": 1
+          },
+          {
+            "name": "@external",
+            "line": 1
+          },
+          {
+            "name": "@jsonplaceholder",
+            "line": 1
+          }
+        ],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "jsonplaceholder-post-/posts---no-input-causes-a-server-side-failure;a-post-with-null-userid-does-not-cause-a-server-error",
+        "keyword": "Scenario Outline",
+        "line": 34,
+        "name": "a post with null userId does not cause a server error",
+        "steps": [
+          {
+            "result": {
+              "status": "passed",
+              "duration": 17083
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 381457
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 9916
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 256533458
+            },
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 12,
+            "name": "the JSONPlaceholder posts endpoint is reachable",
+            "match": {
+              "location": "section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:17"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 330834165
+            },
+            "arguments": [],
+            "keyword": "When ",
+            "line": 15,
+            "name": "I create \"a post with null userId\"",
+            "match": {
+              "location": "section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:22"
+            },
+            "embeddings": [
+              {
+                "data": "UGF5bG9hZCAiYSBwb3N0IHdpdGggbnVsbCB1c2VySWQiOiB1c2VySWQgZXhwbGljaXRseSBudWxs",
+                "mime_type": "text/plain"
+              },
+              {
+                "data": "UE9TVCBodHRwczovL2pzb25wbGFjZWhvbGRlci50eXBpY29kZS5jb20vcG9zdHMK4oaSIDIwMSBDcmVhdGVkIGluIDMzMSBtcwp7CiAgInRpdGxlIjogIlF1YXJ0ZXJseSBsb2FuIGJvb2sgcmV2aWV3IiwKICAiYm9keSI6ICJQb3J0Zm9saW8gbm90ZXMgZm9yIFEzLiIsCiAgInVzZXJJZCI6IG51bGwsCiAgImlkIjogMTAxCn0=",
+                "mime_type": "text/plain"
+              }
+            ]
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 294792
+            },
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 16,
+            "name": "the API should not fail with a server error",
+            "match": {
+              "location": "section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:36"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 248500
+            },
+            "arguments": [],
+            "keyword": "And ",
+            "line": 17,
+            "name": "the response should not leak implementation details",
+            "match": {
+              "location": "section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:41"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 10624
+            },
+            "keyword": "After",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 619042
+            },
+            "keyword": "After",
+            "hidden": true
+          }
+        ],
+        "tags": [
+          {
+            "name": "@api",
+            "line": 1
+          },
+          {
+            "name": "@external",
+            "line": 1
+          },
+          {
+            "name": "@jsonplaceholder",
+            "line": 1
+          }
+        ],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "jsonplaceholder-post-/posts---no-input-causes-a-server-side-failure;a-post-with-a-text-userid-does-not-cause-a-server-error",
+        "keyword": "Scenario Outline",
+        "line": 38,
+        "name": "a post with a text userId does not cause a server error",
+        "steps": [
+          {
+            "result": {
+              "status": "passed",
+              "duration": 34707
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 717124
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 19707
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 371646541
+            },
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 12,
+            "name": "the JSONPlaceholder posts endpoint is reachable",
+            "match": {
+              "location": "section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:17"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 366470292
+            },
+            "arguments": [],
+            "keyword": "When ",
+            "line": 15,
+            "name": "I create \"a post with a text userId\"",
+            "match": {
+              "location": "section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:22"
+            },
+            "embeddings": [
+              {
+                "data": "UGF5bG9hZCAiYSBwb3N0IHdpdGggYSB0ZXh0IHVzZXJJZCI6IHVzZXJJZCBtdXN0IGJlIGFuIGludGVnZXI=",
+                "mime_type": "text/plain"
+              },
+              {
+                "data": "UE9TVCBodHRwczovL2pzb25wbGFjZWhvbGRlci50eXBpY29kZS5jb20vcG9zdHMK4oaSIDIwMSBDcmVhdGVkIGluIDM2NiBtcwp7CiAgInRpdGxlIjogIlF1YXJ0ZXJseSBsb2FuIGJvb2sgcmV2aWV3IiwKICAiYm9keSI6ICJQb3J0Zm9saW8gbm90ZXMgZm9yIFEzLiIsCiAgInVzZXJJZCI6ICJhYmMiLAogICJpZCI6IDEwMQp9",
+                "mime_type": "text/plain"
+              }
+            ]
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 462874
+            },
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 16,
+            "name": "the API should not fail with a server error",
+            "match": {
+              "location": "section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:36"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 319917
+            },
+            "arguments": [],
+            "keyword": "And ",
+            "line": 17,
+            "name": "the response should not leak implementation details",
+            "match": {
+              "location": "section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:41"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 37624
+            },
+            "keyword": "After",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 872374
+            },
+            "keyword": "After",
+            "hidden": true
+          }
+        ],
+        "tags": [
+          {
+            "name": "@api",
+            "line": 1
+          },
+          {
+            "name": "@external",
+            "line": 1
+          },
+          {
+            "name": "@jsonplaceholder",
+            "line": 1
+          }
+        ],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "jsonplaceholder-post-/posts---no-input-causes-a-server-side-failure;a-post-with-an-object-title-does-not-cause-a-server-error",
+        "keyword": "Scenario Outline",
+        "line": 39,
+        "name": "a post with an object title does not cause a server error",
+        "steps": [
+          {
+            "result": {
+              "status": "passed",
+              "duration": 13707
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 313708
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 8374
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 254031959
+            },
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 12,
+            "name": "the JSONPlaceholder posts endpoint is reachable",
+            "match": {
+              "location": "section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:17"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 332890582
+            },
+            "arguments": [],
+            "keyword": "When ",
+            "line": 15,
+            "name": "I create \"a post with an object title\"",
+            "match": {
+              "location": "section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:22"
+            },
+            "embeddings": [
+              {
+                "data": "UGF5bG9hZCAiYSBwb3N0IHdpdGggYW4gb2JqZWN0IHRpdGxlIjogdGl0bGUgbXVzdCBiZSBhIHN0cmluZw==",
+                "mime_type": "text/plain"
+              },
+              {
+                "data": "UE9TVCBodHRwczovL2pzb25wbGFjZWhvbGRlci50eXBpY29kZS5jb20vcG9zdHMK4oaSIDIwMSBDcmVhdGVkIGluIDMzMyBtcwp7CiAgInRpdGxlIjogewogICAgIm5lc3RlZCI6IHRydWUKICB9LAogICJib2R5IjogIlBvcnRmb2xpbyBub3RlcyBmb3IgUTMuIiwKICAidXNlcklkIjogMSwKICAiaWQiOiAxMDEKfQ==",
+                "mime_type": "text/plain"
+              }
+            ]
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 548208
+            },
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 16,
+            "name": "the API should not fail with a server error",
+            "match": {
+              "location": "section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:36"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 429540
+            },
+            "arguments": [],
+            "keyword": "And ",
+            "line": 17,
+            "name": "the response should not leak implementation details",
+            "match": {
+              "location": "section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:41"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 17041
+            },
+            "keyword": "After",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 1107582
+            },
+            "keyword": "After",
+            "hidden": true
+          }
+        ],
+        "tags": [
+          {
+            "name": "@api",
+            "line": 1
+          },
+          {
+            "name": "@external",
+            "line": 1
+          },
+          {
+            "name": "@jsonplaceholder",
+            "line": 1
+          }
+        ],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "jsonplaceholder-post-/posts---no-input-causes-a-server-side-failure;a-json-array-instead-of-an-object-does-not-cause-a-server-error",
+        "keyword": "Scenario Outline",
+        "line": 40,
+        "name": "a JSON array instead of an object does not cause a server error",
+        "steps": [
+          {
+            "result": {
+              "status": "passed",
+              "duration": 26124
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 432333
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 13707
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 377640667
+            },
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 12,
+            "name": "the JSONPlaceholder posts endpoint is reachable",
+            "match": {
+              "location": "section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:17"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 362817167
+            },
+            "arguments": [],
+            "keyword": "When ",
+            "line": 15,
+            "name": "I create \"a JSON array instead of an object\"",
+            "match": {
+              "location": "section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:22"
+            },
+            "embeddings": [
+              {
+                "data": "UGF5bG9hZCAiYSBKU09OIGFycmF5IGluc3RlYWQgb2YgYW4gb2JqZWN0IjogdG9wLWxldmVsIGFycmF5",
+                "mime_type": "text/plain"
+              },
+              {
+                "data": "UE9TVCBodHRwczovL2pzb25wbGFjZWhvbGRlci50eXBpY29kZS5jb20vcG9zdHMK4oaSIDIwMSBDcmVhdGVkIGluIDM2MiBtcwp7CiAgIjAiOiB7CiAgICAidGl0bGUiOiAidCIsCiAgICAiYm9keSI6ICJiIiwKICAgICJ1c2VySWQiOiAxCiAgfSwKICAiaWQiOiAxMDEKfQ==",
+                "mime_type": "text/plain"
+              }
+            ]
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 193959
+            },
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 16,
+            "name": "the API should not fail with a server error",
+            "match": {
+              "location": "section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:36"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 167167
+            },
+            "arguments": [],
+            "keyword": "And ",
+            "line": 17,
+            "name": "the response should not leak implementation details",
+            "match": {
+              "location": "section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:41"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 17417
+            },
+            "keyword": "After",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 404999
+            },
+            "keyword": "After",
+            "hidden": true
+          }
+        ],
+        "tags": [
+          {
+            "name": "@api",
+            "line": 1
+          },
+          {
+            "name": "@external",
+            "line": 1
+          },
+          {
+            "name": "@jsonplaceholder",
+            "line": 1
+          }
+        ],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "jsonplaceholder-post-/posts---no-input-causes-a-server-side-failure;a-json-body-sent-as-text/plain-does-not-cause-a-server-error",
+        "keyword": "Scenario Outline",
+        "line": 41,
+        "name": "a JSON body sent as text/plain does not cause a server error",
+        "steps": [
+          {
+            "result": {
+              "status": "passed",
+              "duration": 30750
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 680124
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 17792
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 253633666
+            },
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 12,
+            "name": "the JSONPlaceholder posts endpoint is reachable",
+            "match": {
+              "location": "section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:17"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 329678790
+            },
+            "arguments": [],
+            "keyword": "When ",
+            "line": 15,
+            "name": "I create \"a JSON body sent as text/plain\"",
+            "match": {
+              "location": "section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:22"
+            },
+            "embeddings": [
+              {
+                "data": "UGF5bG9hZCAiYSBKU09OIGJvZHkgc2VudCBhcyB0ZXh0L3BsYWluIjogdmFsaWQgSlNPTiwgd3JvbmcgQ29udGVudC1UeXBl",
+                "mime_type": "text/plain"
+              },
+              {
+                "data": "UE9TVCBodHRwczovL2pzb25wbGFjZWhvbGRlci50eXBpY29kZS5jb20vcG9zdHMK4oaSIDIwMSBDcmVhdGVkIGluIDMyOSBtcwp7CiAgImlkIjogMTAxCn0=",
+                "mime_type": "text/plain"
+              }
+            ]
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 253708
+            },
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 16,
+            "name": "the API should not fail with a server error",
+            "match": {
+              "location": "section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:36"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 231041
+            },
+            "arguments": [],
+            "keyword": "And ",
+            "line": 17,
+            "name": "the response should not leak implementation details",
+            "match": {
+              "location": "section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:41"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 8917
+            },
+            "keyword": "After",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 522375
+            },
+            "keyword": "After",
+            "hidden": true
+          }
+        ],
+        "tags": [
+          {
+            "name": "@api",
+            "line": 1
+          },
+          {
+            "name": "@external",
+            "line": 1
+          },
+          {
+            "name": "@jsonplaceholder",
+            "line": 1
+          }
+        ],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "jsonplaceholder-post-/posts---no-input-causes-a-server-side-failure;a-title-larger-than-10-mib-does-not-cause-a-server-error",
+        "keyword": "Scenario Outline",
+        "line": 46,
+        "name": "a title larger than 10 MiB does not cause a server error",
+        "steps": [
+          {
+            "result": {
+              "status": "passed",
+              "duration": 28833
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 778041
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 25625
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 348364290
+            },
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 12,
+            "name": "the JSONPlaceholder posts endpoint is reachable",
+            "match": {
+              "location": "section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:17"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 4419497083
+            },
+            "arguments": [],
+            "keyword": "When ",
+            "line": 15,
+            "name": "I create \"a title larger than 10 MiB\"",
+            "match": {
+              "location": "section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:22"
+            },
+            "embeddings": [
+              {
+                "data": "UGF5bG9hZCAiYSB0aXRsZSBsYXJnZXIgdGhhbiAxMCBNaUIiOiBib2R5IGV4Y2VlZHMgdGhlIHNlcnZlcidzIDEwIE1pQiBKU09OIGxpbWl0",
+                "mime_type": "text/plain"
+              },
+              {
+                "data": "UE9TVCBodHRwczovL2pzb25wbGFjZWhvbGRlci50eXBpY29kZS5jb20vcG9zdHMK4oaSIDUwMCBJbnRlcm5hbCBTZXJ2ZXIgRXJyb3IgaW4gNDQxOSBtcwpQYXlsb2FkVG9vTGFyZ2VFcnJvcjogcmVxdWVzdCBlbnRpdHkgdG9vIGxhcmdlCiAgICBhdCByZWFkU3RyZWFtICgvYXBwL25vZGVfbW9kdWxlcy9ib2R5LXBhcnNlci9ub2RlX21vZHVsZXMvcmF3LWJvZHkvaW5kZXguanM6MTU1OjE3KQogICAgYXQgZ2V0UmF3Qm9keSAoL2FwcC9ub2RlX21vZHVsZXMvYm9keS1wYXJzZXIvbm9kZV9tb2R1bGVzL3Jhdy1ib2R5L2luZGV4LmpzOjEwODoxMikKICAgIGF0IHJlYWQgKC9hcHAvbm9kZV9tb2R1bGVzL2JvZHktcGFyc2VyL2xpYi9yZWFkLmpzOjc3OjMpCiAgICBhdCBqc29uUGFyc2VyICgvYXBwL25vZGVfbW9kdWxlcy9ib2R5LXBhcnNlci9saWIvdHlwZXMvanNvbi5qczoxMzU6NSkKICAgIGF0IExheWVyLmhhbmRsZSBbYXMgaGFuZGxlX3JlcXVlc3RdICgv4oCmICg4MDYgY2hhcmFjdGVycyk=",
+                "mime_type": "text/plain"
+              }
+            ]
+          },
+          {
+            "result": {
+              "status": "failed",
+              "duration": 634540,
+              "error_message": "Error: Expected a non-5xx status, got a server-side failure.\nPOST https://jsonplaceholder.typicode.com/posts -> 500 Internal Server Error (4419 ms)\nPayloadTooLargeError: request entity too large\n    at readStream (/app/node_modules/body-parser/node_modules/raw-body/index.js:155:17)\n    at getRawBody (/app/node_modules/body-parser/node_modules/raw-body/index.js:108:12)\n    at read (/app/node_modules/body-parser/lib/read.js:77:3)\n    at jsonParser (/app/node_modules/body-parser/lib/types/json.js:135:5)\n    at Layer.handle [as handle_request] (/app/node_modules/express/lib/router/layer.js:95:5)\n    at trim_prefix (/app/node_modules/express/lib/router/index.js:317:13)\n    at /app/node_modules/express/lib/router/index.js:284:7\n    at router.pr\n\nexpect(received).toBeLessThan(expected)\n\nExpected: < 500\nReceived:   500\n    at readStream (/app/node_modules/body-parser/node_modules/raw-body/index.js:155:17)\n    at getRawBody (/app/node_modules/body-parser/node_modules/raw-body/index.js:108:12)\n    at read (/app/node_modules/body-parser/lib/read.js:77:3)\n    at jsonParser (/app/node_modules/body-parser/lib/types/json.js:135:5)\n    at Layer.handle [as handle_request] (/app/node_modules/express/lib/router/layer.js:95:5)\n    at trim_prefix (/app/node_modules/express/lib/router/index.js:317:13)\n    at /app/node_modules/express/lib/router/index.js:284:7\n    at captureRawStack (./node_modules/playwright-core/lib/coreBundle.js:8588:17)\n    at callMatcherAsStep (./node_modules/playwright/lib/matchers/expect.js:13310:57)\n    at Object.toBeLessThan (./node_modules/playwright/lib/matchers/expect.js:13302:23)\n    at CustomWorld.<anonymous> (./section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:38:97)"
+            },
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 16,
+            "name": "the API should not fail with a server error",
+            "match": {
+              "location": "section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:36"
+            }
+          },
+          {
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            },
+            "arguments": [],
+            "keyword": "And ",
+            "line": 17,
+            "name": "the response should not leak implementation details",
+            "match": {
+              "location": "section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:41"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 14542
+            },
+            "keyword": "After",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 422125
+            },
+            "keyword": "After",
+            "hidden": true
+          }
+        ],
+        "tags": [
+          {
+            "name": "@api",
+            "line": 1
+          },
+          {
+            "name": "@external",
+            "line": 1
+          },
+          {
+            "name": "@jsonplaceholder",
+            "line": 1
+          },
+          {
+            "name": "@known-defect",
+            "line": 43
+          }
+        ],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "jsonplaceholder-post-/posts---no-input-causes-a-server-side-failure;malformed-json-does-not-cause-a-server-error",
+        "keyword": "Scenario Outline",
+        "line": 47,
+        "name": "malformed JSON does not cause a server error",
+        "steps": [
+          {
+            "result": {
+              "status": "passed",
+              "duration": 46249
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 698708
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 25333
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 243302250
+            },
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 12,
+            "name": "the JSONPlaceholder posts endpoint is reachable",
+            "match": {
+              "location": "section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:17"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 332279708
+            },
+            "arguments": [],
+            "keyword": "When ",
+            "line": 15,
+            "name": "I create \"malformed JSON\"",
+            "match": {
+              "location": "section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:22"
+            },
+            "embeddings": [
+              {
+                "data": "UGF5bG9hZCAibWFsZm9ybWVkIEpTT04iOiB0cnVuY2F0ZWQgSlNPTiBkb2N1bWVudA==",
+                "mime_type": "text/plain"
+              },
+              {
+                "data": "UE9TVCBodHRwczovL2pzb25wbGFjZWhvbGRlci50eXBpY29kZS5jb20vcG9zdHMK4oaSIDUwMCBJbnRlcm5hbCBTZXJ2ZXIgRXJyb3IgaW4gMzMyIG1zClN5bnRheEVycm9yOiBVbnRlcm1pbmF0ZWQgc3RyaW5nIGluIEpTT04gYXQgcG9zaXRpb24gMjMgKGxpbmUgMSBjb2x1bW4gMjQpCiAgICBhdCBKU09OLnBhcnNlICg8YW5vbnltb3VzPikKICAgIGF0IHBhcnNlICgvYXBwL25vZGVfbW9kdWxlcy9ib2R5LXBhcnNlci9saWIvdHlwZXMvanNvbi5qczo4OToxOSkKICAgIGF0IC9hcHAvbm9kZV9tb2R1bGVzL2JvZHktcGFyc2VyL2xpYi9yZWFkLmpzOjEyMToxOAogICAgYXQgaW52b2tlQ2FsbGJhY2sgKC9hcHAvbm9kZV9tb2R1bGVzL2JvZHktcGFyc2VyL25vZGVfbW9kdWxlcy9yYXctYm9keS9pbmRleC5qczoyMjQ6MTYpCiAgICBhdCBkb25lICgvYXBwL25vZGVfbW9kdWxlcy9ib2R5LXBhcnNlci9ub2RlX21vZHVsZXMvcmF3LWJvZHkvaW5kZXguanM6MjHigKYgKDY5NiBjaGFyYWN0ZXJzKQ==",
+                "mime_type": "text/plain"
+              }
+            ]
+          },
+          {
+            "result": {
+              "status": "failed",
+              "duration": 1402125,
+              "error_message": "Error: Expected a non-5xx status, got a server-side failure.\nPOST https://jsonplaceholder.typicode.com/posts -> 500 Internal Server Error (332 ms)\nSyntaxError: Unterminated string in JSON at position 23 (line 1 column 24)\n    at JSON.parse (<anonymous>)\n    at parse (/app/node_modules/body-parser/lib/types/json.js:89:19)\n    at /app/node_modules/body-parser/lib/read.js:121:18\n    at invokeCallback (/app/node_modules/body-parser/node_modules/raw-body/index.js:224:16)\n    at done (/app/node_modules/body-parser/node_modules/raw-body/index.js:213:7)\n    at IncomingMessage.onEnd (/app/node_modules/body-parser/node_modules/raw-body/index.js:273:7)\n    at IncomingMessage.emit (node:events:514:28)\n    at endReadableNT (node:internal/streams/read\n\nexpect(received).toBeLessThan(expected)\n\nExpected: < 500\nReceived:   500\n    at parse (/app/node_modules/body-parser/lib/types/json.js:89:19)\n    at /app/node_modules/body-parser/lib/read.js:121:18\n    at invokeCallback (/app/node_modules/body-parser/node_modules/raw-body/index.js:224:16)\n    at done (/app/node_modules/body-parser/node_modules/raw-body/index.js:213:7)\n    at IncomingMessage.onEnd (/app/node_modules/body-parser/node_modules/raw-body/index.js:273:7)\n    at IncomingMessage.emit (node:events:514:28)\n    at captureRawStack (./node_modules/playwright-core/lib/coreBundle.js:8588:17)\n    at callMatcherAsStep (./node_modules/playwright/lib/matchers/expect.js:13310:57)\n    at Object.toBeLessThan (./node_modules/playwright/lib/matchers/expect.js:13302:23)\n    at CustomWorld.<anonymous> (./section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:38:97)"
+            },
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 16,
+            "name": "the API should not fail with a server error",
+            "match": {
+              "location": "section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:36"
+            }
+          },
+          {
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            },
+            "arguments": [],
+            "keyword": "And ",
+            "line": 17,
+            "name": "the response should not leak implementation details",
+            "match": {
+              "location": "section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:41"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 17332
+            },
+            "keyword": "After",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 882792
+            },
+            "keyword": "After",
+            "hidden": true
+          }
+        ],
+        "tags": [
+          {
+            "name": "@api",
+            "line": 1
+          },
+          {
+            "name": "@external",
+            "line": 1
+          },
+          {
+            "name": "@jsonplaceholder",
+            "line": 1
+          },
+          {
+            "name": "@known-defect",
+            "line": 43
+          }
+        ],
+        "type": "scenario"
+      }
+    ],
+    "id": "jsonplaceholder-post-/posts---no-input-causes-a-server-side-failure",
+    "line": 2,
+    "keyword": "Feature",
+    "name": "JSONPlaceholder POST /posts - no input causes a server-side failure",
+    "tags": [
+      {
+        "name": "@api",
+        "line": 1
+      },
+      {
+        "name": "@external",
+        "line": 1
+      },
+      {
+        "name": "@jsonplaceholder",
+        "line": 1
+      }
+    ],
+    "uri": "section-a/jsonplaceholder/features/create-post-robustness.feature"
+  },
+  {
+    "description": "  Brief A3, first half: invalid input should get \"the appropriate HTTP error\n  codes or error messages\". Valid controls come first, so a failure below\n  cannot be blamed on a broken client or a dead endpoint.\n\n  JSONPlaceholder is documented as a fake API: it validates nothing and stores\n  nothing. The rejection scenarios are therefore expected to FAIL. Each failure\n  is a reproducible finding, written up in docs/jsonplaceholder-findings.md.",
+    "elements": [
+      {
+        "description": "",
+        "id": "jsonplaceholder-post-/posts---invalid-input-is-rejected-with-a-4xx;control---a-valid-post-is-accepted-and-echoed",
+        "keyword": "Scenario Outline",
+        "line": 23,
+        "name": "Control - a valid post is accepted and echoed",
+        "steps": [
+          {
+            "result": {
+              "status": "passed",
+              "duration": 7249
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 281916
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 7834
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 344787957
+            },
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 12,
+            "name": "the JSONPlaceholder posts endpoint is reachable",
+            "match": {
+              "location": "section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:17"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 352555374
+            },
+            "arguments": [],
+            "keyword": "When ",
+            "line": 16,
+            "name": "I create \"a valid post\"",
+            "match": {
+              "location": "section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:22"
+            },
+            "embeddings": [
+              {
+                "data": "UGF5bG9hZCAiYSB2YWxpZCBwb3N0IjogdGl0bGUsIGJvZHkgYW5kIHVzZXJJZCBhbGwgcHJlc2VudCBhbmQgd2VsbC1mb3JtZWQ=",
+                "mime_type": "text/plain"
+              },
+              {
+                "data": "UE9TVCBodHRwczovL2pzb25wbGFjZWhvbGRlci50eXBpY29kZS5jb20vcG9zdHMK4oaSIDIwMSBDcmVhdGVkIGluIDM1MiBtcwp7CiAgInRpdGxlIjogIlF1YXJ0ZXJseSBsb2FuIGJvb2sgcmV2aWV3IiwKICAiYm9keSI6ICJQb3J0Zm9saW8gbm90ZXMgZm9yIFEzLiIsCiAgInVzZXJJZCI6IDEsCiAgImlkIjogMTAxCn0=",
+                "mime_type": "text/plain"
+              }
+            ]
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 1854542
+            },
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 17,
+            "name": "the post should be created with id 101",
+            "match": {
+              "location": "section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:62"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 1284625
+            },
+            "arguments": [],
+            "keyword": "And ",
+            "line": 18,
+            "name": "the created post should echo every submitted field unchanged",
+            "match": {
+              "location": "section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:68"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 858041
+            },
+            "arguments": [],
+            "keyword": "And ",
+            "line": 19,
+            "name": "the response time should be under 10 seconds",
+            "match": {
+              "location": "section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:75"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 16916
+            },
+            "keyword": "After",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 821374
+            },
+            "keyword": "After",
+            "hidden": true
+          }
+        ],
+        "tags": [
+          {
+            "name": "@api",
+            "line": 1
+          },
+          {
+            "name": "@external",
+            "line": 1
+          },
+          {
+            "name": "@jsonplaceholder",
+            "line": 1
+          },
+          {
+            "name": "@control",
+            "line": 14
+          }
+        ],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "jsonplaceholder-post-/posts---invalid-input-is-rejected-with-a-4xx;control---a-255-character-title-is-accepted-and-echoed",
+        "keyword": "Scenario Outline",
+        "line": 24,
+        "name": "Control - a 255-character title is accepted and echoed",
+        "steps": [
+          {
+            "result": {
+              "status": "passed",
+              "duration": 8541
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 325667
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 9667
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 355084208
+            },
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 12,
+            "name": "the JSONPlaceholder posts endpoint is reachable",
+            "match": {
+              "location": "section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:17"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 363368750
+            },
+            "arguments": [],
+            "keyword": "When ",
+            "line": 16,
+            "name": "I create \"a 255-character title\"",
+            "match": {
+              "location": "section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:22"
+            },
+            "embeddings": [
+              {
+                "data": "UGF5bG9hZCAiYSAyNTUtY2hhcmFjdGVyIHRpdGxlIjogY29tbW9uIFZBUkNIQVIoMjU1KSB1cHBlciBib3VuZDsgc2hvdWxkIGJlIGFjY2VwdGVk",
+                "mime_type": "text/plain"
+              },
+              {
+                "data": "UE9TVCBodHRwczovL2pzb25wbGFjZWhvbGRlci50eXBpY29kZS5jb20vcG9zdHMK4oaSIDIwMSBDcmVhdGVkIGluIDM2MyBtcwp7CiAgInRpdGxlIjogIkFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQSIsCiAgImJvZHkiOiAiUG9ydGZvbGlvIG5vdGVzIGZvciBRMy4iLAogICJ1c2VySWQiOiAxLAogICJpZCI6IDEwMQp9",
+                "mime_type": "text/plain"
+              }
+            ]
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 1384792
+            },
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 17,
+            "name": "the post should be created with id 101",
+            "match": {
+              "location": "section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:62"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 947541
+            },
+            "arguments": [],
+            "keyword": "And ",
+            "line": 18,
+            "name": "the created post should echo every submitted field unchanged",
+            "match": {
+              "location": "section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:68"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 626583
+            },
+            "arguments": [],
+            "keyword": "And ",
+            "line": 19,
+            "name": "the response time should be under 10 seconds",
+            "match": {
+              "location": "section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:75"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 10541
+            },
+            "keyword": "After",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 603540
+            },
+            "keyword": "After",
+            "hidden": true
+          }
+        ],
+        "tags": [
+          {
+            "name": "@api",
+            "line": 1
+          },
+          {
+            "name": "@external",
+            "line": 1
+          },
+          {
+            "name": "@jsonplaceholder",
+            "line": 1
+          },
+          {
+            "name": "@control",
+            "line": 14
+          }
+        ],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "jsonplaceholder-post-/posts---invalid-input-is-rejected-with-a-4xx;control---a-multilingual-title-is-accepted-and-echoed",
+        "keyword": "Scenario Outline",
+        "line": 25,
+        "name": "Control - a multilingual title is accepted and echoed",
+        "steps": [
+          {
+            "result": {
+              "status": "passed",
+              "duration": 20375
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 578708
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 13709
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 252105207
+            },
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 12,
+            "name": "the JSONPlaceholder posts endpoint is reachable",
+            "match": {
+              "location": "section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:17"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 787077790
+            },
+            "arguments": [],
+            "keyword": "When ",
+            "line": 16,
+            "name": "I create \"a multilingual title\"",
+            "match": {
+              "location": "section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:22"
+            },
+            "embeddings": [
+              {
+                "data": "UGF5bG9hZCAiYSBtdWx0aWxpbmd1YWwgdGl0bGUiOiBsZWdpdGltYXRlIFVuaWNvZGUgKERldmFuYWdhcmksIGFjY2VudHMsIENKSywgZW1vamkpIG11c3Qgcm91bmQtdHJpcCB1bmNoYW5nZWQ=",
+                "mime_type": "text/plain"
+              },
+              {
+                "data": "UE9TVCBodHRwczovL2pzb25wbGFjZWhvbGRlci50eXBpY29kZS5jb20vcG9zdHMK4oaSIDIwMSBDcmVhdGVkIGluIDc4NyBtcwp7CiAgInRpdGxlIjogIuCki+CkoyDgpLjgpK7gpYDgpJXgpY3gpLfgpL4g4oCUIENhZsOpIMOcbsOvY8O2ZMOpIOaXpeacrOiqniDinJMg8J+YgCIsCiAgImJvZHkiOiAiUG9ydGZvbGlvIG5vdGVzIGZvciBRMy4iLAogICJ1c2VySWQiOiAxLAogICJpZCI6IDEwMQp9",
+                "mime_type": "text/plain"
+              }
+            ]
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 2006084
+            },
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 17,
+            "name": "the post should be created with id 101",
+            "match": {
+              "location": "section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:62"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 1509709
+            },
+            "arguments": [],
+            "keyword": "And ",
+            "line": 18,
+            "name": "the created post should echo every submitted field unchanged",
+            "match": {
+              "location": "section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:68"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 846166
+            },
+            "arguments": [],
+            "keyword": "And ",
+            "line": 19,
+            "name": "the response time should be under 10 seconds",
+            "match": {
+              "location": "section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:75"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 14333
+            },
+            "keyword": "After",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 848583
+            },
+            "keyword": "After",
+            "hidden": true
+          }
+        ],
+        "tags": [
+          {
+            "name": "@api",
+            "line": 1
+          },
+          {
+            "name": "@external",
+            "line": 1
+          },
+          {
+            "name": "@jsonplaceholder",
+            "line": 1
+          },
+          {
+            "name": "@control",
+            "line": 14
+          }
+        ],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "jsonplaceholder-post-/posts---invalid-input-is-rejected-with-a-4xx;control---created-posts-are-not-persisted-(documented-fake-behaviour)",
+        "keyword": "Scenario",
+        "line": 28,
+        "name": "Control - created posts are not persisted (documented fake behaviour)",
+        "steps": [
+          {
+            "result": {
+              "status": "passed",
+              "duration": 11375
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 512666
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 15707
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 249150292
+            },
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 12,
+            "name": "the JSONPlaceholder posts endpoint is reachable",
+            "match": {
+              "location": "section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:17"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 329303582
+            },
+            "arguments": [],
+            "keyword": "When ",
+            "line": 29,
+            "name": "I create \"a valid post\"",
+            "match": {
+              "location": "section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:22"
+            },
+            "embeddings": [
+              {
+                "data": "UGF5bG9hZCAiYSB2YWxpZCBwb3N0IjogdGl0bGUsIGJvZHkgYW5kIHVzZXJJZCBhbGwgcHJlc2VudCBhbmQgd2VsbC1mb3JtZWQ=",
+                "mime_type": "text/plain"
+              },
+              {
+                "data": "UE9TVCBodHRwczovL2pzb25wbGFjZWhvbGRlci50eXBpY29kZS5jb20vcG9zdHMK4oaSIDIwMSBDcmVhdGVkIGluIDMyOSBtcwp7CiAgInRpdGxlIjogIlF1YXJ0ZXJseSBsb2FuIGJvb2sgcmV2aWV3IiwKICAiYm9keSI6ICJQb3J0Zm9saW8gbm90ZXMgZm9yIFEzLiIsCiAgInVzZXJJZCI6IDEsCiAgImlkIjogMTAxCn0=",
+                "mime_type": "text/plain"
+              }
+            ]
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 95074416
+            },
+            "arguments": [],
+            "keyword": "And ",
+            "line": 30,
+            "name": "I fetch the post with id 101",
+            "match": {
+              "location": "section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:31"
+            },
+            "embeddings": [
+              {
+                "data": "R0VUIGh0dHBzOi8vanNvbnBsYWNlaG9sZGVyLnR5cGljb2RlLmNvbS9wb3N0cy8xMDEK4oaSIDQwNCBOb3QgRm91bmQgaW4gOTQgbXMKe30=",
+                "mime_type": "text/plain"
+              }
+            ]
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 2016791
+            },
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 31,
+            "name": "the response status should be 404",
+            "match": {
+              "location": "framework/steps/common-api.steps.ts:24"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 18208
+            },
+            "keyword": "After",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 1084041
+            },
+            "keyword": "After",
+            "hidden": true
+          }
+        ],
+        "tags": [
+          {
+            "name": "@api",
+            "line": 1
+          },
+          {
+            "name": "@external",
+            "line": 1
+          },
+          {
+            "name": "@jsonplaceholder",
+            "line": 1
+          },
+          {
+            "name": "@control",
+            "line": 27
+          }
+        ],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "jsonplaceholder-post-/posts---invalid-input-is-rejected-with-a-4xx;a-256-character-title-is-rejected",
+        "keyword": "Scenario Outline",
+        "line": 41,
+        "name": "a 256-character title is rejected",
+        "steps": [
+          {
+            "result": {
+              "status": "passed",
+              "duration": 14832
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 558750
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 19207
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 279410917
+            },
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 12,
+            "name": "the JSONPlaceholder posts endpoint is reachable",
+            "match": {
+              "location": "section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:17"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 595263500
+            },
+            "arguments": [],
+            "keyword": "When ",
+            "line": 35,
+            "name": "I create \"a 256-character title\"",
+            "match": {
+              "location": "section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:22"
+            },
+            "embeddings": [
+              {
+                "data": "UGF5bG9hZCAiYSAyNTYtY2hhcmFjdGVyIHRpdGxlIjogZmlyc3QgbGVuZ3RoIHBhc3QgdGhlIGFzc3VtZWQgMjU1LWNoYXJhY3RlciBsaW1pdA==",
+                "mime_type": "text/plain"
+              },
+              {
+                "data": "UE9TVCBodHRwczovL2pzb25wbGFjZWhvbGRlci50eXBpY29kZS5jb20vcG9zdHMK4oaSIDIwMSBDcmVhdGVkIGluIDU5NSBtcwp7CiAgInRpdGxlIjogIkFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUEiLAogICJib2R5IjogIlBvcnRmb2xpbyBub3RlcyBmb3IgUTMuIiwKICAidXNlcklkIjogMSwKICAiaWQiOiAxMDEKfQ==",
+                "mime_type": "text/plain"
+              }
+            ]
+          },
+          {
+            "result": {
+              "status": "failed",
+              "duration": 2010792,
+              "error_message": "Error: Expected a 4xx rejection (400 Bad Request, 413 Payload Too Large, 415 Unsupported Media Type or 422 Unprocessable Entity), but the API answered 201 Created and accepted the invalid payload.\nPOST https://jsonplaceholder.typicode.com/posts -> 201 Created (595 ms)\n{\n  \"title\": \"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\",\n  \"body\": \"Portfolio notes for Q3.\",\n  \"userId\": 1,\n  \"id\": 101\n}\n\nexpect(received).toBe(expected) // Object.is equality\n\nExpected: true\nReceived: false\n    at captureRawStack (./node_modules/playwright-core/lib/coreBundle.js:8588:17)\n    at callMatcherAsStep (./node_modules/playwright/lib/matchers/expect.js:13310:57)\n    at Object.toBe (./node_modules/playwright/lib/matchers/expect.js:13302:23)\n    at CustomWorld.<anonymous> (./section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:52:5)"
+            },
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 36,
+            "name": "the API should reject the request with a 4xx client error",
+            "match": {
+              "location": "section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:47"
+            }
+          },
+          {
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            },
+            "arguments": [],
+            "keyword": "And ",
+            "line": 37,
+            "name": "the response should explain what is wrong",
+            "match": {
+              "location": "section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:55"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 12833
+            },
+            "keyword": "After",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 616582
+            },
+            "keyword": "After",
+            "hidden": true
+          }
+        ],
+        "tags": [
+          {
+            "name": "@api",
+            "line": 1
+          },
+          {
+            "name": "@external",
+            "line": 1
+          },
+          {
+            "name": "@jsonplaceholder",
+            "line": 1
+          },
+          {
+            "name": "@known-defect",
+            "line": 33
+          }
+        ],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "jsonplaceholder-post-/posts---invalid-input-is-rejected-with-a-4xx;a-title-larger-than-10-mib-is-rejected",
+        "keyword": "Scenario Outline",
+        "line": 42,
+        "name": "a title larger than 10 MiB is rejected",
+        "steps": [
+          {
+            "result": {
+              "status": "passed",
+              "duration": 13500
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 642749
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 24666
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 315592167
+            },
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 12,
+            "name": "the JSONPlaceholder posts endpoint is reachable",
+            "match": {
+              "location": "section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:17"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 3904358958
+            },
+            "arguments": [],
+            "keyword": "When ",
+            "line": 35,
+            "name": "I create \"a title larger than 10 MiB\"",
+            "match": {
+              "location": "section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:22"
+            },
+            "embeddings": [
+              {
+                "data": "UGF5bG9hZCAiYSB0aXRsZSBsYXJnZXIgdGhhbiAxMCBNaUIiOiBib2R5IGV4Y2VlZHMgdGhlIHNlcnZlcidzIDEwIE1pQiBKU09OIGxpbWl0",
+                "mime_type": "text/plain"
+              },
+              {
+                "data": "UE9TVCBodHRwczovL2pzb25wbGFjZWhvbGRlci50eXBpY29kZS5jb20vcG9zdHMK4oaSIDUwMCBJbnRlcm5hbCBTZXJ2ZXIgRXJyb3IgaW4gMzkwNCBtcwpQYXlsb2FkVG9vTGFyZ2VFcnJvcjogcmVxdWVzdCBlbnRpdHkgdG9vIGxhcmdlCiAgICBhdCByZWFkU3RyZWFtICgvYXBwL25vZGVfbW9kdWxlcy9ib2R5LXBhcnNlci9ub2RlX21vZHVsZXMvcmF3LWJvZHkvaW5kZXguanM6MTU1OjE3KQogICAgYXQgZ2V0UmF3Qm9keSAoL2FwcC9ub2RlX21vZHVsZXMvYm9keS1wYXJzZXIvbm9kZV9tb2R1bGVzL3Jhdy1ib2R5L2luZGV4LmpzOjEwODoxMikKICAgIGF0IHJlYWQgKC9hcHAvbm9kZV9tb2R1bGVzL2JvZHktcGFyc2VyL2xpYi9yZWFkLmpzOjc3OjMpCiAgICBhdCBqc29uUGFyc2VyICgvYXBwL25vZGVfbW9kdWxlcy9ib2R5LXBhcnNlci9saWIvdHlwZXMvanNvbi5qczoxMzU6NSkKICAgIGF0IExheWVyLmhhbmRsZSBbYXMgaGFuZGxlX3JlcXVlc3RdICgv4oCmICg4MDYgY2hhcmFjdGVycyk=",
+                "mime_type": "text/plain"
+              }
+            ]
+          },
+          {
+            "result": {
+              "status": "failed",
+              "duration": 1984749,
+              "error_message": "Error: Expected a 4xx rejection (400 Bad Request, 413 Payload Too Large, 415 Unsupported Media Type or 422 Unprocessable Entity), but the API answered 500 Internal Server Error, a server-side failure.\nPOST https://jsonplaceholder.typicode.com/posts -> 500 Internal Server Error (3904 ms)\nPayloadTooLargeError: request entity too large\n    at readStream (/app/node_modules/body-parser/node_modules/raw-body/index.js:155:17)\n    at getRawBody (/app/node_modules/body-parser/node_modules/raw-body/index.js:108:12)\n    at read (/app/node_modules/body-parser/lib/read.js:77:3)\n    at jsonParser (/app/node_modules/body-parser/lib/types/json.js:135:5)\n    at Layer.handle [as handle_request] (/app/node_modules/express/lib/router/layer.js:95:5)\n    at trim_prefix (/app/node_modules/express/lib/router/index.js:317:13)\n    at /app/node_modules/express/lib/router/index.js:284:7\n    at router.pr\n\nexpect(received).toBe(expected) // Object.is equality\n\nExpected: true\nReceived: false\n    at readStream (/app/node_modules/body-parser/node_modules/raw-body/index.js:155:17)\n    at getRawBody (/app/node_modules/body-parser/node_modules/raw-body/index.js:108:12)\n    at read (/app/node_modules/body-parser/lib/read.js:77:3)\n    at jsonParser (/app/node_modules/body-parser/lib/types/json.js:135:5)\n    at Layer.handle [as handle_request] (/app/node_modules/express/lib/router/layer.js:95:5)\n    at trim_prefix (/app/node_modules/express/lib/router/index.js:317:13)\n    at /app/node_modules/express/lib/router/index.js:284:7\n    at captureRawStack (./node_modules/playwright-core/lib/coreBundle.js:8588:17)\n    at callMatcherAsStep (./node_modules/playwright/lib/matchers/expect.js:13310:57)\n    at Object.toBe (./node_modules/playwright/lib/matchers/expect.js:13302:23)\n    at CustomWorld.<anonymous> (./section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:52:5)"
+            },
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 36,
+            "name": "the API should reject the request with a 4xx client error",
+            "match": {
+              "location": "section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:47"
+            }
+          },
+          {
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            },
+            "arguments": [],
+            "keyword": "And ",
+            "line": 37,
+            "name": "the response should explain what is wrong",
+            "match": {
+              "location": "section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:55"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 11582
+            },
+            "keyword": "After",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 525874
+            },
+            "keyword": "After",
+            "hidden": true
+          }
+        ],
+        "tags": [
+          {
+            "name": "@api",
+            "line": 1
+          },
+          {
+            "name": "@external",
+            "line": 1
+          },
+          {
+            "name": "@jsonplaceholder",
+            "line": 1
+          },
+          {
+            "name": "@known-defect",
+            "line": 33
+          }
+        ],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "jsonplaceholder-post-/posts---invalid-input-is-rejected-with-a-4xx;a-title-with-a-nul-byte-is-rejected",
+        "keyword": "Scenario Outline",
+        "line": 46,
+        "name": "a title with a NUL byte is rejected",
+        "steps": [
+          {
+            "result": {
+              "status": "passed",
+              "duration": 11542
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 487417
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 15333
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 376961874
+            },
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 12,
+            "name": "the JSONPlaceholder posts endpoint is reachable",
+            "match": {
+              "location": "section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:17"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 373956208
+            },
+            "arguments": [],
+            "keyword": "When ",
+            "line": 35,
+            "name": "I create \"a title with a NUL byte\"",
+            "match": {
+              "location": "section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:22"
+            },
+            "embeddings": [
+              {
+                "data": "UGF5bG9hZCAiYSB0aXRsZSB3aXRoIGEgTlVMIGJ5dGUiOiBVKzAwMDAgdHJ1bmNhdGVzIEMgc3RyaW5ncyBhbmQgYnJlYWtzIG1hbnkgZGF0YWJhc2Vz",
+                "mime_type": "text/plain"
+              },
+              {
+                "data": "UE9TVCBodHRwczovL2pzb25wbGFjZWhvbGRlci50eXBpY29kZS5jb20vcG9zdHMK4oaSIDIwMSBDcmVhdGVkIGluIDM3NCBtcwp7CiAgInRpdGxlIjogIkxvYW5cdTAwMDByZXZpZXciLAogICJib2R5IjogIlBvcnRmb2xpbyBub3RlcyBmb3IgUTMuIiwKICAidXNlcklkIjogMSwKICAiaWQiOiAxMDEKfQ==",
+                "mime_type": "text/plain"
+              }
+            ]
+          },
+          {
+            "result": {
+              "status": "failed",
+              "duration": 1706583,
+              "error_message": "Error: Expected a 4xx rejection (400 Bad Request, 413 Payload Too Large, 415 Unsupported Media Type or 422 Unprocessable Entity), but the API answered 201 Created and accepted the invalid payload.\nPOST https://jsonplaceholder.typicode.com/posts -> 201 Created (374 ms)\n{\n  \"title\": \"Loan\\u0000review\",\n  \"body\": \"Portfolio notes for Q3.\",\n  \"userId\": 1,\n  \"id\": 101\n}\n\nexpect(received).toBe(expected) // Object.is equality\n\nExpected: true\nReceived: false\n    at captureRawStack (./node_modules/playwright-core/lib/coreBundle.js:8588:17)\n    at callMatcherAsStep (./node_modules/playwright/lib/matchers/expect.js:13310:57)\n    at Object.toBe (./node_modules/playwright/lib/matchers/expect.js:13302:23)\n    at CustomWorld.<anonymous> (./section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:52:5)"
+            },
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 36,
+            "name": "the API should reject the request with a 4xx client error",
+            "match": {
+              "location": "section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:47"
+            }
+          },
+          {
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            },
+            "arguments": [],
+            "keyword": "And ",
+            "line": 37,
+            "name": "the response should explain what is wrong",
+            "match": {
+              "location": "section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:55"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 13708
+            },
+            "keyword": "After",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 692541
+            },
+            "keyword": "After",
+            "hidden": true
+          }
+        ],
+        "tags": [
+          {
+            "name": "@api",
+            "line": 1
+          },
+          {
+            "name": "@external",
+            "line": 1
+          },
+          {
+            "name": "@jsonplaceholder",
+            "line": 1
+          },
+          {
+            "name": "@known-defect",
+            "line": 33
+          }
+        ],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "jsonplaceholder-post-/posts---invalid-input-is-rejected-with-a-4xx;a-title-with-an-unpaired-surrogate-is-rejected",
+        "keyword": "Scenario Outline",
+        "line": 47,
+        "name": "a title with an unpaired surrogate is rejected",
+        "steps": [
+          {
+            "result": {
+              "status": "passed",
+              "duration": 9708
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 403999
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 11124
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 332618124
+            },
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 12,
+            "name": "the JSONPlaceholder posts endpoint is reachable",
+            "match": {
+              "location": "section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:17"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 479934624
+            },
+            "arguments": [],
+            "keyword": "When ",
+            "line": 35,
+            "name": "I create \"a title with an unpaired surrogate\"",
+            "match": {
+              "location": "section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:22"
+            },
+            "embeddings": [
+              {
+                "data": "UGF5bG9hZCAiYSB0aXRsZSB3aXRoIGFuIHVucGFpcmVkIHN1cnJvZ2F0ZSI6IGxvbmUgVVRGLTE2IHN1cnJvZ2F0ZTogbm90IHJlcHJlc2VudGFibGUgaW4gVVRGLTg=",
+                "mime_type": "text/plain"
+              },
+              {
+                "data": "UE9TVCBodHRwczovL2pzb25wbGFjZWhvbGRlci50eXBpY29kZS5jb20vcG9zdHMK4oaSIDIwMSBDcmVhdGVkIGluIDQ4MCBtcwp7CiAgInRpdGxlIjogIlx1ZDgwMCIsCiAgImJvZHkiOiAiYiIsCiAgInVzZXJJZCI6IDEsCiAgImlkIjogMTAxCn0=",
+                "mime_type": "text/plain"
+              }
+            ]
+          },
+          {
+            "result": {
+              "status": "failed",
+              "duration": 767541,
+              "error_message": "Error: Expected a 4xx rejection (400 Bad Request, 413 Payload Too Large, 415 Unsupported Media Type or 422 Unprocessable Entity), but the API answered 201 Created and accepted the invalid payload.\nPOST https://jsonplaceholder.typicode.com/posts -> 201 Created (480 ms)\n{\n  \"title\": \"\\ud800\",\n  \"body\": \"b\",\n  \"userId\": 1,\n  \"id\": 101\n}\n\nexpect(received).toBe(expected) // Object.is equality\n\nExpected: true\nReceived: false\n    at captureRawStack (./node_modules/playwright-core/lib/coreBundle.js:8588:17)\n    at callMatcherAsStep (./node_modules/playwright/lib/matchers/expect.js:13310:57)\n    at Object.toBe (./node_modules/playwright/lib/matchers/expect.js:13302:23)\n    at CustomWorld.<anonymous> (./section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:52:5)"
+            },
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 36,
+            "name": "the API should reject the request with a 4xx client error",
+            "match": {
+              "location": "section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:47"
+            }
+          },
+          {
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            },
+            "arguments": [],
+            "keyword": "And ",
+            "line": 37,
+            "name": "the response should explain what is wrong",
+            "match": {
+              "location": "section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:55"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 18583
+            },
+            "keyword": "After",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 924624
+            },
+            "keyword": "After",
+            "hidden": true
+          }
+        ],
+        "tags": [
+          {
+            "name": "@api",
+            "line": 1
+          },
+          {
+            "name": "@external",
+            "line": 1
+          },
+          {
+            "name": "@jsonplaceholder",
+            "line": 1
+          },
+          {
+            "name": "@known-defect",
+            "line": 33
+          }
+        ],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "jsonplaceholder-post-/posts---invalid-input-is-rejected-with-a-4xx;a-title-with-invalid-utf-8-bytes-is-rejected",
+        "keyword": "Scenario Outline",
+        "line": 48,
+        "name": "a title with invalid UTF-8 bytes is rejected",
+        "steps": [
+          {
+            "result": {
+              "status": "passed",
+              "duration": 10000
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 414292
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 12500
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 823425750
+            },
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 12,
+            "name": "the JSONPlaceholder posts endpoint is reachable",
+            "match": {
+              "location": "section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:17"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 334896667
+            },
+            "arguments": [],
+            "keyword": "When ",
+            "line": 35,
+            "name": "I create \"a title with invalid UTF-8 bytes\"",
+            "match": {
+              "location": "section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:22"
+            },
+            "embeddings": [
+              {
+                "data": "UGF5bG9hZCAiYSB0aXRsZSB3aXRoIGludmFsaWQgVVRGLTggYnl0ZXMiOiAweEZGIDB4RkUgMHhGRCBjYW4gbmV2ZXIgYXBwZWFyIGluIFVURi04",
+                "mime_type": "text/plain"
+              },
+              {
+                "data": "UE9TVCBodHRwczovL2pzb25wbGFjZWhvbGRlci50eXBpY29kZS5jb20vcG9zdHMK4oaSIDIwMSBDcmVhdGVkIGluIDMzNSBtcwp7CiAgInRpdGxlIjogIu+/ve+/ve+/vSIsCiAgImJvZHkiOiAiYiIsCiAgInVzZXJJZCI6IDEsCiAgImlkIjogMTAxCn0=",
+                "mime_type": "text/plain"
+              }
+            ]
+          },
+          {
+            "result": {
+              "status": "failed",
+              "duration": 746333,
+              "error_message": "Error: Expected a 4xx rejection (400 Bad Request, 413 Payload Too Large, 415 Unsupported Media Type or 422 Unprocessable Entity), but the API answered 201 Created and accepted the invalid payload.\nPOST https://jsonplaceholder.typicode.com/posts -> 201 Created (335 ms)\n{\n  \"title\": \"���\",\n  \"body\": \"b\",\n  \"userId\": 1,\n  \"id\": 101\n}\n\nexpect(received).toBe(expected) // Object.is equality\n\nExpected: true\nReceived: false\n    at captureRawStack (./node_modules/playwright-core/lib/coreBundle.js:8588:17)\n    at callMatcherAsStep (./node_modules/playwright/lib/matchers/expect.js:13310:57)\n    at Object.toBe (./node_modules/playwright/lib/matchers/expect.js:13302:23)\n    at CustomWorld.<anonymous> (./section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:52:5)"
+            },
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 36,
+            "name": "the API should reject the request with a 4xx client error",
+            "match": {
+              "location": "section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:47"
+            }
+          },
+          {
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            },
+            "arguments": [],
+            "keyword": "And ",
+            "line": 37,
+            "name": "the response should explain what is wrong",
+            "match": {
+              "location": "section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:55"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 22334
+            },
+            "keyword": "After",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 1088875
+            },
+            "keyword": "After",
+            "hidden": true
+          }
+        ],
+        "tags": [
+          {
+            "name": "@api",
+            "line": 1
+          },
+          {
+            "name": "@external",
+            "line": 1
+          },
+          {
+            "name": "@jsonplaceholder",
+            "line": 1
+          },
+          {
+            "name": "@known-defect",
+            "line": 33
+          }
+        ],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "jsonplaceholder-post-/posts---invalid-input-is-rejected-with-a-4xx;a-title-with-bidirectional-overrides-is-rejected",
+        "keyword": "Scenario Outline",
+        "line": 49,
+        "name": "a title with bidirectional overrides is rejected",
+        "steps": [
+          {
+            "result": {
+              "status": "passed",
+              "duration": 21125
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 609416
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 22417
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 523650915
+            },
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 12,
+            "name": "the JSONPlaceholder posts endpoint is reachable",
+            "match": {
+              "location": "section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:17"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 316664667
+            },
+            "arguments": [],
+            "keyword": "When ",
+            "line": 35,
+            "name": "I create \"a title with bidirectional overrides\"",
+            "match": {
+              "location": "section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:22"
+            },
+            "embeddings": [
+              {
+                "data": "UGF5bG9hZCAiYSB0aXRsZSB3aXRoIGJpZGlyZWN0aW9uYWwgb3ZlcnJpZGVzIjogVSsyMDJFIHJpZ2h0LXRvLWxlZnQgb3ZlcnJpZGUgKGZpbGVuYW1lIHNwb29maW5nKQ==",
+                "mime_type": "text/plain"
+              },
+              {
+                "data": "UE9TVCBodHRwczovL2pzb25wbGFjZWhvbGRlci50eXBpY29kZS5jb20vcG9zdHMK4oaSIDIwMSBDcmVhdGVkIGluIDMxNiBtcwp7CiAgInRpdGxlIjogImludm9pY2XigK5mZHAuZXhlIiwKICAiYm9keSI6ICJQb3J0Zm9saW8gbm90ZXMgZm9yIFEzLiIsCiAgInVzZXJJZCI6IDEsCiAgImlkIjogMTAxCn0=",
+                "mime_type": "text/plain"
+              }
+            ]
+          },
+          {
+            "result": {
+              "status": "failed",
+              "duration": 782625,
+              "error_message": "Error: Expected a 4xx rejection (400 Bad Request, 413 Payload Too Large, 415 Unsupported Media Type or 422 Unprocessable Entity), but the API answered 201 Created and accepted the invalid payload.\nPOST https://jsonplaceholder.typicode.com/posts -> 201 Created (316 ms)\n{\n  \"title\": \"invoice‮fdp.exe\",\n  \"body\": \"Portfolio notes for Q3.\",\n  \"userId\": 1,\n  \"id\": 101\n}\n\nexpect(received).toBe(expected) // Object.is equality\n\nExpected: true\nReceived: false\n    at captureRawStack (./node_modules/playwright-core/lib/coreBundle.js:8588:17)\n    at callMatcherAsStep (./node_modules/playwright/lib/matchers/expect.js:13310:57)\n    at Object.toBe (./node_modules/playwright/lib/matchers/expect.js:13302:23)\n    at CustomWorld.<anonymous> (./section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:52:5)"
+            },
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 36,
+            "name": "the API should reject the request with a 4xx client error",
+            "match": {
+              "location": "section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:47"
+            }
+          },
+          {
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            },
+            "arguments": [],
+            "keyword": "And ",
+            "line": 37,
+            "name": "the response should explain what is wrong",
+            "match": {
+              "location": "section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:55"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 17542
+            },
+            "keyword": "After",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 988959
+            },
+            "keyword": "After",
+            "hidden": true
+          }
+        ],
+        "tags": [
+          {
+            "name": "@api",
+            "line": 1
+          },
+          {
+            "name": "@external",
+            "line": 1
+          },
+          {
+            "name": "@jsonplaceholder",
+            "line": 1
+          },
+          {
+            "name": "@known-defect",
+            "line": 33
+          }
+        ],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "jsonplaceholder-post-/posts---invalid-input-is-rejected-with-a-4xx;a-post-without-userid-is-rejected",
+        "keyword": "Scenario Outline",
+        "line": 53,
+        "name": "a post without userId is rejected",
+        "steps": [
+          {
+            "result": {
+              "status": "passed",
+              "duration": 27292
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 757790
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 22207
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 352607750
+            },
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 12,
+            "name": "the JSONPlaceholder posts endpoint is reachable",
+            "match": {
+              "location": "section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:17"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 360613000
+            },
+            "arguments": [],
+            "keyword": "When ",
+            "line": 35,
+            "name": "I create \"a post without userId\"",
+            "match": {
+              "location": "section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:22"
+            },
+            "embeddings": [
+              {
+                "data": "UGF5bG9hZCAiYSBwb3N0IHdpdGhvdXQgdXNlcklkIjogdXNlcklkIG9taXR0ZWQ=",
+                "mime_type": "text/plain"
+              },
+              {
+                "data": "UE9TVCBodHRwczovL2pzb25wbGFjZWhvbGRlci50eXBpY29kZS5jb20vcG9zdHMK4oaSIDIwMSBDcmVhdGVkIGluIDM2MCBtcwp7CiAgInRpdGxlIjogIlF1YXJ0ZXJseSBsb2FuIGJvb2sgcmV2aWV3IiwKICAiYm9keSI6ICJQb3J0Zm9saW8gbm90ZXMgZm9yIFEzLiIsCiAgImlkIjogMTAxCn0=",
+                "mime_type": "text/plain"
+              }
+            ]
+          },
+          {
+            "result": {
+              "status": "failed",
+              "duration": 879791,
+              "error_message": "Error: Expected a 4xx rejection (400 Bad Request, 413 Payload Too Large, 415 Unsupported Media Type or 422 Unprocessable Entity), but the API answered 201 Created and accepted the invalid payload.\nPOST https://jsonplaceholder.typicode.com/posts -> 201 Created (360 ms)\n{\n  \"title\": \"Quarterly loan book review\",\n  \"body\": \"Portfolio notes for Q3.\",\n  \"id\": 101\n}\n\nexpect(received).toBe(expected) // Object.is equality\n\nExpected: true\nReceived: false\n    at captureRawStack (./node_modules/playwright-core/lib/coreBundle.js:8588:17)\n    at callMatcherAsStep (./node_modules/playwright/lib/matchers/expect.js:13310:57)\n    at Object.toBe (./node_modules/playwright/lib/matchers/expect.js:13302:23)\n    at CustomWorld.<anonymous> (./section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:52:5)"
+            },
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 36,
+            "name": "the API should reject the request with a 4xx client error",
+            "match": {
+              "location": "section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:47"
+            }
+          },
+          {
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            },
+            "arguments": [],
+            "keyword": "And ",
+            "line": 37,
+            "name": "the response should explain what is wrong",
+            "match": {
+              "location": "section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:55"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 36541
+            },
+            "keyword": "After",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 1159416
+            },
+            "keyword": "After",
+            "hidden": true
+          }
+        ],
+        "tags": [
+          {
+            "name": "@api",
+            "line": 1
+          },
+          {
+            "name": "@external",
+            "line": 1
+          },
+          {
+            "name": "@jsonplaceholder",
+            "line": 1
+          },
+          {
+            "name": "@known-defect",
+            "line": 33
+          }
+        ],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "jsonplaceholder-post-/posts---invalid-input-is-rejected-with-a-4xx;a-post-without-title-is-rejected",
+        "keyword": "Scenario Outline",
+        "line": 54,
+        "name": "a post without title is rejected",
+        "steps": [
+          {
+            "result": {
+              "status": "passed",
+              "duration": 13917
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 522666
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 17915
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 370767917
+            },
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 12,
+            "name": "the JSONPlaceholder posts endpoint is reachable",
+            "match": {
+              "location": "section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:17"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 354000207
+            },
+            "arguments": [],
+            "keyword": "When ",
+            "line": 35,
+            "name": "I create \"a post without title\"",
+            "match": {
+              "location": "section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:22"
+            },
+            "embeddings": [
+              {
+                "data": "UGF5bG9hZCAiYSBwb3N0IHdpdGhvdXQgdGl0bGUiOiB0aXRsZSBvbWl0dGVk",
+                "mime_type": "text/plain"
+              },
+              {
+                "data": "UE9TVCBodHRwczovL2pzb25wbGFjZWhvbGRlci50eXBpY29kZS5jb20vcG9zdHMK4oaSIDIwMSBDcmVhdGVkIGluIDM1NCBtcwp7CiAgImJvZHkiOiAiUG9ydGZvbGlvIG5vdGVzIGZvciBRMy4iLAogICJ1c2VySWQiOiAxLAogICJpZCI6IDEwMQp9",
+                "mime_type": "text/plain"
+              }
+            ]
+          },
+          {
+            "result": {
+              "status": "failed",
+              "duration": 592792,
+              "error_message": "Error: Expected a 4xx rejection (400 Bad Request, 413 Payload Too Large, 415 Unsupported Media Type or 422 Unprocessable Entity), but the API answered 201 Created and accepted the invalid payload.\nPOST https://jsonplaceholder.typicode.com/posts -> 201 Created (354 ms)\n{\n  \"body\": \"Portfolio notes for Q3.\",\n  \"userId\": 1,\n  \"id\": 101\n}\n\nexpect(received).toBe(expected) // Object.is equality\n\nExpected: true\nReceived: false\n    at captureRawStack (./node_modules/playwright-core/lib/coreBundle.js:8588:17)\n    at callMatcherAsStep (./node_modules/playwright/lib/matchers/expect.js:13310:57)\n    at Object.toBe (./node_modules/playwright/lib/matchers/expect.js:13302:23)\n    at CustomWorld.<anonymous> (./section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:52:5)"
+            },
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 36,
+            "name": "the API should reject the request with a 4xx client error",
+            "match": {
+              "location": "section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:47"
+            }
+          },
+          {
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            },
+            "arguments": [],
+            "keyword": "And ",
+            "line": 37,
+            "name": "the response should explain what is wrong",
+            "match": {
+              "location": "section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:55"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 19874
+            },
+            "keyword": "After",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 833709
+            },
+            "keyword": "After",
+            "hidden": true
+          }
+        ],
+        "tags": [
+          {
+            "name": "@api",
+            "line": 1
+          },
+          {
+            "name": "@external",
+            "line": 1
+          },
+          {
+            "name": "@jsonplaceholder",
+            "line": 1
+          },
+          {
+            "name": "@known-defect",
+            "line": 33
+          }
+        ],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "jsonplaceholder-post-/posts---invalid-input-is-rejected-with-a-4xx;a-post-without-body-is-rejected",
+        "keyword": "Scenario Outline",
+        "line": 55,
+        "name": "a post without body is rejected",
+        "steps": [
+          {
+            "result": {
+              "status": "passed",
+              "duration": 17166
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 662583
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 23374
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 260976625
+            },
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 12,
+            "name": "the JSONPlaceholder posts endpoint is reachable",
+            "match": {
+              "location": "section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:17"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 333261999
+            },
+            "arguments": [],
+            "keyword": "When ",
+            "line": 35,
+            "name": "I create \"a post without body\"",
+            "match": {
+              "location": "section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:22"
+            },
+            "embeddings": [
+              {
+                "data": "UGF5bG9hZCAiYSBwb3N0IHdpdGhvdXQgYm9keSI6IGJvZHkgb21pdHRlZA==",
+                "mime_type": "text/plain"
+              },
+              {
+                "data": "UE9TVCBodHRwczovL2pzb25wbGFjZWhvbGRlci50eXBpY29kZS5jb20vcG9zdHMK4oaSIDIwMSBDcmVhdGVkIGluIDMzMyBtcwp7CiAgInRpdGxlIjogIlF1YXJ0ZXJseSBsb2FuIGJvb2sgcmV2aWV3IiwKICAidXNlcklkIjogMSwKICAiaWQiOiAxMDEKfQ==",
+                "mime_type": "text/plain"
+              }
+            ]
+          },
+          {
+            "result": {
+              "status": "failed",
+              "duration": 326041,
+              "error_message": "Error: Expected a 4xx rejection (400 Bad Request, 413 Payload Too Large, 415 Unsupported Media Type or 422 Unprocessable Entity), but the API answered 201 Created and accepted the invalid payload.\nPOST https://jsonplaceholder.typicode.com/posts -> 201 Created (333 ms)\n{\n  \"title\": \"Quarterly loan book review\",\n  \"userId\": 1,\n  \"id\": 101\n}\n\nexpect(received).toBe(expected) // Object.is equality\n\nExpected: true\nReceived: false\n    at captureRawStack (./node_modules/playwright-core/lib/coreBundle.js:8588:17)\n    at callMatcherAsStep (./node_modules/playwright/lib/matchers/expect.js:13310:57)\n    at Object.toBe (./node_modules/playwright/lib/matchers/expect.js:13302:23)\n    at CustomWorld.<anonymous> (./section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:52:5)"
+            },
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 36,
+            "name": "the API should reject the request with a 4xx client error",
+            "match": {
+              "location": "section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:47"
+            }
+          },
+          {
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            },
+            "arguments": [],
+            "keyword": "And ",
+            "line": 37,
+            "name": "the response should explain what is wrong",
+            "match": {
+              "location": "section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:55"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 12209
+            },
+            "keyword": "After",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 620624
+            },
+            "keyword": "After",
+            "hidden": true
+          }
+        ],
+        "tags": [
+          {
+            "name": "@api",
+            "line": 1
+          },
+          {
+            "name": "@external",
+            "line": 1
+          },
+          {
+            "name": "@jsonplaceholder",
+            "line": 1
+          },
+          {
+            "name": "@known-defect",
+            "line": 33
+          }
+        ],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "jsonplaceholder-post-/posts---invalid-input-is-rejected-with-a-4xx;a-post-with-null-userid-is-rejected",
+        "keyword": "Scenario Outline",
+        "line": 56,
+        "name": "a post with null userId is rejected",
+        "steps": [
+          {
+            "result": {
+              "status": "passed",
+              "duration": 28624
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 735625
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 19750
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 262353042
+            },
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 12,
+            "name": "the JSONPlaceholder posts endpoint is reachable",
+            "match": {
+              "location": "section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:17"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 328147416
+            },
+            "arguments": [],
+            "keyword": "When ",
+            "line": 35,
+            "name": "I create \"a post with null userId\"",
+            "match": {
+              "location": "section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:22"
+            },
+            "embeddings": [
+              {
+                "data": "UGF5bG9hZCAiYSBwb3N0IHdpdGggbnVsbCB1c2VySWQiOiB1c2VySWQgZXhwbGljaXRseSBudWxs",
+                "mime_type": "text/plain"
+              },
+              {
+                "data": "UE9TVCBodHRwczovL2pzb25wbGFjZWhvbGRlci50eXBpY29kZS5jb20vcG9zdHMK4oaSIDIwMSBDcmVhdGVkIGluIDMyOCBtcwp7CiAgInRpdGxlIjogIlF1YXJ0ZXJseSBsb2FuIGJvb2sgcmV2aWV3IiwKICAiYm9keSI6ICJQb3J0Zm9saW8gbm90ZXMgZm9yIFEzLiIsCiAgInVzZXJJZCI6IG51bGwsCiAgImlkIjogMTAxCn0=",
+                "mime_type": "text/plain"
+              }
+            ]
+          },
+          {
+            "result": {
+              "status": "failed",
+              "duration": 384208,
+              "error_message": "Error: Expected a 4xx rejection (400 Bad Request, 413 Payload Too Large, 415 Unsupported Media Type or 422 Unprocessable Entity), but the API answered 201 Created and accepted the invalid payload.\nPOST https://jsonplaceholder.typicode.com/posts -> 201 Created (328 ms)\n{\n  \"title\": \"Quarterly loan book review\",\n  \"body\": \"Portfolio notes for Q3.\",\n  \"userId\": null,\n  \"id\": 101\n}\n\nexpect(received).toBe(expected) // Object.is equality\n\nExpected: true\nReceived: false\n    at captureRawStack (./node_modules/playwright-core/lib/coreBundle.js:8588:17)\n    at callMatcherAsStep (./node_modules/playwright/lib/matchers/expect.js:13310:57)\n    at Object.toBe (./node_modules/playwright/lib/matchers/expect.js:13302:23)\n    at CustomWorld.<anonymous> (./section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:52:5)"
+            },
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 36,
+            "name": "the API should reject the request with a 4xx client error",
+            "match": {
+              "location": "section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:47"
+            }
+          },
+          {
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            },
+            "arguments": [],
+            "keyword": "And ",
+            "line": 37,
+            "name": "the response should explain what is wrong",
+            "match": {
+              "location": "section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:55"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 11707
+            },
+            "keyword": "After",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 602249
+            },
+            "keyword": "After",
+            "hidden": true
+          }
+        ],
+        "tags": [
+          {
+            "name": "@api",
+            "line": 1
+          },
+          {
+            "name": "@external",
+            "line": 1
+          },
+          {
+            "name": "@jsonplaceholder",
+            "line": 1
+          },
+          {
+            "name": "@known-defect",
+            "line": 33
+          }
+        ],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "jsonplaceholder-post-/posts---invalid-input-is-rejected-with-a-4xx;a-post-with-an-empty-title-is-rejected",
+        "keyword": "Scenario Outline",
+        "line": 57,
+        "name": "a post with an empty title is rejected",
+        "steps": [
+          {
+            "result": {
+              "status": "passed",
+              "duration": 8249
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 253834
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 7666
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 252729957
+            },
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 12,
+            "name": "the JSONPlaceholder posts endpoint is reachable",
+            "match": {
+              "location": "section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:17"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 796266999
+            },
+            "arguments": [],
+            "keyword": "When ",
+            "line": 35,
+            "name": "I create \"a post with an empty title\"",
+            "match": {
+              "location": "section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:22"
+            },
+            "embeddings": [
+              {
+                "data": "UGF5bG9hZCAiYSBwb3N0IHdpdGggYW4gZW1wdHkgdGl0bGUiOiB0aXRsZSBwcmVzZW50IGJ1dCBlbXB0eQ==",
+                "mime_type": "text/plain"
+              },
+              {
+                "data": "UE9TVCBodHRwczovL2pzb25wbGFjZWhvbGRlci50eXBpY29kZS5jb20vcG9zdHMK4oaSIDIwMSBDcmVhdGVkIGluIDc5NiBtcwp7CiAgInRpdGxlIjogIiIsCiAgImJvZHkiOiAiUG9ydGZvbGlvIG5vdGVzIGZvciBRMy4iLAogICJ1c2VySWQiOiAxLAogICJpZCI6IDEwMQp9",
+                "mime_type": "text/plain"
+              }
+            ]
+          },
+          {
+            "result": {
+              "status": "failed",
+              "duration": 849500,
+              "error_message": "Error: Expected a 4xx rejection (400 Bad Request, 413 Payload Too Large, 415 Unsupported Media Type or 422 Unprocessable Entity), but the API answered 201 Created and accepted the invalid payload.\nPOST https://jsonplaceholder.typicode.com/posts -> 201 Created (796 ms)\n{\n  \"title\": \"\",\n  \"body\": \"Portfolio notes for Q3.\",\n  \"userId\": 1,\n  \"id\": 101\n}\n\nexpect(received).toBe(expected) // Object.is equality\n\nExpected: true\nReceived: false\n    at captureRawStack (./node_modules/playwright-core/lib/coreBundle.js:8588:17)\n    at callMatcherAsStep (./node_modules/playwright/lib/matchers/expect.js:13310:57)\n    at Object.toBe (./node_modules/playwright/lib/matchers/expect.js:13302:23)\n    at CustomWorld.<anonymous> (./section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:52:5)"
+            },
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 36,
+            "name": "the API should reject the request with a 4xx client error",
+            "match": {
+              "location": "section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:47"
+            }
+          },
+          {
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            },
+            "arguments": [],
+            "keyword": "And ",
+            "line": 37,
+            "name": "the response should explain what is wrong",
+            "match": {
+              "location": "section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:55"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 7417
+            },
+            "keyword": "After",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 396584
+            },
+            "keyword": "After",
+            "hidden": true
+          }
+        ],
+        "tags": [
+          {
+            "name": "@api",
+            "line": 1
+          },
+          {
+            "name": "@external",
+            "line": 1
+          },
+          {
+            "name": "@jsonplaceholder",
+            "line": 1
+          },
+          {
+            "name": "@known-defect",
+            "line": 33
+          }
+        ],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "jsonplaceholder-post-/posts---invalid-input-is-rejected-with-a-4xx;a-post-with-a-text-userid-is-rejected",
+        "keyword": "Scenario Outline",
+        "line": 61,
+        "name": "a post with a text userId is rejected",
+        "steps": [
+          {
+            "result": {
+              "status": "passed",
+              "duration": 9500
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 350042
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 11500
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 244185292
+            },
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 12,
+            "name": "the JSONPlaceholder posts endpoint is reachable",
+            "match": {
+              "location": "section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:17"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 324427208
+            },
+            "arguments": [],
+            "keyword": "When ",
+            "line": 35,
+            "name": "I create \"a post with a text userId\"",
+            "match": {
+              "location": "section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:22"
+            },
+            "embeddings": [
+              {
+                "data": "UGF5bG9hZCAiYSBwb3N0IHdpdGggYSB0ZXh0IHVzZXJJZCI6IHVzZXJJZCBtdXN0IGJlIGFuIGludGVnZXI=",
+                "mime_type": "text/plain"
+              },
+              {
+                "data": "UE9TVCBodHRwczovL2pzb25wbGFjZWhvbGRlci50eXBpY29kZS5jb20vcG9zdHMK4oaSIDIwMSBDcmVhdGVkIGluIDMyNCBtcwp7CiAgInRpdGxlIjogIlF1YXJ0ZXJseSBsb2FuIGJvb2sgcmV2aWV3IiwKICAiYm9keSI6ICJQb3J0Zm9saW8gbm90ZXMgZm9yIFEzLiIsCiAgInVzZXJJZCI6ICJhYmMiLAogICJpZCI6IDEwMQp9",
+                "mime_type": "text/plain"
+              }
+            ]
+          },
+          {
+            "result": {
+              "status": "failed",
+              "duration": 417208,
+              "error_message": "Error: Expected a 4xx rejection (400 Bad Request, 413 Payload Too Large, 415 Unsupported Media Type or 422 Unprocessable Entity), but the API answered 201 Created and accepted the invalid payload.\nPOST https://jsonplaceholder.typicode.com/posts -> 201 Created (324 ms)\n{\n  \"title\": \"Quarterly loan book review\",\n  \"body\": \"Portfolio notes for Q3.\",\n  \"userId\": \"abc\",\n  \"id\": 101\n}\n\nexpect(received).toBe(expected) // Object.is equality\n\nExpected: true\nReceived: false\n    at captureRawStack (./node_modules/playwright-core/lib/coreBundle.js:8588:17)\n    at callMatcherAsStep (./node_modules/playwright/lib/matchers/expect.js:13310:57)\n    at Object.toBe (./node_modules/playwright/lib/matchers/expect.js:13302:23)\n    at CustomWorld.<anonymous> (./section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:52:5)"
+            },
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 36,
+            "name": "the API should reject the request with a 4xx client error",
+            "match": {
+              "location": "section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:47"
+            }
+          },
+          {
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            },
+            "arguments": [],
+            "keyword": "And ",
+            "line": 37,
+            "name": "the response should explain what is wrong",
+            "match": {
+              "location": "section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:55"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 11042
+            },
+            "keyword": "After",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 574375
+            },
+            "keyword": "After",
+            "hidden": true
+          }
+        ],
+        "tags": [
+          {
+            "name": "@api",
+            "line": 1
+          },
+          {
+            "name": "@external",
+            "line": 1
+          },
+          {
+            "name": "@jsonplaceholder",
+            "line": 1
+          },
+          {
+            "name": "@known-defect",
+            "line": 33
+          }
+        ],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "jsonplaceholder-post-/posts---invalid-input-is-rejected-with-a-4xx;a-post-with-a-negative-userid-is-rejected",
+        "keyword": "Scenario Outline",
+        "line": 62,
+        "name": "a post with a negative userId is rejected",
+        "steps": [
+          {
+            "result": {
+              "status": "passed",
+              "duration": 12124
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 387290
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 13832
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 254332124
+            },
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 12,
+            "name": "the JSONPlaceholder posts endpoint is reachable",
+            "match": {
+              "location": "section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:17"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 776483582
+            },
+            "arguments": [],
+            "keyword": "When ",
+            "line": 35,
+            "name": "I create \"a post with a negative userId\"",
+            "match": {
+              "location": "section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:22"
+            },
+            "embeddings": [
+              {
+                "data": "UGF5bG9hZCAiYSBwb3N0IHdpdGggYSBuZWdhdGl2ZSB1c2VySWQiOiBpZHMgYXJlIHBvc2l0aXZl",
+                "mime_type": "text/plain"
+              },
+              {
+                "data": "UE9TVCBodHRwczovL2pzb25wbGFjZWhvbGRlci50eXBpY29kZS5jb20vcG9zdHMK4oaSIDIwMSBDcmVhdGVkIGluIDc3NiBtcwp7CiAgInRpdGxlIjogIlF1YXJ0ZXJseSBsb2FuIGJvb2sgcmV2aWV3IiwKICAiYm9keSI6ICJQb3J0Zm9saW8gbm90ZXMgZm9yIFEzLiIsCiAgInVzZXJJZCI6IC0xLAogICJpZCI6IDEwMQp9",
+                "mime_type": "text/plain"
+              }
+            ]
+          },
+          {
+            "result": {
+              "status": "failed",
+              "duration": 217166,
+              "error_message": "Error: Expected a 4xx rejection (400 Bad Request, 413 Payload Too Large, 415 Unsupported Media Type or 422 Unprocessable Entity), but the API answered 201 Created and accepted the invalid payload.\nPOST https://jsonplaceholder.typicode.com/posts -> 201 Created (776 ms)\n{\n  \"title\": \"Quarterly loan book review\",\n  \"body\": \"Portfolio notes for Q3.\",\n  \"userId\": -1,\n  \"id\": 101\n}\n\nexpect(received).toBe(expected) // Object.is equality\n\nExpected: true\nReceived: false\n    at captureRawStack (./node_modules/playwright-core/lib/coreBundle.js:8588:17)\n    at callMatcherAsStep (./node_modules/playwright/lib/matchers/expect.js:13310:57)\n    at Object.toBe (./node_modules/playwright/lib/matchers/expect.js:13302:23)\n    at CustomWorld.<anonymous> (./section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:52:5)"
+            },
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 36,
+            "name": "the API should reject the request with a 4xx client error",
+            "match": {
+              "location": "section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:47"
+            }
+          },
+          {
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            },
+            "arguments": [],
+            "keyword": "And ",
+            "line": 37,
+            "name": "the response should explain what is wrong",
+            "match": {
+              "location": "section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:55"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 6084
+            },
+            "keyword": "After",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 368916
+            },
+            "keyword": "After",
+            "hidden": true
+          }
+        ],
+        "tags": [
+          {
+            "name": "@api",
+            "line": 1
+          },
+          {
+            "name": "@external",
+            "line": 1
+          },
+          {
+            "name": "@jsonplaceholder",
+            "line": 1
+          },
+          {
+            "name": "@known-defect",
+            "line": 33
+          }
+        ],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "jsonplaceholder-post-/posts---invalid-input-is-rejected-with-a-4xx;a-post-with-an-unknown-userid-is-rejected",
+        "keyword": "Scenario Outline",
+        "line": 63,
+        "name": "a post with an unknown userId is rejected",
+        "steps": [
+          {
+            "result": {
+              "status": "passed",
+              "duration": 14708
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 347333
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 8083
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 246112208
+            },
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 12,
+            "name": "the JSONPlaceholder posts endpoint is reachable",
+            "match": {
+              "location": "section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:17"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 331640292
+            },
+            "arguments": [],
+            "keyword": "When ",
+            "line": 35,
+            "name": "I create \"a post with an unknown userId\"",
+            "match": {
+              "location": "section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:22"
+            },
+            "embeddings": [
+              {
+                "data": "UGF5bG9hZCAiYSBwb3N0IHdpdGggYW4gdW5rbm93biB1c2VySWQiOiBKU09OUGxhY2Vob2xkZXIgaGFzIHVzZXJzIDEtMTA=",
+                "mime_type": "text/plain"
+              },
+              {
+                "data": "UE9TVCBodHRwczovL2pzb25wbGFjZWhvbGRlci50eXBpY29kZS5jb20vcG9zdHMK4oaSIDIwMSBDcmVhdGVkIGluIDMzMiBtcwp7CiAgInRpdGxlIjogIlF1YXJ0ZXJseSBsb2FuIGJvb2sgcmV2aWV3IiwKICAiYm9keSI6ICJQb3J0Zm9saW8gbm90ZXMgZm9yIFEzLiIsCiAgInVzZXJJZCI6IDk5OTk5OSwKICAiaWQiOiAxMDEKfQ==",
+                "mime_type": "text/plain"
+              }
+            ]
+          },
+          {
+            "result": {
+              "status": "failed",
+              "duration": 419292,
+              "error_message": "Error: Expected a 4xx rejection (400 Bad Request, 413 Payload Too Large, 415 Unsupported Media Type or 422 Unprocessable Entity), but the API answered 201 Created and accepted the invalid payload.\nPOST https://jsonplaceholder.typicode.com/posts -> 201 Created (332 ms)\n{\n  \"title\": \"Quarterly loan book review\",\n  \"body\": \"Portfolio notes for Q3.\",\n  \"userId\": 999999,\n  \"id\": 101\n}\n\nexpect(received).toBe(expected) // Object.is equality\n\nExpected: true\nReceived: false\n    at captureRawStack (./node_modules/playwright-core/lib/coreBundle.js:8588:17)\n    at callMatcherAsStep (./node_modules/playwright/lib/matchers/expect.js:13310:57)\n    at Object.toBe (./node_modules/playwright/lib/matchers/expect.js:13302:23)\n    at CustomWorld.<anonymous> (./section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:52:5)"
+            },
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 36,
+            "name": "the API should reject the request with a 4xx client error",
+            "match": {
+              "location": "section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:47"
+            }
+          },
+          {
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            },
+            "arguments": [],
+            "keyword": "And ",
+            "line": 37,
+            "name": "the response should explain what is wrong",
+            "match": {
+              "location": "section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:55"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 9874
+            },
+            "keyword": "After",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 499750
+            },
+            "keyword": "After",
+            "hidden": true
+          }
+        ],
+        "tags": [
+          {
+            "name": "@api",
+            "line": 1
+          },
+          {
+            "name": "@external",
+            "line": 1
+          },
+          {
+            "name": "@jsonplaceholder",
+            "line": 1
+          },
+          {
+            "name": "@known-defect",
+            "line": 33
+          }
+        ],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "jsonplaceholder-post-/posts---invalid-input-is-rejected-with-a-4xx;a-post-with-a-numeric-title-is-rejected",
+        "keyword": "Scenario Outline",
+        "line": 64,
+        "name": "a post with a numeric title is rejected",
+        "steps": [
+          {
+            "result": {
+              "status": "passed",
+              "duration": 6541
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 228290
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 7040
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 246865458
+            },
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 12,
+            "name": "the JSONPlaceholder posts endpoint is reachable",
+            "match": {
+              "location": "section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:17"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 336116500
+            },
+            "arguments": [],
+            "keyword": "When ",
+            "line": 35,
+            "name": "I create \"a post with a numeric title\"",
+            "match": {
+              "location": "section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:22"
+            },
+            "embeddings": [
+              {
+                "data": "UGF5bG9hZCAiYSBwb3N0IHdpdGggYSBudW1lcmljIHRpdGxlIjogdGl0bGUgbXVzdCBiZSBhIHN0cmluZw==",
+                "mime_type": "text/plain"
+              },
+              {
+                "data": "UE9TVCBodHRwczovL2pzb25wbGFjZWhvbGRlci50eXBpY29kZS5jb20vcG9zdHMK4oaSIDIwMSBDcmVhdGVkIGluIDMzNiBtcwp7CiAgInRpdGxlIjogMTIzNDUsCiAgImJvZHkiOiAiUG9ydGZvbGlvIG5vdGVzIGZvciBRMy4iLAogICJ1c2VySWQiOiAxLAogICJpZCI6IDEwMQp9",
+                "mime_type": "text/plain"
+              }
+            ]
+          },
+          {
+            "result": {
+              "status": "failed",
+              "duration": 808833,
+              "error_message": "Error: Expected a 4xx rejection (400 Bad Request, 413 Payload Too Large, 415 Unsupported Media Type or 422 Unprocessable Entity), but the API answered 201 Created and accepted the invalid payload.\nPOST https://jsonplaceholder.typicode.com/posts -> 201 Created (336 ms)\n{\n  \"title\": 12345,\n  \"body\": \"Portfolio notes for Q3.\",\n  \"userId\": 1,\n  \"id\": 101\n}\n\nexpect(received).toBe(expected) // Object.is equality\n\nExpected: true\nReceived: false\n    at captureRawStack (./node_modules/playwright-core/lib/coreBundle.js:8588:17)\n    at callMatcherAsStep (./node_modules/playwright/lib/matchers/expect.js:13310:57)\n    at Object.toBe (./node_modules/playwright/lib/matchers/expect.js:13302:23)\n    at CustomWorld.<anonymous> (./section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:52:5)"
+            },
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 36,
+            "name": "the API should reject the request with a 4xx client error",
+            "match": {
+              "location": "section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:47"
+            }
+          },
+          {
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            },
+            "arguments": [],
+            "keyword": "And ",
+            "line": 37,
+            "name": "the response should explain what is wrong",
+            "match": {
+              "location": "section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:55"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 22624
+            },
+            "keyword": "After",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 995584
+            },
+            "keyword": "After",
+            "hidden": true
+          }
+        ],
+        "tags": [
+          {
+            "name": "@api",
+            "line": 1
+          },
+          {
+            "name": "@external",
+            "line": 1
+          },
+          {
+            "name": "@jsonplaceholder",
+            "line": 1
+          },
+          {
+            "name": "@known-defect",
+            "line": 33
+          }
+        ],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "jsonplaceholder-post-/posts---invalid-input-is-rejected-with-a-4xx;malformed-json-is-rejected",
+        "keyword": "Scenario Outline",
+        "line": 65,
+        "name": "malformed JSON is rejected",
+        "steps": [
+          {
+            "result": {
+              "status": "passed",
+              "duration": 11458
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 306499
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 11540
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 348362750
+            },
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 12,
+            "name": "the JSONPlaceholder posts endpoint is reachable",
+            "match": {
+              "location": "section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:17"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 818070708
+            },
+            "arguments": [],
+            "keyword": "When ",
+            "line": 35,
+            "name": "I create \"malformed JSON\"",
+            "match": {
+              "location": "section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:22"
+            },
+            "embeddings": [
+              {
+                "data": "UGF5bG9hZCAibWFsZm9ybWVkIEpTT04iOiB0cnVuY2F0ZWQgSlNPTiBkb2N1bWVudA==",
+                "mime_type": "text/plain"
+              },
+              {
+                "data": "UE9TVCBodHRwczovL2pzb25wbGFjZWhvbGRlci50eXBpY29kZS5jb20vcG9zdHMK4oaSIDUwMCBJbnRlcm5hbCBTZXJ2ZXIgRXJyb3IgaW4gODE4IG1zClN5bnRheEVycm9yOiBVbnRlcm1pbmF0ZWQgc3RyaW5nIGluIEpTT04gYXQgcG9zaXRpb24gMjMgKGxpbmUgMSBjb2x1bW4gMjQpCiAgICBhdCBKU09OLnBhcnNlICg8YW5vbnltb3VzPikKICAgIGF0IHBhcnNlICgvYXBwL25vZGVfbW9kdWxlcy9ib2R5LXBhcnNlci9saWIvdHlwZXMvanNvbi5qczo4OToxOSkKICAgIGF0IC9hcHAvbm9kZV9tb2R1bGVzL2JvZHktcGFyc2VyL2xpYi9yZWFkLmpzOjEyMToxOAogICAgYXQgaW52b2tlQ2FsbGJhY2sgKC9hcHAvbm9kZV9tb2R1bGVzL2JvZHktcGFyc2VyL25vZGVfbW9kdWxlcy9yYXctYm9keS9pbmRleC5qczoyMjQ6MTYpCiAgICBhdCBkb25lICgvYXBwL25vZGVfbW9kdWxlcy9ib2R5LXBhcnNlci9ub2RlX21vZHVsZXMvcmF3LWJvZHkvaW5kZXguanM6MjHigKYgKDY5NiBjaGFyYWN0ZXJzKQ==",
+                "mime_type": "text/plain"
+              }
+            ]
+          },
+          {
+            "result": {
+              "status": "failed",
+              "duration": 453374,
+              "error_message": "Error: Expected a 4xx rejection (400 Bad Request, 413 Payload Too Large, 415 Unsupported Media Type or 422 Unprocessable Entity), but the API answered 500 Internal Server Error, a server-side failure.\nPOST https://jsonplaceholder.typicode.com/posts -> 500 Internal Server Error (818 ms)\nSyntaxError: Unterminated string in JSON at position 23 (line 1 column 24)\n    at JSON.parse (<anonymous>)\n    at parse (/app/node_modules/body-parser/lib/types/json.js:89:19)\n    at /app/node_modules/body-parser/lib/read.js:121:18\n    at invokeCallback (/app/node_modules/body-parser/node_modules/raw-body/index.js:224:16)\n    at done (/app/node_modules/body-parser/node_modules/raw-body/index.js:213:7)\n    at IncomingMessage.onEnd (/app/node_modules/body-parser/node_modules/raw-body/index.js:273:7)\n    at IncomingMessage.emit (node:events:514:28)\n    at endReadableNT (node:internal/streams/read\n\nexpect(received).toBe(expected) // Object.is equality\n\nExpected: true\nReceived: false\n    at parse (/app/node_modules/body-parser/lib/types/json.js:89:19)\n    at /app/node_modules/body-parser/lib/read.js:121:18\n    at invokeCallback (/app/node_modules/body-parser/node_modules/raw-body/index.js:224:16)\n    at done (/app/node_modules/body-parser/node_modules/raw-body/index.js:213:7)\n    at IncomingMessage.onEnd (/app/node_modules/body-parser/node_modules/raw-body/index.js:273:7)\n    at IncomingMessage.emit (node:events:514:28)\n    at captureRawStack (./node_modules/playwright-core/lib/coreBundle.js:8588:17)\n    at callMatcherAsStep (./node_modules/playwright/lib/matchers/expect.js:13310:57)\n    at Object.toBe (./node_modules/playwright/lib/matchers/expect.js:13302:23)\n    at CustomWorld.<anonymous> (./section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:52:5)"
+            },
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 36,
+            "name": "the API should reject the request with a 4xx client error",
+            "match": {
+              "location": "section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:47"
+            }
+          },
+          {
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            },
+            "arguments": [],
+            "keyword": "And ",
+            "line": 37,
+            "name": "the response should explain what is wrong",
+            "match": {
+              "location": "section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:55"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 13167
+            },
+            "keyword": "After",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 680334
+            },
+            "keyword": "After",
+            "hidden": true
+          }
+        ],
+        "tags": [
+          {
+            "name": "@api",
+            "line": 1
+          },
+          {
+            "name": "@external",
+            "line": 1
+          },
+          {
+            "name": "@jsonplaceholder",
+            "line": 1
+          },
+          {
+            "name": "@known-defect",
+            "line": 33
+          }
+        ],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "jsonplaceholder-post-/posts---invalid-input-is-rejected-with-a-4xx;a-json-array-instead-of-an-object-is-rejected",
+        "keyword": "Scenario Outline",
+        "line": 66,
+        "name": "a JSON array instead of an object is rejected",
+        "steps": [
+          {
+            "result": {
+              "status": "passed",
+              "duration": 13833
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 413958
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 10750
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 254538166
+            },
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 12,
+            "name": "the JSONPlaceholder posts endpoint is reachable",
+            "match": {
+              "location": "section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:17"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 327334042
+            },
+            "arguments": [],
+            "keyword": "When ",
+            "line": 35,
+            "name": "I create \"a JSON array instead of an object\"",
+            "match": {
+              "location": "section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:22"
+            },
+            "embeddings": [
+              {
+                "data": "UGF5bG9hZCAiYSBKU09OIGFycmF5IGluc3RlYWQgb2YgYW4gb2JqZWN0IjogdG9wLWxldmVsIGFycmF5",
+                "mime_type": "text/plain"
+              },
+              {
+                "data": "UE9TVCBodHRwczovL2pzb25wbGFjZWhvbGRlci50eXBpY29kZS5jb20vcG9zdHMK4oaSIDIwMSBDcmVhdGVkIGluIDMyNyBtcwp7CiAgIjAiOiB7CiAgICAidGl0bGUiOiAidCIsCiAgICAiYm9keSI6ICJiIiwKICAgICJ1c2VySWQiOiAxCiAgfSwKICAiaWQiOiAxMDEKfQ==",
+                "mime_type": "text/plain"
+              }
+            ]
+          },
+          {
+            "result": {
+              "status": "failed",
+              "duration": 839332,
+              "error_message": "Error: Expected a 4xx rejection (400 Bad Request, 413 Payload Too Large, 415 Unsupported Media Type or 422 Unprocessable Entity), but the API answered 201 Created and accepted the invalid payload.\nPOST https://jsonplaceholder.typicode.com/posts -> 201 Created (327 ms)\n{\n  \"0\": {\n    \"title\": \"t\",\n    \"body\": \"b\",\n    \"userId\": 1\n  },\n  \"id\": 101\n}\n\nexpect(received).toBe(expected) // Object.is equality\n\nExpected: true\nReceived: false\n    at captureRawStack (./node_modules/playwright-core/lib/coreBundle.js:8588:17)\n    at callMatcherAsStep (./node_modules/playwright/lib/matchers/expect.js:13310:57)\n    at Object.toBe (./node_modules/playwright/lib/matchers/expect.js:13302:23)\n    at CustomWorld.<anonymous> (./section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:52:5)"
+            },
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 36,
+            "name": "the API should reject the request with a 4xx client error",
+            "match": {
+              "location": "section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:47"
+            }
+          },
+          {
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            },
+            "arguments": [],
+            "keyword": "And ",
+            "line": 37,
+            "name": "the response should explain what is wrong",
+            "match": {
+              "location": "section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:55"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 17625
+            },
+            "keyword": "After",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 1040375
+            },
+            "keyword": "After",
+            "hidden": true
+          }
+        ],
+        "tags": [
+          {
+            "name": "@api",
+            "line": 1
+          },
+          {
+            "name": "@external",
+            "line": 1
+          },
+          {
+            "name": "@jsonplaceholder",
+            "line": 1
+          },
+          {
+            "name": "@known-defect",
+            "line": 33
+          }
+        ],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "jsonplaceholder-post-/posts---invalid-input-is-rejected-with-a-4xx;a-json-body-sent-as-text/plain-is-rejected",
+        "keyword": "Scenario Outline",
+        "line": 67,
+        "name": "a JSON body sent as text/plain is rejected",
+        "steps": [
+          {
+            "result": {
+              "status": "passed",
+              "duration": 7374
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 265333
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 8541
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 257582207
+            },
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 12,
+            "name": "the JSONPlaceholder posts endpoint is reachable",
+            "match": {
+              "location": "section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:17"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 335723459
+            },
+            "arguments": [],
+            "keyword": "When ",
+            "line": 35,
+            "name": "I create \"a JSON body sent as text/plain\"",
+            "match": {
+              "location": "section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:22"
+            },
+            "embeddings": [
+              {
+                "data": "UGF5bG9hZCAiYSBKU09OIGJvZHkgc2VudCBhcyB0ZXh0L3BsYWluIjogdmFsaWQgSlNPTiwgd3JvbmcgQ29udGVudC1UeXBl",
+                "mime_type": "text/plain"
+              },
+              {
+                "data": "UE9TVCBodHRwczovL2pzb25wbGFjZWhvbGRlci50eXBpY29kZS5jb20vcG9zdHMK4oaSIDIwMSBDcmVhdGVkIGluIDMzNSBtcwp7CiAgImlkIjogMTAxCn0=",
+                "mime_type": "text/plain"
+              }
+            ]
+          },
+          {
+            "result": {
+              "status": "failed",
+              "duration": 539458,
+              "error_message": "Error: Expected a 4xx rejection (400 Bad Request, 413 Payload Too Large, 415 Unsupported Media Type or 422 Unprocessable Entity), but the API answered 201 Created and accepted the invalid payload.\nPOST https://jsonplaceholder.typicode.com/posts -> 201 Created (335 ms)\n{\n  \"id\": 101\n}\n\nexpect(received).toBe(expected) // Object.is equality\n\nExpected: true\nReceived: false\n    at captureRawStack (./node_modules/playwright-core/lib/coreBundle.js:8588:17)\n    at callMatcherAsStep (./node_modules/playwright/lib/matchers/expect.js:13310:57)\n    at Object.toBe (./node_modules/playwright/lib/matchers/expect.js:13302:23)\n    at CustomWorld.<anonymous> (./section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:52:5)"
+            },
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 36,
+            "name": "the API should reject the request with a 4xx client error",
+            "match": {
+              "location": "section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:47"
+            }
+          },
+          {
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            },
+            "arguments": [],
+            "keyword": "And ",
+            "line": 37,
+            "name": "the response should explain what is wrong",
+            "match": {
+              "location": "section-a/jsonplaceholder/steps/jsonplaceholder.steps.ts:55"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 24459
+            },
+            "keyword": "After",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 893125
+            },
+            "keyword": "After",
+            "hidden": true
+          }
+        ],
+        "tags": [
+          {
+            "name": "@api",
+            "line": 1
+          },
+          {
+            "name": "@external",
+            "line": 1
+          },
+          {
+            "name": "@jsonplaceholder",
+            "line": 1
+          },
+          {
+            "name": "@known-defect",
+            "line": 33
+          }
+        ],
+        "type": "scenario"
+      }
+    ],
+    "id": "jsonplaceholder-post-/posts---invalid-input-is-rejected-with-a-4xx",
+    "line": 2,
+    "keyword": "Feature",
+    "name": "JSONPlaceholder POST /posts - invalid input is rejected with a 4xx",
+    "tags": [
+      {
+        "name": "@api",
+        "line": 1
+      },
+      {
+        "name": "@external",
+        "line": 1
+      },
+      {
+        "name": "@jsonplaceholder",
+        "line": 1
+      }
+    ],
+    "uri": "section-a/jsonplaceholder/features/create-post-validation.feature"
+  }
+]

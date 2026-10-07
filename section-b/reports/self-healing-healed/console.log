@@ -1,0 +1,140 @@
+# self-healing-healed — 2026-10-07T11:22:18.322Z — TEST_ENV=local — node v26.7.0
+
+
+Feature: Self-healing exercise - five locators broken on purpose
+
+  @app @ui @broken-locator
+  Scenario: Renamed test id - the Total loans figure shows the size of the loan book       # self-healing/features/broken-locators.feature:16
+    ✔ Given I open the LoanLens dashboard                                                  # section-a/loanlens-ui/steps/loanlens-ui.steps.ts:98
+
+          Locator "dashboard.totalLoansValue" failed: page.getByTestId('kpi-total-loans') → No element matched within 5 s.
+          Incident: section-b/reports/self-healing-healed/healing/incidents/dashboard.totalLoansValue.json
+
+
+          Healer (claude-cli (sonnet)) proposes page.getByRole('group', { name: 'Total loans' }).getByTestId('kpi-value')
+            ✔ vocabulary: testid strategy, no CSS/XPath/position
+            ✔ differs from failed locator: new locator
+            ✔ unique match: 1 element(s) matched
+            ✔ visible: visible
+            ✔ fingerprint: container: inside group "Total loans"
+            ✔ fingerprint: text: text "120" vs /^\d[\d,]*$/
+          Rationale: The inventory shows a single dd with test id kpi-value inside group "Total loans", and it holds the number 120, which matches the fingerprint.
+
+
+          HEALED IN THIS RUN ONLY: "dashboard.totalLoansValue" now uses page.getByRole('group', { name: 'Total loans' }).getByTestId('kpi-value'). The page object is unchanged; review the patch in section-b/reports/self-healing-healed/healing/SUGGESTIONS.md.
+
+    ✔ Then the legacy Total loans figure should equal the number of loans in the loan book # self-healing/steps/self-healing.steps.ts:12
+
+  @app @ui @broken-locator
+  Scenario: Changed button text - applying a status filter narrows the report               # self-healing/features/broken-locators.feature:20
+    ✔ Given I open the LoanLens loan book report                                            # section-a/loanlens-ui/steps/loanlens-ui.steps.ts:106
+
+          Locator "reports.applyFiltersButton" failed: page.getByRole('button', { name: 'Apply filter', exact: true }) → No element matched within 5 s.
+          Incident: section-b/reports/self-healing-healed/healing/incidents/reports.applyFiltersButton.json
+
+
+          Healer (claude-cli (sonnet)) proposes page.getByRole('button', { name: 'Apply filters', exact: true })
+            ✔ vocabulary: role strategy, no CSS/XPath/position
+            ✔ differs from failed locator: new locator
+            ✔ unique match: 1 element(s) matched
+            ✔ visible: visible
+            ✔ fingerprint: role and name: element has role button named /^apply/i
+          Rationale: The form contains a single button named 'Apply filters', which matches the /^apply/i fingerprint and submits the report filters.
+
+
+          HEALED IN THIS RUN ONLY: "reports.applyFiltersButton" now uses page.getByRole('button', { name: 'Apply filters', exact: true }). The page object is unchanged; review the patch in section-b/reports/self-healing-healed/healing/SUGGESTIONS.md.
+
+    ✔ When I filter the report to "Overdue" loans with the legacy Apply button              # self-healing/steps/self-healing.steps.ts:17
+
+          Oracle for ?status=overdue: LN-1085, LN-1029, LN-1016, LN-1102, LN-1095, LN-1116, LN-1063
+
+    ✔ Then the report should list exactly the loans the loan book has for the current query # section-a/loanlens-ui/steps/loanlens-ui.steps.ts:509
+
+  @app @ui @broken-locator
+  Scenario: Ambiguous label - the loan amount slider updates the number box # self-healing/features/broken-locators.feature:25
+    ✔ Given I open the LoanLens EMI calculator                              # section-a/loanlens-ui/steps/loanlens-ui.steps.ts:102
+
+          Locator "calculator.loanAmountSlider" failed: page.getByLabel('Loan amount') → 2 elements matched; an action on it would violate strict mode.
+          Incident: section-b/reports/self-healing-healed/healing/incidents/calculator.loanAmountSlider.json
+
+
+          Healer (claude-cli (sonnet)) proposes page.getByRole('slider', { name: 'Loan amount' })
+            ✔ vocabulary: role strategy, no CSS/XPath/position
+            ✔ differs from failed locator: new locator
+            ✔ unique match: 1 element(s) matched
+            ✔ visible: visible
+            ✔ fingerprint: role and name: element has role slider named Loan amount
+          Rationale: The slider role with exact name 'Loan amount' is unique, since the other same-named element is a spinbutton.
+
+
+          HEALED IN THIS RUN ONLY: "calculator.loanAmountSlider" now uses page.getByRole('slider', { name: 'Loan amount' }). The page object is unchanged; review the patch in section-b/reports/self-healing-healed/healing/SUGGESTIONS.md.
+
+    ✔ When I set the loan amount to 5000000 with the legacy slider          # self-healing/steps/self-healing.steps.ts:24
+    ✔ Then the number boxes should show 5000000, 10 and 10                  # section-a/loanlens-ui/steps/loanlens-ui.steps.ts:299
+
+  @app @ui @broken-locator
+  Scenario: Positional locator - the recent disbursements table starts with the newest loan         # self-healing/features/broken-locators.feature:30
+    ✔ Given I open the LoanLens dashboard                                                           # section-a/loanlens-ui/steps/loanlens-ui.steps.ts:98
+
+          Locator "dashboard.recentDisbursementsTable" failed: page.locator('table').first() → Resolved, but element does not have role table named Recent disbursements.
+          Incident: section-b/reports/self-healing-healed/healing/incidents/dashboard.recentDisbursementsTable.json
+
+
+          Healer (claude-cli (sonnet)) proposes page.getByRole('table', { name: 'Recent disbursements', exact: true })
+            ✔ vocabulary: role strategy, no CSS/XPath/position
+            ✔ differs from failed locator: new locator
+            ✔ unique match: 1 element(s) matched
+            ✔ visible: visible
+            ✔ fingerprint: role and name: element has role table named Recent disbursements
+          Rationale: The table with role table and accessible name 'Recent disbursements' is the only match and fits the fingerprint exactly.
+
+
+          HEALED IN THIS RUN ONLY: "dashboard.recentDisbursementsTable" now uses page.getByRole('table', { name: 'Recent disbursements', exact: true }). The page object is unchanged; review the patch in section-b/reports/self-healing-healed/healing/SUGGESTIONS.md.
+
+    ✔ Then the legacy recent disbursements table should start with the most recently disbursed loan # self-healing/steps/self-healing.steps.ts:29
+
+  @app @ui @broken-locator @unhealable
+  Scenario: Removed feature - exporting the report as CSV # self-healing/features/broken-locators.feature:35
+    ✔ Given I open the LoanLens loan book report          # section-a/loanlens-ui/steps/loanlens-ui.steps.ts:106
+
+          Locator "reports.exportCsvButton" failed: page.getByRole('button', { name: 'Export CSV' }) → No element matched within 5 s.
+          Incident: section-b/reports/self-healing-healed/healing/incidents/reports.exportCsvButton.json
+
+
+          Healer (claude-cli (sonnet)) found no candidate that passed validation (0 failed, 0 malformed).
+
+    ✘ When I press the legacy Export CSV button           # self-healing/steps/self-healing.steps.ts:35
+          LocatorHealingError: Locator "reports.exportCsvButton" failed: page.getByRole('button', { name: 'Export CSV' }) → No element matched within 5 s.
+          Healer (claude-cli (sonnet)) found no candidate that passed validation (0 failed, 0 malformed).
+              at HealableLocator.heal (./self-healing/runtime.ts:127:11)
+              at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+              at async CustomWorld.<anonymous> (./self-healing/steps/self-healing.steps.ts:36:18)
+    ↷ Then a CSV file of the loans should be downloaded   # self-healing/steps/self-healing.steps.ts:41
+
+          Embedding removed-feature-exporting-the-report-as-csv--01-failure.png [image/png 138375 bytes]
+
+
+          Page URL at end of scenario: http://localhost:5055/reports
+
+
+          Playwright trace: section-b/reports/self-healing-healed/traces/removed-feature-exporting-the-report-as-csv.zip (open with: npx playwright show-trace <file>)
+
+
+Failed scenarios:
+  1) Removed feature - exporting the report as CSV # self-healing/features/broken-locators.feature:35
+       When I press the legacy Export CSV button # self-healing/steps/self-healing.steps.ts:35
+           LocatorHealingError: Locator "reports.exportCsvButton" failed: page.getByRole('button', { name: 'Export CSV' }) → No element matched within 5 s.
+           Healer (claude-cli (sonnet)) found no candidate that passed validation (0 failed, 0 malformed).
+               at HealableLocator.heal (./self-healing/runtime.ts:127:11)
+               at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+               at async CustomWorld.<anonymous> (./self-healing/steps/self-healing.steps.ts:36:18)
+
+           Locator "reports.exportCsvButton" failed: page.getByRole('button', { name: 'Export CSV' }) → No element matched within 5 s.
+           Incident: section-b/reports/self-healing-healed/healing/incidents/reports.exportCsvButton.json
+
+           Healer (claude-cli (sonnet)) found no candidate that passed validation (0 failed, 0 malformed).
+
+2 hooks (2 passed)
+5 scenarios (4 passed, 1 failed)
+53 steps (51 passed, 1 skipped, 1 failed)
+0m 36.362s (0m 36.345s executing your code)

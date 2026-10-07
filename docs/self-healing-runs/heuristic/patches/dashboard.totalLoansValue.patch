@@ -1,5 +1,5 @@
---- a/tests/pages/self-healing/LegacyLocators.ts
-+++ b/tests/pages/self-healing/LegacyLocators.ts
+--- a/self-healing/pages/LegacyLocators.ts
++++ b/self-healing/pages/LegacyLocators.ts
 @@ -58,7 +58,7 @@
    readonly exportCsvButton;
  

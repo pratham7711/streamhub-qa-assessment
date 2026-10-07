@@ -14,7 +14,7 @@ Nothing here has been applied to the source. Each patch is for a person to revie
 ### `dashboard.totalLoansValue`
 
 - **Scenario:** Renamed test id - the Total loans figure shows the size of the loan book
-- **Declared at:** `tests/pages/self-healing/LegacyLocators.ts:61`
+- **Declared at:** `self-healing/pages/LegacyLocators.ts:61`
 - **Failure:** no-match. No element matched within 5 s.
 - **Failed locator:** `page.getByTestId('kpi-total-loans')`
 - **Provider:** heuristic (0.0 s)
@@ -27,8 +27,8 @@ Best textual and structural match (score 0.80): testid "kpi-value" in group "Tot
 Validation: ✔ vocabulary · ✔ differs from failed locator · ✔ unique match · ✔ visible · ✔ fingerprint: container · ✔ fingerprint: text. Replay of the scenario on the healed locator: **passed**.
 
 ```diff
---- a/tests/pages/self-healing/LegacyLocators.ts
-+++ b/tests/pages/self-healing/LegacyLocators.ts
+--- a/self-healing/pages/LegacyLocators.ts
++++ b/self-healing/pages/LegacyLocators.ts
 @@ -58,7 +58,7 @@
    readonly exportCsvButton;
  
@@ -48,7 +48,7 @@ Validation: ✔ vocabulary · ✔ differs from failed locator · ✔ unique matc
 ### `reports.applyFiltersButton`
 
 - **Scenario:** Changed button text - applying a status filter narrows the report
-- **Declared at:** `tests/pages/self-healing/LegacyLocators.ts:62`
+- **Declared at:** `self-healing/pages/LegacyLocators.ts:62`
 - **Failure:** no-match. No element matched within 5 s.
 - **Failed locator:** `page.getByRole('button', { name: 'Apply filter', exact: true })`
 - **Provider:** heuristic (0.0 s)
@@ -61,8 +61,8 @@ Best textual and structural match (score 1.25): button "Apply filters" in form "
 Validation: ✔ vocabulary · ✔ differs from failed locator · ✔ unique match · ✔ visible · ✔ fingerprint: role and name. Replay of the scenario on the healed locator: **passed**.
 
 ```diff
---- a/tests/pages/self-healing/LegacyLocators.ts
-+++ b/tests/pages/self-healing/LegacyLocators.ts
+--- a/self-healing/pages/LegacyLocators.ts
++++ b/self-healing/pages/LegacyLocators.ts
 @@ -59,7 +59,7 @@
  
    constructor(private readonly page: Page) {
@@ -84,7 +84,7 @@ Validation: ✔ vocabulary · ✔ differs from failed locator · ✔ unique matc
 ### `calculator.loanAmountSlider`
 
 - **Scenario:** Ambiguous label - the loan amount slider updates the number box
-- **Declared at:** `tests/pages/self-healing/LegacyLocators.ts:63`
+- **Declared at:** `self-healing/pages/LegacyLocators.ts:63`
 - **Failure:** ambiguous. 2 elements matched; an action on it would violate strict mode.
 - **Failed locator:** `page.getByLabel('Loan amount')`
 - **Provider:** heuristic (0.0 s)
@@ -97,8 +97,8 @@ Best textual and structural match (score 1.41): slider "Loan amount" in form "Lo
 Validation: ✔ vocabulary · ✔ differs from failed locator · ✔ unique match · ✔ visible · ✔ fingerprint: role and name. Replay of the scenario on the healed locator: **passed**.
 
 ```diff
---- a/tests/pages/self-healing/LegacyLocators.ts
-+++ b/tests/pages/self-healing/LegacyLocators.ts
+--- a/self-healing/pages/LegacyLocators.ts
++++ b/self-healing/pages/LegacyLocators.ts
 @@ -60,7 +60,7 @@
    constructor(private readonly page: Page) {
      this.totalLoansValue = healable(page, TOTAL_LOANS, (p) => p.getByTestId('kpi-total-loans'));
@@ -124,7 +124,7 @@ Validation: ✔ vocabulary · ✔ differs from failed locator · ✔ unique matc
 ### `dashboard.recentDisbursementsTable`
 
 - **Scenario:** Positional locator - the recent disbursements table starts with the newest loan
-- **Declared at:** `tests/pages/self-healing/LegacyLocators.ts:64`
+- **Declared at:** `self-healing/pages/LegacyLocators.ts:64`
 - **Failure:** wrong-element. Resolved, but element does not have role table named Recent disbursements.
 - **Failed locator:** `page.locator('table').first()`
 - **Provider:** heuristic (0.0 s)
@@ -137,8 +137,8 @@ Best textual and structural match (score 0.77): table "Recent disbursements".
 Validation: ✔ vocabulary · ✔ differs from failed locator · ✔ unique match · ✔ visible · ✔ fingerprint: role and name. Replay of the scenario on the healed locator: **passed**.
 
 ```diff
---- a/tests/pages/self-healing/LegacyLocators.ts
-+++ b/tests/pages/self-healing/LegacyLocators.ts
+--- a/self-healing/pages/LegacyLocators.ts
++++ b/self-healing/pages/LegacyLocators.ts
 @@ -61,7 +61,7 @@
      this.totalLoansValue = healable(page, TOTAL_LOANS, (p) => p.getByTestId('kpi-total-loans'));
      this.applyFiltersButton = healable(page, APPLY_FILTERS, (p) => p.getByRole('button', { name: 'Apply filter', exact: true }));
@@ -158,7 +158,7 @@ Validation: ✔ vocabulary · ✔ differs from failed locator · ✔ unique matc
 ### `reports.exportCsvButton`
 
 - **Scenario:** Removed feature - exporting the report as CSV
-- **Declared at:** `tests/pages/self-healing/LegacyLocators.ts:65`
+- **Declared at:** `self-healing/pages/LegacyLocators.ts:65`
 - **Failure:** no-match. No element matched within 5 s.
 - **Failed locator:** `page.getByRole('button', { name: 'Export CSV' })`
 - **Provider:** heuristic (0.0 s)

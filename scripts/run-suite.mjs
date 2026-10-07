@@ -1,12 +1,13 @@
 #!/usr/bin/env node
 /**
  * Runs one Cucumber suite: `node scripts/run-suite.mjs <suite> [extra cucumber args]`.
- * Sets SUITE (so artifacts land in reports/<suite>/), clears that suite's previous
+ * Sets SUITE (so artifacts land in <REPORTS_DIR>/<suite>/), clears that suite's previous
  * artifacts, loads TypeScript through tsx, and tees the console to
- * reports/<suite>/console.log with colour codes stripped.
+ * <REPORTS_DIR>/<suite>/console.log with colour codes stripped. REPORTS_DIR defaults to the
+ * git-ignored reports/; `npm run test:section-a|b` sets it to section-<a|b>/reports.
  */
 import { spawn } from 'node:child_process';
-import { createWriteStream, mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
+import { createWriteStream, mkdirSync, readdirSync, readFileSync, realpathSync, rmSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 
 const SUITES = ['loanlens-ui', 'loanlens-api', 'jsonplaceholder', 'emicalculator', 'sql', 'self-healing', 'self-healing-healed'];
@@ -17,7 +18,7 @@ if (!SUITES.includes(suite)) {
 }
 
 const profile = suite.replace(/-([a-z])/g, (_, c) => c.toUpperCase());
-const dir = path.join('reports', suite);
+const dir = path.join(process.env.REPORTS_DIR ?? 'reports', suite);
 rmSync(dir, { recursive: true, force: true });
 mkdirSync(dir, { recursive: true });
 
@@ -48,14 +49,17 @@ child.on('exit', (code) => {
   });
 });
 
-// Stack traces carry the absolute checkout path; committed reports should not.
+// Stack traces carry the absolute checkout path; committed reports should not. In a git
+// worktree whose node_modules is a symlink, frames in dependencies carry the link's target.
 function relativisePaths(root) {
   const cwd = process.cwd();
+  const modules = path.dirname(realpathSync('node_modules'));
+  const prefixes = [...new Set([cwd, modules])];
   for (const entry of readdirSync(root, { recursive: true, withFileTypes: true })) {
     if (!entry.isFile() || !/\.(html|json|xml|log|md|txt)$/.test(entry.name)) continue;
     const file = path.join(entry.parentPath, entry.name);
     const text = readFileSync(file, 'utf8');
-    if (text.includes(cwd)) writeFileSync(file, text.replaceAll(cwd, '.'));
+    if (prefixes.some((p) => text.includes(p))) writeFileSync(file, prefixes.reduce((t, p) => t.replaceAll(p, '.'), text));
   }
 }
 

@@ -4,7 +4,7 @@
  *   EMI = P · r · (1 + r)^n / ((1 + r)^n − 1),   r = annual rate / 12 / 100
  *
  * The tests deliberately do NOT import this file: they carry their own
- * implementation (tests/utils/emi.ts) so that an error here cannot hide itself.
+ * implementation (framework/oracles/emi.ts) so that an error here cannot hide itself.
  */
 export interface YearlyBreakdown {
   year: number;

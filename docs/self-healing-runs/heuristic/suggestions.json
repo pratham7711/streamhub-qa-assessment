@@ -93,13 +93,13 @@
     ],
     "malformed": [],
     "source": {
-      "file": "tests/pages/self-healing/LegacyLocators.ts",
+      "file": "self-healing/pages/LegacyLocators.ts",
       "line": 61,
       "text": "    this.totalLoansValue = healable(page, TOTAL_LOANS, (p) => p.getByTestId('kpi-total-loans'));",
       "expression": "p.getByTestId('kpi-total-loans')",
       "param": "p"
     },
-    "patch": "--- a/tests/pages/self-healing/LegacyLocators.ts\n+++ b/tests/pages/self-healing/LegacyLocators.ts\n@@ -58,7 +58,7 @@\n   readonly exportCsvButton;\n \n   constructor(private readonly page: Page) {\n-    this.totalLoansValue = healable(page, TOTAL_LOANS, (p) => p.getByTestId('kpi-total-loans'));\n+    this.totalLoansValue = healable(page, TOTAL_LOANS, (p) => p.getByRole('group', { name: 'Total loans', exact: true }).getByTestId('kpi-value'));\n     this.applyFiltersButton = healable(page, APPLY_FILTERS, (p) => p.getByRole('button', { name: 'Apply filter', exact: true }));\n     this.loanAmountSlider = healable(page, AMOUNT_SLIDER, (p) => p.getByLabel('Loan amount'));\n     this.recentDisbursementsTable = healable(page, RECENT_TABLE, (p) => p.locator('table').first());\n",
+    "patch": "--- a/self-healing/pages/LegacyLocators.ts\n+++ b/self-healing/pages/LegacyLocators.ts\n@@ -58,7 +58,7 @@\n   readonly exportCsvButton;\n \n   constructor(private readonly page: Page) {\n-    this.totalLoansValue = healable(page, TOTAL_LOANS, (p) => p.getByTestId('kpi-total-loans'));\n+    this.totalLoansValue = healable(page, TOTAL_LOANS, (p) => p.getByRole('group', { name: 'Total loans', exact: true }).getByTestId('kpi-value'));\n     this.applyFiltersButton = healable(page, APPLY_FILTERS, (p) => p.getByRole('button', { name: 'Apply filter', exact: true }));\n     this.loanAmountSlider = healable(page, AMOUNT_SLIDER, (p) => p.getByLabel('Loan amount'));\n     this.recentDisbursementsTable = healable(page, RECENT_TABLE, (p) => p.locator('table').first());\n",
     "incidentFile": "reports/self-healing-healed/healing/incidents/dashboard.totalLoansValue.json",
     "replay": "passed"
   },
@@ -296,13 +296,13 @@
     ],
     "malformed": [],
     "source": {
-      "file": "tests/pages/self-healing/LegacyLocators.ts",
+      "file": "self-healing/pages/LegacyLocators.ts",
       "line": 62,
       "text": "    this.applyFiltersButton = healable(page, APPLY_FILTERS, (p) => p.getByRole('button', { name: 'Apply filter', exact: true }));",
       "expression": "p.getByRole('button', { name: 'Apply filter', exact: true })",
       "param": "p"
     },
-    "patch": "--- a/tests/pages/self-healing/LegacyLocators.ts\n+++ b/tests/pages/self-healing/LegacyLocators.ts\n@@ -59,7 +59,7 @@\n \n   constructor(private readonly page: Page) {\n     this.totalLoansValue = healable(page, TOTAL_LOANS, (p) => p.getByTestId('kpi-total-loans'));\n-    this.applyFiltersButton = healable(page, APPLY_FILTERS, (p) => p.getByRole('button', { name: 'Apply filter', exact: true }));\n+    this.applyFiltersButton = healable(page, APPLY_FILTERS, (p) => p.getByRole('button', { name: 'Apply filters', exact: true }));\n     this.loanAmountSlider = healable(page, AMOUNT_SLIDER, (p) => p.getByLabel('Loan amount'));\n     this.recentDisbursementsTable = healable(page, RECENT_TABLE, (p) => p.locator('table').first());\n     this.exportCsvButton = healable(page, EXPORT_CSV, (p) => p.getByRole('button', { name: 'Export CSV' }));\n",
+    "patch": "--- a/self-healing/pages/LegacyLocators.ts\n+++ b/self-healing/pages/LegacyLocators.ts\n@@ -59,7 +59,7 @@\n \n   constructor(private readonly page: Page) {\n     this.totalLoansValue = healable(page, TOTAL_LOANS, (p) => p.getByTestId('kpi-total-loans'));\n-    this.applyFiltersButton = healable(page, APPLY_FILTERS, (p) => p.getByRole('button', { name: 'Apply filter', exact: true }));\n+    this.applyFiltersButton = healable(page, APPLY_FILTERS, (p) => p.getByRole('button', { name: 'Apply filters', exact: true }));\n     this.loanAmountSlider = healable(page, AMOUNT_SLIDER, (p) => p.getByLabel('Loan amount'));\n     this.recentDisbursementsTable = healable(page, RECENT_TABLE, (p) => p.locator('table').first());\n     this.exportCsvButton = healable(page, EXPORT_CSV, (p) => p.getByRole('button', { name: 'Export CSV' }));\n",
     "incidentFile": "reports/self-healing-healed/healing/incidents/reports.applyFiltersButton.json",
     "replay": "passed"
   },
@@ -657,13 +657,13 @@
     ],
     "malformed": [],
     "source": {
-      "file": "tests/pages/self-healing/LegacyLocators.ts",
+      "file": "self-healing/pages/LegacyLocators.ts",
       "line": 63,
       "text": "    this.loanAmountSlider = healable(page, AMOUNT_SLIDER, (p) => p.getByLabel('Loan amount'));",
       "expression": "p.getByLabel('Loan amount')",
       "param": "p"
     },
-    "patch": "--- a/tests/pages/self-healing/LegacyLocators.ts\n+++ b/tests/pages/self-healing/LegacyLocators.ts\n@@ -60,7 +60,7 @@\n   constructor(private readonly page: Page) {\n     this.totalLoansValue = healable(page, TOTAL_LOANS, (p) => p.getByTestId('kpi-total-loans'));\n     this.applyFiltersButton = healable(page, APPLY_FILTERS, (p) => p.getByRole('button', { name: 'Apply filter', exact: true }));\n-    this.loanAmountSlider = healable(page, AMOUNT_SLIDER, (p) => p.getByLabel('Loan amount'));\n+    this.loanAmountSlider = healable(page, AMOUNT_SLIDER, (p) => p.getByRole('slider', { name: 'Loan amount', exact: true }));\n     this.recentDisbursementsTable = healable(page, RECENT_TABLE, (p) => p.locator('table').first());\n     this.exportCsvButton = healable(page, EXPORT_CSV, (p) => p.getByRole('button', { name: 'Export CSV' }));\n   }\n",
+    "patch": "--- a/self-healing/pages/LegacyLocators.ts\n+++ b/self-healing/pages/LegacyLocators.ts\n@@ -60,7 +60,7 @@\n   constructor(private readonly page: Page) {\n     this.totalLoansValue = healable(page, TOTAL_LOANS, (p) => p.getByTestId('kpi-total-loans'));\n     this.applyFiltersButton = healable(page, APPLY_FILTERS, (p) => p.getByRole('button', { name: 'Apply filter', exact: true }));\n-    this.loanAmountSlider = healable(page, AMOUNT_SLIDER, (p) => p.getByLabel('Loan amount'));\n+    this.loanAmountSlider = healable(page, AMOUNT_SLIDER, (p) => p.getByRole('slider', { name: 'Loan amount', exact: true }));\n     this.recentDisbursementsTable = healable(page, RECENT_TABLE, (p) => p.locator('table').first());\n     this.exportCsvButton = healable(page, EXPORT_CSV, (p) => p.getByRole('button', { name: 'Export CSV' }));\n   }\n",
     "incidentFile": "reports/self-healing-healed/healing/incidents/calculator.loanAmountSlider.json",
     "replay": "passed"
   },
@@ -721,13 +721,13 @@
     "alternatives": [],
     "malformed": [],
     "source": {
-      "file": "tests/pages/self-healing/LegacyLocators.ts",
+      "file": "self-healing/pages/LegacyLocators.ts",
       "line": 64,
       "text": "    this.recentDisbursementsTable = healable(page, RECENT_TABLE, (p) => p.locator('table').first());",
       "expression": "p.locator('table').first()",
       "param": "p"
     },
-    "patch": "--- a/tests/pages/self-healing/LegacyLocators.ts\n+++ b/tests/pages/self-healing/LegacyLocators.ts\n@@ -61,7 +61,7 @@\n     this.totalLoansValue = healable(page, TOTAL_LOANS, (p) => p.getByTestId('kpi-total-loans'));\n     this.applyFiltersButton = healable(page, APPLY_FILTERS, (p) => p.getByRole('button', { name: 'Apply filter', exact: true }));\n     this.loanAmountSlider = healable(page, AMOUNT_SLIDER, (p) => p.getByLabel('Loan amount'));\n-    this.recentDisbursementsTable = healable(page, RECENT_TABLE, (p) => p.locator('table').first());\n+    this.recentDisbursementsTable = healable(page, RECENT_TABLE, (p) => p.getByRole('table', { name: 'Recent disbursements', exact: true }));\n     this.exportCsvButton = healable(page, EXPORT_CSV, (p) => p.getByRole('button', { name: 'Export CSV' }));\n   }\n \n",
+    "patch": "--- a/self-healing/pages/LegacyLocators.ts\n+++ b/self-healing/pages/LegacyLocators.ts\n@@ -61,7 +61,7 @@\n     this.totalLoansValue = healable(page, TOTAL_LOANS, (p) => p.getByTestId('kpi-total-loans'));\n     this.applyFiltersButton = healable(page, APPLY_FILTERS, (p) => p.getByRole('button', { name: 'Apply filter', exact: true }));\n     this.loanAmountSlider = healable(page, AMOUNT_SLIDER, (p) => p.getByLabel('Loan amount'));\n-    this.recentDisbursementsTable = healable(page, RECENT_TABLE, (p) => p.locator('table').first());\n+    this.recentDisbursementsTable = healable(page, RECENT_TABLE, (p) => p.getByRole('table', { name: 'Recent disbursements', exact: true }));\n     this.exportCsvButton = healable(page, EXPORT_CSV, (p) => p.getByRole('button', { name: 'Export CSV' }));\n   }\n \n",
     "incidentFile": "reports/self-healing-healed/healing/incidents/dashboard.recentDisbursementsTable.json",
     "replay": "passed"
   },
@@ -835,7 +835,7 @@
     ],
     "malformed": [],
     "source": {
-      "file": "tests/pages/self-healing/LegacyLocators.ts",
+      "file": "self-healing/pages/LegacyLocators.ts",
       "line": 65,
       "text": "    this.exportCsvButton = healable(page, EXPORT_CSV, (p) => p.getByRole('button', { name: 'Export CSV' }));",
       "expression": "p.getByRole('button', { name: 'Export CSV' })",

@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<testsuite name="self-healing" time="16.358" tests="5" skipped="0" failures="5" errors="0" timestamp="2026-10-07T11:22:01.714Z">
+  <testcase classname="Self-healing exercise - five locators broken on purpose" name="Renamed test id - the Total loans figure shows the size of the loan book" time="5.34">
+    <failure type="LocatorHealingError" message="Locator &quot;dashboard.totalLoansValue&quot; failed: page.getByTestId('kpi-total-loans') → No element matched within 5 s.&#xA;Self-healing is off. Run &quot;npm run heal&quot; for a validated suggestion. Incident: ./section-b/reports/self-healing/healing/incidents/dashboard.totalLoansValue.json"><![CDATA[LocatorHealingError: Locator "dashboard.totalLoansValue" failed: page.getByTestId('kpi-total-loans') → No element matched within 5 s.
+Self-healing is off. Run "npm run heal" for a validated suggestion. Incident: ./section-b/reports/self-healing/healing/incidents/dashboard.totalLoansValue.json
+    at HealableLocator.heal (./self-healing/runtime.ts:90:13)
+    at async CustomWorld.<anonymous> (./self-healing/steps/self-healing.steps.ts:13:17)]]></failure>
+    <system-out><![CDATA[Given I open the LoanLens dashboard.........................................passed
+Then the legacy Total loans figure should equal the number of loans in the loan book..failed]]></system-out>
+  </testcase>
+  <testcase classname="Self-healing exercise - five locators broken on purpose" name="Changed button text - applying a status filter narrows the report" time="5.263">
+    <failure type="LocatorHealingError" message="Locator &quot;reports.applyFiltersButton&quot; failed: page.getByRole('button', { name: 'Apply filter', exact: true }) → No element matched within 5 s.&#xA;Self-healing is off. Run &quot;npm run heal&quot; for a validated suggestion. Incident: ./section-b/reports/self-healing/healing/incidents/reports.applyFiltersButton.json"><![CDATA[LocatorHealingError: Locator "reports.applyFiltersButton" failed: page.getByRole('button', { name: 'Apply filter', exact: true }) → No element matched within 5 s.
+Self-healing is off. Run "npm run heal" for a validated suggestion. Incident: ./section-b/reports/self-healing/healing/incidents/reports.applyFiltersButton.json
+    at HealableLocator.heal (./self-healing/runtime.ts:90:13)
+    at async CustomWorld.<anonymous> (./self-healing/steps/self-healing.steps.ts:20:10)]]></failure>
+    <system-out><![CDATA[Given I open the LoanLens loan book report..................................passed
+When I filter the report to "Overdue" loans with the legacy Apply button....failed
+Then the report should list exactly the loans the loan book has for the current query..skipped]]></system-out>
+  </testcase>
+  <testcase classname="Self-healing exercise - five locators broken on purpose" name="Ambiguous label - the loan amount slider updates the number box" time="0.262">
+    <failure type="LocatorHealingError" message="Locator &quot;calculator.loanAmountSlider&quot; failed: page.getByLabel('Loan amount') → 2 elements matched; an action on it would violate strict mode.&#xA;Self-healing is off. Run &quot;npm run heal&quot; for a validated suggestion. Incident: ./section-b/reports/self-healing/healing/incidents/calculator.loanAmountSlider.json"><![CDATA[LocatorHealingError: Locator "calculator.loanAmountSlider" failed: page.getByLabel('Loan amount') → 2 elements matched; an action on it would violate strict mode.
+Self-healing is off. Run "npm run heal" for a validated suggestion. Incident: ./section-b/reports/self-healing/healing/incidents/calculator.loanAmountSlider.json
+    at HealableLocator.heal (./self-healing/runtime.ts:90:13)
+    at async CustomWorld.<anonymous> (./self-healing/steps/self-healing.steps.ts:25:18)]]></failure>
+    <system-out><![CDATA[Given I open the LoanLens EMI calculator....................................passed
+When I set the loan amount to 5000000 with the legacy slider................failed
+Then the number boxes should show 5000000, 10 and 10........................skipped]]></system-out>
+  </testcase>
+  <testcase classname="Self-healing exercise - five locators broken on purpose" name="Positional locator - the recent disbursements table starts with the newest loan" time="0.225">
+    <failure type="LocatorHealingError" message="Locator &quot;dashboard.recentDisbursementsTable&quot; failed: page.locator('table').first() → Resolved, but element does not have role table named Recent disbursements.&#xA;Self-healing is off. Run &quot;npm run heal&quot; for a validated suggestion. Incident: ./section-b/reports/self-healing/healing/incidents/dashboard.recentDisbursementsTable.json"><![CDATA[LocatorHealingError: Locator "dashboard.recentDisbursementsTable" failed: page.locator('table').first() → Resolved, but element does not have role table named Recent disbursements.
+Self-healing is off. Run "npm run heal" for a validated suggestion. Incident: ./section-b/reports/self-healing/healing/incidents/dashboard.recentDisbursementsTable.json
+    at HealableLocator.heal (./self-healing/runtime.ts:90:13)
+    at async CustomWorld.<anonymous> (./self-healing/steps/self-healing.steps.ts:30:17)]]></failure>
+    <system-out><![CDATA[Given I open the LoanLens dashboard.........................................passed
+Then the legacy recent disbursements table should start with the most recently disbursed loan..failed]]></system-out>
+  </testcase>
+  <testcase classname="Self-healing exercise - five locators broken on purpose" name="Removed feature - exporting the report as CSV" time="5.245">
+    <failure type="LocatorHealingError" message="Locator &quot;reports.exportCsvButton&quot; failed: page.getByRole('button', { name: 'Export CSV' }) → No element matched within 5 s.&#xA;Self-healing is off. Run &quot;npm run heal&quot; for a validated suggestion. Incident: ./section-b/reports/self-healing/healing/incidents/reports.exportCsvButton.json"><![CDATA[LocatorHealingError: Locator "reports.exportCsvButton" failed: page.getByRole('button', { name: 'Export CSV' }) → No element matched within 5 s.
+Self-healing is off. Run "npm run heal" for a validated suggestion. Incident: ./section-b/reports/self-healing/healing/incidents/reports.exportCsvButton.json
+    at HealableLocator.heal (./self-healing/runtime.ts:90:13)
+    at async CustomWorld.<anonymous> (./self-healing/steps/self-healing.steps.ts:36:18)]]></failure>
+    <system-out><![CDATA[Given I open the LoanLens loan book report..................................passed
+When I press the legacy Export CSV button...................................failed
+Then a CSV file of the loans should be downloaded...........................skipped]]></system-out>
+  </testcase>
+</testsuite>
