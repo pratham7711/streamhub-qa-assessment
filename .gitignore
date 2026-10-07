@@ -1,0 +1,9 @@
+node_modules/
+app/web/dist/
+.env
+config/env/.env.*.local
+test-results/
+reports/**/traces/
+.DS_Store
+reports/**/@rerun.txt
+reports/adhoc/

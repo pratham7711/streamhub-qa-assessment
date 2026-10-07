@@ -1,0 +1,60 @@
+{
+  "name": "streamhub-qa-assessment",
+  "version": "1.0.0",
+  "private": true,
+  "description": "LoanLens (fullstack app + mock-data API) with a Playwright + Cucumber test framework, API tests, SQL scenarios and an AI self-healing locator POC",
+  "type": "module",
+  "engines": {
+    "node": "^22.12.0 || ^24.0.0 || >=26.0.0"
+  },
+  "scripts": {
+    "dev": "concurrently -n api,web \"npm:dev:api\" \"npm:dev:web\"",
+    "dev:api": "tsx watch app/server/index.ts",
+    "dev:web": "vite --config app/web/vite.config.ts",
+    "build": "vite build --config app/web/vite.config.ts",
+    "start": "tsx app/server/index.ts",
+    "data:generate": "tsx app/server/data/generate.ts",
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "test": "npm run build && npm run test:loanlens-ui && npm run test:loanlens-api && npm run test:sql",
+    "test:all": "node scripts/run-all.mjs",
+    "test:loanlens-ui": "node scripts/run-suite.mjs loanlens-ui",
+    "test:loanlens-api": "node scripts/run-suite.mjs loanlens-api",
+    "test:jsonplaceholder": "node scripts/run-suite.mjs jsonplaceholder",
+    "test:emicalculator": "node scripts/run-suite.mjs emicalculator",
+    "test:sql": "node scripts/run-suite.mjs sql",
+    "test:mutation": "node scripts/mutation-check.mjs",
+    "sql:render": "tsx sql/scripts/render-results.ts",
+    "sql:seed": "tsx sql/scripts/build-ipl-seed.ts",
+    "test:self-healing": "node scripts/run-suite.mjs self-healing",
+    "heal": "tsx self-healing/cli.ts",
+    "heal:eval": "tsx self-healing/eval.ts"
+  },
+  "dependencies": {
+    "dotenv": "^18.0.5",
+    "express": "^5.2.1",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0",
+    "react-router-dom": "^7.18.4"
+  },
+  "devDependencies": {
+    "@anthropic-ai/sdk": "^0.131.0",
+    "@cucumber/cucumber": "^13.3.0",
+    "@electric-sql/pglite": "^0.5.8",
+    "@playwright/test": "^1.63.0",
+    "@types/express": "^5.0.6",
+    "@types/node": "^26.6.4",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@vitejs/plugin-react": "^6.1.2",
+    "ajv": "^8.20.0",
+    "ajv-formats": "^3.0.1",
+    "concurrently": "^10.0.5",
+    "playwright": "^1.63.0",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.3"
+  },
+  "overrides": {
+    "shell-quote": "^1.11.0"
+  }
+}

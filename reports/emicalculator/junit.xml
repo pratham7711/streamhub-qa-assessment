@@ -1,0 +1,510 @@
+<?xml version="1.0"?>
+<testsuite name="emicalculator" time="50.575" tests="38" skipped="0" failures="15" errors="0" timestamp="2026-10-06T22:08:39.141Z">
+  <testcase classname="emicalculator.net - rules that combine inputs" name="EMI in advance on a car loan is the arrears EMI discounted by one month" time="4.316">
+    <system-out><![CDATA[Given I launch the EMI calculator application...............................passed
+And I navigate to the "Car Loan" tab........................................passed
+And I enter a loan amount of "6L", an interest rate of 9.5% and a tenure of 4 years..passed
+When I choose "EMI in Advance"..............................................passed
+Then the EMI shown should be the EMI in advance from my own calculation.....passed]]></system-out>
+  </testcase>
+  <testcase classname="emicalculator.net - rules that combine inputs" name="The EMI scheme is offered only for car loans: &lt;product> - #1.1: The EMI scheme is offered only for car loans: Home Loan" time="2.135">
+    <system-out><![CDATA[Given I launch the EMI calculator application...............................passed
+When I navigate to the "Home Loan" tab......................................passed
+Then the "EMI in Advance" option should not be offered......................passed]]></system-out>
+  </testcase>
+  <testcase classname="emicalculator.net - rules that combine inputs" name="The EMI scheme is offered only for car loans: &lt;product> - #1.2: The EMI scheme is offered only for car loans: Personal Loan" time="2.211">
+    <system-out><![CDATA[Given I launch the EMI calculator application...............................passed
+When I navigate to the "Personal Loan" tab..................................passed
+Then the "EMI in Advance" option should not be offered......................passed]]></system-out>
+  </testcase>
+  <testcase classname="emicalculator.net - rules that combine inputs" name="Switching the tenure between years and months keeps the same loan: &lt;years> years - #1.1: Switching the tenure between years and months keeps the same loan: 0.5 years" time="4.416">
+    <system-out><![CDATA[Given I launch the EMI calculator application...............................passed
+And I navigate to the "Home Loan" tab.......................................passed
+When I type "0.5" into the "Loan Tenure" box and press Tab..................passed
+And I switch the tenure to months using the Yr and Mo buttons...............passed
+Then the "Loan Tenure" box should show "6"..................................passed
+And the EMI should not have changed.........................................passed
+When I switch the tenure to years using the Yr and Mo buttons...............passed
+Then the "Loan Tenure" box should show "0.5"................................passed
+And the EMI should not have changed.........................................passed]]></system-out>
+  </testcase>
+  <testcase classname="emicalculator.net - rules that combine inputs" name="Switching the tenure between years and months keeps the same loan: &lt;years> years - #1.2: Switching the tenure between years and months keeps the same loan: 1.75 years" time="4.428">
+    <system-out><![CDATA[Given I launch the EMI calculator application...............................passed
+And I navigate to the "Home Loan" tab.......................................passed
+When I type "1.75" into the "Loan Tenure" box and press Tab.................passed
+And I switch the tenure to months using the Yr and Mo buttons...............passed
+Then the "Loan Tenure" box should show "21".................................passed
+And the EMI should not have changed.........................................passed
+When I switch the tenure to years using the Yr and Mo buttons...............passed
+Then the "Loan Tenure" box should show "1.75"...............................passed
+And the EMI should not have changed.........................................passed]]></system-out>
+  </testcase>
+  <testcase classname="emicalculator.net - rules that combine inputs" name="Switching the tenure between years and months keeps the same loan: &lt;years> years - #1.3: Switching the tenure between years and months keeps the same loan: 7 years" time="4.374">
+    <system-out><![CDATA[Given I launch the EMI calculator application...............................passed
+And I navigate to the "Home Loan" tab.......................................passed
+When I type "7" into the "Loan Tenure" box and press Tab....................passed
+And I switch the tenure to months using the Yr and Mo buttons...............passed
+Then the "Loan Tenure" box should show "84".................................passed
+And the EMI should not have changed.........................................passed
+When I switch the tenure to years using the Yr and Mo buttons...............passed
+Then the "Loan Tenure" box should show "7"..................................passed
+And the EMI should not have changed.........................................passed]]></system-out>
+  </testcase>
+  <testcase classname="emicalculator.net - Test Case 1: Validate the EMI pie chart" name="Scenario &lt;id>: home loan of &lt;amount> at &lt;rate>% for &lt;tenure> years - #1.1: Scenario A: home loan of 25L at 10% for 10 years" time="3.174">
+    <system-out><![CDATA[Given I launch the EMI calculator application...............................passed
+When I navigate to the "Home Loan" tab......................................passed
+When I enter a loan amount of "25L", an interest rate of 10% and a tenure of 10 years..passed
+Then the EMI shown should match my own calculation..........................passed
+And the total interest and total payment shown should match my own calculation..passed
+And the pie chart should be visible and available...........................passed
+And both sections of the pie chart should have numerical values greater than zero..passed
+And the pie chart split should match my calculated principal and interest shares..passed]]></system-out>
+  </testcase>
+  <testcase classname="emicalculator.net - Test Case 1: Validate the EMI pie chart" name="Scenario &lt;id>: home loan of &lt;amount> at &lt;rate>% for &lt;tenure> years - #1.2: Scenario B: home loan of 50L at 7.5% for 15 years" time="2.901">
+    <system-out><![CDATA[Given I launch the EMI calculator application...............................passed
+When I navigate to the "Home Loan" tab......................................passed
+When I enter a loan amount of "50L", an interest rate of 7.5% and a tenure of 15 years..passed
+Then the EMI shown should match my own calculation..........................passed
+And the total interest and total payment shown should match my own calculation..passed
+And the pie chart should be visible and available...........................passed
+And both sections of the pie chart should have numerical values greater than zero..passed
+And the pie chart split should match my calculated principal and interest shares..passed]]></system-out>
+  </testcase>
+  <testcase classname="emicalculator.net - what the calculator does with entries it should not accept" name="A loan amount written the way people write money is understood: &lt;case> - Valid partition, common notations - #1.1: A loan amount written the way people write money is understood: plain digits" time="3.374">
+    <system-out><![CDATA[Given I launch the EMI calculator application...............................passed
+And I navigate to the "Car Loan" tab........................................passed
+And I enter a loan amount of "6L", an interest rate of 9.5% and a tenure of 4 years..passed
+When I type "1500000" into the "Loan Amount" box and press Tab..............passed
+Then the "Loan Amount" box should show "15,00,000"..........................passed
+And the results should match my own calculation for the values the boxes show..passed]]></system-out>
+  </testcase>
+  <testcase classname="emicalculator.net - what the calculator does with entries it should not accept" name="A loan amount written the way people write money is understood: &lt;case> - Valid partition, common notations - #1.2: A loan amount written the way people write money is understood: Indian grouping" time="3.444">
+    <system-out><![CDATA[Given I launch the EMI calculator application...............................passed
+And I navigate to the "Car Loan" tab........................................passed
+And I enter a loan amount of "6L", an interest rate of 9.5% and a tenure of 4 years..passed
+When I type "15,00,000" into the "Loan Amount" box and press Tab............passed
+Then the "Loan Amount" box should show "15,00,000"..........................passed
+And the results should match my own calculation for the values the boxes show..passed]]></system-out>
+  </testcase>
+  <testcase classname="emicalculator.net - what the calculator does with entries it should not accept" name="A loan amount written the way people write money is understood: &lt;case> - Valid partition, common notations - #1.3: A loan amount written the way people write money is understood: rupee sign" time="3.56">
+    <system-out><![CDATA[Given I launch the EMI calculator application...............................passed
+And I navigate to the "Car Loan" tab........................................passed
+And I enter a loan amount of "6L", an interest rate of 9.5% and a tenure of 4 years..passed
+When I type "₹15,00,000" into the "Loan Amount" box and press Tab...........passed
+Then the "Loan Amount" box should show "15,00,000"..........................passed
+And the results should match my own calculation for the values the boxes show..passed]]></system-out>
+  </testcase>
+  <testcase classname="emicalculator.net - what the calculator does with entries it should not accept" name="A loan amount written the way people write money is understood: &lt;case> - Boundaries of the valid partition - #2.1: A loan amount written the way people write money is understood: smallest whole amount, ₹1" time="3.464">
+    <system-out><![CDATA[Given I launch the EMI calculator application...............................passed
+And I navigate to the "Car Loan" tab........................................passed
+And I enter a loan amount of "6L", an interest rate of 9.5% and a tenure of 4 years..passed
+When I type "1" into the "Loan Amount" box and press Tab....................passed
+Then the "Loan Amount" box should show "1"..................................passed
+And the results should match my own calculation for the values the boxes show..passed]]></system-out>
+  </testcase>
+  <testcase classname="emicalculator.net - what the calculator does with entries it should not accept" name="A loan amount written the way people write money is understood: &lt;case> - Boundaries of the valid partition - #2.2: A loan amount written the way people write money is understood: above the slider's ₹20 lakh maximum" time="3.504">
+    <system-out><![CDATA[Given I launch the EMI calculator application...............................passed
+And I navigate to the "Car Loan" tab........................................passed
+And I enter a loan amount of "6L", an interest rate of 9.5% and a tenure of 4 years..passed
+When I type "5000000" into the "Loan Amount" box and press Tab..............passed
+Then the "Loan Amount" box should show "50,00,000"..........................passed
+And the results should match my own calculation for the values the boxes show..passed]]></system-out>
+  </testcase>
+  <testcase classname="emicalculator.net - what the calculator does with entries it should not accept" name="An invalid loan amount is refused, not reinterpreted: &lt;case> - Negative amounts (EC-01) - #1.1: An invalid loan amount is refused, not reinterpreted: negative amount, leaving the box" time="3.632">
+    <failure type="ExpectError" message="I typed &quot;-2383434&quot; into the Loan Amount box and pressed Tab. The calculator did not refuse it and showed no message.&#xA;The box now shows &quot;23,83,434&quot; (it showed &quot;6,00,000&quot; before).&#xA;The EMI changed from ₹15,074 to ₹59,879.&#xA;That EMI belongs to a loan of about ₹23,83,421 at 9.5% for 48 months, so that is the amount it calculated with.&#xA;&#xA;expect(received).toBe(expected) // Object.is equality&#xA;&#xA;Expected: true&#xA;Received: false"><![CDATA[Error: I typed "-2383434" into the Loan Amount box and pressed Tab. The calculator did not refuse it and showed no message.
+The box now shows "23,83,434" (it showed "6,00,000" before).
+The EMI changed from ₹15,074 to ₹59,879.
+That EMI belongs to a loan of about ₹23,83,421 at 9.5% for 48 months, so that is the amount it calculated with.
+
+expect(received).toBe(expected) // Object.is equality
+
+Expected: true
+Received: false
+    at captureRawStack (./node_modules/playwright-core/lib/coreBundle.js:8588:17)
+    at callMatcherAsStep (./node_modules/playwright/lib/matchers/expect.js:13310:57)
+    at Object.toBe (./node_modules/playwright/lib/matchers/expect.js:13302:23)
+    at CustomWorld.<anonymous> (./tests/steps/emicalculator-validation.steps.ts:98:56)]]></failure>
+    <system-out><![CDATA[Given I launch the EMI calculator application...............................passed
+And I navigate to the "Car Loan" tab........................................passed
+And I enter a loan amount of "6L", an interest rate of 9.5% and a tenure of 4 years..passed
+When I type "-2383434" into the "Loan Amount" box and press Tab.............passed
+Then the calculator should refuse the entry instead of calculating with something else..failed
+And no figure on the calculator should read NaN, Infinity or a negative number..skipped]]></system-out>
+  </testcase>
+  <testcase classname="emicalculator.net - what the calculator does with entries it should not accept" name="An invalid loan amount is refused, not reinterpreted: &lt;case> - Negative amounts (EC-01) - #1.2: An invalid loan amount is refused, not reinterpreted: negative amount, pressing Enter" time="3.463">
+    <failure type="ExpectError" message="I typed &quot;-2383434&quot; into the Loan Amount box and pressed Enter. The calculator did not refuse it and showed no message.&#xA;The box now shows &quot;-2383434&quot; (it showed &quot;6,00,000&quot; before).&#xA;The EMI changed from ₹15,074 to ₹59,879.&#xA;That EMI belongs to a loan of about ₹23,83,421 at 9.5% for 48 months, so that is the amount it calculated with.&#xA;&#xA;expect(received).toBe(expected) // Object.is equality&#xA;&#xA;Expected: true&#xA;Received: false"><![CDATA[Error: I typed "-2383434" into the Loan Amount box and pressed Enter. The calculator did not refuse it and showed no message.
+The box now shows "-2383434" (it showed "6,00,000" before).
+The EMI changed from ₹15,074 to ₹59,879.
+That EMI belongs to a loan of about ₹23,83,421 at 9.5% for 48 months, so that is the amount it calculated with.
+
+expect(received).toBe(expected) // Object.is equality
+
+Expected: true
+Received: false
+    at captureRawStack (./node_modules/playwright-core/lib/coreBundle.js:8588:17)
+    at callMatcherAsStep (./node_modules/playwright/lib/matchers/expect.js:13310:57)
+    at Object.toBe (./node_modules/playwright/lib/matchers/expect.js:13302:23)
+    at CustomWorld.<anonymous> (./tests/steps/emicalculator-validation.steps.ts:98:56)]]></failure>
+    <system-out><![CDATA[Given I launch the EMI calculator application...............................passed
+And I navigate to the "Car Loan" tab........................................passed
+And I enter a loan amount of "6L", an interest rate of 9.5% and a tenure of 4 years..passed
+When I type "-2383434" into the "Loan Amount" box and press Enter...........passed
+Then the calculator should refuse the entry instead of calculating with something else..failed
+And no figure on the calculator should read NaN, Infinity or a negative number..skipped]]></system-out>
+  </testcase>
+  <testcase classname="emicalculator.net - what the calculator does with entries it should not accept" name="An invalid loan amount is refused, not reinterpreted: &lt;case> - Zero and entries with no digits (EC-02) - #2.1: An invalid loan amount is refused, not reinterpreted: zero" time="3.687">
+    <failure type="ExpectError" message="I typed &quot;0&quot; into the Loan Amount box and pressed Tab. The calculator did not refuse it and showed no message.&#xA;The box now shows &quot;0&quot; (it showed &quot;6,00,000&quot; before).&#xA;The EMI changed from ₹15,074 to ₹0.&#xA;That EMI belongs to a loan of about ₹0 at 9.5% for 48 months, so that is the amount it calculated with.&#xA;&#xA;expect(received).toBe(expected) // Object.is equality&#xA;&#xA;Expected: true&#xA;Received: false"><![CDATA[Error: I typed "0" into the Loan Amount box and pressed Tab. The calculator did not refuse it and showed no message.
+The box now shows "0" (it showed "6,00,000" before).
+The EMI changed from ₹15,074 to ₹0.
+That EMI belongs to a loan of about ₹0 at 9.5% for 48 months, so that is the amount it calculated with.
+
+expect(received).toBe(expected) // Object.is equality
+
+Expected: true
+Received: false
+    at captureRawStack (./node_modules/playwright-core/lib/coreBundle.js:8588:17)
+    at callMatcherAsStep (./node_modules/playwright/lib/matchers/expect.js:13310:57)
+    at Object.toBe (./node_modules/playwright/lib/matchers/expect.js:13302:23)
+    at CustomWorld.<anonymous> (./tests/steps/emicalculator-validation.steps.ts:98:56)]]></failure>
+    <system-out><![CDATA[Given I launch the EMI calculator application...............................passed
+And I navigate to the "Car Loan" tab........................................passed
+And I enter a loan amount of "6L", an interest rate of 9.5% and a tenure of 4 years..passed
+When I type "0" into the "Loan Amount" box and press Tab....................passed
+Then the calculator should refuse the entry instead of calculating with something else..failed
+And no figure on the calculator should read NaN, Infinity or a negative number..skipped]]></system-out>
+  </testcase>
+  <testcase classname="emicalculator.net - what the calculator does with entries it should not accept" name="An invalid loan amount is refused, not reinterpreted: &lt;case> - Zero and entries with no digits (EC-02) - #2.2: An invalid loan amount is refused, not reinterpreted: letters only" time="3.55">
+    <failure type="ExpectError" message="I typed &quot;abc&quot; into the Loan Amount box and pressed Tab. The calculator did not refuse it and showed no message.&#xA;The box now shows &quot;0&quot; (it showed &quot;6,00,000&quot; before).&#xA;The EMI changed from ₹15,074 to ₹0.&#xA;That EMI belongs to a loan of about ₹0 at 9.5% for 48 months, so that is the amount it calculated with.&#xA;&#xA;expect(received).toBe(expected) // Object.is equality&#xA;&#xA;Expected: true&#xA;Received: false"><![CDATA[Error: I typed "abc" into the Loan Amount box and pressed Tab. The calculator did not refuse it and showed no message.
+The box now shows "0" (it showed "6,00,000" before).
+The EMI changed from ₹15,074 to ₹0.
+That EMI belongs to a loan of about ₹0 at 9.5% for 48 months, so that is the amount it calculated with.
+
+expect(received).toBe(expected) // Object.is equality
+
+Expected: true
+Received: false
+    at captureRawStack (./node_modules/playwright-core/lib/coreBundle.js:8588:17)
+    at callMatcherAsStep (./node_modules/playwright/lib/matchers/expect.js:13310:57)
+    at Object.toBe (./node_modules/playwright/lib/matchers/expect.js:13302:23)
+    at CustomWorld.<anonymous> (./tests/steps/emicalculator-validation.steps.ts:98:56)]]></failure>
+    <system-out><![CDATA[Given I launch the EMI calculator application...............................passed
+And I navigate to the "Car Loan" tab........................................passed
+And I enter a loan amount of "6L", an interest rate of 9.5% and a tenure of 4 years..passed
+When I type "abc" into the "Loan Amount" box and press Tab..................passed
+Then the calculator should refuse the entry instead of calculating with something else..failed
+And no figure on the calculator should read NaN, Infinity or a negative number..skipped]]></system-out>
+  </testcase>
+  <testcase classname="emicalculator.net - what the calculator does with entries it should not accept" name="An invalid loan amount is refused, not reinterpreted: &lt;case> - Text mixed into digits (EC-03) - #3.1: An invalid loan amount is refused, not reinterpreted: letters between digits" time="3.482">
+    <failure type="ExpectError" message="I typed &quot;12abc34&quot; into the Loan Amount box and pressed Tab. The calculator did not refuse it and showed no message.&#xA;The box now shows &quot;1,234&quot; (it showed &quot;6,00,000&quot; before).&#xA;The EMI changed from ₹15,074 to ₹31.&#xA;That EMI belongs to a loan of about ₹1,234 at 9.5% for 48 months, so that is the amount it calculated with.&#xA;&#xA;expect(received).toBe(expected) // Object.is equality&#xA;&#xA;Expected: true&#xA;Received: false"><![CDATA[Error: I typed "12abc34" into the Loan Amount box and pressed Tab. The calculator did not refuse it and showed no message.
+The box now shows "1,234" (it showed "6,00,000" before).
+The EMI changed from ₹15,074 to ₹31.
+That EMI belongs to a loan of about ₹1,234 at 9.5% for 48 months, so that is the amount it calculated with.
+
+expect(received).toBe(expected) // Object.is equality
+
+Expected: true
+Received: false
+    at captureRawStack (./node_modules/playwright-core/lib/coreBundle.js:8588:17)
+    at callMatcherAsStep (./node_modules/playwright/lib/matchers/expect.js:13310:57)
+    at Object.toBe (./node_modules/playwright/lib/matchers/expect.js:13302:23)
+    at CustomWorld.<anonymous> (./tests/steps/emicalculator-validation.steps.ts:98:56)]]></failure>
+    <system-out><![CDATA[Given I launch the EMI calculator application...............................passed
+And I navigate to the "Car Loan" tab........................................passed
+And I enter a loan amount of "6L", an interest rate of 9.5% and a tenure of 4 years..passed
+When I type "12abc34" into the "Loan Amount" box and press Tab..............passed
+Then the calculator should refuse the entry instead of calculating with something else..failed
+And no figure on the calculator should read NaN, Infinity or a negative number..skipped]]></system-out>
+  </testcase>
+  <testcase classname="emicalculator.net - what the calculator does with entries it should not accept" name="An invalid loan amount is refused, not reinterpreted: &lt;case> - Malformed or oversized numbers (EC-04, EC-08) - #4.1: An invalid loan amount is refused, not reinterpreted: two decimal points" time="3.603">
+    <failure type="ExpectError" message="I typed &quot;25.00.000&quot; into the Loan Amount box and pressed Tab. The calculator did not refuse it and showed no message.&#xA;The box now shows &quot;NaN&quot; (it showed &quot;6,00,000&quot; before).&#xA;The EMI changed from ₹15,074 to ₹0.&#xA;That EMI belongs to a loan of about ₹0 at 9.5% for 48 months, so that is the amount it calculated with.&#xA;&#xA;expect(received).toBe(expected) // Object.is equality&#xA;&#xA;Expected: true&#xA;Received: false"><![CDATA[Error: I typed "25.00.000" into the Loan Amount box and pressed Tab. The calculator did not refuse it and showed no message.
+The box now shows "NaN" (it showed "6,00,000" before).
+The EMI changed from ₹15,074 to ₹0.
+That EMI belongs to a loan of about ₹0 at 9.5% for 48 months, so that is the amount it calculated with.
+
+expect(received).toBe(expected) // Object.is equality
+
+Expected: true
+Received: false
+    at captureRawStack (./node_modules/playwright-core/lib/coreBundle.js:8588:17)
+    at callMatcherAsStep (./node_modules/playwright/lib/matchers/expect.js:13310:57)
+    at Object.toBe (./node_modules/playwright/lib/matchers/expect.js:13302:23)
+    at CustomWorld.<anonymous> (./tests/steps/emicalculator-validation.steps.ts:98:56)]]></failure>
+    <system-out><![CDATA[Given I launch the EMI calculator application...............................passed
+And I navigate to the "Car Loan" tab........................................passed
+And I enter a loan amount of "6L", an interest rate of 9.5% and a tenure of 4 years..passed
+When I type "25.00.000" into the "Loan Amount" box and press Tab............passed
+Then the calculator should refuse the entry instead of calculating with something else..failed
+And no figure on the calculator should read NaN, Infinity or a negative number..skipped]]></system-out>
+  </testcase>
+  <testcase classname="emicalculator.net - what the calculator does with entries it should not accept" name="An invalid loan amount is refused, not reinterpreted: &lt;case> - Malformed or oversized numbers (EC-04, EC-08) - #4.2: An invalid loan amount is refused, not reinterpreted: a 26-digit amount" time="3.467">
+    <failure type="ExpectError" message="I typed &quot;99999999999999999999999999&quot; into the Loan Amount box and pressed Tab. The calculator did not refuse it and showed no message.&#xA;The box now shows &quot;10,00,00,00,00,00,00,00,00,00,00,00,000&quot; (it showed &quot;6,00,000&quot; before).&#xA;The EMI changed from ₹15,074 to ₹25,12,31,36,67,09,35,95,00,00,00,000.&#xA;That EMI belongs to a loan of about ₹9,99,99,99,99,99,99,99,90,00,00,00,000 at 9.5% for 48 months, so that is the amount it calculated with.&#xA;&#xA;expect(received).toBe(expected) // Object.is equality&#xA;&#xA;Expected: true&#xA;Received: false"><![CDATA[Error: I typed "99999999999999999999999999" into the Loan Amount box and pressed Tab. The calculator did not refuse it and showed no message.
+The box now shows "10,00,00,00,00,00,00,00,00,00,00,00,000" (it showed "6,00,000" before).
+The EMI changed from ₹15,074 to ₹25,12,31,36,67,09,35,95,00,00,00,000.
+That EMI belongs to a loan of about ₹9,99,99,99,99,99,99,99,90,00,00,00,000 at 9.5% for 48 months, so that is the amount it calculated with.
+
+expect(received).toBe(expected) // Object.is equality
+
+Expected: true
+Received: false
+    at captureRawStack (./node_modules/playwright-core/lib/coreBundle.js:8588:17)
+    at callMatcherAsStep (./node_modules/playwright/lib/matchers/expect.js:13310:57)
+    at Object.toBe (./node_modules/playwright/lib/matchers/expect.js:13302:23)
+    at CustomWorld.<anonymous> (./tests/steps/emicalculator-validation.steps.ts:98:56)]]></failure>
+    <system-out><![CDATA[Given I launch the EMI calculator application...............................passed
+And I navigate to the "Car Loan" tab........................................passed
+And I enter a loan amount of "6L", an interest rate of 9.5% and a tenure of 4 years..passed
+When I type "99999999999999999999999999" into the "Loan Amount" box and press Tab..passed
+Then the calculator should refuse the entry instead of calculating with something else..failed
+And no figure on the calculator should read NaN, Infinity or a negative number..skipped]]></system-out>
+  </testcase>
+  <testcase classname="emicalculator.net - what the calculator does with entries it should not accept" name="A valid interest rate is used as typed: &lt;case> - Valid partition and boundaries - #1.1: A valid interest rate is used as typed: smallest step, 0.01%" time="3.466">
+    <system-out><![CDATA[Given I launch the EMI calculator application...............................passed
+And I navigate to the "Car Loan" tab........................................passed
+And I enter a loan amount of "6L", an interest rate of 9.5% and a tenure of 4 years..passed
+When I type "0.01" into the "Interest Rate" box and press Tab...............passed
+Then the "Interest Rate" box should show "0.01".............................passed
+And the results should match my own calculation for the values the boxes show..passed]]></system-out>
+  </testcase>
+  <testcase classname="emicalculator.net - what the calculator does with entries it should not accept" name="A valid interest rate is used as typed: &lt;case> - Valid partition and boundaries - #1.2: A valid interest rate is used as typed: below the slider's 5% minimum" time="3.58">
+    <system-out><![CDATA[Given I launch the EMI calculator application...............................passed
+And I navigate to the "Car Loan" tab........................................passed
+And I enter a loan amount of "6L", an interest rate of 9.5% and a tenure of 4 years..passed
+When I type "4" into the "Interest Rate" box and press Tab..................passed
+Then the "Interest Rate" box should show "4"................................passed
+And the results should match my own calculation for the values the boxes show..passed]]></system-out>
+  </testcase>
+  <testcase classname="emicalculator.net - what the calculator does with entries it should not accept" name="A valid interest rate is used as typed: &lt;case> - Valid partition and boundaries - #1.3: A valid interest rate is used as typed: above the slider's 20% maximum" time="3.59">
+    <system-out><![CDATA[Given I launch the EMI calculator application...............................passed
+And I navigate to the "Car Loan" tab........................................passed
+And I enter a loan amount of "6L", an interest rate of 9.5% and a tenure of 4 years..passed
+When I type "25" into the "Interest Rate" box and press Tab.................passed
+Then the "Interest Rate" box should show "25"...............................passed
+And the results should match my own calculation for the values the boxes show..passed]]></system-out>
+  </testcase>
+  <testcase classname="emicalculator.net - what the calculator does with entries it should not accept" name="A valid interest rate is used as typed: &lt;case> - Valid partition and boundaries - #1.4: A valid interest rate is used as typed: with a percent sign" time="3.47">
+    <system-out><![CDATA[Given I launch the EMI calculator application...............................passed
+And I navigate to the "Car Loan" tab........................................passed
+And I enter a loan amount of "6L", an interest rate of 9.5% and a tenure of 4 years..passed
+When I type "8.5%" into the "Interest Rate" box and press Tab...............passed
+Then the "Interest Rate" box should show "8.5"..............................passed
+And the results should match my own calculation for the values the boxes show..passed]]></system-out>
+  </testcase>
+  <testcase classname="emicalculator.net - what the calculator does with entries it should not accept" name="A valid interest rate is used as typed: &lt;case> - 0% is a valid rate, as in no-cost EMI offers (EC-06) - #2.1: A valid interest rate is used as typed: zero interest" time="8.579">
+    <failure type="ExpectError" message="expect(locator).toHaveValue(expected) failed&#xA;&#xA;Locator:  getByLabel('Interest Rate', { exact: true })&#xA;Expected: &quot;0&quot;&#xA;Received: &quot;9&quot;&#xA;Timeout:  5000ms&#xA;&#xA;Call log:&#xA;  - Expect &quot;toHaveValue&quot; getByLabel('Interest Rate', { exact: true }) with timeout 5000ms&#xA;  - waiting for getByLabel('Interest Rate', { exact: true })&#xA;    14 × locator resolved to &lt;input type=&quot;text&quot; value=&quot;10.5&quot; id=&quot;loaninterest&quot; name=&quot;loaninterest&quot; class=&quot;form-control&quot;/>&#xA;       - unexpected value &quot;9&quot;&#xA;"><![CDATA[Error: expect(locator).toHaveValue(expected) failed
+
+Locator:  getByLabel('Interest Rate', { exact: true })
+Expected: "0"
+Received: "9"
+Timeout:  5000ms
+
+Call log:
+  - Expect "toHaveValue" getByLabel('Interest Rate', { exact: true }) with timeout 5000ms
+  - waiting for getByLabel('Interest Rate', { exact: true })
+    14 × locator resolved to <input type="text" value="10.5" id="loaninterest" name="loaninterest" class="form-control"/>
+       - unexpected value "9"
+
+    at captureRawStack (./node_modules/playwright-core/lib/coreBundle.js:8588:17)
+    at callMatcherAsStep (./node_modules/playwright/lib/matchers/expect.js:13310:57)
+    at Object.toHaveValue (./node_modules/playwright/lib/matchers/expect.js:13302:23)
+    at CustomWorld.<anonymous> (./tests/steps/emicalculator-validation.steps.ts:109:43)]]></failure>
+    <system-out><![CDATA[Given I launch the EMI calculator application...............................passed
+And I navigate to the "Car Loan" tab........................................passed
+And I enter a loan amount of "6L", an interest rate of 9.5% and a tenure of 4 years..passed
+When I type "0" into the "Interest Rate" box and press Tab..................passed
+Then the "Interest Rate" box should show "0"................................failed
+And the results should match my own calculation for the values the boxes show..skipped]]></system-out>
+  </testcase>
+  <testcase classname="emicalculator.net - what the calculator does with entries it should not accept" name="An invalid interest rate is refused, not reinterpreted: &lt;case> - Invalid partitions (EC-05, EC-07) - #1.1: An invalid interest rate is refused, not reinterpreted: negative rate" time="3.476">
+    <failure type="ExpectError" message="I typed &quot;-8.5&quot; into the Interest Rate box and pressed Tab. The calculator did not refuse it and showed no message.&#xA;The box now shows &quot;8.5&quot; (it showed &quot;9.5&quot; before).&#xA;The EMI changed from ₹15,074 to ₹14,789.&#xA;&#xA;expect(received).toBe(expected) // Object.is equality&#xA;&#xA;Expected: true&#xA;Received: false"><![CDATA[Error: I typed "-8.5" into the Interest Rate box and pressed Tab. The calculator did not refuse it and showed no message.
+The box now shows "8.5" (it showed "9.5" before).
+The EMI changed from ₹15,074 to ₹14,789.
+
+expect(received).toBe(expected) // Object.is equality
+
+Expected: true
+Received: false
+    at captureRawStack (./node_modules/playwright-core/lib/coreBundle.js:8588:17)
+    at callMatcherAsStep (./node_modules/playwright/lib/matchers/expect.js:13310:57)
+    at Object.toBe (./node_modules/playwright/lib/matchers/expect.js:13302:23)
+    at CustomWorld.<anonymous> (./tests/steps/emicalculator-validation.steps.ts:98:56)]]></failure>
+    <system-out><![CDATA[Given I launch the EMI calculator application...............................passed
+And I navigate to the "Car Loan" tab........................................passed
+And I enter a loan amount of "6L", an interest rate of 9.5% and a tenure of 4 years..passed
+When I type "-8.5" into the "Interest Rate" box and press Tab...............passed
+Then the calculator should refuse the entry instead of calculating with something else..failed
+And no figure on the calculator should read NaN, Infinity or a negative number..skipped]]></system-out>
+  </testcase>
+  <testcase classname="emicalculator.net - what the calculator does with entries it should not accept" name="An invalid interest rate is refused, not reinterpreted: &lt;case> - Invalid partitions (EC-05, EC-07) - #1.2: An invalid interest rate is refused, not reinterpreted: letters" time="3.613">
+    <failure type="ExpectError" message="I typed &quot;abc&quot; into the Interest Rate box and pressed Tab. The calculator did not refuse it and showed no message.&#xA;The box now shows &quot;9&quot; (it showed &quot;9.5&quot; before).&#xA;The EMI changed from ₹15,074 to ₹14,931.&#xA;&#xA;expect(received).toBe(expected) // Object.is equality&#xA;&#xA;Expected: true&#xA;Received: false"><![CDATA[Error: I typed "abc" into the Interest Rate box and pressed Tab. The calculator did not refuse it and showed no message.
+The box now shows "9" (it showed "9.5" before).
+The EMI changed from ₹15,074 to ₹14,931.
+
+expect(received).toBe(expected) // Object.is equality
+
+Expected: true
+Received: false
+    at captureRawStack (./node_modules/playwright-core/lib/coreBundle.js:8588:17)
+    at callMatcherAsStep (./node_modules/playwright/lib/matchers/expect.js:13310:57)
+    at Object.toBe (./node_modules/playwright/lib/matchers/expect.js:13302:23)
+    at CustomWorld.<anonymous> (./tests/steps/emicalculator-validation.steps.ts:98:56)]]></failure>
+    <system-out><![CDATA[Given I launch the EMI calculator application...............................passed
+And I navigate to the "Car Loan" tab........................................passed
+And I enter a loan amount of "6L", an interest rate of 9.5% and a tenure of 4 years..passed
+When I type "abc" into the "Interest Rate" box and press Tab................passed
+Then the calculator should refuse the entry instead of calculating with something else..failed
+And no figure on the calculator should read NaN, Infinity or a negative number..skipped]]></system-out>
+  </testcase>
+  <testcase classname="emicalculator.net - what the calculator does with entries it should not accept" name="An invalid interest rate is refused, not reinterpreted: &lt;case> - Invalid partitions (EC-05, EC-07) - #1.3: An invalid interest rate is refused, not reinterpreted: decimal comma" time="3.449">
+    <failure type="ExpectError" message="I typed &quot;8,5&quot; into the Interest Rate box and pressed Tab. The calculator did not refuse it and showed no message.&#xA;The box now shows &quot;85&quot; (it showed &quot;9.5&quot; before).&#xA;The EMI changed from ₹15,074 to ₹44,153.&#xA;&#xA;expect(received).toBe(expected) // Object.is equality&#xA;&#xA;Expected: true&#xA;Received: false"><![CDATA[Error: I typed "8,5" into the Interest Rate box and pressed Tab. The calculator did not refuse it and showed no message.
+The box now shows "85" (it showed "9.5" before).
+The EMI changed from ₹15,074 to ₹44,153.
+
+expect(received).toBe(expected) // Object.is equality
+
+Expected: true
+Received: false
+    at captureRawStack (./node_modules/playwright-core/lib/coreBundle.js:8588:17)
+    at callMatcherAsStep (./node_modules/playwright/lib/matchers/expect.js:13310:57)
+    at Object.toBe (./node_modules/playwright/lib/matchers/expect.js:13302:23)
+    at CustomWorld.<anonymous> (./tests/steps/emicalculator-validation.steps.ts:98:56)]]></failure>
+    <system-out><![CDATA[Given I launch the EMI calculator application...............................passed
+And I navigate to the "Car Loan" tab........................................passed
+And I enter a loan amount of "6L", an interest rate of 9.5% and a tenure of 4 years..passed
+When I type "8,5" into the "Interest Rate" box and press Tab................passed
+Then the calculator should refuse the entry instead of calculating with something else..failed
+And no figure on the calculator should read NaN, Infinity or a negative number..skipped]]></system-out>
+  </testcase>
+  <testcase classname="emicalculator.net - what the calculator does with entries it should not accept" name="A valid tenure in years is used as typed: &lt;case> - Valid partition and boundaries - #1.1: A valid tenure in years is used as typed: one year" time="3.453">
+    <system-out><![CDATA[Given I launch the EMI calculator application...............................passed
+And I navigate to the "Car Loan" tab........................................passed
+And I enter a loan amount of "6L", an interest rate of 9.5% and a tenure of 4 years..passed
+When I type "1" into the "Loan Tenure" box and press Tab....................passed
+Then the "Loan Tenure" box should show "1"..................................passed
+And the results should match my own calculation for the values the boxes show..passed]]></system-out>
+  </testcase>
+  <testcase classname="emicalculator.net - what the calculator does with entries it should not accept" name="A valid tenure in years is used as typed: &lt;case> - Valid partition and boundaries - #1.2: A valid tenure in years is used as typed: fractional years" time="3.505">
+    <system-out><![CDATA[Given I launch the EMI calculator application...............................passed
+And I navigate to the "Car Loan" tab........................................passed
+And I enter a loan amount of "6L", an interest rate of 9.5% and a tenure of 4 years..passed
+When I type "2.5" into the "Loan Tenure" box and press Tab..................passed
+Then the "Loan Tenure" box should show "2.5"................................passed
+And the results should match my own calculation for the values the boxes show..passed]]></system-out>
+  </testcase>
+  <testcase classname="emicalculator.net - what the calculator does with entries it should not accept" name="A valid tenure in years is used as typed: &lt;case> - Valid partition and boundaries - #1.3: A valid tenure in years is used as typed: above the slider's 7-year maximum" time="3.5">
+    <system-out><![CDATA[Given I launch the EMI calculator application...............................passed
+And I navigate to the "Car Loan" tab........................................passed
+And I enter a loan amount of "6L", an interest rate of 9.5% and a tenure of 4 years..passed
+When I type "10" into the "Loan Tenure" box and press Tab...................passed
+Then the "Loan Tenure" box should show "10".................................passed
+And the results should match my own calculation for the values the boxes show..passed]]></system-out>
+  </testcase>
+  <testcase classname="emicalculator.net - what the calculator does with entries it should not accept" name="A valid tenure in months is used as typed: &lt;case> - Valid partition and boundaries - #1.1: A valid tenure in months is used as typed: one month, the floor" time="4.11">
+    <system-out><![CDATA[Given I launch the EMI calculator application...............................passed
+And I navigate to the "Car Loan" tab........................................passed
+And I enter a loan amount of "6L", an interest rate of 9.5% and a tenure of 4 years..passed
+Given I switch the tenure to months using the Yr and Mo buttons.............passed
+When I type "1" into the "Loan Tenure" box and press Tab....................passed
+Then the "Loan Tenure" box should show "1"..................................passed
+And the results should match my own calculation for the values the boxes show..passed]]></system-out>
+  </testcase>
+  <testcase classname="emicalculator.net - what the calculator does with entries it should not accept" name="A valid tenure in months is used as typed: &lt;case> - Valid partition and boundaries - #1.2: A valid tenure in months is used as typed: 30 months" time="4.059">
+    <system-out><![CDATA[Given I launch the EMI calculator application...............................passed
+And I navigate to the "Car Loan" tab........................................passed
+And I enter a loan amount of "6L", an interest rate of 9.5% and a tenure of 4 years..passed
+Given I switch the tenure to months using the Yr and Mo buttons.............passed
+When I type "30" into the "Loan Tenure" box and press Tab...................passed
+Then the "Loan Tenure" box should show "30".................................passed
+And the results should match my own calculation for the values the boxes show..passed]]></system-out>
+  </testcase>
+  <testcase classname="emicalculator.net - what the calculator does with entries it should not accept" name="An invalid tenure in years is refused, not reinterpreted: &lt;case> - Invalid partitions (EC-05, EC-09) - #1.1: An invalid tenure in years is refused, not reinterpreted: negative tenure" time="3.538">
+    <failure type="ExpectError" message="I typed &quot;-2&quot; into the Loan Tenure box and pressed Tab. The calculator did not refuse it and showed no message.&#xA;The box now shows &quot;2&quot; (it showed &quot;4&quot; before).&#xA;The EMI changed from ₹15,074 to ₹27,549.&#xA;&#xA;expect(received).toBe(expected) // Object.is equality&#xA;&#xA;Expected: true&#xA;Received: false"><![CDATA[Error: I typed "-2" into the Loan Tenure box and pressed Tab. The calculator did not refuse it and showed no message.
+The box now shows "2" (it showed "4" before).
+The EMI changed from ₹15,074 to ₹27,549.
+
+expect(received).toBe(expected) // Object.is equality
+
+Expected: true
+Received: false
+    at captureRawStack (./node_modules/playwright-core/lib/coreBundle.js:8588:17)
+    at callMatcherAsStep (./node_modules/playwright/lib/matchers/expect.js:13310:57)
+    at Object.toBe (./node_modules/playwright/lib/matchers/expect.js:13302:23)
+    at CustomWorld.<anonymous> (./tests/steps/emicalculator-validation.steps.ts:98:56)]]></failure>
+    <system-out><![CDATA[Given I launch the EMI calculator application...............................passed
+And I navigate to the "Car Loan" tab........................................passed
+And I enter a loan amount of "6L", an interest rate of 9.5% and a tenure of 4 years..passed
+When I type "-2" into the "Loan Tenure" box and press Tab...................passed
+Then the calculator should refuse the entry instead of calculating with something else..failed
+And no figure on the calculator should read NaN, Infinity or a negative number..skipped]]></system-out>
+  </testcase>
+  <testcase classname="emicalculator.net - what the calculator does with entries it should not accept" name="An invalid tenure in years is refused, not reinterpreted: &lt;case> - Invalid partitions (EC-05, EC-09) - #1.2: An invalid tenure in years is refused, not reinterpreted: zero" time="3.566">
+    <failure type="ExpectError" message="I typed &quot;0&quot; into the Loan Tenure box and pressed Tab. The calculator did not refuse it and showed no message.&#xA;The box now shows &quot;1&quot; (it showed &quot;4&quot; before).&#xA;The EMI changed from ₹15,074 to ₹52,610.&#xA;&#xA;expect(received).toBe(expected) // Object.is equality&#xA;&#xA;Expected: true&#xA;Received: false"><![CDATA[Error: I typed "0" into the Loan Tenure box and pressed Tab. The calculator did not refuse it and showed no message.
+The box now shows "1" (it showed "4" before).
+The EMI changed from ₹15,074 to ₹52,610.
+
+expect(received).toBe(expected) // Object.is equality
+
+Expected: true
+Received: false
+    at captureRawStack (./node_modules/playwright-core/lib/coreBundle.js:8588:17)
+    at callMatcherAsStep (./node_modules/playwright/lib/matchers/expect.js:13310:57)
+    at Object.toBe (./node_modules/playwright/lib/matchers/expect.js:13302:23)
+    at CustomWorld.<anonymous> (./tests/steps/emicalculator-validation.steps.ts:98:56)]]></failure>
+    <system-out><![CDATA[Given I launch the EMI calculator application...............................passed
+And I navigate to the "Car Loan" tab........................................passed
+And I enter a loan amount of "6L", an interest rate of 9.5% and a tenure of 4 years..passed
+When I type "0" into the "Loan Tenure" box and press Tab....................passed
+Then the calculator should refuse the entry instead of calculating with something else..failed
+And no figure on the calculator should read NaN, Infinity or a negative number..skipped]]></system-out>
+  </testcase>
+  <testcase classname="emicalculator.net - what the calculator does with entries it should not accept" name="An invalid tenure in years is refused, not reinterpreted: &lt;case> - Invalid partitions (EC-05, EC-09) - #1.3: An invalid tenure in years is refused, not reinterpreted: letters" time="3.507">
+    <failure type="ExpectError" message="I typed &quot;abc&quot; into the Loan Tenure box and pressed Tab. The calculator did not refuse it and showed no message.&#xA;The box now shows &quot;1&quot; (it showed &quot;4&quot; before).&#xA;The EMI changed from ₹15,074 to ₹52,610.&#xA;&#xA;expect(received).toBe(expected) // Object.is equality&#xA;&#xA;Expected: true&#xA;Received: false"><![CDATA[Error: I typed "abc" into the Loan Tenure box and pressed Tab. The calculator did not refuse it and showed no message.
+The box now shows "1" (it showed "4" before).
+The EMI changed from ₹15,074 to ₹52,610.
+
+expect(received).toBe(expected) // Object.is equality
+
+Expected: true
+Received: false
+    at captureRawStack (./node_modules/playwright-core/lib/coreBundle.js:8588:17)
+    at callMatcherAsStep (./node_modules/playwright/lib/matchers/expect.js:13310:57)
+    at Object.toBe (./node_modules/playwright/lib/matchers/expect.js:13302:23)
+    at CustomWorld.<anonymous> (./tests/steps/emicalculator-validation.steps.ts:98:56)]]></failure>
+    <system-out><![CDATA[Given I launch the EMI calculator application...............................passed
+And I navigate to the "Car Loan" tab........................................passed
+And I enter a loan amount of "6L", an interest rate of 9.5% and a tenure of 4 years..passed
+When I type "abc" into the "Loan Tenure" box and press Tab..................passed
+Then the calculator should refuse the entry instead of calculating with something else..failed
+And no figure on the calculator should read NaN, Infinity or a negative number..skipped]]></system-out>
+  </testcase>
+  <testcase classname="emicalculator.net - what the calculator does with entries it should not accept" name="An invalid tenure in months is refused, not reinterpreted: &lt;case> - Invalid partitions (EC-05, EC-09) - #1.1: An invalid tenure in months is refused, not reinterpreted: half a month" time="4.014">
+    <failure type="ExpectError" message="I typed &quot;2.5&quot; into the Loan Tenure box and pressed Tab. The calculator did not refuse it and showed no message.&#xA;The box now shows &quot;3&quot; (it showed &quot;48&quot; before).&#xA;The EMI changed from ₹15,074 to ₹2,03,175.&#xA;&#xA;expect(received).toBe(expected) // Object.is equality&#xA;&#xA;Expected: true&#xA;Received: false"><![CDATA[Error: I typed "2.5" into the Loan Tenure box and pressed Tab. The calculator did not refuse it and showed no message.
+The box now shows "3" (it showed "48" before).
+The EMI changed from ₹15,074 to ₹2,03,175.
+
+expect(received).toBe(expected) // Object.is equality
+
+Expected: true
+Received: false
+    at captureRawStack (./node_modules/playwright-core/lib/coreBundle.js:8588:17)
+    at callMatcherAsStep (./node_modules/playwright/lib/matchers/expect.js:13310:57)
+    at Object.toBe (./node_modules/playwright/lib/matchers/expect.js:13302:23)
+    at CustomWorld.<anonymous> (./tests/steps/emicalculator-validation.steps.ts:98:56)]]></failure>
+    <system-out><![CDATA[Given I launch the EMI calculator application...............................passed
+And I navigate to the "Car Loan" tab........................................passed
+And I enter a loan amount of "6L", an interest rate of 9.5% and a tenure of 4 years..passed
+Given I switch the tenure to months using the Yr and Mo buttons.............passed
+When I type "2.5" into the "Loan Tenure" box and press Tab..................passed
+Then the calculator should refuse the entry instead of calculating with something else..failed
+And no figure on the calculator should read NaN, Infinity or a negative number..skipped]]></system-out>
+  </testcase>
+  <testcase classname="emicalculator.net - Test Case 2: Validate the EMI bar chart" name="Personal loan of 10L at 12% for 5 years, schedule starting in a chosen month" time="5.468">
+    <system-out><![CDATA[Given I launch the EMI calculator application...............................passed
+When I navigate to the "Personal Loan" tab..................................passed
+And I use the sliders to set the loan amount to "10L", the interest rate to 12% and the tenure to 5 years..passed
+And I change the schedule start month to "Mar 2027" using the calendar widget..passed
+Then the EMI shown should match my own calculation..........................passed
+And the bar chart should be visible and available...........................passed
+And the bar chart should have one bar per calendar year of the repayment schedule..passed
+And the tooltip of every bar should show values that match my own amortisation..passed]]></system-out>
+  </testcase>
+</testsuite>

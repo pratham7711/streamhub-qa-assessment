@@ -1,0 +1,86 @@
+name: tests
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+  schedule:
+    # Mondays 03:30 UTC: the two public sites can change without a commit here.
+    - cron: '30 3 * * 1'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: tests-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  TEST_ENV: ci
+  HEAL_PROVIDER: heuristic
+
+jobs:
+  gate:
+    name: LoanLens, SQL and self-healing
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - run: npm run typecheck
+      # Exits 1 on any unexpected failure, a missing report, or a suite that ran no scenarios.
+      # The self-healing suite's broken locators are expected to fail with healing off.
+      - run: node scripts/run-all.mjs loanlens-api loanlens-ui sql self-healing self-healing-healed
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: reports-gate
+          path: reports/
+
+  mutation:
+    name: Mutation check
+    needs: gate
+    if: github.event_name != 'schedule'
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - run: npm run test:mutation
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: reports-mutation
+          path: reports/mutation/
+
+  third-party:
+    name: Public sites (JSONPlaceholder, emicalculator.net)
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    # These suites test sites this repo does not control; an outage or a bot wall there
+    # should be visible here without blocking the LoanLens gate.
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - run: node scripts/run-all.mjs jsonplaceholder emicalculator
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: reports-third-party
+          path: reports/

@@ -1,0 +1,2595 @@
+{
+  "key": "calculator.loanAmountSlider",
+  "description": "The range slider that sets the loan amount in the EMI calculator",
+  "expect": {
+    "role": "slider",
+    "name": "Loan amount"
+  },
+  "brokenLocator": "page.getByLabel('Loan amount')",
+  "kind": "ambiguous",
+  "matchCount": 2,
+  "detail": "2 elements matched; an action on it would violate strict mode.",
+  "url": "http://localhost:5055/calculator",
+  "scenario": "Ambiguous label - the loan amount slider updates the number box",
+  "source": {
+    "file": "tests/pages/self-healing/LegacyLocators.ts",
+    "line": 63,
+    "text": "    this.loanAmountSlider = healable(page, AMOUNT_SLIDER, (p) => p.getByLabel('Loan amount'));",
+    "expression": "p.getByLabel('Loan amount')",
+    "param": "p"
+  },
+  "ariaSnapshot": "- link \"Skip to content\":\n  - /url: \"#main\"\n- banner:\n  - link \"LoanLens home\":\n    - /url: /\n    - text: LoanLens\n  - navigation \"Primary\":\n    - list:\n      - listitem:\n        - link \"Dashboard\":\n          - /url: /\n      - listitem:\n        - link \"EMI calculator\":\n          - /url: /calculator\n      - listitem:\n        - link \"Reports\":\n          - /url: /reports\n- main:\n  - heading \"EMI calculator\" [level=1]\n  - paragraph: Monthly instalment, total interest and the year-by-year repayment plan for a reducing-balance loan.\n  - form \"Loan details\":\n    - text: Loan amount\n    - spinbutton \"Loan amount\": \"2500000\"\n    - text: ₹\n    - slider \"Loan amount\": \"2500000\"\n    - paragraph: ₹25,00,000 · 25 lakh\n    - text: Interest rate\n    - spinbutton \"Interest rate\": \"10\"\n    - text: \"% p.a.\"\n    - slider \"Interest rate\": \"10\"\n    - text: Loan tenure\n    - spinbutton \"Loan tenure\": \"10\"\n    - text: years\n    - slider \"Loan tenure\": \"10\"\n    - group \"Tenure unit\":\n      - text: Tenure unit\n      - radio \"Years\" [checked]\n      - text: Years\n      - radio \"Months\"\n      - text: Months\n    - text: First EMI month\n    - textbox \"First EMI month\": 2026-10\n    - paragraph: Payments are grouped by calendar year from this month.\n  - region \"Repayment summary\":\n    - heading \"Repayment summary\" [level=2]\n    - group \"Monthly EMI\":\n      - term: Monthly EMI\n      - definition: ₹33,038\n    - group \"Total interest\":\n      - term: Total interest\n      - definition: ₹14,64,522\n    - group \"Total payment\":\n      - term: Total payment\n      - definition: ₹39,64,522\n    - figure \"Break-up of total payment\":\n      - text: Break-up of total payment\n      - group \"Break-up of total payment chart\":\n        - 'img \"Principal amount: ₹25,00,000 (63.1%)\"'\n        - 'img \"Total interest: ₹14,64,522 (36.9%)\"'\n      - table \"Break-up of total payment values\":\n        - rowgroup:\n          - row \"Segment Amount Share\":\n            - columnheader \"Segment\"\n            - columnheader \"Amount\"\n            - columnheader \"Share\"\n        - rowgroup:\n          - row \"Principal amount ₹25,00,000 63.1%\":\n            - rowheader \"Principal amount\"\n            - cell \"₹25,00,000\"\n            - cell \"63.1%\"\n          - row \"Total interest ₹14,64,522 36.9%\":\n            - rowheader \"Total interest\"\n            - cell \"₹14,64,522\"\n            - cell \"36.9%\"\n        - rowgroup:\n          - row \"Total ₹39,64,522 100.0%\":\n            - rowheader \"Total\"\n            - cell \"₹39,64,522\"\n            - cell \"100.0%\"\n  - figure \"Yearly payments\":\n    - text: Yearly payments\n    - list \"Yearly payments legend\":\n      - listitem: Principal\n      - listitem: Interest\n    - paragraph: 120 monthly payments from Oct 2026, grouped by calendar year.\n    - group \"Yearly payments chart\":\n      - 'img \"2026: Principal ₹36,919, Interest ₹62,194, total ₹99,113\"'\n      - 'img \"2027: Principal ₹1,57,221, Interest ₹2,39,232, total ₹3,96,452\"'\n      - 'img \"2028: Principal ₹1,73,684, Interest ₹2,22,769, total ₹3,96,452\"'\n      - 'img \"2029: Principal ₹1,91,870, Interest ₹2,04,582, total ₹3,96,452\"'\n      - 'img \"2030: Principal ₹2,11,962, Interest ₹1,84,490, total ₹3,96,452\"'\n      - 'img \"2031: Principal ₹2,34,157, Interest ₹1,62,295, total ₹3,96,452\"'\n      - 'img \"2032: Principal ₹2,58,676, Interest ₹1,37,776, total ₹3,96,452\"'\n      - 'img \"2033: Principal ₹2,85,763, Interest ₹1,10,689, total ₹3,96,452\"'\n      - 'img \"2034: Principal ₹3,15,686, Interest ₹80,766, total ₹3,96,452\"'\n      - 'img \"2035: Principal ₹3,48,743, Interest ₹47,710, total ₹3,96,452\"'\n      - 'img \"2036: Principal ₹2,85,319, Interest ₹12,020, total ₹2,97,339\"'\n  - heading \"Yearly amortisation schedule\" [level=2]\n  - table \"Yearly amortisation schedule\":\n    - rowgroup:\n      - row \"Year Payments Principal Interest Total paid Closing balance\":\n        - columnheader \"Year\"\n        - columnheader \"Payments\"\n        - columnheader \"Principal\"\n        - columnheader \"Interest\"\n        - columnheader \"Total paid\"\n        - columnheader \"Closing balance\"\n    - rowgroup:\n      - row \"2026 3 ₹36,919 ₹62,194 ₹99,113 ₹24,63,081\":\n        - rowheader \"2026\"\n        - cell \"3\"\n        - cell \"₹36,919\"\n        - cell \"₹62,194\"\n        - cell \"₹99,113\"\n        - cell \"₹24,63,081\"\n      - row \"2027 12 ₹1,57,221 ₹2,39,232 ₹3,96,452 ₹23,05,860\":\n        - rowheader \"2027\"\n        - cell \"12\"\n        - cell \"₹1,57,221\"\n        - cell \"₹2,39,232\"\n        - cell \"₹3,96,452\"\n        - cell \"₹23,05,860\"\n      - row \"2028 12 ₹1,73,684 ₹2,22,769 ₹3,96,452 ₹21,32,177\":\n        - rowheader \"2028\"\n        - cell \"12\"\n        - cell \"₹1,73,684\"\n        - cell \"₹2,22,769\"\n        - cell \"₹3,96,452\"\n        - cell \"₹21,32,177\"\n      - row \"2029 12 ₹1,91,870 ₹2,04,582 ₹3,96,452 ₹19,40,306\":\n        - rowheader \"2029\"\n        - cell \"12\"\n        - cell \"₹1,91,870\"\n        - cell \"₹2,04,582\"\n        - cell \"₹3,96,452\"\n        - cell \"₹19,40,306\"\n      - row \"2030 12 ₹2,11,962 ₹1,84,490 ₹3,96,452 ₹17,28,345\":\n        - rowheader \"2030\"\n        - cell \"12\"\n        - cell \"₹2,11,962\"\n        - cell \"₹1,84,490\"\n        - cell \"₹3,96,452\"\n        - cell \"₹17,28,345\"\n      - row \"2031 12 ₹2,34,157 ₹1,62,295 ₹3,96,452 ₹14,94,188\":\n        - rowheader \"2031\"\n        - cell \"12\"\n        - cell \"₹2,34,157\"\n        - cell \"₹1,62,295\"\n        - cell \"₹3,96,452\"\n        - cell \"₹14,94,188\"\n      - row \"2032 12 ₹2,58,676 ₹1,37,776 ₹3,96,452 ₹12,35,511\":\n        - rowheader \"2032\"\n        - cell \"12\"\n        - cell \"₹2,58,676\"\n        - cell \"₹1,37,776\"\n        - cell \"₹3,96,452\"\n        - cell \"₹12,35,511\"\n      - row \"2033 12 ₹2,85,763 ₹1,10,689 ₹3,96,452 ₹9,49,748\":\n        - rowheader \"2033\"\n        - cell \"12\"\n        - cell \"₹2,85,763\"\n        - cell \"₹1,10,689\"\n        - cell \"₹3,96,452\"\n        - cell \"₹9,49,748\"\n      - row \"2034 12 ₹3,15,686 ₹80,766 ₹3,96,452 ₹6,34,062\":\n        - rowheader \"2034\"\n        - cell \"12\"\n        - cell \"₹3,15,686\"\n        - cell \"₹80,766\"\n        - cell \"₹3,96,452\"\n        - cell \"₹6,34,062\"\n      - row \"2035 12 ₹3,48,743 ₹47,710 ₹3,96,452 ₹2,85,319\":\n        - rowheader \"2035\"\n        - cell \"12\"\n        - cell \"₹3,48,743\"\n        - cell \"₹47,710\"\n        - cell \"₹3,96,452\"\n        - cell \"₹2,85,319\"\n      - row \"2036 9 ₹2,85,319 ₹12,020 ₹2,97,339 ₹0\":\n        - rowheader \"2036\"\n        - cell \"9\"\n        - cell \"₹2,85,319\"\n        - cell \"₹12,020\"\n        - cell \"₹2,97,339\"\n        - cell \"₹0\"\n    - rowgroup:\n      - row \"Total 120 ₹25,00,000 ₹14,64,522 ₹39,64,522 ₹0\":\n        - rowheader \"Total\"\n        - cell \"120\"\n        - cell \"₹25,00,000\"\n        - cell \"₹14,64,522\"\n        - cell \"₹39,64,522\"\n        - cell \"₹0\"\n- contentinfo:\n  - paragraph: LoanLens · demonstration build · all borrowers, amounts and dates are synthetic.\n  - paragraph:\n    - text: EMI = P × r × (1 + r)\n    - superscript: \"n\"\n    - text: ÷ ((1 + r)\n    - superscript: \"n\"\n    - text: − 1), reducing balance, monthly rests.",
+  "inventory": [
+    {
+      "ref": 0,
+      "tag": "a",
+      "role": "link",
+      "name": "Skip to content",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "Skip to content",
+      "container": null,
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 1,
+      "tag": "header",
+      "role": "banner",
+      "name": "",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "LoanLens Dashboard EMI calculator Reports",
+      "container": null,
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 2,
+      "tag": "a",
+      "role": "link",
+      "name": "LoanLens home",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "LoanLens",
+      "container": null,
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 3,
+      "tag": "nav",
+      "role": "navigation",
+      "name": "Primary",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "Dashboard EMI calculator Reports",
+      "container": null,
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 4,
+      "tag": "ul",
+      "role": "list",
+      "name": "",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "Dashboard EMI calculator Reports",
+      "container": {
+        "role": "navigation",
+        "name": "Primary"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 5,
+      "tag": "li",
+      "role": "listitem",
+      "name": "Dashboard",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "Dashboard",
+      "container": {
+        "role": "navigation",
+        "name": "Primary"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 6,
+      "tag": "a",
+      "role": "link",
+      "name": "Dashboard",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "Dashboard",
+      "container": {
+        "role": "navigation",
+        "name": "Primary"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 7,
+      "tag": "li",
+      "role": "listitem",
+      "name": "EMI calculator",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "EMI calculator",
+      "container": {
+        "role": "navigation",
+        "name": "Primary"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 8,
+      "tag": "a",
+      "role": "link",
+      "name": "EMI calculator",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "EMI calculator",
+      "container": {
+        "role": "navigation",
+        "name": "Primary"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 9,
+      "tag": "li",
+      "role": "listitem",
+      "name": "Reports",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "Reports",
+      "container": {
+        "role": "navigation",
+        "name": "Primary"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 10,
+      "tag": "a",
+      "role": "link",
+      "name": "Reports",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "Reports",
+      "container": {
+        "role": "navigation",
+        "name": "Primary"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 11,
+      "tag": "main",
+      "role": "main",
+      "name": "",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "EMI calculator Monthly instalment, total interest and the year-by-year repayment plan for a reducing",
+      "container": null,
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 12,
+      "tag": "header",
+      "role": "banner",
+      "name": "",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "EMI calculator Monthly instalment, total interest and the year-by-year repayment plan for a reducing",
+      "container": null,
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 13,
+      "tag": "h1",
+      "role": "heading",
+      "name": "EMI calculator",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "EMI calculator",
+      "container": null,
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 14,
+      "tag": "form",
+      "role": "form",
+      "name": "Loan details",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "Loan amount ₹ ₹1 L ₹2 Cr ₹25,00,000 · 25 lakh Interest rate % p.a. 0 20 Loan tenure years 1 30 Tenur",
+      "container": null,
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 15,
+      "tag": "input",
+      "role": "spinbutton",
+      "name": "Loan amount",
+      "testid": null,
+      "label": "Loan amount",
+      "placeholder": null,
+      "text": "",
+      "container": {
+        "role": "form",
+        "name": "Loan details"
+      },
+      "visible": true,
+      "matchedBroken": true
+    },
+    {
+      "ref": 16,
+      "tag": "input",
+      "role": "slider",
+      "name": "Loan amount",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "",
+      "container": {
+        "role": "form",
+        "name": "Loan details"
+      },
+      "visible": true,
+      "matchedBroken": true
+    },
+    {
+      "ref": 17,
+      "tag": "input",
+      "role": "spinbutton",
+      "name": "Interest rate",
+      "testid": null,
+      "label": "Interest rate",
+      "placeholder": null,
+      "text": "",
+      "container": {
+        "role": "form",
+        "name": "Loan details"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 18,
+      "tag": "input",
+      "role": "slider",
+      "name": "Interest rate",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "",
+      "container": {
+        "role": "form",
+        "name": "Loan details"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 19,
+      "tag": "input",
+      "role": "spinbutton",
+      "name": "Loan tenure",
+      "testid": null,
+      "label": "Loan tenure",
+      "placeholder": null,
+      "text": "",
+      "container": {
+        "role": "form",
+        "name": "Loan details"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 20,
+      "tag": "input",
+      "role": "slider",
+      "name": "Loan tenure",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "",
+      "container": {
+        "role": "form",
+        "name": "Loan details"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 21,
+      "tag": "input",
+      "role": "radio",
+      "name": "Years",
+      "testid": null,
+      "label": "Years",
+      "placeholder": null,
+      "text": "",
+      "container": {
+        "role": "form",
+        "name": "Loan details"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 22,
+      "tag": "input",
+      "role": "radio",
+      "name": "Months",
+      "testid": null,
+      "label": "Months",
+      "placeholder": null,
+      "text": "",
+      "container": {
+        "role": "form",
+        "name": "Loan details"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 23,
+      "tag": "input",
+      "role": "textbox",
+      "name": "First EMI month",
+      "testid": null,
+      "label": "First EMI month",
+      "placeholder": null,
+      "text": "",
+      "container": {
+        "role": "form",
+        "name": "Loan details"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 24,
+      "tag": "section",
+      "role": "region",
+      "name": "Repayment summary",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "Repayment summary Monthly EMI ₹33,038 Total interest ₹14,64,522 Total payment ₹39,64,522 Break-up of",
+      "container": null,
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 25,
+      "tag": "h2",
+      "role": "heading",
+      "name": "Repayment summary",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "Repayment summary",
+      "container": {
+        "role": "region",
+        "name": "Repayment summary"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 26,
+      "tag": "div",
+      "role": "group",
+      "name": "Monthly EMI",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "Monthly EMI ₹33,038",
+      "container": {
+        "role": "region",
+        "name": "Repayment summary"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 27,
+      "tag": "dd",
+      "role": null,
+      "name": "",
+      "testid": "result-value",
+      "label": null,
+      "placeholder": null,
+      "text": "₹33,038",
+      "container": {
+        "role": "group",
+        "name": "Monthly EMI"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 28,
+      "tag": "div",
+      "role": "group",
+      "name": "Total interest",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "Total interest ₹14,64,522",
+      "container": {
+        "role": "region",
+        "name": "Repayment summary"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 29,
+      "tag": "dd",
+      "role": null,
+      "name": "",
+      "testid": "result-value",
+      "label": null,
+      "placeholder": null,
+      "text": "₹14,64,522",
+      "container": {
+        "role": "group",
+        "name": "Total interest"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 30,
+      "tag": "div",
+      "role": "group",
+      "name": "Total payment",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "Total payment ₹39,64,522",
+      "container": {
+        "role": "region",
+        "name": "Repayment summary"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 31,
+      "tag": "dd",
+      "role": null,
+      "name": "",
+      "testid": "result-value",
+      "label": null,
+      "placeholder": null,
+      "text": "₹39,64,522",
+      "container": {
+        "role": "group",
+        "name": "Total payment"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 32,
+      "tag": "figure",
+      "role": "figure",
+      "name": "Break-up of total payment",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "Break-up of total payment Total payment ₹39.65 L Segment Amount Share Principal amount ₹25,00,000 63",
+      "container": {
+        "role": "region",
+        "name": "Repayment summary"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 33,
+      "tag": "svg",
+      "role": "group",
+      "name": "Break-up of total payment chart",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "Total payment₹39.65 L",
+      "container": {
+        "role": "figure",
+        "name": "Break-up of total payment"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 34,
+      "tag": "path",
+      "role": "img",
+      "name": "Principal amount: ₹25,00,000 (63.1%)",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "",
+      "container": {
+        "role": "group",
+        "name": "Break-up of total payment chart"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 35,
+      "tag": "path",
+      "role": "img",
+      "name": "Total interest: ₹14,64,522 (36.9%)",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "",
+      "container": {
+        "role": "group",
+        "name": "Break-up of total payment chart"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 36,
+      "tag": "table",
+      "role": "table",
+      "name": "Break-up of total payment values",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "Segment Amount Share Principal amount ₹25,00,000 63.1% Total interest ₹14,64,522 36.9% Total ₹39,64,",
+      "container": {
+        "role": "figure",
+        "name": "Break-up of total payment"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 37,
+      "tag": "tr",
+      "role": "row",
+      "name": "",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "Segment Amount Share",
+      "container": {
+        "role": "table",
+        "name": "Break-up of total payment values"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 38,
+      "tag": "th",
+      "role": "columnheader",
+      "name": "Segment",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "Segment",
+      "container": {
+        "role": "table",
+        "name": "Break-up of total payment values"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 39,
+      "tag": "th",
+      "role": "columnheader",
+      "name": "Amount",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "Amount",
+      "container": {
+        "role": "table",
+        "name": "Break-up of total payment values"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 40,
+      "tag": "th",
+      "role": "columnheader",
+      "name": "Share",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "Share",
+      "container": {
+        "role": "table",
+        "name": "Break-up of total payment values"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 41,
+      "tag": "tr",
+      "role": "row",
+      "name": "",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "Principal amount ₹25,00,000 63.1%",
+      "container": {
+        "role": "table",
+        "name": "Break-up of total payment values"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 42,
+      "tag": "th",
+      "role": "columnheader",
+      "name": "Principal amount",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "Principal amount",
+      "container": {
+        "role": "table",
+        "name": "Break-up of total payment values"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 43,
+      "tag": "td",
+      "role": "cell",
+      "name": "₹25,00,000",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "₹25,00,000",
+      "container": {
+        "role": "table",
+        "name": "Break-up of total payment values"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 44,
+      "tag": "td",
+      "role": "cell",
+      "name": "63.1%",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "63.1%",
+      "container": {
+        "role": "table",
+        "name": "Break-up of total payment values"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 45,
+      "tag": "tr",
+      "role": "row",
+      "name": "",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "Total interest ₹14,64,522 36.9%",
+      "container": {
+        "role": "table",
+        "name": "Break-up of total payment values"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 46,
+      "tag": "th",
+      "role": "columnheader",
+      "name": "Total interest",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "Total interest",
+      "container": {
+        "role": "table",
+        "name": "Break-up of total payment values"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 47,
+      "tag": "td",
+      "role": "cell",
+      "name": "₹14,64,522",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "₹14,64,522",
+      "container": {
+        "role": "table",
+        "name": "Break-up of total payment values"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 48,
+      "tag": "td",
+      "role": "cell",
+      "name": "36.9%",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "36.9%",
+      "container": {
+        "role": "table",
+        "name": "Break-up of total payment values"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 49,
+      "tag": "tr",
+      "role": "row",
+      "name": "",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "Total ₹39,64,522 100.0%",
+      "container": {
+        "role": "table",
+        "name": "Break-up of total payment values"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 50,
+      "tag": "th",
+      "role": "columnheader",
+      "name": "Total",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "Total",
+      "container": {
+        "role": "table",
+        "name": "Break-up of total payment values"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 51,
+      "tag": "td",
+      "role": "cell",
+      "name": "₹39,64,522",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "₹39,64,522",
+      "container": {
+        "role": "table",
+        "name": "Break-up of total payment values"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 52,
+      "tag": "td",
+      "role": "cell",
+      "name": "100.0%",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "100.0%",
+      "container": {
+        "role": "table",
+        "name": "Break-up of total payment values"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 53,
+      "tag": "figure",
+      "role": "figure",
+      "name": "Yearly payments",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "Yearly payments Principal Interest 120 monthly payments from Oct 2026, grouped by calendar year. ₹0 ",
+      "container": null,
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 54,
+      "tag": "ul",
+      "role": "list",
+      "name": "Yearly payments legend",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "Principal Interest",
+      "container": {
+        "role": "figure",
+        "name": "Yearly payments"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 55,
+      "tag": "li",
+      "role": "listitem",
+      "name": "Principal",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "Principal",
+      "container": {
+        "role": "figure",
+        "name": "Yearly payments"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 56,
+      "tag": "li",
+      "role": "listitem",
+      "name": "Interest",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "Interest",
+      "container": {
+        "role": "figure",
+        "name": "Yearly payments"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 57,
+      "tag": "svg",
+      "role": "group",
+      "name": "Yearly payments chart",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "₹0₹1 L₹2 L₹3 L₹4 L20262027202820292030203120322033203420352036",
+      "container": {
+        "role": "figure",
+        "name": "Yearly payments"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 58,
+      "tag": "g",
+      "role": "img",
+      "name": "2026: Principal ₹36,919, Interest ₹62,194, total ₹99,113",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "",
+      "container": {
+        "role": "group",
+        "name": "Yearly payments chart"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 59,
+      "tag": "g",
+      "role": "img",
+      "name": "2027: Principal ₹1,57,221, Interest ₹2,39,232, total ₹3,96,452",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "",
+      "container": {
+        "role": "group",
+        "name": "Yearly payments chart"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 60,
+      "tag": "g",
+      "role": "img",
+      "name": "2028: Principal ₹1,73,684, Interest ₹2,22,769, total ₹3,96,452",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "",
+      "container": {
+        "role": "group",
+        "name": "Yearly payments chart"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 61,
+      "tag": "g",
+      "role": "img",
+      "name": "2029: Principal ₹1,91,870, Interest ₹2,04,582, total ₹3,96,452",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "",
+      "container": {
+        "role": "group",
+        "name": "Yearly payments chart"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 62,
+      "tag": "g",
+      "role": "img",
+      "name": "2030: Principal ₹2,11,962, Interest ₹1,84,490, total ₹3,96,452",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "",
+      "container": {
+        "role": "group",
+        "name": "Yearly payments chart"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 63,
+      "tag": "g",
+      "role": "img",
+      "name": "2031: Principal ₹2,34,157, Interest ₹1,62,295, total ₹3,96,452",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "",
+      "container": {
+        "role": "group",
+        "name": "Yearly payments chart"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 64,
+      "tag": "g",
+      "role": "img",
+      "name": "2032: Principal ₹2,58,676, Interest ₹1,37,776, total ₹3,96,452",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "",
+      "container": {
+        "role": "group",
+        "name": "Yearly payments chart"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 65,
+      "tag": "g",
+      "role": "img",
+      "name": "2033: Principal ₹2,85,763, Interest ₹1,10,689, total ₹3,96,452",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "",
+      "container": {
+        "role": "group",
+        "name": "Yearly payments chart"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 66,
+      "tag": "g",
+      "role": "img",
+      "name": "2034: Principal ₹3,15,686, Interest ₹80,766, total ₹3,96,452",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "",
+      "container": {
+        "role": "group",
+        "name": "Yearly payments chart"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 67,
+      "tag": "g",
+      "role": "img",
+      "name": "2035: Principal ₹3,48,743, Interest ₹47,710, total ₹3,96,452",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "",
+      "container": {
+        "role": "group",
+        "name": "Yearly payments chart"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 68,
+      "tag": "g",
+      "role": "img",
+      "name": "2036: Principal ₹2,85,319, Interest ₹12,020, total ₹2,97,339",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "",
+      "container": {
+        "role": "group",
+        "name": "Yearly payments chart"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 69,
+      "tag": "h2",
+      "role": "heading",
+      "name": "Yearly amortisation schedule",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "Yearly amortisation schedule",
+      "container": null,
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 70,
+      "tag": "table",
+      "role": "table",
+      "name": "Yearly amortisation schedule",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "Year Payments Principal Interest Total paid Closing balance 2026 3 ₹36,919 ₹62,194 ₹99,113 ₹24,63,08",
+      "container": null,
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 71,
+      "tag": "tr",
+      "role": "row",
+      "name": "",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "Year Payments Principal Interest Total paid Closing balance",
+      "container": {
+        "role": "table",
+        "name": "Yearly amortisation schedule"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 72,
+      "tag": "th",
+      "role": "columnheader",
+      "name": "Year",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "Year",
+      "container": {
+        "role": "table",
+        "name": "Yearly amortisation schedule"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 73,
+      "tag": "th",
+      "role": "columnheader",
+      "name": "Payments",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "Payments",
+      "container": {
+        "role": "table",
+        "name": "Yearly amortisation schedule"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 74,
+      "tag": "th",
+      "role": "columnheader",
+      "name": "Principal",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "Principal",
+      "container": {
+        "role": "table",
+        "name": "Yearly amortisation schedule"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 75,
+      "tag": "th",
+      "role": "columnheader",
+      "name": "Interest",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "Interest",
+      "container": {
+        "role": "table",
+        "name": "Yearly amortisation schedule"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 76,
+      "tag": "th",
+      "role": "columnheader",
+      "name": "Total paid",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "Total paid",
+      "container": {
+        "role": "table",
+        "name": "Yearly amortisation schedule"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 77,
+      "tag": "th",
+      "role": "columnheader",
+      "name": "Closing balance",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "Closing balance",
+      "container": {
+        "role": "table",
+        "name": "Yearly amortisation schedule"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 78,
+      "tag": "tr",
+      "role": "row",
+      "name": "",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "2026 3 ₹36,919 ₹62,194 ₹99,113 ₹24,63,081",
+      "container": {
+        "role": "table",
+        "name": "Yearly amortisation schedule"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 79,
+      "tag": "th",
+      "role": "columnheader",
+      "name": "2026",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "2026",
+      "container": {
+        "role": "table",
+        "name": "Yearly amortisation schedule"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 80,
+      "tag": "td",
+      "role": "cell",
+      "name": "3",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "3",
+      "container": {
+        "role": "table",
+        "name": "Yearly amortisation schedule"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 81,
+      "tag": "td",
+      "role": "cell",
+      "name": "₹36,919",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "₹36,919",
+      "container": {
+        "role": "table",
+        "name": "Yearly amortisation schedule"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 82,
+      "tag": "td",
+      "role": "cell",
+      "name": "₹62,194",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "₹62,194",
+      "container": {
+        "role": "table",
+        "name": "Yearly amortisation schedule"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 83,
+      "tag": "td",
+      "role": "cell",
+      "name": "₹99,113",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "₹99,113",
+      "container": {
+        "role": "table",
+        "name": "Yearly amortisation schedule"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 84,
+      "tag": "td",
+      "role": "cell",
+      "name": "₹24,63,081",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "₹24,63,081",
+      "container": {
+        "role": "table",
+        "name": "Yearly amortisation schedule"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 85,
+      "tag": "tr",
+      "role": "row",
+      "name": "",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "2027 12 ₹1,57,221 ₹2,39,232 ₹3,96,452 ₹23,05,860",
+      "container": {
+        "role": "table",
+        "name": "Yearly amortisation schedule"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 86,
+      "tag": "th",
+      "role": "columnheader",
+      "name": "2027",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "2027",
+      "container": {
+        "role": "table",
+        "name": "Yearly amortisation schedule"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 87,
+      "tag": "td",
+      "role": "cell",
+      "name": "12",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "12",
+      "container": {
+        "role": "table",
+        "name": "Yearly amortisation schedule"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 88,
+      "tag": "td",
+      "role": "cell",
+      "name": "₹1,57,221",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "₹1,57,221",
+      "container": {
+        "role": "table",
+        "name": "Yearly amortisation schedule"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 89,
+      "tag": "td",
+      "role": "cell",
+      "name": "₹2,39,232",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "₹2,39,232",
+      "container": {
+        "role": "table",
+        "name": "Yearly amortisation schedule"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 90,
+      "tag": "td",
+      "role": "cell",
+      "name": "₹3,96,452",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "₹3,96,452",
+      "container": {
+        "role": "table",
+        "name": "Yearly amortisation schedule"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 91,
+      "tag": "td",
+      "role": "cell",
+      "name": "₹23,05,860",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "₹23,05,860",
+      "container": {
+        "role": "table",
+        "name": "Yearly amortisation schedule"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 92,
+      "tag": "tr",
+      "role": "row",
+      "name": "",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "2028 12 ₹1,73,684 ₹2,22,769 ₹3,96,452 ₹21,32,177",
+      "container": {
+        "role": "table",
+        "name": "Yearly amortisation schedule"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 93,
+      "tag": "th",
+      "role": "columnheader",
+      "name": "2028",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "2028",
+      "container": {
+        "role": "table",
+        "name": "Yearly amortisation schedule"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 94,
+      "tag": "td",
+      "role": "cell",
+      "name": "12",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "12",
+      "container": {
+        "role": "table",
+        "name": "Yearly amortisation schedule"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 95,
+      "tag": "td",
+      "role": "cell",
+      "name": "₹1,73,684",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "₹1,73,684",
+      "container": {
+        "role": "table",
+        "name": "Yearly amortisation schedule"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 96,
+      "tag": "td",
+      "role": "cell",
+      "name": "₹2,22,769",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "₹2,22,769",
+      "container": {
+        "role": "table",
+        "name": "Yearly amortisation schedule"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 97,
+      "tag": "td",
+      "role": "cell",
+      "name": "₹3,96,452",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "₹3,96,452",
+      "container": {
+        "role": "table",
+        "name": "Yearly amortisation schedule"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 98,
+      "tag": "td",
+      "role": "cell",
+      "name": "₹21,32,177",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "₹21,32,177",
+      "container": {
+        "role": "table",
+        "name": "Yearly amortisation schedule"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 99,
+      "tag": "tr",
+      "role": "row",
+      "name": "",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "2029 12 ₹1,91,870 ₹2,04,582 ₹3,96,452 ₹19,40,306",
+      "container": {
+        "role": "table",
+        "name": "Yearly amortisation schedule"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 100,
+      "tag": "th",
+      "role": "columnheader",
+      "name": "2029",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "2029",
+      "container": {
+        "role": "table",
+        "name": "Yearly amortisation schedule"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 101,
+      "tag": "td",
+      "role": "cell",
+      "name": "12",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "12",
+      "container": {
+        "role": "table",
+        "name": "Yearly amortisation schedule"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 102,
+      "tag": "td",
+      "role": "cell",
+      "name": "₹1,91,870",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "₹1,91,870",
+      "container": {
+        "role": "table",
+        "name": "Yearly amortisation schedule"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 103,
+      "tag": "td",
+      "role": "cell",
+      "name": "₹2,04,582",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "₹2,04,582",
+      "container": {
+        "role": "table",
+        "name": "Yearly amortisation schedule"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 104,
+      "tag": "td",
+      "role": "cell",
+      "name": "₹3,96,452",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "₹3,96,452",
+      "container": {
+        "role": "table",
+        "name": "Yearly amortisation schedule"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 105,
+      "tag": "td",
+      "role": "cell",
+      "name": "₹19,40,306",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "₹19,40,306",
+      "container": {
+        "role": "table",
+        "name": "Yearly amortisation schedule"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 106,
+      "tag": "tr",
+      "role": "row",
+      "name": "",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "2030 12 ₹2,11,962 ₹1,84,490 ₹3,96,452 ₹17,28,345",
+      "container": {
+        "role": "table",
+        "name": "Yearly amortisation schedule"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 107,
+      "tag": "th",
+      "role": "columnheader",
+      "name": "2030",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "2030",
+      "container": {
+        "role": "table",
+        "name": "Yearly amortisation schedule"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 108,
+      "tag": "td",
+      "role": "cell",
+      "name": "12",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "12",
+      "container": {
+        "role": "table",
+        "name": "Yearly amortisation schedule"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 109,
+      "tag": "td",
+      "role": "cell",
+      "name": "₹2,11,962",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "₹2,11,962",
+      "container": {
+        "role": "table",
+        "name": "Yearly amortisation schedule"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 110,
+      "tag": "td",
+      "role": "cell",
+      "name": "₹1,84,490",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "₹1,84,490",
+      "container": {
+        "role": "table",
+        "name": "Yearly amortisation schedule"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 111,
+      "tag": "td",
+      "role": "cell",
+      "name": "₹3,96,452",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "₹3,96,452",
+      "container": {
+        "role": "table",
+        "name": "Yearly amortisation schedule"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 112,
+      "tag": "td",
+      "role": "cell",
+      "name": "₹17,28,345",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "₹17,28,345",
+      "container": {
+        "role": "table",
+        "name": "Yearly amortisation schedule"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 113,
+      "tag": "tr",
+      "role": "row",
+      "name": "",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "2031 12 ₹2,34,157 ₹1,62,295 ₹3,96,452 ₹14,94,188",
+      "container": {
+        "role": "table",
+        "name": "Yearly amortisation schedule"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 114,
+      "tag": "th",
+      "role": "columnheader",
+      "name": "2031",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "2031",
+      "container": {
+        "role": "table",
+        "name": "Yearly amortisation schedule"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 115,
+      "tag": "td",
+      "role": "cell",
+      "name": "12",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "12",
+      "container": {
+        "role": "table",
+        "name": "Yearly amortisation schedule"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 116,
+      "tag": "td",
+      "role": "cell",
+      "name": "₹2,34,157",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "₹2,34,157",
+      "container": {
+        "role": "table",
+        "name": "Yearly amortisation schedule"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 117,
+      "tag": "td",
+      "role": "cell",
+      "name": "₹1,62,295",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "₹1,62,295",
+      "container": {
+        "role": "table",
+        "name": "Yearly amortisation schedule"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 118,
+      "tag": "td",
+      "role": "cell",
+      "name": "₹3,96,452",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "₹3,96,452",
+      "container": {
+        "role": "table",
+        "name": "Yearly amortisation schedule"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 119,
+      "tag": "td",
+      "role": "cell",
+      "name": "₹14,94,188",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "₹14,94,188",
+      "container": {
+        "role": "table",
+        "name": "Yearly amortisation schedule"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 120,
+      "tag": "tr",
+      "role": "row",
+      "name": "",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "2032 12 ₹2,58,676 ₹1,37,776 ₹3,96,452 ₹12,35,511",
+      "container": {
+        "role": "table",
+        "name": "Yearly amortisation schedule"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 121,
+      "tag": "th",
+      "role": "columnheader",
+      "name": "2032",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "2032",
+      "container": {
+        "role": "table",
+        "name": "Yearly amortisation schedule"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 122,
+      "tag": "td",
+      "role": "cell",
+      "name": "12",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "12",
+      "container": {
+        "role": "table",
+        "name": "Yearly amortisation schedule"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 123,
+      "tag": "td",
+      "role": "cell",
+      "name": "₹2,58,676",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "₹2,58,676",
+      "container": {
+        "role": "table",
+        "name": "Yearly amortisation schedule"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 124,
+      "tag": "td",
+      "role": "cell",
+      "name": "₹1,37,776",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "₹1,37,776",
+      "container": {
+        "role": "table",
+        "name": "Yearly amortisation schedule"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 125,
+      "tag": "td",
+      "role": "cell",
+      "name": "₹3,96,452",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "₹3,96,452",
+      "container": {
+        "role": "table",
+        "name": "Yearly amortisation schedule"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 126,
+      "tag": "td",
+      "role": "cell",
+      "name": "₹12,35,511",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "₹12,35,511",
+      "container": {
+        "role": "table",
+        "name": "Yearly amortisation schedule"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 127,
+      "tag": "tr",
+      "role": "row",
+      "name": "",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "2033 12 ₹2,85,763 ₹1,10,689 ₹3,96,452 ₹9,49,748",
+      "container": {
+        "role": "table",
+        "name": "Yearly amortisation schedule"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 128,
+      "tag": "th",
+      "role": "columnheader",
+      "name": "2033",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "2033",
+      "container": {
+        "role": "table",
+        "name": "Yearly amortisation schedule"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 129,
+      "tag": "td",
+      "role": "cell",
+      "name": "12",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "12",
+      "container": {
+        "role": "table",
+        "name": "Yearly amortisation schedule"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 130,
+      "tag": "td",
+      "role": "cell",
+      "name": "₹2,85,763",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "₹2,85,763",
+      "container": {
+        "role": "table",
+        "name": "Yearly amortisation schedule"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 131,
+      "tag": "td",
+      "role": "cell",
+      "name": "₹1,10,689",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "₹1,10,689",
+      "container": {
+        "role": "table",
+        "name": "Yearly amortisation schedule"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 132,
+      "tag": "td",
+      "role": "cell",
+      "name": "₹3,96,452",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "₹3,96,452",
+      "container": {
+        "role": "table",
+        "name": "Yearly amortisation schedule"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 133,
+      "tag": "td",
+      "role": "cell",
+      "name": "₹9,49,748",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "₹9,49,748",
+      "container": {
+        "role": "table",
+        "name": "Yearly amortisation schedule"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 134,
+      "tag": "tr",
+      "role": "row",
+      "name": "",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "2034 12 ₹3,15,686 ₹80,766 ₹3,96,452 ₹6,34,062",
+      "container": {
+        "role": "table",
+        "name": "Yearly amortisation schedule"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 135,
+      "tag": "th",
+      "role": "columnheader",
+      "name": "2034",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "2034",
+      "container": {
+        "role": "table",
+        "name": "Yearly amortisation schedule"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 136,
+      "tag": "td",
+      "role": "cell",
+      "name": "12",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "12",
+      "container": {
+        "role": "table",
+        "name": "Yearly amortisation schedule"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 137,
+      "tag": "td",
+      "role": "cell",
+      "name": "₹3,15,686",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "₹3,15,686",
+      "container": {
+        "role": "table",
+        "name": "Yearly amortisation schedule"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 138,
+      "tag": "td",
+      "role": "cell",
+      "name": "₹80,766",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "₹80,766",
+      "container": {
+        "role": "table",
+        "name": "Yearly amortisation schedule"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 139,
+      "tag": "td",
+      "role": "cell",
+      "name": "₹3,96,452",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "₹3,96,452",
+      "container": {
+        "role": "table",
+        "name": "Yearly amortisation schedule"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 140,
+      "tag": "td",
+      "role": "cell",
+      "name": "₹6,34,062",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "₹6,34,062",
+      "container": {
+        "role": "table",
+        "name": "Yearly amortisation schedule"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 141,
+      "tag": "tr",
+      "role": "row",
+      "name": "",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "2035 12 ₹3,48,743 ₹47,710 ₹3,96,452 ₹2,85,319",
+      "container": {
+        "role": "table",
+        "name": "Yearly amortisation schedule"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 142,
+      "tag": "th",
+      "role": "columnheader",
+      "name": "2035",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "2035",
+      "container": {
+        "role": "table",
+        "name": "Yearly amortisation schedule"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 143,
+      "tag": "td",
+      "role": "cell",
+      "name": "12",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "12",
+      "container": {
+        "role": "table",
+        "name": "Yearly amortisation schedule"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 144,
+      "tag": "td",
+      "role": "cell",
+      "name": "₹3,48,743",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "₹3,48,743",
+      "container": {
+        "role": "table",
+        "name": "Yearly amortisation schedule"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 145,
+      "tag": "td",
+      "role": "cell",
+      "name": "₹47,710",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "₹47,710",
+      "container": {
+        "role": "table",
+        "name": "Yearly amortisation schedule"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 146,
+      "tag": "td",
+      "role": "cell",
+      "name": "₹3,96,452",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "₹3,96,452",
+      "container": {
+        "role": "table",
+        "name": "Yearly amortisation schedule"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 147,
+      "tag": "td",
+      "role": "cell",
+      "name": "₹2,85,319",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "₹2,85,319",
+      "container": {
+        "role": "table",
+        "name": "Yearly amortisation schedule"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 148,
+      "tag": "tr",
+      "role": "row",
+      "name": "",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "2036 9 ₹2,85,319 ₹12,020 ₹2,97,339 ₹0",
+      "container": {
+        "role": "table",
+        "name": "Yearly amortisation schedule"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 149,
+      "tag": "th",
+      "role": "columnheader",
+      "name": "2036",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "2036",
+      "container": {
+        "role": "table",
+        "name": "Yearly amortisation schedule"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 150,
+      "tag": "td",
+      "role": "cell",
+      "name": "9",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "9",
+      "container": {
+        "role": "table",
+        "name": "Yearly amortisation schedule"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 151,
+      "tag": "td",
+      "role": "cell",
+      "name": "₹2,85,319",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "₹2,85,319",
+      "container": {
+        "role": "table",
+        "name": "Yearly amortisation schedule"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 152,
+      "tag": "td",
+      "role": "cell",
+      "name": "₹12,020",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "₹12,020",
+      "container": {
+        "role": "table",
+        "name": "Yearly amortisation schedule"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 153,
+      "tag": "td",
+      "role": "cell",
+      "name": "₹2,97,339",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "₹2,97,339",
+      "container": {
+        "role": "table",
+        "name": "Yearly amortisation schedule"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 154,
+      "tag": "td",
+      "role": "cell",
+      "name": "₹0",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "₹0",
+      "container": {
+        "role": "table",
+        "name": "Yearly amortisation schedule"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 155,
+      "tag": "tr",
+      "role": "row",
+      "name": "",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "Total 120 ₹25,00,000 ₹14,64,522 ₹39,64,522 ₹0",
+      "container": {
+        "role": "table",
+        "name": "Yearly amortisation schedule"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 156,
+      "tag": "th",
+      "role": "columnheader",
+      "name": "Total",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "Total",
+      "container": {
+        "role": "table",
+        "name": "Yearly amortisation schedule"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 157,
+      "tag": "td",
+      "role": "cell",
+      "name": "120",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "120",
+      "container": {
+        "role": "table",
+        "name": "Yearly amortisation schedule"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 158,
+      "tag": "td",
+      "role": "cell",
+      "name": "₹25,00,000",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "₹25,00,000",
+      "container": {
+        "role": "table",
+        "name": "Yearly amortisation schedule"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 159,
+      "tag": "td",
+      "role": "cell",
+      "name": "₹14,64,522",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "₹14,64,522",
+      "container": {
+        "role": "table",
+        "name": "Yearly amortisation schedule"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 160,
+      "tag": "td",
+      "role": "cell",
+      "name": "₹39,64,522",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "₹39,64,522",
+      "container": {
+        "role": "table",
+        "name": "Yearly amortisation schedule"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 161,
+      "tag": "td",
+      "role": "cell",
+      "name": "₹0",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "₹0",
+      "container": {
+        "role": "table",
+        "name": "Yearly amortisation schedule"
+      },
+      "visible": true,
+      "matchedBroken": false
+    },
+    {
+      "ref": 162,
+      "tag": "footer",
+      "role": "contentinfo",
+      "name": "",
+      "testid": null,
+      "label": null,
+      "placeholder": null,
+      "text": "LoanLens · demonstration build · all borrowers, amounts and dates are synthetic. EMI = P × r × (1 + ",
+      "container": null,
+      "visible": true,
+      "matchedBroken": false
+    }
+  ],
+  "screenshot": "reports/self-healing/healing/incidents/calculator.loanAmountSlider.png",
+  "at": "2026-10-06T22:09:41.793Z"
+}
