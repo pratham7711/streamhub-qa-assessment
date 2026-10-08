@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<testsuite name="self-healing" time="15.723" tests="5" skipped="0" failures="5" errors="0" timestamp="2026-10-08T03:01:39.790Z">
+  <testcase classname="Self-healing exercise - five locators broken on purpose" name="Renamed test id - the Total loans figure shows the size of the loan book" time="5.203">
+    <failure type="Error" message="Locator &quot;dashboard.totalLoansValue&quot; failed: page.getByTestId('kpi-total-loans'): no element matched within 5 s.&#xA;Self-healing is off. Run &quot;npm run heal&quot; to ask Claude for a validated replacement."><![CDATA[Error: Locator "dashboard.totalLoansValue" failed: page.getByTestId('kpi-total-loans'): no element matched within 5 s.
+Self-healing is off. Run "npm run heal" to ask Claude for a validated replacement.
+    at HealableLocator.resolve (./self-healing/healer.ts:136:30)
+    at async CustomWorld.<anonymous> (./self-healing/steps/self-healing.steps.ts:20:16)]]></failure>
+    <system-out><![CDATA[Given I open the LoanLens dashboard.........................................passed
+Then the legacy Total loans figure should equal the number of loans in the loan book..failed]]></system-out>
+  </testcase>
+  <testcase classname="Self-healing exercise - five locators broken on purpose" name="Changed link text - the main navigation opens the EMI calculator" time="5.123">
+    <failure type="Error" message="Locator &quot;nav.calculatorLink&quot; failed: page.getByRole('link', { name: 'Calculator', exact: true }): no element matched within 5 s.&#xA;Self-healing is off. Run &quot;npm run heal&quot; to ask Claude for a validated replacement."><![CDATA[Error: Locator "nav.calculatorLink" failed: page.getByRole('link', { name: 'Calculator', exact: true }): no element matched within 5 s.
+Self-healing is off. Run "npm run heal" to ask Claude for a validated replacement.
+    at HealableLocator.resolve (./self-healing/healer.ts:136:30)
+    at async CustomWorld.<anonymous> (./self-healing/steps/self-healing.steps.ts:24:10)]]></failure>
+    <system-out><![CDATA[Given I open the LoanLens dashboard.........................................passed
+When I open the EMI calculator with the legacy navigation link..............failed
+Then the LoanLens screen heading should be "EMI calculator".................skipped]]></system-out>
+  </testcase>
+  <testcase classname="Self-healing exercise - five locators broken on purpose" name="Ambiguous label - the loan amount slider updates the number box" time="0.116">
+    <failure type="Error" message="Locator &quot;calculator.loanAmountSlider&quot; failed: page.getByLabel('Loan amount'): 2 elements matched, so any action on it breaks strict mode.&#xA;Self-healing is off. Run &quot;npm run heal&quot; to ask Claude for a validated replacement."><![CDATA[Error: Locator "calculator.loanAmountSlider" failed: page.getByLabel('Loan amount'): 2 elements matched, so any action on it breaks strict mode.
+Self-healing is off. Run "npm run heal" to ask Claude for a validated replacement.
+    at HealableLocator.resolve (./self-healing/healer.ts:136:30)
+    at async CustomWorld.<anonymous> (./self-healing/steps/self-healing.steps.ts:28:10)]]></failure>
+    <system-out><![CDATA[Given I open the LoanLens EMI calculator....................................passed
+When I set the loan amount to 5000000 with the legacy slider................failed
+Then the "Loan amount" box should contain "5000000".........................skipped]]></system-out>
+  </testcase>
+  <testcase classname="Self-healing exercise - five locators broken on purpose" name="Positional locator - the recent disbursements table starts with the newest loan" time="0.134">
+    <failure type="Error" message="Locator &quot;dashboard.recentDisbursementsTable&quot; failed: page.locator('table').first(): it found one element, but the wrong one: is not a table named Recent disbursements.&#xA;Self-healing is off. Run &quot;npm run heal&quot; to ask Claude for a validated replacement."><![CDATA[Error: Locator "dashboard.recentDisbursementsTable" failed: page.locator('table').first(): it found one element, but the wrong one: is not a table named Recent disbursements.
+Self-healing is off. Run "npm run heal" to ask Claude for a validated replacement.
+    at HealableLocator.resolve (./self-healing/healer.ts:136:30)
+    at async CustomWorld.<anonymous> (./self-healing/steps/self-healing.steps.ts:32:36)]]></failure>
+    <system-out><![CDATA[Given I open the LoanLens dashboard.........................................passed
+Then the legacy recent disbursements table should start with the most recently disbursed loan..failed]]></system-out>
+  </testcase>
+  <testcase classname="Self-healing exercise - five locators broken on purpose" name="Removed feature - exporting the loan book as CSV" time="5.126">
+    <failure type="Error" message="Locator &quot;dashboard.exportCsvButton&quot; failed: page.getByRole('button', { name: 'Export CSV' }): no element matched within 5 s.&#xA;Self-healing is off. Run &quot;npm run heal&quot; to ask Claude for a validated replacement."><![CDATA[Error: Locator "dashboard.exportCsvButton" failed: page.getByRole('button', { name: 'Export CSV' }): no element matched within 5 s.
+Self-healing is off. Run "npm run heal" to ask Claude for a validated replacement.
+    at HealableLocator.resolve (./self-healing/healer.ts:136:30)
+    at async CustomWorld.<anonymous> (./self-healing/steps/self-healing.steps.ts:37:18)]]></failure>
+    <system-out><![CDATA[Given I open the LoanLens dashboard.........................................passed
+When I press the legacy Export CSV button...................................failed
+Then a CSV file of the loans should be downloaded...........................skipped]]></system-out>
+  </testcase>
+</testsuite>

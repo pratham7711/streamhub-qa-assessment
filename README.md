@@ -1,61 +1,118 @@
-# Streamhub QA automation assessment
+# Streamhub QA Automation Assessment: Section A
 
-The brief asks for Section A *or* Section B. Both are done, and each is a project of its own, in its own folder. Each has its own `package.json` and lockfile, test framework, SQL, self-healing engine, reports and README, and neither reads or imports anything from the other. Either can be installed, run and graded alone.
+My submission for **Section A: web application + UI automation** (A1–A4), with the Playwright framework, the AI self-healing exercise and the Claude Code reflection that every submission needs.
 
-| | [Section A](sectionA/README.md) | [Section B](sectionB/README.md) |
-|---|---|---|
-| Brief | Web application + UI automation (A1–A4) | API development + API automation (B1–B4) |
-| Start here | [`sectionA/README.md`](sectionA/README.md) | [`sectionB/README.md`](sectionB/README.md) |
-| Run | `cd sectionA && npm ci && npx playwright install chromium && npm test` | `cd sectionB && npm ci && npx playwright install chromium && npm test` |
-| Results | [`sectionA/reports/SUMMARY.md`](sectionA/reports/SUMMARY.md) | [`sectionB/reports/SUMMARY.md`](sectionB/reports/SUMMARY.md) |
-| Last run | **0 unexpected failures**: 57 UI, 36 JSONPlaceholder, 6 SQL and 10 self-healing scenarios. The 26 red ones are expected. | **0 unexpected failures**: 106 API, 38 emicalculator.net, 6 SQL and 10 self-healing scenarios. The 21 red ones are expected. |
-| Mutation check | 18 of 18 planted bugs caught ([summary](sectionA/reports/mutation/SUMMARY.md)) | 49 of 49 planted bugs caught ([summary](sectionB/reports/mutation/SUMMARY.md)) |
+The web app is **LoanLens**: a loan-portfolio dashboard and an EMI calculator, built for this assessment. Its data is a mock JSON file read in the browser, so nothing else needs to run.
 
-Each section has its own app, and the two are not connected:
-- **Section A's web app** ([`sectionA/app`](sectionA/app)) is a React UI that reads its mock data in the browser, from a JSON file shipped with it. It makes no API calls.
-- **Section B's API** ([`sectionB/api`](sectionB/api)) is an Express server over its own mock data file. It serves no pages.
+![LoanLens dashboard](docs/screenshots/dashboard.png)
 
-Both are called LoanLens because they model the same loan book: 120 synthetic loans from the same deterministic generator and seed. Each section carries its own copy of the generator, and the two data files are identical.
+## 1. Run it
 
-Requirements: Node 22.12+, 24 or 26+ and npm. The suites start their own app, the SQL runs on an embedded PostgreSQL (PGlite), and the suites against public sites need internet access. Nothing else needs installing.
+You need Node 22.12+ (or 24, or 26+) and npm. No database and no API key.
 
-## Claude Code reflection
+```bash
+git clone https://github.com/pratham7711/streamhub-qa-assessment.git
+cd streamhub-qa-assessment
+npm ci
+npx playwright install chromium
+npm test
+```
 
-I used Claude Code as a pair programmer. It scaffolded the layers I specified, ran two sub-agents in parallel (the LoanLens UI with its suite, and the SQL), probed emicalculator.net's DOM and JSONPlaceholder's real responses before any test asserted on them, and is the LLM behind the self-healing POC.
+On Linux, use `npx playwright install --with-deps chromium` instead: it also installs the system libraries Chromium needs.
 
-**What worked:** speed on structure (page objects, step wiring, schemas, report plumbing), fast exploration of an unfamiliar DOM, and turning a failing run into a precise hypothesis.
+`npm test` builds the app, starts it on port 5055 (set `WEB_BASE_URL=http://localhost:<port>` to use another), runs the UI, API and self-healing suites, and writes the results to [`reports/`](reports). It exits with an error only on a failure that is not expected (see below). The JSONPlaceholder tests need internet access.
 
-**What did not.** Every case, with how it was caught, is in the [AI pairing log](#ai-pairing-log) below. The three that matter most:
-- **It wrote a wrong oracle.** `URLSearchParams.get` keeps only the first `type`, so a test expected 39 loans where the API correctly returned 66. A disagreement between test and app is investigated, not settled in the test's favour.
-- **Its first move on a numeric mismatch was to widen the tolerance.** An exact `Decimal` computation showed both sides drifted, the app further. That became a finding, and the one tolerance that stayed wide (schedule rows) is sized from the measured drift. EMI and totals are checked to the paisa, so a planted whole-rupee rounding bug (mutant E08), which the old ₹1 tolerance let through, now fails 10 scenarios.
-- **Its "malformed JSON" test sent valid JSON**, because Playwright re-encodes a string body. The server's error message gave it away.
+| Command | What it does |
+|---|---|
+| `npm run sql` | Runs both A4 queries on PostgreSQL (PGlite, in-process) and writes [`sql/results/`](sql/results) |
+| `npm run heal` | The self-healing POC: asks Claude to fix the broken locators. Needs the [Claude Code](https://claude.com/claude-code) CLI, logged in |
+| `npm run test:loanlens-ui` (or `test:jsonplaceholder`, `test:self-healing`) | One suite, into the git-ignored `test-results/` |
+| `npm run build && npm start` | The app itself, on http://localhost:5055 |
 
-**What I'd keep doing:** make the AI prove every claim against the real system, and keep oracles independent of the code under test.
+## 2. Results
 
-## AI pairing log
+Last run: 2026-10-08, macOS, Node 26.7. **0 unexpected failures.** Summary: [`reports/SUMMARY.md`](reports/SUMMARY.md).
 
-What Claude Code got wrong, and how it was caught. These are real incidents from building this repository, written down when they happened, and they are the raw material for the reflection above. They were recorded before the repository was split into two folders, so they name LoanLens as one app.
+| Suite | Brief | Scenarios | Passed | Failed on purpose |
+|---|---|---|---|---|
+| LoanLens UI | A2 | 10 | 10 | 0 |
+| JSONPlaceholder | A3 | 10 | 1 | 9: JSONPlaceholder accepts 8 of the 9 invalid posts with `201 Created` and answers the ninth with a `500`. These are [findings](jsonplaceholder/FINDINGS.md), tagged `@known-defect`. |
+| Self-healing, healing off | AI exercise | 5 | 0 | 5: the brief asks for these locators to stay broken. |
+| Self-healing, `npm run heal` | AI exercise | 5 | 4 | 1: Claude fixed 4. The fifth points at a removed feature, and it correctly refused to guess. |
+| SQL (`npm run sql`) | A4 | 2 queries | | 10 and 7 result rows: [`sql/results/`](sql/results) |
 
-| # | What the AI produced | How it was caught | Fix |
-|---|---|---|---|
-| 1 | Two step definitions, `I send a GET request to {string}` and `I send a {word} request to {string}`. Cucumber Expressions match both against the same text. | First suite run: "Multiple matching step definitions found". | One step that switches on the HTTP method. |
-| 2 | A `Before` hook that started the app server once per Cucumber worker. With `parallel: 4`, four servers raced for port 5055. Express 5 hands the bind error to the `listen` callback, so the losers printed "listening" and exited with code 0. | 5 of 6 scenarios failed with "LoanLens exited early (code 0)". The misleading log line took a second look. | The suite runner starts the app once, before the workers spawn. The server now handles `error` and exits non-zero. |
-| 3 | The test oracle read `?type=home&type=car` with `URLSearchParams.get`, which returns only the first value. The API merged both, as documented. | The oracle expected 39 loans and the API returned 66. The bug was in the test, not the app. | `getAll` + merge. |
-| 4 | EMI schedule assertions with `toBeCloseTo(x, 0)`, i.e. ±₹0.50. | ₹10 crore at 50% for 480 months: the app and the oracle use algebraically identical EMI formulas, but floating-point error grows with `(1+r)^n` and they drifted by ₹0.58. | Money is compared to ±₹1, with the reason recorded in the helper. |
-| 5 | Widening the tolerance until the test passed would have been the easy move. | Before changing the number, an exact `Decimal` (60-digit) amortisation decided which side was wrong. The true 2061 closing balance is ₹9,10,04,967.52; the app returned …968.56 (+₹1.04) and the oracle …967.04 (−₹0.48). Both are float64 drift of about 1e-8 relative. | Tolerance = max(₹1, 1e-7 × loan principal), because the error scales with the loan, not with each row, documented next to the assertion. Later raised to 2e-7, after the same Decimal check: at the ₹10 crore / 50% / 480-month corner the 2064 balances differ by ₹10.38 (app +₹7.07, oracle −₹3.31). EMI and totals, which do not compound, are now checked to the paisa. Recorded as a finding: production lending code should use decimal or integer-paise arithmetic. |
-| 6 | The first "Boundaries" example pushed every input to its maximum in one row (₹10 crore, 50%, 480 months). | The schedule drift kept growing toward maturity (₹10.8 by 2065). Each widened tolerance failed further down the schedule, which showed the tolerance was not the real problem. | Boundaries now vary one parameter at a time, which is standard boundary-value analysis. The combined corner is reported as a precision finding in the README instead of being hidden behind a looser tolerance. |
-| 7 | The "malformed JSON" payload was passed to `request.post` as a string. | The 500's stack trace named `createStrictSyntaxError` and quoted `"#"`. A truncated object would fail with "Unterminated string", so the server had received something else: given a string that does not parse, with a JSON content type, Playwright JSON-encodes it into a valid string literal. The test was not sending what its name claimed. | Raw payloads are always sent as a `Buffer`. Now the server reports "Unterminated string in JSON at position 23", the same as `curl`. |
-| 8 | The first draft of the findings doc quoted JSONPlaceholder's guide from memory: "the resource will not be really updated…". | Checked against the live page before publishing. The real sentence for POST is "The resource is not really created on the server, but the response is faked as if." | Quote replaced with the verbatim text. |
-| 9 | In the mutation check, mutant E07 (the last instalment not adjusted to clear the balance) was marked "equivalent", reasoning that a level EMI already clears the loan. | Measured instead of argued: without the adjustment the ₹10 crore / 50% / 480-month loan ends ₹11.55 short, and 1.2% of 200,000 random loans end at least half a paisa short. The final balance had been compared within the drift tolerance (about ₹20 at that size), which hid it. | The final balance is asserted to be exactly ₹0.00, and the combined corner from #6 is back as a boundary row, so E07 is caught on every run instead of only when a random draw hits it. |
-| 10 | The first oracle for the summary's monthly EMI inflow added up the exact EMIs; the API adds up the EMIs as quoted, in paise. | Tightening the comparison from ₹1 to the paisa (to kill a mutant that rounded the inflow to whole rupees) showed a 1-paisa gap: 38,72,687.93 vs …92. | The oracle sums the quoted EMIs, because that is what borrowers pay. The ₹1 tolerance had been hiding an oracle that modelled the wrong quantity. |
+Each folder in [`reports/`](reports) holds the HTML report, JSON, JUnit XML, the console log and screenshots, plus a Playwright trace for each failed UI scenario. GitHub shows HTML as source, so open the reports in a browser after cloning.
 
-## Notes
+## 3. The brief, point by point
 
-- Built and run on macOS (Node 26.7, Chromium via Playwright 1.63).
-- The CI workflow ([`.github/workflows/tests.yml`](.github/workflows/tests.yml)) runs each section in its own folder on Ubuntu, with the offline heuristic healer:
-  - Section A: typecheck, then the web app's UI suite, SQL and both self-healing suites. Section B: typecheck, then the API suite and SQL.
-  - Each section's mutation check, after those pass.
-  - Each section's public site, weekly as well: JSONPlaceholder for A; for B, emicalculator.net and Section B's self-healing exercise, which runs on it. These jobs may fail without blocking the rest, because this repo does not control those sites.
+| The brief asks for | Where it is |
+|---|---|
+| **Framework:** separate feature, step-definition and page-object files | Each suite has `features/` and `steps/`; the UI suites have `pages/` ([`loanlens-ui/pages`](loanlens-ui/pages)), the API suite an `api/` client. Shared World, hooks and config: [`framework/`](framework). |
+| **Framework:** environment configuration, no hardcoded URLs | URLs and timeouts come from [`config/env/.env.local`](config/env/.env.local), read by [`framework/config/env.ts`](framework/config/env.ts) (and by the runner, to start the app at `WEB_BASE_URL`). No URL is written in code. `TEST_ENV=<name>` picks `config/env/.env.<name>`, and real environment variables override the file. |
+| **Framework:** dynamic, resilient locators | Role and accessible name first (`getByRole('spinbutton', { name: 'Loan amount' })`), then label and test id. No XPath, no positional CSS. |
+| **Self-healing:** 3–5 broken locators, left broken | 5 in [`LegacyLocators.ts`](self-healing/pages/LegacyLocators.ts): a renamed test id, changed link text, an ambiguous label, a positional locator that finds the wrong table, and a removed feature. |
+| **Self-healing:** a markdown file on detection, prompt approach and validation | [`docs/SELF_HEALING.md`](docs/SELF_HEALING.md), sections 1–3. |
+| **Self-healing:** a working POC (bonus) | `npm run heal`. It detects each failure, asks Claude for a replacement, validates it on the live page, and reports it for review without editing the source. Result: [4 healed, 1 refused](reports/self-healing-healed/healing/SUGGESTIONS.md). |
+| **A1:** a dashboard of summarised data | Key figures: total loans, principal disbursed, weighted average rate, monthly EMI inflow ([`Dashboard.tsx`](app/src/pages/Dashboard.tsx)). |
+| **A1:** a view driven by user input | The EMI calculator: amount, rate and tenure, each a number box plus a slider ([`Calculator.tsx`](app/src/pages/Calculator.tsx)). |
+| **A1:** a chart reflecting the data | A donut of principal by loan type, a recent-loans table, and the calculator's yearly payments bar chart ([`components`](app/src/components)). |
+| **A2:** the dashboard loads | [`dashboard.feature:10`](loanlens-ui/features/dashboard.feature#L10) heading, title, key figures and recent loans; [`:21`](loanlens-ui/features/dashboard.feature#L21) navigating to the calculator. |
+| **A2:** input, checked against my own computed value | [`calculator.feature:10`](loanlens-ui/features/calculator.feature#L10): ₹25L at 10% for 10 years, ₹50L at 7.5% for 15 and ₹10L at 12% for 5. The EMI is written out in the examples (₹33,038, ₹46,351, ₹22,244), and the EMI, totals and every yearly bar must match [`framework/oracles/emi.ts`](framework/oracles/emi.ts), the suite's own formula, which never imports app code. [`:26`](loanlens-ui/features/calculator.feature#L26): invalid input (`-2383434`, empty, `1e6`, a 50-year tenure) is refused on its field, and fixing it brings the right figures back. |
+| **A2:** the chart is visible with non-zero, valid data | [`dashboard.feature:17`](loanlens-ui/features/dashboard.feature#L17): one non-zero slice per loan type, each equal to the loan book's principal, and the legend totals it. The calculator scenarios check one non-zero bar per loan year, each matching the computed schedule and drawn to scale. |
+| **A3:** long titles, special characters, missing fields; expect an error code and no server failure | [`create-post.feature`](jsonplaceholder/features/create-post.feature): a valid control, then rows for each of the brief's three inputs (long titles; NUL, invalid UTF-8 and `<script>` markup; a missing userId, a missing title and an empty object `{}`) plus a wrong-type userId, each expecting a 4xx. Write-up: [`FINDINGS.md`](jsonplaceholder/FINDINGS.md). |
+| **A4:** round-trip transfers; IPL 30+ streaks; the schema; screenshots of the output | [`sql/README.md`](sql/README.md): queries, schemas, seed data, assumptions, and the [output screenshots](sql/results). |
+| **Submission:** README with setup, how to run, architecture; results in the repo | This file, and [`reports/`](reports) plus [`sql/results/`](sql/results). |
 
-  Before the split into sections, the suites passed on GitHub Actions in [run 37576175866](https://github.com/pratham7711/streamhub-qa-assessment/actions/runs/37576175866) (2026-10-07), including the mutation check.
-- All loan data is synthetic, generated from a fixed seed by `npm run data:generate` in each section.
+![LoanLens EMI calculator](docs/screenshots/calculator.png)
+
+## 4. Architecture
+
+```mermaid
+flowchart LR
+  subgraph app["A1: LoanLens (app/)"]
+    pages["React pages and SVG charts"] --> json[("Mock data: public/data/loans.json")]
+  end
+  subgraph tests["Playwright + Cucumber"]
+    features["features/*.feature"] --> steps["steps/*.steps.ts"]
+    steps --> po["pages/ (page objects)"]
+    steps --> oracles["Oracles (framework/oracles)"]
+  end
+  po --> pages
+  oracles --> json
+  jp["jsonplaceholder/"] --> jpapi[("JSONPlaceholder, public API")]
+  sql["sql/run-queries.ts"] --> pglite[("PGlite: PostgreSQL in-process")]
+  healer["self-healing/"] -.->|"broken locator"| claude["Claude (claude -p)"]
+```
+
+- **The app.** React + Vite, served by a small Express server ([`app/server.ts`](app/server.ts)). The dashboard summarises the mock data in the browser ([`loanBook.ts`](app/src/data/loanBook.ts)); the calculator validates its input and works out the plan ([`emi.ts`](app/src/data/emi.ts)).
+- **Independent oracles.** Expected values come from [`framework/oracles`](framework/oracles), which reads the same data file and has its own EMI formula. A test that compares the app with its own formula proves nothing. As a check that the tests can fail, I planted a 0.1% error in the app's monthly rate: 8 of the 10 UI scenarios failed.
+- **The runner.** [`scripts/run-suite.mjs`](scripts/run-suite.mjs) starts the app if it is not already running and writes one suite's reports. [`scripts/run-all.mjs`](scripts/run-all.mjs) is `npm test`. Failures tagged `@known-defect` or `@broken-locator` stay red in the reports and do not fail the run, but only when they fail for the tagged reason (the API's answer, or the locator's diagnosis). A timeout or a step bug under those tags still fails it, and no assertion was weakened to get a green build.
+
+```
+app/              A1: the web app (src/pages, src/components, src/data, public/data/loans.json, server.ts)
+loanlens-ui/      A2: features/, steps/, pages/ (page objects), money.ts (rupee assertions)
+jsonplaceholder/  A3: features/, steps/, api/ (client and payloads), FINDINGS.md
+sql/              A4: queries/, schema/, seed/, results/, run-queries.ts
+self-healing/     healer.ts, claude.ts, and the exercise: features/, steps/, pages/LegacyLocators.ts
+framework/        World and hooks, config/env.ts, oracles/
+config/env/       .env.local, the run profile
+reports/          results of the last npm test and npm run heal
+```
+
+## 5. Claude Code reflection
+
+**How I used it.** As a pair programmer for the whole project. I described the framework I wanted, and it scaffolded the folders, page objects, step definitions and config. It built LoanLens, drafted the SQL, and checked how JSONPlaceholder actually responds before any test asserted on it. It is also the model behind the self-healing POC.
+
+**What worked.** It is very fast at structure, and at turning a failed run into a good guess about why. It also took steering well:
+- Its first version put LoanLens behind an Express API. Section A is about the UI, so I had the app read its mock data in the browser instead.
+- Its first tests were mostly happy paths. Then I typed `-2383434` as the loan amount into a public EMI calculator and it simply accepted it, so I asked for real negative testing. That value is now a row in [`calculator.feature`](loanlens-ui/features/calculator.feature), and LoanLens refuses it.
+- Left alone, it overbuilds. It kept adding screens, security tests, a mutation check and CI. I cut it back to what the brief asks for.
+
+**What did not.** Its mistakes looked correct, and each one was caught by running something, not by reading it:
+- Its first "malformed JSON" test was sending valid JSON, because Playwright re-encodes a string body. That is why the invalid UTF-8 row sends raw bytes.
+- The app passed every test on my machine, yet a fresh clone in a hidden folder (`~/.cache`) failed most of the UI tests. Express's `sendFile` refuses any path that contains a dot-folder. Only running the README steps on a clean copy showed it.
+- One of its chart checks read a whole table row as one number, gluing `₹36,80,70,000` to `100.0%`. The run failed, and the check now reads the rupee cell.
+
+That is why the expected values come from the suite's own oracles, and why the README steps were run on a clean copy before submitting.
+
+**Notes.** Built and run on macOS (Node 26.7, Chromium via Playwright 1.63). All loan data is synthetic.

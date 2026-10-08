@@ -1,0 +1,94 @@
+# self-healing-healed — 2026-10-08T03:01:55.924Z — TEST_ENV=local — node v26.7.0
+
+
+Feature: Self-healing exercise - five locators broken on purpose
+
+  @web-app @ui @broken-locator
+  Scenario: Renamed test id - the Total loans figure shows the size of the loan book       # self-healing/features/broken-locators.feature:13
+    ✔ Given I open the LoanLens dashboard                                                  # loanlens-ui/steps/common.steps.ts:10
+
+          Locator "dashboard.totalLoansValue" failed: page.getByTestId('kpi-total-loans'): no element matched within 5 s.
+
+
+          HEALED FOR THIS RUN ONLY: "dashboard.totalLoansValue" now uses page.getByRole('group', { name: 'Total loans' }).getByTestId('kpi-value')
+          The test id 'kpi-value' exists inside the 'Total loans' group and holds the number 120, matching the fingerprint.
+          The page object is unchanged; see healing/SUGGESTIONS.md.
+
+    ✔ Then the legacy Total loans figure should equal the number of loans in the loan book # self-healing/steps/self-healing.steps.ts:19
+
+  @web-app @ui @broken-locator
+  Scenario: Changed link text - the main navigation opens the EMI calculator # self-healing/features/broken-locators.feature:17
+    ✔ Given I open the LoanLens dashboard                                    # loanlens-ui/steps/common.steps.ts:10
+
+          Locator "nav.calculatorLink" failed: page.getByRole('link', { name: 'Calculator', exact: true }): no element matched within 5 s.
+
+
+          HEALED FOR THIS RUN ONLY: "nav.calculatorLink" now uses page.getByRole('navigation', { name: 'Primary' }).getByRole('link', { name: 'EMI calculator', exact: true })
+          The link is now named "EMI calculator" and sits inside the Primary navigation, matching the expected fingerprint.
+          The page object is unchanged; see healing/SUGGESTIONS.md.
+
+    ✔ When I open the EMI calculator with the legacy navigation link         # self-healing/steps/self-healing.steps.ts:23
+    ✔ Then the LoanLens screen heading should be "EMI calculator"            # loanlens-ui/steps/common.steps.ts:26
+
+  @web-app @ui @broken-locator
+  Scenario: Ambiguous label - the loan amount slider updates the number box # self-healing/features/broken-locators.feature:22
+    ✔ Given I open the LoanLens EMI calculator                              # loanlens-ui/steps/common.steps.ts:14
+
+          Locator "calculator.loanAmountSlider" failed: page.getByLabel('Loan amount'): 2 elements matched, so any action on it breaks strict mode.
+
+
+          HEALED FOR THIS RUN ONLY: "calculator.loanAmountSlider" now uses page.getByRole('slider', { name: 'Loan amount', exact: true })
+          Role slider with exact name 'Loan amount' excludes the spinbutton that shares the same label and matches only the range slider.
+          The page object is unchanged; see healing/SUGGESTIONS.md.
+
+    ✔ When I set the loan amount to 5000000 with the legacy slider          # self-healing/steps/self-healing.steps.ts:27
+    ✔ Then the "Loan amount" box should contain "5000000"                   # loanlens-ui/steps/calculator.steps.ts:77
+
+  @web-app @ui @broken-locator
+  Scenario: Positional locator - the recent disbursements table starts with the newest loan         # self-healing/features/broken-locators.feature:27
+    ✔ Given I open the LoanLens dashboard                                                           # loanlens-ui/steps/common.steps.ts:10
+
+          Locator "dashboard.recentDisbursementsTable" failed: page.locator('table').first(): it found one element, but the wrong one: is not a table named Recent disbursements.
+
+
+          HEALED FOR THIS RUN ONLY: "dashboard.recentDisbursementsTable" now uses page.getByRole('table', { name: 'Recent disbursements', exact: true })
+          The page exposes a table whose accessible name is exactly 'Recent disbursements', which matches the expected fingerprint and is unique.
+          The page object is unchanged; see healing/SUGGESTIONS.md.
+
+    ✔ Then the legacy recent disbursements table should start with the most recently disbursed loan # self-healing/steps/self-healing.steps.ts:31
+
+  @web-app @ui @broken-locator @unhealable
+  Scenario: Removed feature - exporting the loan book as CSV # self-healing/features/broken-locators.feature:32
+    ✔ Given I open the LoanLens dashboard                    # loanlens-ui/steps/common.steps.ts:10
+
+          Locator "dashboard.exportCsvButton" failed: page.getByRole('button', { name: 'Export CSV' }): no element matched within 5 s.
+
+    ✘ When I press the legacy Export CSV button              # self-healing/steps/self-healing.steps.ts:36
+          Error: Locator "dashboard.exportCsvButton" failed: page.getByRole('button', { name: 'Export CSV' }): no element matched within 5 s.
+          Claude proposed no locator that passed validation (0 rejected).
+              at HealableLocator.resolve (./self-healing/healer.ts:158:28)
+              at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+              at async CustomWorld.<anonymous> (./self-healing/steps/self-healing.steps.ts:37:18)
+    ↷ Then a CSV file of the loans should be downloaded      # self-healing/steps/self-healing.steps.ts:42
+
+          Embedding removed-feature-exporting-the-loan-book-as-csv--01-failure.png [image/png 116841 bytes]
+
+
+          Playwright trace: reports/self-healing-healed/traces/removed-feature-exporting-the-loan-book-as-csv.zip
+
+
+Failed scenarios:
+  1) Removed feature - exporting the loan book as CSV # self-healing/features/broken-locators.feature:32
+       When I press the legacy Export CSV button # self-healing/steps/self-healing.steps.ts:36
+           Error: Locator "dashboard.exportCsvButton" failed: page.getByRole('button', { name: 'Export CSV' }): no element matched within 5 s.
+           Claude proposed no locator that passed validation (0 rejected).
+               at HealableLocator.resolve (./self-healing/healer.ts:158:28)
+               at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+               at async CustomWorld.<anonymous> (./self-healing/steps/self-healing.steps.ts:37:18)
+
+           Locator "dashboard.exportCsvButton" failed: page.getByRole('button', { name: 'Export CSV' }): no element matched within 5 s.
+
+1 hook (1 passed)
+5 scenarios (4 passed, 1 failed)
+43 steps (41 passed, 1 skipped, 1 failed)
+0m 35.307s (0m 35.293s executing your code)

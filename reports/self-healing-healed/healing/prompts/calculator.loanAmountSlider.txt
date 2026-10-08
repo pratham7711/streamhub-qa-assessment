@@ -1,0 +1,77 @@
+<purpose key="calculator.loanAmountSlider">The range slider that sets the loan amount in the EMI calculator</purpose>
+<expected_fingerprint>role: slider; name: Loan amount</expected_fingerprint>
+<failed_locator>page.getByLabel('Loan amount')</failed_locator>
+<failure>2 elements matched, so any action on it breaks strict mode</failure>
+<page url="http://localhost:5055/calculator">
+- link "Skip to content":
+  - /url: "#main"
+- banner:
+  - link "LoanLens home":
+    - /url: /
+    - text: LoanLens
+  - navigation "Primary":
+    - list:
+      - listitem:
+        - link "Dashboard":
+          - /url: /
+      - listitem:
+        - link "EMI calculator":
+          - /url: /calculator
+- main:
+  - heading "EMI calculator" [level=1]
+  - paragraph: Monthly instalment, total interest and the year-by-year repayment plan for a reducing-balance loan.
+  - form "Loan details":
+    - text: Loan amount
+    - spinbutton "Loan amount": "2500000"
+    - text: ₹
+    - slider "Loan amount": "2500000"
+    - text: Interest rate
+    - spinbutton "Interest rate": "10"
+    - text: "% p.a."
+    - slider "Interest rate": "10"
+    - text: Loan tenure
+    - spinbutton "Loan tenure": "10"
+    - text: years
+    - slider "Loan tenure": "10"
+  - region "Repayment summary":
+    - heading "Repayment summary" [level=2]
+    - group "Monthly EMI":
+      - term: Monthly EMI
+      - definition: ₹33,038
+    - group "Total interest":
+      - term: Total interest
+      - definition: ₹14,64,522
+    - group "Total payment":
+      - term: Total payment
+      - definition: ₹39,64,522
+  - figure "Yearly payments":
+    - text: Yearly payments
+    - list "Yearly payments legend":
+      - listitem: Principal
+      - listitem: Interest
+    - paragraph: 120 monthly payments, grouped by loan year.
+    - group "Yearly payments chart":
+      - 'img "Year 1: Principal ₹1,53,355, Interest ₹2,43,098, total ₹3,96,452"'
+      - 'img "Year 2: Principal ₹1,69,413, Interest ₹2,27,039, total ₹3,96,452"'
+      - 'img "Year 3: Principal ₹1,87,153, Interest ₹2,09,300, total ₹3,96,452"'
+      - 'img "Year 4: Principal ₹2,06,750, Interest ₹1,89,702, total ₹3,96,452"'
+      - 'img "Year 5: Principal ₹2,28,399, Interest ₹1,68,053, total ₹3,96,452"'
+      - 'img "Year 6: Principal ₹2,52,316, Interest ₹1,44,137, total ₹3,96,452"'
+      - 'img "Year 7: Principal ₹2,78,736, Interest ₹1,17,716, total ₹3,96,452"'
+      - 'img "Year 8: Principal ₹3,07,924, Interest ₹88,528, total ₹3,96,452"'
+      - 'img "Year 9: Principal ₹3,40,167, Interest ₹56,285, total ₹3,96,452"'
+      - 'img "Year 10: Principal ₹3,75,787, Interest ₹20,665, total ₹3,96,452"'
+- contentinfo:
+  - paragraph: LoanLens · demonstration build · all borrowers, amounts and dates are synthetic.
+  - paragraph:
+    - text: EMI = P × r × (1 + r)
+    - superscript: "n"
+    - text: ÷ ((1 + r)
+    - superscript: "n"
+    - text: − 1), reducing balance, monthly rests.
+</page>
+<test_ids>
+
+</test_ids>
+
+Propose replacement locators for the failed one.

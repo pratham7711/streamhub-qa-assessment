@@ -1,2 +1,6 @@
-.DS_Store
 node_modules
+.env
+.DS_Store
+app/dist/
+# Ad-hoc single-suite runs go to test-results/; `npm test` writes the committed evidence to reports/.
+test-results/

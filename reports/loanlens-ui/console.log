@@ -1,0 +1,131 @@
+# loanlens-ui — 2026-10-08T03:01:26.963Z — TEST_ENV=local — node v26.7.0
+
+
+Feature: LoanLens UI - EMI calculator
+
+  @web-app @ui @loanlens-ui
+  Scenario Outline: A 25L loan at 10% for 10 years                                          # loanlens-ui/features/calculator.feature:20
+    ✔ Given I open the LoanLens EMI calculator                                              # loanlens-ui/steps/common.steps.ts:14
+    ✔ When I enter a loan of "25L" at 10% for 10 years                                      # loanlens-ui/steps/calculator.steps.ts:12
+    ✔ Then the monthly EMI should read "₹33,038"                                            # loanlens-ui/steps/calculator.steps.ts:23
+    ✔ And the monthly EMI, total interest and total payment should match my own calculation # loanlens-ui/steps/calculator.steps.ts:27
+    ✔ And the yearly payments chart should show one non-zero bar per loan year              # loanlens-ui/steps/calculator.steps.ts:35
+    ✔ And every yearly bar should match my own amortisation                                 # loanlens-ui/steps/calculator.steps.ts:45
+
+          Embedding a-25l-loan-at-10-for-10-years--01-25l-at-10-for-10-years.png [image/png 77583 bytes]
+
+    ✔ And I capture evidence "25L at 10% for 10 years"                                      # loanlens-ui/steps/common.steps.ts:34
+
+  @web-app @ui @loanlens-ui
+  Scenario Outline: A 50L loan at 7.5% for 15 years                                         # loanlens-ui/features/calculator.feature:21
+    ✔ Given I open the LoanLens EMI calculator                                              # loanlens-ui/steps/common.steps.ts:14
+    ✔ When I enter a loan of "50L" at 7.5% for 15 years                                     # loanlens-ui/steps/calculator.steps.ts:12
+    ✔ Then the monthly EMI should read "₹46,351"                                            # loanlens-ui/steps/calculator.steps.ts:23
+    ✔ And the monthly EMI, total interest and total payment should match my own calculation # loanlens-ui/steps/calculator.steps.ts:27
+    ✔ And the yearly payments chart should show one non-zero bar per loan year              # loanlens-ui/steps/calculator.steps.ts:35
+    ✔ And every yearly bar should match my own amortisation                                 # loanlens-ui/steps/calculator.steps.ts:45
+
+          Embedding a-50l-loan-at-7-5-for-15-years--01-50l-at-7-5-for-15-years.png [image/png 78147 bytes]
+
+    ✔ And I capture evidence "50L at 7.5% for 15 years"                                     # loanlens-ui/steps/common.steps.ts:34
+
+  @web-app @ui @loanlens-ui
+  Scenario Outline: A 10L loan at 12% for 5 years                                           # loanlens-ui/features/calculator.feature:22
+    ✔ Given I open the LoanLens EMI calculator                                              # loanlens-ui/steps/common.steps.ts:14
+    ✔ When I enter a loan of "10L" at 12% for 5 years                                       # loanlens-ui/steps/calculator.steps.ts:12
+    ✔ Then the monthly EMI should read "₹22,244"                                            # loanlens-ui/steps/calculator.steps.ts:23
+    ✔ And the monthly EMI, total interest and total payment should match my own calculation # loanlens-ui/steps/calculator.steps.ts:27
+    ✔ And the yearly payments chart should show one non-zero bar per loan year              # loanlens-ui/steps/calculator.steps.ts:35
+    ✔ And every yearly bar should match my own amortisation                                 # loanlens-ui/steps/calculator.steps.ts:45
+
+          Embedding a-10l-loan-at-12-for-5-years--01-10l-at-12-for-5-years.png [image/png 75696 bytes]
+
+    ✔ And I capture evidence "10L at 12% for 5 years"                                       # loanlens-ui/steps/common.steps.ts:34
+
+  @web-app @ui @loanlens-ui
+  Scenario Outline: A negative loan amount is refused                                                          # loanlens-ui/features/calculator.feature:37
+    ✔ Given I open the LoanLens EMI calculator                                                                 # loanlens-ui/steps/common.steps.ts:14
+    ✔ When I enter a loan of "25L" at 10% for 10 years                                                         # loanlens-ui/steps/calculator.steps.ts:12
+    ✔ And I type "-2383434" into the "Loan amount" box                                                         # loanlens-ui/steps/calculator.steps.ts:17
+    ✔ Then the "Loan amount" box should show the error "Loan amount must be between ₹1,000 and ₹10,00,00,000." # loanlens-ui/steps/calculator.steps.ts:66
+    ✔ And the repayment summary and the chart should be hidden                                                 # loanlens-ui/steps/calculator.steps.ts:70
+
+          Embedding a-negative-loan-amount-is-refused--01-a-negative-loan-amount.png [image/png 62115 bytes]
+
+    ✔ And I capture evidence "A negative loan amount"                                                          # loanlens-ui/steps/common.steps.ts:34
+    ✔ When I type "2000000" into the "Loan amount" box                                                         # loanlens-ui/steps/calculator.steps.ts:17
+    ✔ Then the monthly EMI, total interest and total payment should match my own calculation                   # loanlens-ui/steps/calculator.steps.ts:27
+
+  @web-app @ui @loanlens-ui
+  Scenario Outline: An empty loan amount is refused                                          # loanlens-ui/features/calculator.feature:38
+    ✔ Given I open the LoanLens EMI calculator                                               # loanlens-ui/steps/common.steps.ts:14
+    ✔ When I enter a loan of "25L" at 10% for 10 years                                       # loanlens-ui/steps/calculator.steps.ts:12
+    ✔ And I type "" into the "Loan amount" box                                               # loanlens-ui/steps/calculator.steps.ts:17
+    ✔ Then the "Loan amount" box should show the error "Enter a loan amount in rupees."      # loanlens-ui/steps/calculator.steps.ts:66
+    ✔ And the repayment summary and the chart should be hidden                               # loanlens-ui/steps/calculator.steps.ts:70
+
+          Embedding an-empty-loan-amount-is-refused--01-an-empty-loan-amount.png [image/png 58407 bytes]
+
+    ✔ And I capture evidence "An empty loan amount"                                          # loanlens-ui/steps/common.steps.ts:34
+    ✔ When I type "3000000" into the "Loan amount" box                                       # loanlens-ui/steps/calculator.steps.ts:17
+    ✔ Then the monthly EMI, total interest and total payment should match my own calculation # loanlens-ui/steps/calculator.steps.ts:27
+
+  @web-app @ui @loanlens-ui
+  Scenario Outline: An amount in exponent form is refused                                                                  # loanlens-ui/features/calculator.feature:39
+    ✔ Given I open the LoanLens EMI calculator                                                                             # loanlens-ui/steps/common.steps.ts:14
+    ✔ When I enter a loan of "25L" at 10% for 10 years                                                                     # loanlens-ui/steps/calculator.steps.ts:12
+    ✔ And I type "1e6" into the "Loan amount" box                                                                          # loanlens-ui/steps/calculator.steps.ts:17
+    ✔ Then the "Loan amount" box should show the error "Loan amount must be written in plain digits, for example 2500000." # loanlens-ui/steps/calculator.steps.ts:66
+    ✔ And the repayment summary and the chart should be hidden                                                             # loanlens-ui/steps/calculator.steps.ts:70
+
+          Embedding an-amount-in-exponent-form-is-refused--01-an-amount-in-exponent-form.png [image/png 62442 bytes]
+
+    ✔ And I capture evidence "An amount in exponent form"                                                                  # loanlens-ui/steps/common.steps.ts:34
+    ✔ When I type "2000000" into the "Loan amount" box                                                                     # loanlens-ui/steps/calculator.steps.ts:17
+    ✔ Then the monthly EMI, total interest and total payment should match my own calculation                               # loanlens-ui/steps/calculator.steps.ts:27
+
+  @web-app @ui @loanlens-ui
+  Scenario Outline: A tenure longer than 40 years is refused                                                           # loanlens-ui/features/calculator.feature:40
+    ✔ Given I open the LoanLens EMI calculator                                                                         # loanlens-ui/steps/common.steps.ts:14
+    ✔ When I enter a loan of "25L" at 10% for 10 years                                                                 # loanlens-ui/steps/calculator.steps.ts:12
+    ✔ And I type "50" into the "Loan tenure" box                                                                       # loanlens-ui/steps/calculator.steps.ts:17
+    ✔ Then the "Loan tenure" box should show the error "Loan tenure must be a whole number of years between 1 and 40." # loanlens-ui/steps/calculator.steps.ts:66
+    ✔ And the repayment summary and the chart should be hidden                                                         # loanlens-ui/steps/calculator.steps.ts:70
+
+          Embedding a-tenure-longer-than-40-years-is-refused--01-a-tenure-longer-than-40-years.png [image/png 62607 bytes]
+
+    ✔ And I capture evidence "A tenure longer than 40 years"                                                           # loanlens-ui/steps/common.steps.ts:34
+    ✔ When I type "20" into the "Loan tenure" box                                                                      # loanlens-ui/steps/calculator.steps.ts:17
+    ✔ Then the monthly EMI, total interest and total payment should match my own calculation                           # loanlens-ui/steps/calculator.steps.ts:27
+
+Feature: LoanLens UI - Portfolio dashboard
+
+  @web-app @ui @loanlens-ui
+  Scenario: The dashboard loads with its heading, key figures and recent loans           # loanlens-ui/features/dashboard.feature:10
+    ✔ Given I open the LoanLens dashboard                                                # loanlens-ui/steps/common.steps.ts:10
+    ✔ Then the LoanLens screen heading should be "Portfolio overview"                    # loanlens-ui/steps/common.steps.ts:26
+    ✔ And the browser tab title should be "Portfolio overview · LoanLens"                # loanlens-ui/steps/common.steps.ts:30
+    ✔ And the dashboard key figures should match the loan book                           # loanlens-ui/steps/dashboard.steps.ts:12
+    ✔ And the recent disbursements table should list the 5 most recently disbursed loans # loanlens-ui/steps/dashboard.steps.ts:22
+
+          Embedding the-dashboard-loads-with-its-heading-key-figures-and-recent-loans--01-dashboard.png [image/png 116841 bytes]
+
+    ✔ And I capture evidence "dashboard"                                                 # loanlens-ui/steps/common.steps.ts:34
+
+  @web-app @ui @loanlens-ui
+  Scenario: The principal-by-type donut shows every loan type's principal                                                 # loanlens-ui/features/dashboard.feature:17
+    ✔ Given I open the LoanLens dashboard                                                                                 # loanlens-ui/steps/common.steps.ts:10
+    ✔ Then the "Principal by loan type" donut should draw one non-zero slice per loan type with the loan book's principal # loanlens-ui/steps/dashboard.steps.ts:27
+    ✔ And the "Principal by loan type" donut's legend should total the loan book's principal                              # loanlens-ui/steps/dashboard.steps.ts:38
+
+  @web-app @ui @loanlens-ui
+  Scenario: The main navigation opens the EMI calculator             # loanlens-ui/features/dashboard.feature:21
+    ✔ Given I open the LoanLens dashboard                            # loanlens-ui/steps/common.steps.ts:10
+    ✔ When I follow the "EMI calculator" link in the main navigation # loanlens-ui/steps/common.steps.ts:18
+    ✔ Then the address bar should show "/calculator"                 # loanlens-ui/steps/common.steps.ts:22
+    ✔ And the LoanLens screen heading should be "EMI calculator"     # loanlens-ui/steps/common.steps.ts:26
+
+1 hook (1 passed)
+10 scenarios (10 passed)
+116 steps (116 passed)
+0m 1.427s (0m 1.405s executing your code)

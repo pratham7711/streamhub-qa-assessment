@@ -1,0 +1,142 @@
+<purpose key="dashboard.recentDisbursementsTable">The table of recent disbursements on the dashboard, one row per loan</purpose>
+<expected_fingerprint>role: table; name: Recent disbursements</expected_fingerprint>
+<failed_locator>page.locator('table').first()</failed_locator>
+<failure>it found one element, but the wrong one: is not a table named Recent disbursements</failure>
+<page url="http://localhost:5055/">
+- link "Skip to content":
+  - /url: "#main"
+- banner:
+  - link "LoanLens home":
+    - /url: /
+    - text: LoanLens
+  - navigation "Primary":
+    - list:
+      - listitem:
+        - link "Dashboard":
+          - /url: /
+      - listitem:
+        - link "EMI calculator":
+          - /url: /calculator
+- main:
+  - heading "Portfolio overview" [level=1]
+  - paragraph: 120 loans across four products.
+  - group "Total loans":
+    - term: Total loans
+    - definition: "120"
+    - definition: 74 active
+  - group "Principal disbursed":
+    - term: Principal disbursed
+    - definition: ₹36,80,70,000
+    - definition: Across four loan products
+  - group "Weighted avg. rate":
+    - term: Weighted avg. rate
+    - definition: 9.86%
+    - definition: Weighted by principal
+  - group "Monthly EMI inflow":
+    - term: Monthly EMI inflow
+    - definition: ₹38,72,688
+    - definition: Active and overdue loans
+  - figure "Principal by loan type":
+    - text: Principal by loan type
+    - group "Principal by loan type chart":
+      - 'img "Home: ₹26,05,00,000 (70.8%)"'
+      - 'img "Personal: ₹6,34,40,000 (17.2%)"'
+      - 'img "Car: ₹3,31,80,000 (9.0%)"'
+      - 'img "Education: ₹1,09,50,000 (3.0%)"'
+    - table "Principal by loan type values":
+      - rowgroup:
+        - row "Segment Principal Share":
+          - columnheader "Segment"
+          - columnheader "Principal"
+          - columnheader "Share"
+      - rowgroup:
+        - row "Home ₹26,05,00,000 70.8%":
+          - rowheader "Home"
+          - cell "₹26,05,00,000"
+          - cell "70.8%"
+        - row "Personal ₹6,34,40,000 17.2%":
+          - rowheader "Personal"
+          - cell "₹6,34,40,000"
+          - cell "17.2%"
+        - row "Car ₹3,31,80,000 9.0%":
+          - rowheader "Car"
+          - cell "₹3,31,80,000"
+          - cell "9.0%"
+        - row "Education ₹1,09,50,000 3.0%":
+          - rowheader "Education"
+          - cell "₹1,09,50,000"
+          - cell "3.0%"
+      - rowgroup:
+        - row "Total ₹36,80,70,000 100.0%":
+          - rowheader "Total"
+          - cell "₹36,80,70,000"
+          - cell "100.0%"
+  - heading "Recent disbursements" [level=2]
+  - table "Recent disbursements":
+    - rowgroup:
+      - row "Loan Borrower Type City Amount Disbursed Status":
+        - columnheader "Loan"
+        - columnheader "Borrower"
+        - columnheader "Type"
+        - columnheader "City"
+        - columnheader "Amount"
+        - columnheader "Disbursed"
+        - columnheader "Status"
+    - rowgroup:
+      - row "LN-1075 Karan Joshi Education Hyderabad ₹22,00,000 24 Sept 2025 Active":
+        - cell "LN-1075"
+        - cell "Karan Joshi"
+        - cell "Education"
+        - cell "Hyderabad"
+        - cell "₹22,00,000"
+        - cell "24 Sept 2025"
+        - cell "Active"
+      - row "LN-1045 Kabir Malhotra Personal Delhi ₹15,70,000 21 Sept 2025 Pending":
+        - cell "LN-1045"
+        - cell "Kabir Malhotra"
+        - cell "Personal"
+        - cell "Delhi"
+        - cell "₹15,70,000"
+        - cell "21 Sept 2025"
+        - cell "Pending"
+      - row "LN-1117 Pooja Chopra Car Mumbai ₹16,30,000 13 Sept 2025 Active":
+        - cell "LN-1117"
+        - cell "Pooja Chopra"
+        - cell "Car"
+        - cell "Mumbai"
+        - cell "₹16,30,000"
+        - cell "13 Sept 2025"
+        - cell "Active"
+      - row "LN-1047 Ishaan Pillai Home Jaipur ₹1,19,00,000 10 Sept 2025 Active":
+        - cell "LN-1047"
+        - cell "Ishaan Pillai"
+        - cell "Home"
+        - cell "Jaipur"
+        - cell "₹1,19,00,000"
+        - cell "10 Sept 2025"
+        - cell "Active"
+      - row "LN-1084 Neha Mehta Home Delhi ₹93,00,000 31 Aug 2025 Active":
+        - cell "LN-1084"
+        - cell "Neha Mehta"
+        - cell "Home"
+        - cell "Delhi"
+        - cell "₹93,00,000"
+        - cell "31 Aug 2025"
+        - cell "Active"
+- contentinfo:
+  - paragraph: LoanLens · demonstration build · all borrowers, amounts and dates are synthetic.
+  - paragraph:
+    - text: EMI = P × r × (1 + r)
+    - superscript: "n"
+    - text: ÷ ((1 + r)
+    - superscript: "n"
+    - text: − 1), reducing balance, monthly rests.
+</page>
+<test_ids>
+data-testid="kpi-value" text="120" inside "Total loans"
+data-testid="kpi-value" text="₹36,80,70,000" inside "Principal disbursed"
+data-testid="kpi-value" text="9.86%" inside "Weighted avg. rate"
+data-testid="kpi-value" text="₹38,72,688" inside "Monthly EMI inflow"
+</test_ids>
+
+Propose replacement locators for the failed one.

@@ -1,0 +1,840 @@
+[
+  {
+    "description": "  Brief A3: invalid input should get an HTTP error code or an error message, without a\n  server-side failure. JSONPlaceholder documents itself as a fake that validates nothing,\n  so the invalid rows are expected to fail. Each failure is written up in\n  jsonplaceholder/FINDINGS.md.",
+    "elements": [
+      {
+        "description": "",
+        "id": "jsonplaceholder-post-/posts-with-boundary-and-invalid-data;a-valid-post-is-created",
+        "keyword": "Scenario",
+        "line": 8,
+        "name": "A valid post is created",
+        "steps": [
+          {
+            "result": {
+              "status": "passed",
+              "duration": 128375
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 14467290
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 553455042
+            },
+            "arguments": [],
+            "keyword": "When ",
+            "line": 9,
+            "name": "I create \"a valid post\"",
+            "match": {
+              "location": "jsonplaceholder/steps/jsonplaceholder.steps.ts:14"
+            },
+            "embeddings": [
+              {
+                "data": "UGF5bG9hZCAiYSB2YWxpZCBwb3N0IjogdGl0bGUsIGJvZHkgYW5kIHVzZXJJZCBhbGwgcHJlc2VudCBhbmQgd2VsbC1mb3JtZWQKUE9TVCBodHRwczovL2pzb25wbGFjZWhvbGRlci50eXBpY29kZS5jb20vcG9zdHMK4oaSIDIwMSBDcmVhdGVkIGluIDU1MyBtcwp7CiAgInRpdGxlIjogIlF1YXJ0ZXJseSBsb2FuIGJvb2sgcmV2aWV3IiwKICAiYm9keSI6ICJQb3J0Zm9saW8gbm90ZXMgZm9yIFEzLiIsCiAgInVzZXJJZCI6IDEsCiAgImlkIjogMTAxCn0=",
+                "mime_type": "text/plain"
+              }
+            ]
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 2230750
+            },
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 10,
+            "name": "the post should be created with id 101",
+            "match": {
+              "location": "jsonplaceholder/steps/jsonplaceholder.steps.ts:24"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 1167583
+            },
+            "arguments": [],
+            "keyword": "And ",
+            "line": 11,
+            "name": "the created post should echo every submitted field",
+            "match": {
+              "location": "jsonplaceholder/steps/jsonplaceholder.steps.ts:30"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 1709207
+            },
+            "keyword": "After",
+            "hidden": true
+          }
+        ],
+        "tags": [
+          {
+            "name": "@api",
+            "line": 1
+          },
+          {
+            "name": "@jsonplaceholder",
+            "line": 1
+          }
+        ],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "jsonplaceholder-post-/posts-with-boundary-and-invalid-data;a-10,000-character-title-is-rejected-without-a-server-error",
+        "keyword": "Scenario Outline",
+        "line": 20,
+        "name": "a 10,000-character title is rejected without a server error",
+        "steps": [
+          {
+            "result": {
+              "status": "passed",
+              "duration": 19167
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 718208
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 520503458
+            },
+            "arguments": [],
+            "keyword": "When ",
+            "line": 15,
+            "name": "I create \"a 10,000-character title\"",
+            "match": {
+              "location": "jsonplaceholder/steps/jsonplaceholder.steps.ts:14"
+            },
+            "embeddings": [
+              {
+                "data": "UGF5bG9hZCAiYSAxMCwwMDAtY2hhcmFjdGVyIHRpdGxlIjogMTAsMDAwIGNoYXJhY3RlcnMKUE9TVCBodHRwczovL2pzb25wbGFjZWhvbGRlci50eXBpY29kZS5jb20vcG9zdHMK4oaSIDIwMSBDcmVhdGVkIGluIDUxNCBtcwp7CiAgInRpdGxlIjogIkFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFB4oCmICgxMCwwODIgY2hhcmFjdGVycyk=",
+                "mime_type": "text/plain"
+              }
+            ]
+          },
+          {
+            "result": {
+              "status": "failed",
+              "duration": 1628166,
+              "error_message": "Error: Expected a 4xx rejection (such as 400, 413 or 422), but the API answered 201 Created, accepting the invalid payload.\nPOST https://jsonplaceholder.typicode.com/posts -> 201 Created (514 ms)\n{\n  \"title\": \"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\n\nexpect(received).toBe(expected) // Object.is equality\n\nExpected: true\nReceived: false\n    at captureRawStack (./node_modules/playwright-core/lib/coreBundle.js:8588:17)\n    at callMatcherAsStep (./node_modules/playwright/lib/matchers/expect.js:13310:57)\n    at Object.toBe (./node_modules/playwright/lib/matchers/expect.js:13302:23)\n    at CustomWorld.<anonymous> (./jsonplaceholder/steps/jsonplaceholder.steps.ts:43:5)"
+            },
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 16,
+            "name": "the API should answer with a 4xx client error, not accept it or fail",
+            "match": {
+              "location": "jsonplaceholder/steps/jsonplaceholder.steps.ts:37"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 919333
+            },
+            "keyword": "After",
+            "hidden": true
+          }
+        ],
+        "tags": [
+          {
+            "name": "@api",
+            "line": 1
+          },
+          {
+            "name": "@jsonplaceholder",
+            "line": 1
+          },
+          {
+            "name": "@known-defect",
+            "line": 13
+          }
+        ],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "jsonplaceholder-post-/posts-with-boundary-and-invalid-data;a-title-larger-than-10-mib-is-rejected-without-a-server-error",
+        "keyword": "Scenario Outline",
+        "line": 21,
+        "name": "a title larger than 10 MiB is rejected without a server error",
+        "steps": [
+          {
+            "result": {
+              "status": "passed",
+              "duration": 20915
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 677959
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 4039926083
+            },
+            "arguments": [],
+            "keyword": "When ",
+            "line": 15,
+            "name": "I create \"a title larger than 10 MiB\"",
+            "match": {
+              "location": "jsonplaceholder/steps/jsonplaceholder.steps.ts:14"
+            },
+            "embeddings": [
+              {
+                "data": "UGF5bG9hZCAiYSB0aXRsZSBsYXJnZXIgdGhhbiAxMCBNaUIiOiBwYXN0IHRoZSBzZXJ2ZXIncyAxMCBNaUIgSlNPTiBsaW1pdApQT1NUIGh0dHBzOi8vanNvbnBsYWNlaG9sZGVyLnR5cGljb2RlLmNvbS9wb3N0cwrihpIgNTAwIEludGVybmFsIFNlcnZlciBFcnJvciBpbiA0MDM5IG1zClBheWxvYWRUb29MYXJnZUVycm9yOiByZXF1ZXN0IGVudGl0eSB0b28gbGFyZ2UKICAgIGF0IHJlYWRTdHJlYW0gKC9hcHAvbm9kZV9tb2R1bGVzL2JvZHktcGFyc2VyL25vZGVfbW9kdWxlcy9yYXctYm9keS9pbmRleC5qczoxNTU6MTcpCiAgICBhdCBnZXRSYXdCb2R5ICgvYXBwL25vZGVfbW9kdWxlcy9ib2R5LXBhcnNlci9ub2RlX21vZHVsZXMvcmF3LWJvZHkvaW5kZXguanM6MTA4OjEyKQogICAgYXQgcmVhZCAoL2FwcC9ub2RlX21vZHVsZXMvYm9keS1wYXJzZXIvbGliL3JlYWQuanM6Nzc6MykKICAgIGF0IGpzb25QYXJzZXIgKC9hcHAvbm9kZV9tb2R1bGVzL2JvZHktcGFyc2VyL2xpYi90eXBlcy9qc29uLmpzOjEzNTo1KQogICAgYXQgTGF5ZXIuaGFuZGxlIFthcyBoYW5kbGVfcmVxdWVzdF0gKC/igKYgKDgwNiBjaGFyYWN0ZXJzKQ==",
+                "mime_type": "text/plain"
+              }
+            ]
+          },
+          {
+            "result": {
+              "status": "failed",
+              "duration": 888332,
+              "error_message": "Error: Expected a 4xx rejection (such as 400, 413 or 422), but the API answered 500 Internal Server Error, a server-side failure.\nPOST https://jsonplaceholder.typicode.com/posts -> 500 Internal Server Error (4039 ms)\nPayloadTooLargeError: request entity too large\n    at readStream (/app/node_modules/body-parser/node_modules/raw-body/index.js:155:17)\n    at getRawBody (/app/node_modules/body-parser/node_modules/raw-body/index.js:108:12)\n    at read (/app/node_modules/body-parser/lib/read.js:77:3)\n    at jsonParser (/app/node_modules/body-parser/lib/types/json.js:135:5)\n    at Layer.handle [as handle_request] (/app/node_modules/express/lib/router/layer.js:95:5)\n    at trim_prefix (/app/node_modules/express/lib/router/index.js:317:13)\n    at /app/node_modules/express/lib/router/index.js:284:7\n    at router.pr\n\nexpect(received).toBe(expected) // Object.is equality\n\nExpected: true\nReceived: false\n    at readStream (/app/node_modules/body-parser/node_modules/raw-body/index.js:155:17)\n    at getRawBody (/app/node_modules/body-parser/node_modules/raw-body/index.js:108:12)\n    at read (/app/node_modules/body-parser/lib/read.js:77:3)\n    at jsonParser (/app/node_modules/body-parser/lib/types/json.js:135:5)\n    at Layer.handle [as handle_request] (/app/node_modules/express/lib/router/layer.js:95:5)\n    at trim_prefix (/app/node_modules/express/lib/router/index.js:317:13)\n    at /app/node_modules/express/lib/router/index.js:284:7\n    at captureRawStack (./node_modules/playwright-core/lib/coreBundle.js:8588:17)\n    at callMatcherAsStep (./node_modules/playwright/lib/matchers/expect.js:13310:57)\n    at Object.toBe (./node_modules/playwright/lib/matchers/expect.js:13302:23)\n    at CustomWorld.<anonymous> (./jsonplaceholder/steps/jsonplaceholder.steps.ts:43:5)"
+            },
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 16,
+            "name": "the API should answer with a 4xx client error, not accept it or fail",
+            "match": {
+              "location": "jsonplaceholder/steps/jsonplaceholder.steps.ts:37"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 1184416
+            },
+            "keyword": "After",
+            "hidden": true
+          }
+        ],
+        "tags": [
+          {
+            "name": "@api",
+            "line": 1
+          },
+          {
+            "name": "@jsonplaceholder",
+            "line": 1
+          },
+          {
+            "name": "@known-defect",
+            "line": 13
+          }
+        ],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "jsonplaceholder-post-/posts-with-boundary-and-invalid-data;a-title-with-a-nul-byte-is-rejected-without-a-server-error",
+        "keyword": "Scenario Outline",
+        "line": 25,
+        "name": "a title with a NUL byte is rejected without a server error",
+        "steps": [
+          {
+            "result": {
+              "status": "passed",
+              "duration": 20791
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 1016874
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 510060125
+            },
+            "arguments": [],
+            "keyword": "When ",
+            "line": 15,
+            "name": "I create \"a title with a NUL byte\"",
+            "match": {
+              "location": "jsonplaceholder/steps/jsonplaceholder.steps.ts:14"
+            },
+            "embeddings": [
+              {
+                "data": "UGF5bG9hZCAiYSB0aXRsZSB3aXRoIGEgTlVMIGJ5dGUiOiBVKzAwMDAgdHJ1bmNhdGVzIEMgc3RyaW5ncyBhbmQgYnJlYWtzIG1hbnkgZGF0YWJhc2VzClBPU1QgaHR0cHM6Ly9qc29ucGxhY2Vob2xkZXIudHlwaWNvZGUuY29tL3Bvc3RzCuKGkiAyMDEgQ3JlYXRlZCBpbiA1MTAgbXMKewogICJ0aXRsZSI6ICJMb2FuXHUwMDAwcmV2aWV3IiwKICAiYm9keSI6ICJQb3J0Zm9saW8gbm90ZXMgZm9yIFEzLiIsCiAgInVzZXJJZCI6IDEsCiAgImlkIjogMTAxCn0=",
+                "mime_type": "text/plain"
+              }
+            ]
+          },
+          {
+            "result": {
+              "status": "failed",
+              "duration": 470792,
+              "error_message": "Error: Expected a 4xx rejection (such as 400, 413 or 422), but the API answered 201 Created, accepting the invalid payload.\nPOST https://jsonplaceholder.typicode.com/posts -> 201 Created (510 ms)\n{\n  \"title\": \"Loan\\u0000review\",\n  \"body\": \"Portfolio notes for Q3.\",\n  \"userId\": 1,\n  \"id\": 101\n}\n\nexpect(received).toBe(expected) // Object.is equality\n\nExpected: true\nReceived: false\n    at captureRawStack (./node_modules/playwright-core/lib/coreBundle.js:8588:17)\n    at callMatcherAsStep (./node_modules/playwright/lib/matchers/expect.js:13310:57)\n    at Object.toBe (./node_modules/playwright/lib/matchers/expect.js:13302:23)\n    at CustomWorld.<anonymous> (./jsonplaceholder/steps/jsonplaceholder.steps.ts:43:5)"
+            },
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 16,
+            "name": "the API should answer with a 4xx client error, not accept it or fail",
+            "match": {
+              "location": "jsonplaceholder/steps/jsonplaceholder.steps.ts:37"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 732875
+            },
+            "keyword": "After",
+            "hidden": true
+          }
+        ],
+        "tags": [
+          {
+            "name": "@api",
+            "line": 1
+          },
+          {
+            "name": "@jsonplaceholder",
+            "line": 1
+          },
+          {
+            "name": "@known-defect",
+            "line": 13
+          }
+        ],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "jsonplaceholder-post-/posts-with-boundary-and-invalid-data;a-title-with-invalid-utf-8-bytes-is-rejected-without-a-server-error",
+        "keyword": "Scenario Outline",
+        "line": 26,
+        "name": "a title with invalid UTF-8 bytes is rejected without a server error",
+        "steps": [
+          {
+            "result": {
+              "status": "passed",
+              "duration": 7958
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 441292
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 619754833
+            },
+            "arguments": [],
+            "keyword": "When ",
+            "line": 15,
+            "name": "I create \"a title with invalid UTF-8 bytes\"",
+            "match": {
+              "location": "jsonplaceholder/steps/jsonplaceholder.steps.ts:14"
+            },
+            "embeddings": [
+              {
+                "data": "UGF5bG9hZCAiYSB0aXRsZSB3aXRoIGludmFsaWQgVVRGLTggYnl0ZXMiOiAweEZGIDB4RkUgMHhGRCBjYW4gbmV2ZXIgYXBwZWFyIGluIFVURi04ClBPU1QgaHR0cHM6Ly9qc29ucGxhY2Vob2xkZXIudHlwaWNvZGUuY29tL3Bvc3RzCuKGkiAyMDEgQ3JlYXRlZCBpbiA2MTkgbXMKewogICJ0aXRsZSI6ICLvv73vv73vv70iLAogICJib2R5IjogImIiLAogICJ1c2VySWQiOiAxLAogICJpZCI6IDEwMQp9",
+                "mime_type": "text/plain"
+              }
+            ]
+          },
+          {
+            "result": {
+              "status": "failed",
+              "duration": 705332,
+              "error_message": "Error: Expected a 4xx rejection (such as 400, 413 or 422), but the API answered 201 Created, accepting the invalid payload.\nPOST https://jsonplaceholder.typicode.com/posts -> 201 Created (619 ms)\n{\n  \"title\": \"���\",\n  \"body\": \"b\",\n  \"userId\": 1,\n  \"id\": 101\n}\n\nexpect(received).toBe(expected) // Object.is equality\n\nExpected: true\nReceived: false\n    at captureRawStack (./node_modules/playwright-core/lib/coreBundle.js:8588:17)\n    at callMatcherAsStep (./node_modules/playwright/lib/matchers/expect.js:13310:57)\n    at Object.toBe (./node_modules/playwright/lib/matchers/expect.js:13302:23)\n    at CustomWorld.<anonymous> (./jsonplaceholder/steps/jsonplaceholder.steps.ts:43:5)"
+            },
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 16,
+            "name": "the API should answer with a 4xx client error, not accept it or fail",
+            "match": {
+              "location": "jsonplaceholder/steps/jsonplaceholder.steps.ts:37"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 991750
+            },
+            "keyword": "After",
+            "hidden": true
+          }
+        ],
+        "tags": [
+          {
+            "name": "@api",
+            "line": 1
+          },
+          {
+            "name": "@jsonplaceholder",
+            "line": 1
+          },
+          {
+            "name": "@known-defect",
+            "line": 13
+          }
+        ],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "jsonplaceholder-post-/posts-with-boundary-and-invalid-data;a-title-with-html-script-markup-is-rejected-without-a-server-error",
+        "keyword": "Scenario Outline",
+        "line": 27,
+        "name": "a title with HTML script markup is rejected without a server error",
+        "steps": [
+          {
+            "result": {
+              "status": "passed",
+              "duration": 13207
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 691958
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 1065235458
+            },
+            "arguments": [],
+            "keyword": "When ",
+            "line": 15,
+            "name": "I create \"a title with HTML script markup\"",
+            "match": {
+              "location": "jsonplaceholder/steps/jsonplaceholder.steps.ts:14"
+            },
+            "embeddings": [
+              {
+                "data": "UGF5bG9hZCAiYSB0aXRsZSB3aXRoIEhUTUwgc2NyaXB0IG1hcmt1cCI6IG1hcmt1cCB0aGF0IHJ1bnMgd2hlcmV2ZXIgdGhlIHRpdGxlIGlzIHJlbmRlcmVkIHVuZXNjYXBlZApQT1NUIGh0dHBzOi8vanNvbnBsYWNlaG9sZGVyLnR5cGljb2RlLmNvbS9wb3N0cwrihpIgMjAxIENyZWF0ZWQgaW4gMTA2NSBtcwp7CiAgInRpdGxlIjogIjxzY3JpcHQ+YWxlcnQoMSk8L3NjcmlwdD4iLAogICJib2R5IjogIlBvcnRmb2xpbyBub3RlcyBmb3IgUTMuIiwKICAidXNlcklkIjogMSwKICAiaWQiOiAxMDEKfQ==",
+                "mime_type": "text/plain"
+              }
+            ]
+          },
+          {
+            "result": {
+              "status": "failed",
+              "duration": 849042,
+              "error_message": "Error: Expected a 4xx rejection (such as 400, 413 or 422), but the API answered 201 Created, accepting the invalid payload.\nPOST https://jsonplaceholder.typicode.com/posts -> 201 Created (1065 ms)\n{\n  \"title\": \"<script>alert(1)</script>\",\n  \"body\": \"Portfolio notes for Q3.\",\n  \"userId\": 1,\n  \"id\": 101\n}\n\nexpect(received).toBe(expected) // Object.is equality\n\nExpected: true\nReceived: false\n    at captureRawStack (./node_modules/playwright-core/lib/coreBundle.js:8588:17)\n    at callMatcherAsStep (./node_modules/playwright/lib/matchers/expect.js:13310:57)\n    at Object.toBe (./node_modules/playwright/lib/matchers/expect.js:13302:23)\n    at CustomWorld.<anonymous> (./jsonplaceholder/steps/jsonplaceholder.steps.ts:43:5)"
+            },
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 16,
+            "name": "the API should answer with a 4xx client error, not accept it or fail",
+            "match": {
+              "location": "jsonplaceholder/steps/jsonplaceholder.steps.ts:37"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 1062792
+            },
+            "keyword": "After",
+            "hidden": true
+          }
+        ],
+        "tags": [
+          {
+            "name": "@api",
+            "line": 1
+          },
+          {
+            "name": "@jsonplaceholder",
+            "line": 1
+          },
+          {
+            "name": "@known-defect",
+            "line": 13
+          }
+        ],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "jsonplaceholder-post-/posts-with-boundary-and-invalid-data;a-post-without-userid-is-rejected-without-a-server-error",
+        "keyword": "Scenario Outline",
+        "line": 31,
+        "name": "a post without userId is rejected without a server error",
+        "steps": [
+          {
+            "result": {
+              "status": "passed",
+              "duration": 13667
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 588041
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 581799958
+            },
+            "arguments": [],
+            "keyword": "When ",
+            "line": 15,
+            "name": "I create \"a post without userId\"",
+            "match": {
+              "location": "jsonplaceholder/steps/jsonplaceholder.steps.ts:14"
+            },
+            "embeddings": [
+              {
+                "data": "UGF5bG9hZCAiYSBwb3N0IHdpdGhvdXQgdXNlcklkIjogdXNlcklkIG9taXR0ZWQKUE9TVCBodHRwczovL2pzb25wbGFjZWhvbGRlci50eXBpY29kZS5jb20vcG9zdHMK4oaSIDIwMSBDcmVhdGVkIGluIDU4MSBtcwp7CiAgInRpdGxlIjogIlF1YXJ0ZXJseSBsb2FuIGJvb2sgcmV2aWV3IiwKICAiYm9keSI6ICJQb3J0Zm9saW8gbm90ZXMgZm9yIFEzLiIsCiAgImlkIjogMTAxCn0=",
+                "mime_type": "text/plain"
+              }
+            ]
+          },
+          {
+            "result": {
+              "status": "failed",
+              "duration": 705750,
+              "error_message": "Error: Expected a 4xx rejection (such as 400, 413 or 422), but the API answered 201 Created, accepting the invalid payload.\nPOST https://jsonplaceholder.typicode.com/posts -> 201 Created (581 ms)\n{\n  \"title\": \"Quarterly loan book review\",\n  \"body\": \"Portfolio notes for Q3.\",\n  \"id\": 101\n}\n\nexpect(received).toBe(expected) // Object.is equality\n\nExpected: true\nReceived: false\n    at captureRawStack (./node_modules/playwright-core/lib/coreBundle.js:8588:17)\n    at callMatcherAsStep (./node_modules/playwright/lib/matchers/expect.js:13310:57)\n    at Object.toBe (./node_modules/playwright/lib/matchers/expect.js:13302:23)\n    at CustomWorld.<anonymous> (./jsonplaceholder/steps/jsonplaceholder.steps.ts:43:5)"
+            },
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 16,
+            "name": "the API should answer with a 4xx client error, not accept it or fail",
+            "match": {
+              "location": "jsonplaceholder/steps/jsonplaceholder.steps.ts:37"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 914625
+            },
+            "keyword": "After",
+            "hidden": true
+          }
+        ],
+        "tags": [
+          {
+            "name": "@api",
+            "line": 1
+          },
+          {
+            "name": "@jsonplaceholder",
+            "line": 1
+          },
+          {
+            "name": "@known-defect",
+            "line": 13
+          }
+        ],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "jsonplaceholder-post-/posts-with-boundary-and-invalid-data;a-post-without-title-is-rejected-without-a-server-error",
+        "keyword": "Scenario Outline",
+        "line": 32,
+        "name": "a post without title is rejected without a server error",
+        "steps": [
+          {
+            "result": {
+              "status": "passed",
+              "duration": 14916
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 824957
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 492907124
+            },
+            "arguments": [],
+            "keyword": "When ",
+            "line": 15,
+            "name": "I create \"a post without title\"",
+            "match": {
+              "location": "jsonplaceholder/steps/jsonplaceholder.steps.ts:14"
+            },
+            "embeddings": [
+              {
+                "data": "UGF5bG9hZCAiYSBwb3N0IHdpdGhvdXQgdGl0bGUiOiB0aXRsZSBvbWl0dGVkClBPU1QgaHR0cHM6Ly9qc29ucGxhY2Vob2xkZXIudHlwaWNvZGUuY29tL3Bvc3RzCuKGkiAyMDEgQ3JlYXRlZCBpbiA0OTMgbXMKewogICJib2R5IjogIlBvcnRmb2xpbyBub3RlcyBmb3IgUTMuIiwKICAidXNlcklkIjogMSwKICAiaWQiOiAxMDEKfQ==",
+                "mime_type": "text/plain"
+              }
+            ]
+          },
+          {
+            "result": {
+              "status": "failed",
+              "duration": 590249,
+              "error_message": "Error: Expected a 4xx rejection (such as 400, 413 or 422), but the API answered 201 Created, accepting the invalid payload.\nPOST https://jsonplaceholder.typicode.com/posts -> 201 Created (493 ms)\n{\n  \"body\": \"Portfolio notes for Q3.\",\n  \"userId\": 1,\n  \"id\": 101\n}\n\nexpect(received).toBe(expected) // Object.is equality\n\nExpected: true\nReceived: false\n    at captureRawStack (./node_modules/playwright-core/lib/coreBundle.js:8588:17)\n    at callMatcherAsStep (./node_modules/playwright/lib/matchers/expect.js:13310:57)\n    at Object.toBe (./node_modules/playwright/lib/matchers/expect.js:13302:23)\n    at CustomWorld.<anonymous> (./jsonplaceholder/steps/jsonplaceholder.steps.ts:43:5)"
+            },
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 16,
+            "name": "the API should answer with a 4xx client error, not accept it or fail",
+            "match": {
+              "location": "jsonplaceholder/steps/jsonplaceholder.steps.ts:37"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 1042124
+            },
+            "keyword": "After",
+            "hidden": true
+          }
+        ],
+        "tags": [
+          {
+            "name": "@api",
+            "line": 1
+          },
+          {
+            "name": "@jsonplaceholder",
+            "line": 1
+          },
+          {
+            "name": "@known-defect",
+            "line": 13
+          }
+        ],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "jsonplaceholder-post-/posts-with-boundary-and-invalid-data;an-empty-object-is-rejected-without-a-server-error",
+        "keyword": "Scenario Outline",
+        "line": 33,
+        "name": "an empty object is rejected without a server error",
+        "steps": [
+          {
+            "result": {
+              "status": "passed",
+              "duration": 21249
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 779125
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 950800208
+            },
+            "arguments": [],
+            "keyword": "When ",
+            "line": 15,
+            "name": "I create \"an empty object\"",
+            "match": {
+              "location": "jsonplaceholder/steps/jsonplaceholder.steps.ts:14"
+            },
+            "embeddings": [
+              {
+                "data": "UGF5bG9hZCAiYW4gZW1wdHkgb2JqZWN0IjogZXZlcnkgZmllbGQgb21pdHRlZApQT1NUIGh0dHBzOi8vanNvbnBsYWNlaG9sZGVyLnR5cGljb2RlLmNvbS9wb3N0cwrihpIgMjAxIENyZWF0ZWQgaW4gOTUwIG1zCnsKICAiaWQiOiAxMDEKfQ==",
+                "mime_type": "text/plain"
+              }
+            ]
+          },
+          {
+            "result": {
+              "status": "failed",
+              "duration": 667708,
+              "error_message": "Error: Expected a 4xx rejection (such as 400, 413 or 422), but the API answered 201 Created, accepting the invalid payload.\nPOST https://jsonplaceholder.typicode.com/posts -> 201 Created (950 ms)\n{\n  \"id\": 101\n}\n\nexpect(received).toBe(expected) // Object.is equality\n\nExpected: true\nReceived: false\n    at captureRawStack (./node_modules/playwright-core/lib/coreBundle.js:8588:17)\n    at callMatcherAsStep (./node_modules/playwright/lib/matchers/expect.js:13310:57)\n    at Object.toBe (./node_modules/playwright/lib/matchers/expect.js:13302:23)\n    at CustomWorld.<anonymous> (./jsonplaceholder/steps/jsonplaceholder.steps.ts:43:5)"
+            },
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 16,
+            "name": "the API should answer with a 4xx client error, not accept it or fail",
+            "match": {
+              "location": "jsonplaceholder/steps/jsonplaceholder.steps.ts:37"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 1220249
+            },
+            "keyword": "After",
+            "hidden": true
+          }
+        ],
+        "tags": [
+          {
+            "name": "@api",
+            "line": 1
+          },
+          {
+            "name": "@jsonplaceholder",
+            "line": 1
+          },
+          {
+            "name": "@known-defect",
+            "line": 13
+          }
+        ],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "jsonplaceholder-post-/posts-with-boundary-and-invalid-data;a-userid-that-is-not-a-number-is-rejected-without-a-server-error",
+        "keyword": "Scenario Outline",
+        "line": 37,
+        "name": "a userId that is not a number is rejected without a server error",
+        "steps": [
+          {
+            "result": {
+              "status": "passed",
+              "duration": 16499
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 744750
+            },
+            "keyword": "Before",
+            "hidden": true
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 576098125
+            },
+            "arguments": [],
+            "keyword": "When ",
+            "line": 15,
+            "name": "I create \"a userId that is not a number\"",
+            "match": {
+              "location": "jsonplaceholder/steps/jsonplaceholder.steps.ts:14"
+            },
+            "embeddings": [
+              {
+                "data": "UGF5bG9hZCAiYSB1c2VySWQgdGhhdCBpcyBub3QgYSBudW1iZXIiOiB1c2VySWQgc2VudCBhcyB0aGUgc3RyaW5nICJhYmMiClBPU1QgaHR0cHM6Ly9qc29ucGxhY2Vob2xkZXIudHlwaWNvZGUuY29tL3Bvc3RzCuKGkiAyMDEgQ3JlYXRlZCBpbiA1NzYgbXMKewogICJ0aXRsZSI6ICJRdWFydGVybHkgbG9hbiBib29rIHJldmlldyIsCiAgImJvZHkiOiAiUG9ydGZvbGlvIG5vdGVzIGZvciBRMy4iLAogICJ1c2VySWQiOiAiYWJjIiwKICAiaWQiOiAxMDEKfQ==",
+                "mime_type": "text/plain"
+              }
+            ]
+          },
+          {
+            "result": {
+              "status": "failed",
+              "duration": 582542,
+              "error_message": "Error: Expected a 4xx rejection (such as 400, 413 or 422), but the API answered 201 Created, accepting the invalid payload.\nPOST https://jsonplaceholder.typicode.com/posts -> 201 Created (576 ms)\n{\n  \"title\": \"Quarterly loan book review\",\n  \"body\": \"Portfolio notes for Q3.\",\n  \"userId\": \"abc\",\n  \"id\": 101\n}\n\nexpect(received).toBe(expected) // Object.is equality\n\nExpected: true\nReceived: false\n    at captureRawStack (./node_modules/playwright-core/lib/coreBundle.js:8588:17)\n    at callMatcherAsStep (./node_modules/playwright/lib/matchers/expect.js:13310:57)\n    at Object.toBe (./node_modules/playwright/lib/matchers/expect.js:13302:23)\n    at CustomWorld.<anonymous> (./jsonplaceholder/steps/jsonplaceholder.steps.ts:43:5)"
+            },
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 16,
+            "name": "the API should answer with a 4xx client error, not accept it or fail",
+            "match": {
+              "location": "jsonplaceholder/steps/jsonplaceholder.steps.ts:37"
+            }
+          },
+          {
+            "result": {
+              "status": "passed",
+              "duration": 1086874
+            },
+            "keyword": "After",
+            "hidden": true
+          }
+        ],
+        "tags": [
+          {
+            "name": "@api",
+            "line": 1
+          },
+          {
+            "name": "@jsonplaceholder",
+            "line": 1
+          },
+          {
+            "name": "@known-defect",
+            "line": 13
+          }
+        ],
+        "type": "scenario"
+      }
+    ],
+    "id": "jsonplaceholder-post-/posts-with-boundary-and-invalid-data",
+    "line": 2,
+    "keyword": "Feature",
+    "name": "JSONPlaceholder POST /posts with boundary and invalid data",
+    "tags": [
+      {
+        "name": "@api",
+        "line": 1
+      },
+      {
+        "name": "@jsonplaceholder",
+        "line": 1
+      }
+    ],
+    "uri": "jsonplaceholder/features/create-post.feature"
+  }
+]

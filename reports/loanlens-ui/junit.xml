@@ -1,0 +1,89 @@
+<?xml version="1.0"?>
+<testsuite name="loanlens-ui" time="1.427" tests="10" skipped="0" failures="0" errors="0" timestamp="2026-10-08T03:01:27.445Z">
+  <testcase classname="LoanLens UI - EMI calculator" name="A &lt;amount> loan at &lt;rate>% for &lt;years> years - #1.1: A 25L loan at 10% for 10 years" time="0.226">
+    <system-out><![CDATA[Given I open the LoanLens EMI calculator....................................passed
+When I enter a loan of "25L" at 10% for 10 years............................passed
+Then the monthly EMI should read "₹33,038"..................................passed
+And the monthly EMI, total interest and total payment should match my own calculation..passed
+And the yearly payments chart should show one non-zero bar per loan year....passed
+And every yearly bar should match my own amortisation.......................passed
+And I capture evidence "25L at 10% for 10 years"............................passed]]></system-out>
+  </testcase>
+  <testcase classname="LoanLens UI - EMI calculator" name="A &lt;amount> loan at &lt;rate>% for &lt;years> years - #1.2: A 50L loan at 7.5% for 15 years" time="0.143">
+    <system-out><![CDATA[Given I open the LoanLens EMI calculator....................................passed
+When I enter a loan of "50L" at 7.5% for 15 years...........................passed
+Then the monthly EMI should read "₹46,351"..................................passed
+And the monthly EMI, total interest and total payment should match my own calculation..passed
+And the yearly payments chart should show one non-zero bar per loan year....passed
+And every yearly bar should match my own amortisation.......................passed
+And I capture evidence "50L at 7.5% for 15 years"...........................passed]]></system-out>
+  </testcase>
+  <testcase classname="LoanLens UI - EMI calculator" name="A &lt;amount> loan at &lt;rate>% for &lt;years> years - #1.3: A 10L loan at 12% for 5 years" time="0.143">
+    <system-out><![CDATA[Given I open the LoanLens EMI calculator....................................passed
+When I enter a loan of "10L" at 12% for 5 years.............................passed
+Then the monthly EMI should read "₹22,244"..................................passed
+And the monthly EMI, total interest and total payment should match my own calculation..passed
+And the yearly payments chart should show one non-zero bar per loan year....passed
+And every yearly bar should match my own amortisation.......................passed
+And I capture evidence "10L at 12% for 5 years".............................passed]]></system-out>
+  </testcase>
+  <testcase classname="LoanLens UI - EMI calculator" name="&lt;case> is refused - #1.1: A negative loan amount is refused" time="0.134">
+    <system-out><![CDATA[Given I open the LoanLens EMI calculator....................................passed
+When I enter a loan of "25L" at 10% for 10 years............................passed
+And I type "-2383434" into the "Loan amount" box............................passed
+Then the "Loan amount" box should show the error "Loan amount must be between ₹1,000 and ₹10,00,00,000."..passed
+And the repayment summary and the chart should be hidden....................passed
+And I capture evidence "A negative loan amount".............................passed
+When I type "2000000" into the "Loan amount" box............................passed
+Then the monthly EMI, total interest and total payment should match my own calculation..passed]]></system-out>
+  </testcase>
+  <testcase classname="LoanLens UI - EMI calculator" name="&lt;case> is refused - #1.2: An empty loan amount is refused" time="0.135">
+    <system-out><![CDATA[Given I open the LoanLens EMI calculator....................................passed
+When I enter a loan of "25L" at 10% for 10 years............................passed
+And I type "" into the "Loan amount" box....................................passed
+Then the "Loan amount" box should show the error "Enter a loan amount in rupees."..passed
+And the repayment summary and the chart should be hidden....................passed
+And I capture evidence "An empty loan amount"...............................passed
+When I type "3000000" into the "Loan amount" box............................passed
+Then the monthly EMI, total interest and total payment should match my own calculation..passed]]></system-out>
+  </testcase>
+  <testcase classname="LoanLens UI - EMI calculator" name="&lt;case> is refused - #1.3: An amount in exponent form is refused" time="0.135">
+    <system-out><![CDATA[Given I open the LoanLens EMI calculator....................................passed
+When I enter a loan of "25L" at 10% for 10 years............................passed
+And I type "1e6" into the "Loan amount" box.................................passed
+Then the "Loan amount" box should show the error "Loan amount must be written in plain digits, for example 2500000."..passed
+And the repayment summary and the chart should be hidden....................passed
+And I capture evidence "An amount in exponent form".........................passed
+When I type "2000000" into the "Loan amount" box............................passed
+Then the monthly EMI, total interest and total payment should match my own calculation..passed]]></system-out>
+  </testcase>
+  <testcase classname="LoanLens UI - EMI calculator" name="&lt;case> is refused - #1.4: A tenure longer than 40 years is refused" time="0.135">
+    <system-out><![CDATA[Given I open the LoanLens EMI calculator....................................passed
+When I enter a loan of "25L" at 10% for 10 years............................passed
+And I type "50" into the "Loan tenure" box..................................passed
+Then the "Loan tenure" box should show the error "Loan tenure must be a whole number of years between 1 and 40."..passed
+And the repayment summary and the chart should be hidden....................passed
+And I capture evidence "A tenure longer than 40 years"......................passed
+When I type "20" into the "Loan tenure" box.................................passed
+Then the monthly EMI, total interest and total payment should match my own calculation..passed]]></system-out>
+  </testcase>
+  <testcase classname="LoanLens UI - Portfolio dashboard" name="The dashboard loads with its heading, key figures and recent loans" time="0.13">
+    <system-out><![CDATA[Given I open the LoanLens dashboard.........................................passed
+Then the LoanLens screen heading should be "Portfolio overview".............passed
+And the browser tab title should be "Portfolio overview · LoanLens".........passed
+And the dashboard key figures should match the loan book....................passed
+And the recent disbursements table should list the 5 most recently disbursed loans..passed
+And I capture evidence "dashboard"..........................................passed]]></system-out>
+  </testcase>
+  <testcase classname="LoanLens UI - Portfolio dashboard" name="The principal-by-type donut shows every loan type's principal" time="0.091">
+    <system-out><![CDATA[Given I open the LoanLens dashboard.........................................passed
+Then the "Principal by loan type" donut should draw one non-zero slice per loan type with the loan book's principal..passed
+And the "Principal by loan type" donut's legend should total the loan book's principal..passed]]></system-out>
+  </testcase>
+  <testcase classname="LoanLens UI - Portfolio dashboard" name="The main navigation opens the EMI calculator" time="0.127">
+    <system-out><![CDATA[Given I open the LoanLens dashboard.........................................passed
+When I follow the "EMI calculator" link in the main navigation..............passed
+Then the address bar should show "/calculator"..............................passed
+And the LoanLens screen heading should be "EMI calculator"..................passed]]></system-out>
+  </testcase>
+</testsuite>

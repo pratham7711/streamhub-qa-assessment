@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<testsuite name="self-healing-healed" time="35.307" tests="5" skipped="0" failures="1" errors="0" timestamp="2026-10-08T03:01:56.358Z">
+  <testcase classname="Self-healing exercise - five locators broken on purpose" name="Renamed test id - the Total loans figure shows the size of the loan book" time="9.533">
+    <system-out><![CDATA[Given I open the LoanLens dashboard.........................................passed
+Then the legacy Total loans figure should equal the number of loans in the loan book..passed]]></system-out>
+  </testcase>
+  <testcase classname="Self-healing exercise - five locators broken on purpose" name="Changed link text - the main navigation opens the EMI calculator" time="10.188">
+    <system-out><![CDATA[Given I open the LoanLens dashboard.........................................passed
+When I open the EMI calculator with the legacy navigation link..............passed
+Then the LoanLens screen heading should be "EMI calculator".................passed]]></system-out>
+  </testcase>
+  <testcase classname="Self-healing exercise - five locators broken on purpose" name="Ambiguous label - the loan amount slider updates the number box" time="3.575">
+    <system-out><![CDATA[Given I open the LoanLens EMI calculator....................................passed
+When I set the loan amount to 5000000 with the legacy slider................passed
+Then the "Loan amount" box should contain "5000000".........................passed]]></system-out>
+  </testcase>
+  <testcase classname="Self-healing exercise - five locators broken on purpose" name="Positional locator - the recent disbursements table starts with the newest loan" time="3.604">
+    <system-out><![CDATA[Given I open the LoanLens dashboard.........................................passed
+Then the legacy recent disbursements table should start with the most recently disbursed loan..passed]]></system-out>
+  </testcase>
+  <testcase classname="Self-healing exercise - five locators broken on purpose" name="Removed feature - exporting the loan book as CSV" time="8.387">
+    <failure type="Error" message="Locator &quot;dashboard.exportCsvButton&quot; failed: page.getByRole('button', { name: 'Export CSV' }): no element matched within 5 s.&#xA;Claude proposed no locator that passed validation (0 rejected)."><![CDATA[Error: Locator "dashboard.exportCsvButton" failed: page.getByRole('button', { name: 'Export CSV' }): no element matched within 5 s.
+Claude proposed no locator that passed validation (0 rejected).
+    at HealableLocator.resolve (./self-healing/healer.ts:158:28)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async CustomWorld.<anonymous> (./self-healing/steps/self-healing.steps.ts:37:18)]]></failure>
+    <system-out><![CDATA[Given I open the LoanLens dashboard.........................................passed
+When I press the legacy Export CSV button...................................failed
+Then a CSV file of the loans should be downloaded...........................skipped]]></system-out>
+  </testcase>
+</testsuite>
